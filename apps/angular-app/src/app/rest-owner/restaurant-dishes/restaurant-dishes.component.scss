@@ -1,0 +1,66 @@
+.restaurant-dishes-page {
+
+    .main-contents {
+
+        @media (min-width: $screen-sm-min) {
+            padding: 0 40px;
+        }
+    }
+
+    .page-title-section {
+
+        .page-title-text {
+            text-transform: capitalize;
+        }
+    }
+
+    .dish-list {
+        margin: 0 auto;
+        padding: 48px 0;
+
+        $dish-item-margin: 5px;
+        $dish-item-width: 300px;
+        width: 100%;
+
+        $mainContentPaddingOffset: 80px;
+
+        @media (min-width: $screen-sm-min + $mainContentPaddingOffset) {
+            // Show 2 items per row
+            width: (2 * $dish-item-width) + (2 * $dish-item-margin);
+        }
+
+        @media (min-width: $screen-md-min + $mainContentPaddingOffset) {
+            // Show 3 items per row
+            width: 3 * $dish-item-width + (3 * $dish-item-margin);
+        }
+
+        @media (min-width: $screen-lg-min + 100px + $mainContentPaddingOffset) {
+            // Show 4 items per row
+            width: 4 * $dish-item-width + (4 * $dish-item-margin);
+        }
+
+        @media (min-width: $screen-lg-min + 400px + $mainContentPaddingOffset) {
+            // Show 5 items per row
+            width: 5 * $dish-item-width + (5 * $dish-item-margin);
+        }
+
+        dish-item {
+            .dish-item {
+                height: 200px;
+                float: left;
+                width: 100%;
+                margin-bottom: 24px;
+
+                @media (min-width: $screen-sm-min + $mainContentPaddingOffset) {
+                    width: $dish-item-width;
+                    margin-right: $dish-item-margin;
+                    margin-bottom: $dish-item-margin;
+                }
+            }
+        }
+
+        .page-loader {
+            margin-top: 24px;
+        }
+    }
+}

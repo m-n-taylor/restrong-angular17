@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="48px" viewBox="0 0 24 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>arrow-right-3</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.5">
+        <g id="arrow-right-3">
+            <path d="M24,48 L24,0 C10.745166,0 0,10.745166 0,24 C0,37.254834 10.745166,48 24,48 Z" id="Oval" fill="#FFFFFF"></path>
+            <polygon id="Triangle" fill="#455A64" transform="translate(16.006667, 24.000000) scale(-1, 1) translate(-16.006667, -24.000000) " points="13.3400002 24 18.6733335 20 18.6733335 28"></polygon>
+        </g>
+    </g>
+</svg>

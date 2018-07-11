@@ -1,0 +1,216 @@
+.home-page {
+  
+  // Big Image Section
+  .big-image-section {
+    background: #F7F7F7;
+    padding: 157px 135px;
+    position: relative;
+    overflow: hidden;
+
+    .tag-heading {
+      font-weight: $lato-black;
+      font-size: 36px;
+    }
+
+    .tag-subheading {
+      margin-top: 8px;
+      font-size: 24px;
+    }
+
+    .search-section {
+      margin-top: 81px;
+
+      .your-address {
+        width: 35%;
+        height: 56px;
+        border: none;
+        // box-shadow: 0 2px 20px 0 rgba(0,0,0,0.35);
+      }
+
+      .service-type {
+        height: 56px;
+        border: none;
+      }
+
+      .find-rest {
+        height: 56px;
+        border-radius: 0;
+      }
+    }
+    
+    .bg-dish-image {
+      position: absolute;
+      top: 0;
+      right: 0;
+
+      width: 40%; //TODO: Needs to adjust later
+    }
+  }
+
+  // Cuisines Area
+  .dish-section {
+      padding-top: 80px;
+
+      .title-heading {
+        text-align: center;
+        font-weight: $lato-black;
+        font-size: 32px;
+      }
+
+      .subtitle-heading {
+        text-align: center;
+        font-size: 18px;
+      }
+
+      .dish-list {
+        border-radius: 3px;
+        margin-top: 80px;
+        padding: 0 135px;
+      }
+
+      button.view-more-dishes {
+        margin-top: 64px;
+        width: 200px;
+      }
+    }
+
+    // How menus work section
+    .how-menus-work-section {
+      margin-top: 113px;
+      padding-bottom: 120px;
+      text-align: center;
+
+      .title-heading {
+        font-weight: $lato-black;
+        font-size: 32px;
+        color: #2A3134;
+      }
+
+      .how-works {
+        padding: 48px;
+
+        .how-works-icon {
+          width: 64px;
+          height: 64px;
+          background-color: #DBDBDB;
+          margin: 0 auto;
+        }
+
+        .how-works-title {
+          margin-top: 18px;
+          font-weight: $lato-black;
+          font-size: 18px;
+        }
+
+        .how-works-text {
+          margin-top: 11px;
+        }
+      }
+
+      button.download-now {
+        margin-top: 13px;
+        width: 200px;
+      }
+    }
+
+    // own a business section
+    .own-business-section {
+      padding: 64px 0;
+      background-color: #F7F7F7;
+      background-image: url(img/cr/business-restaurants.svg);
+      background-repeat: no-repeat;
+      background-size: contain;
+
+      .left-side {
+        text-align: center;
+
+        .title-heading {
+          font-weight: $lato-black;
+          font-size: 32px;
+        }
+
+        .subtitle-heading {
+          margin-top: 5px;
+          font-size: 18px;
+        }
+
+        .features-list {
+          padding-top: 40px;
+
+          .feature-section {
+            margin-top: 60px;
+
+            .feature-section-title {
+              font-weight: $lato-bold;
+              font-size: 18px;
+              color: #2A3134;
+            }
+
+            .feature-section-subtitle {
+              margin-top: 11px;
+              color: #2A3134;
+            }
+          }
+        }
+      }
+
+      .right-side {
+
+        .bg-rest-dashboard {
+            height: 521px;
+            background-image: url(img/cr/mockup.png);
+        }
+      }
+
+      button.signup {
+        margin-top: 100px;
+        width: 189px;
+      }
+
+    }
+
+    // Footer section
+    .footer-section {
+      padding: 80px 135px;
+
+      .section-1 {
+        .menus-about-text {
+          margin-top: 15px;
+        }
+      }
+
+      .section-2 {
+        .enter-email-text {
+          margin-top: 15px;
+        }
+        .email-input {
+          margin-top: 16px;
+
+          .input-group-addon {
+              background-color: transparent;
+          }
+        }
+      }
+
+      .section-2, .section-3, .section-4 {
+
+        .section-title {
+          font-weight: $lato-black;
+          font-size: 18px;
+        }
+      }
+
+      .section-3, .section-4 {
+
+        .section-links {
+          margin-top: 13px;
+
+          .section-link {
+            margin-bottom: 8px;
+          }
+        }
+      }
+    }
+
+    
+}

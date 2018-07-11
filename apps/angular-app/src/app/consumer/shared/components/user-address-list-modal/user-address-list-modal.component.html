@@ -1,0 +1,29 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen && !changeAddressModal.isModalOpen }" (click)="close()">
+
+    <div class="modal-dialog user-address-list-modal" mStopEvent>
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Choose Address</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+
+                <page-loader *ngIf="busy"></page-loader>
+
+                <div [hidden]="busy">
+                    <user-address-list #userAddressList [changeAddressModal]="changeAddressModal" (events)="userAddressListEvent($event)"></user-address-list>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+
+<change-address-modal #changeAddressModal></change-address-modal>

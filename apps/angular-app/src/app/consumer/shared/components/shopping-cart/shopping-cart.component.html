@@ -1,0 +1,227 @@
+<div class="shopping-cart-section" [ngClass]="{ 'mode-normal': mode == MODE_NORMAL }">
+    <div class="close-icon-container clearfix">
+        <div class="delete-icon" (click)="toggleShoppingCart()"></div>
+    </div>
+
+    <div *ngIf="shoppingCart.busy" class="main-loader">
+        <page-loader></page-loader>
+    </div>
+
+    <div *ngIf="!shoppingCart.busy">
+
+        <div *ngIf="!shoppingCart.cartItems.length" class="empty-cart">
+            Cart is empty.
+        </div>
+
+        <div *ngIf="shoppingCart.cartItems.length">
+
+            <div class="cart-rest-list">
+                <div class="rest-item" [ngClass]="{ 'min-order': cartItem.requireMinOrder && (sharedDataService.serviceType == constants.SERVICE_TYPE_DELIVERY || sharedDataService.serviceType == constants.SERVICE_TYPE_CATERING) }" *ngFor="let cartItem of shoppingCart.cartItems">
+
+                    <div class="cursor-pointer" (click)="viewMenu(cartItem)">
+
+                        <div class="rest-details clearfix">
+                            <div *ngIf="cartItem.menuItems[0].RestImageExist" class="rest-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + cartItem.menuItems[0].RestImage + ')'}"></div>
+                            <div *ngIf="!cartItem.menuItems[0].RestImageExist" class="cuisine-icon-{{cartItem.menuItems[0].CuisineID}} rest-cuisine-icon"></div>
+                            <div class="item-details">
+                                <div class="item-rest-name">{{ cartItem.menuItems[0].RestaurantName }}</div>
+                                <div class="item-available-status c-text2">{{ cartItem.menuItems[0].Availability }}</div>
+                                <div class="item-address c-text3">{{ cartItem.menuItems[0].Address }}</div>
+                                <button class="btn btn-xxs btn-success view-more">View Menu</button>
+                            </div>
+                        </div>
+
+                        <div class="min-order-note bg-danger">
+                            <div class="note-text">
+                                You have to order more items, bacause of minimum order fee is {{ cartItem.MinOrder | currency:'USD':true }}
+                            </div>
+
+                            <button class="btn btn-xxs btn-danger btn-inverse btn-no-hover order-more">Order More</button>
+                        </div>
+
+                    </div>
+
+                    <div class="menu-item" *ngFor="let item of cartItem.menuItems">
+                        <div class="clearfix">
+                            <div class="menu-item-name">
+                                {{ item.MenuItemName }}
+                            </div>
+
+                            <div class="menu-item-qty-section noselect">
+                                <div class="menu-item-qty b-text3">
+                                    <div class="qty-minus" (click)="updateQty(cartItem, item, -1)">
+                                        <div class="close-icon"></div>
+                                    </div>
+                                    <div class="qty-value">{{ item.quantity }}</div>
+                                    <div class="qty-plus" (click)="updateQty(cartItem, item, 1)">
+                                        <div class="open-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-price">
+                                {{ item.totalPrice | currency:'USD':true }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rest-price-info">
+
+                        <div class="sub-total" [ngClass]="{ 'c-danger': cartItem.requireMinOrder }">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Subtotal</div>
+                                <div class="col-xs-6 right-text">{{ (cartItem.subTotal + cartItem.couponDiscount) | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="cartItem.couponDiscount > 0" class="delivery-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Coupon Discount</div>
+                                <div class="col-xs-6 right-text">-{{ cartItem.couponDiscount | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="delivery-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Delivery</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.delivery | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="tax-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Tax</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.tax | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <!-- <div class="tax-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Driver Tip</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.driverTip | currency:'USD':true }}</div>
+                            </div>
+                        </div> -->
+
+                        <div class="clearfix driver-tip-total">
+                            <div class="tip-label">Driver Tip</div>
+                            <div *ngIf="shoppingCart.cartItems.length == 1" class="tip-range">
+                                <div class="tip-range-container">
+                                    <div class="range-fill range-fill-active" style="left: 0;" [ngStyle]="{ 'width': ((sharedDataService.driverTipPercent * 5) + '%') }"></div>
+                                    <input class="custom-range-slider" style="padding-right: 0;" type="range" min="0" max="20" step="1" [(ngModel)]="sharedDataService.driverTipPercent" (ngModelChange)="shoppingCart.refresh()">
+                                </div>
+                            </div>
+                            <div *ngIf="shoppingCart.cartItems.length == 1" class="tip-percent">{{ sharedDataService.driverTipPercent }}%</div>
+                            <div class="tip-value">{{ cartItem.driverTip | currency:'USD':true }}</div>
+                        </div>
+
+                        <!-- <div class="clearfix driver-tip-total">
+                            <div class="tip-label"></div>
+                            <div class="tip-value"></div>
+                        </div> -->
+
+                        <div *ngIf="cartItem.menusServiceFee" class="service-fee-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Service Fee</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.serviceFee | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="full-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Total</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.total | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="sharedDataService.platformSettings.Enable_Coupons">
+
+                            <div *ngFor="let coupon of cartItem.appliedCoupons; let index = index">
+                                <div class="applied-coupon-section clearfix" [ngClass]="{ 'has-coupon-errors': coupon.errors.length > 0 }">
+                                    <div class="coupon-code clearfix">
+                                        <div class="coupon-tag-icon cursor-default"></div> {{ coupon.CouponCode }}
+                                    </div>
+                                    <button class="btn btn-xxs btn-danger remove-coupon-btn" (click)="removeCouponCode(cartItem, index)">
+                                Remove
+                            </button>
+                                </div>
+
+                                <div class="applied-coupon-errors-section c-danger">
+                                    <div *ngFor="let error of coupon.errors">{{ error.message }}</div>
+                                </div>
+                            </div>
+
+                            <div class="add-coupon-section clearfix">
+                                <div class="form-group coupon-input">
+                                    <div class="m-input-group has-addon-left">
+                                        <div class="m-input-group-addon m-addon-left">
+                                            <div class="coupon-tag-icon cursor-default"></div>
+                                        </div>
+
+                                        <input type="text" class="form-control input-sm" name="couponCode" [(ngModel)]="cartItem.couponCode" placeholder="Coupon Code">
+                                    </div>
+                                </div>
+
+                                <div>
+                                    <button [ladda]="cartItem.busyAddCouponCode" class="btn btn-xxs btn-success coupon-btn" (click)="validateCouponCode(cartItem)" [disabled]="cartItem.busyAddCouponCode || !cartItem.couponCode">Add</button>
+                                </div>
+                            </div>
+
+                            <div *ngIf="cartItem.coupons && cartItem.coupons.length" class="available-coupons-link c-success" (click)="showAvailableCouponsModal(cartItem)">See Available Coupons</div>
+
+                            <!--
+                        <div class="applied-coupon-errors-section c-danger" ng-repeat-end>
+                            <div ng-repeat="error in coupon.errors"> {{ error.message }}</div>
+                        </div>
+
+                        <div class="item-input-inset add-coupon-section">
+                            <div class="item-input-wrapper">
+                                <i class="icon ion-ios-pricetag-outline placeholder-icon"></i>
+                                <input type="search" placeholder="Enter your coupon code" ng-model="cartItem.couponCode">
+                            </div>
+                            <button class="button button-small button-balanced" ng-click="validateCouponCode(cartItem)" ng-disabled="!cartItem.couponCode">
+                              Add Coupon
+                            </button>
+                        </div>
+
+                        <div ng-if="cartItem.coupons && cartItem.coupons.length" class="row">
+                            <div class="col">
+                                <div class="available-coupons-link c-success" ng-click="showAvailableCouponsModal(cartItem)">See Available Coupons</div>
+                            </div>
+                        </div>-->
+
+                        </div>
+                    </div>
+                </div>
+
+                <div class="rest-item">
+                    <div class="rest-price-info">
+                        <div *ngIf="shoppingCart.cartItems.length > 1" class="clearfix driver-tip-total">
+                            <div class="tip-label">Tip</div>
+                            <div class="tip-range">
+                                <div class="tip-range-container">
+                                    <div class="range-fill range-fill-active" style="left: 0;" [ngStyle]="{ 'width': ((sharedDataService.driverTipPercent * 5) + '%') }"></div>
+                                    <input class="custom-range-slider" style="padding-right: 0;" type="range" min="0" max="20" step="1" [(ngModel)]="sharedDataService.driverTipPercent" (ngModelChange)="shoppingCart.refresh()">
+                                </div>
+                            </div>
+                            <div class="tip-percent">{{ sharedDataService.driverTipPercent }}%</div>
+                            <div class="tip-value">{{ shoppingCart.driverTip | currency:'USD':true }}</div>
+                        </div>
+
+                        <div class="eta-time c-text2">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Est. {{ sharedDataService.serviceType == constants.SERVICE_TYPE_DELIVERY ? 'Arrival' : 'Prepare' }} Time</div>
+                                <div class="col-xs-6 right-text">{{ shoppingCart.ETAMin }}-{{ shoppingCart.ETAMax }} minutes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="place-order-section">
+                <button class="btn btn-success" [ngClass]="{ 'b-text3 bg-text3': shoppingCart.minOrderCartItems.length > 0 }" (click)="placeOrder()">{{ mode == MODE_NORMAL ? 'Complete Order' : 'Place Orders' }} ({{ shoppingCart.total | currency:'USD':true }})</button>
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

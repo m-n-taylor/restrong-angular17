@@ -1,0 +1,89 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="users-page">
+    <div class="main-contents">
+
+        <save-payment-method-modal #savePaymentMethodModal (modalEvents)="savePaymentMethodModalEvents($event)"></save-payment-method-modal>
+        <!--<add-user-modal #addUserModal (modalEvents)="addUserModalEvents($event)"></add-user-modal>-->
+        <confirm-modal #confirmModal></confirm-modal>
+        
+        <div>
+            <div class="users-search-section">
+                <div class="row">
+
+                    <div class="col-sm-5">
+                        <div class="form-group filter-user-level">
+                            <label for="">Filter User Level</label>
+                            <select class="form-control input-sm" [(ngModel)]="userLevel" (ngModelChange)="loadData()">
+                                <option value="-1">All</option>
+                                <option *ngFor="let item of constants.RO_USER_LEVEL_LIST" [value]="item.id">{{ item.value }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <input type="text" class="form-control input-sm" name="searchText" [(ngModel)]="searchText" (keyup.enter)="searchTextEnter()"
+                                placeholder="Search for Payment Methods">
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="text-right">
+                            <button class="btn btn-success" (click)="openAddPaymentMethodModal()">Add Payment Method</button>
+                        </div>
+
+
+                    </div>
+                </div>
+
+
+                <div class="users-list">
+                    <table class="table table-striped">
+                        <tr>
+                            <th class="hidden-xs">ID</th>
+                            <th>Login</th>
+                            <th class="hidden-xs">Name</th>
+                            <th class="hidden-xs">User Level</th>
+                            <th>Active</th>
+                            <th></th>
+                            <th>Delete</th>
+                        </tr>
+
+                        <tr class="text-center" *ngIf="!busy && !paymentMethods.length">
+                            <td colspan="7">No Records to display</td>
+                        </tr>
+
+                        <tr *ngFor="let user of paymentMethods; let index = index" [ngClass]="{ 'email-no-verified' : !user.EmailVerified }" (click)="selectUser(user)">
+                            <td class="hidden-xs">
+                                {{ user.id }}
+                            </td>
+                            <td>{{ user.Login }}</td>
+                            <td class="hidden-xs f-black">{{ user.FirstName }} {{ user.LastName }}</td>
+                            <td class="hidden-xs">
+                                {{ constants.RO_USER_LEVEL[user.UserLevel] }}
+                            </td>
+                            <td>
+                                <m-checkbox *ngIf="user.EmailVerified" toggle=true [(value)]="user.Enabled" (valueChange)="toggleActiveUser(user)" [disabled]="!user.EmailVerified"></m-checkbox>
+                            </td>
+                            <td>
+                                <div *ngIf="user.EmailVerified" class="pencil-icon" (click)="openAddPaymentMethodModal(user)"></div>
+                            </td>
+                            <td mStopEvent>
+                                <div class="delete-time-icon" (click)="deleteUser(index, user)"></div>
+                                <div *ngIf="!user.EmailVerified" class="ribbon ribbon-danger align-right"><span>Not Verified</span></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <page-loader *ngIf="busy"></page-loader>
+                
+                <m-pagination *ngIf="paymentMethods.length" [id]="PAGINATION_ID" [(page)]="page" [(pageSize)]="pageSize" [totalPages]="totalPages" [totalRows]="totalRows" (valueChange)="loadData()"></m-pagination>
+
+            </div>
+        </div>
+
+    </div>
+</div>

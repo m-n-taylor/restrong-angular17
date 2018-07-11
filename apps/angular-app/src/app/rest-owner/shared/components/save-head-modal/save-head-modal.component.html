@@ -1,0 +1,47 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Modal -->
+<div class="modal save-masterhead-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><div class="delete-icon"></div></button>
+                <h4 class="modal-title" id="myModalLabel">{{ isNewHead ? 'New Category' : head.Name }}</h4>
+            </div>
+
+            <form #form="ngForm" novalidate (ngSubmit)="form.valid && save(form)">
+
+                <div class="modal-body modal-scrollable">
+
+                    <page-loader *ngIf="busy"></page-loader>
+
+                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, Name) }">
+                        <label>Name</label>
+                        <input type="text" name="Name" required #Name="ngModel" [(ngModel)]="head.Name" class="form-control" />
+
+                        <validation-messages [form]="form" [input]="Name" label="Name"></validation-messages>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description (optional)</label>
+                        <textarea type="text" name="Description" [(ngModel)]="head.Description" rows="5" class="form-control"></textarea>
+                    </div>
+
+                    <div class="active-now-checkbox">
+                        <m-checkbox toggle=true [(value)]="head.Enabled" text="Active Now?" text-align="left"></m-checkbox>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="action-buttons">
+                        <button type="submit" class="btn btn-success">{{ isNewHead ? 'Add' : 'Save' }}</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

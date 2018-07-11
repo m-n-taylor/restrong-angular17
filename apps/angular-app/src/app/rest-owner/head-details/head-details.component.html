@@ -1,0 +1,103 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="category-details-page">
+    <div class="main-contents">
+
+        <confirm-modal #confirmModal></confirm-modal>
+
+        <page-loader *ngIf="busy"></page-loader>
+        <page-loader *ngIf="busyMenuItem" center="page"></page-loader>
+
+        <div [hidden]="busy">
+
+            <div class="page-title-section">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="page-title-text" (click)="goBack()">
+                            <div class="arrow-left-icon"></div> {{ head.Name }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="head-details-section">
+                    <div class="row">
+                        <div class="col-sm-6 details-item">
+                            {{ head.Description }}
+                        </div>
+                        <div class="col-sm-6 details-item text-right">
+                            <m-checkbox toggle=true [(value)]="head.Enabled" (change)="toggleActiveHead(head)"></m-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-search-box-wrapper">
+                <menu-search-box [fireFlyID]="fireFlyID"></menu-search-box>
+            </div>
+
+            <div *ngIf="menuItemList.length == 0">
+
+                <div class="no-result-placeholder">
+
+                    <div class="burger-search-fail-icon"></div>
+
+                    <div class="placeholder-title">You have no menu item</div>
+                    <div class="placeholder-subtitle">You need add your first item.</div>
+
+                    <div class="placeholder-action-buttons">
+                        <button type="button" class="btn btn-success" (click)="viewMenuItemDetails()">Add Menu Item</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="goBack()">Back</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="isBrowser">
+                <div *ngIf="menuItemList.length > 0">
+                    <div class="menu-info-table">
+                        <table class="table table-striped table-center">
+                            <tr>
+                                <th>Photo</th>
+                                <th>Menu Items</th>
+                                <th class="hidden-xs">Description</th>
+                                <th class="multi-size-col">Multi Size</th>
+                                <th>Show In Gallery</th>
+                                <th>Active</th>
+                                <th>Delete</th>
+                            </tr>
+                            <tbody dnd-sortable-container [sortableData]="menuItemList">
+                                <tr *ngFor="let menuItem of menuItemList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onMenuItemDragSuccess($event)"
+                                    (click)="viewMenuItemDetails(menuItem)">
+                                    <td><img [src]="menuItem.FileName" width="64px" height="64px" [alt]="menuItem.Name"></td>
+                                    <td class="f-bold">{{ menuItem.Name }}</td>
+                                    <td class="hidden-xs">{{ menuItem.Description }}</td>
+                                    <td>
+                                        <div class="status-circle" [ngClass]="{ 'active': !menuItem.Is_Single_Size }"></div>
+                                    </td>
+                                    <td mStopEvent>
+                                            <m-checkbox toggle=true [(value)]="menuItem.ShowImageInGallery" (change)="toggleShowImageInGalleryMenuItem(menuItem)"></m-checkbox>
+                                        </td>
+                                    <td mStopEvent>
+                                        <m-checkbox toggle=true [(value)]="menuItem.Enabled" (change)="toggleActiveMenuItem(menuItem)"></m-checkbox>
+                                    </td>
+                                    <td mStopEvent>
+                                        <div class="delete-time-icon" (click)="deleteMenuItem(index, menuItem)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="action-buttons">
+                        <button type="button" class="btn btn-success" (click)="viewMenuItemDetails()">Add Menu Item</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="goBack()">Back</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+</div>

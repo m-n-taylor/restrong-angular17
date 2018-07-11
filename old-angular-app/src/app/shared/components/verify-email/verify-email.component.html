@@ -1,0 +1,23 @@
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="row">
+
+  <div class="verify-email-page">
+
+    <div class="header-logo-section">
+      <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus"></a>
+    </div>
+
+    <div class="main-section">
+
+      <div *ngIf="!busy" class="success-section">
+        <div *ngIf="verifySuccess" class="success-icon"></div>
+        <div class="success-section-title">{{ title }}</div>
+        <div class="success-section-subtitle">{{ subtitle }}</div>
+      </div>
+
+    </div>
+
+  </div>
+
+</div>

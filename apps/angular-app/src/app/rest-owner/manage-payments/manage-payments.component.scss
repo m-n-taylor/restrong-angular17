@@ -1,0 +1,47 @@
+.users-page {
+
+    .main-contents {
+        padding: 0 40px;
+
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .users-search-section {
+            padding: 48px 0;
+            // border-bottom: 1px solid #DBDBDB;
+
+            .filter-user-level {
+                
+                @media (min-width : $screen-sm-min) {
+                    label, .form-control {
+                        display: inline-block;
+                        width: auto;
+                    }
+
+                    .form-control {
+                        margin-left: 16px;
+                    }
+                }
+            }
+        }
+
+        .users-list {
+
+            table {
+                margin-bottom: 0;
+
+                .email-no-verified {
+
+                    td {
+                        position: relative;
+                    }
+                }
+            }
+            .ratings-container {
+                width: 120px;
+            }
+        }
+    }    
+}

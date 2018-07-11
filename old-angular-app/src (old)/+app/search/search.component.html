@@ -1,0 +1,70 @@
+<div class="page search-page">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-6 tab" (click)="selectTab(constants.PAGE_TAB_DISH)">
+                        <a [ngClass]="{'active': selectedTab == constants.PAGE_TAB_DISH}">DISH</a>
+                    </li>
+                    <li class="col-sm-6 tab" (click)="selectTab(constants.PAGE_TAB_RESTAURANT)">
+                        <a [ngClass]="{'active': selectedTab == constants.PAGE_TAB_RESTAURANT}">RESTAURANT</a>
+                    </li>
+                </ul>
+            </div>
+            
+            <div infinite-scroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="500" (scrolled)="loadDishes(true)"  class="card dish-list" *ngIf="selectedTab == constants.PAGE_TAB_DISH">
+                <div class="dish-item" *ngFor="let dish of dishes" (click)="selectDishItem(dish)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container dish-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{dish.FileName}}" alt="{{ dish.DishName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="dish-title">{{ dish.DishName }} <span class="dish-count">({{ dish.Count }})</span></div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum libero officia at! Non dolorem
+                                voluptatem minus et quis dolorum, facere quo libero quas cupiditate, rem, provident deleniti
+                                sit eos incidunt.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busyDish"></div>
+            </div>
+            <div class="card rest-list" *ngIf="selectedTab == constants.PAGE_TAB_RESTAURANT">
+                <div class="rest-item" *ngFor="let restaurant of restaurants" (click)="selectRestItem(restaurant)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{restaurant.FileName}}" alt="{{ restaurant.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ restaurant.RestaurantName }}</h3>
+
+                            <div class="rest-status">{{ restaurant.Availability }}</div>
+
+                            <h4>{{ restaurant.MenuItemName }}</h4>
+
+                            <div>{{ restaurant.MenuItemDescription }}</div>
+
+                            <div class="row item-info">
+                                <div class="col-sm-3">Distance: {{ restaurant.Distance }} miles</div>
+                                <div class="col-sm-3">ETA: {{ restaurant.ETA }} miles</div>
+                                <div class="col-sm-3">Delivery Fee: ${{ restaurant.DeliveryCharge }}</div>
+                                <div class="col-sm-3">Min Order: {{ restaurant.MinOrder }} miles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busyRest"></div>
+            </div>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" (click)="openRestMapView()" *ngIf="selectedTab == constants.PAGE_TAB_RESTAURANT">Map View</button>
+            <filters [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></filters>
+        </div>
+    </div>
+</div>

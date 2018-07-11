@@ -1,0 +1,31 @@
+<div class="page past-orders-page">
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">Past Orders</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div *ngIf="!busy">
+
+                <div class="card" *ngFor="let pastOrder of pastOrders" (click)="choosePastOrder(pastOrder)">
+                    <div> {{ pastOrder.OrderDate }} </div>
+                    <div> {{ pastOrder.OrderNumber }} </div>
+                    <!--<div> {{ pastOrder.Cuisine }} </div>-->
+                    <h1> {{ pastOrder.RestaurantName }} </h1>
+                    <h3> {{ pastOrder.RestaurantAddress }} </h3>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

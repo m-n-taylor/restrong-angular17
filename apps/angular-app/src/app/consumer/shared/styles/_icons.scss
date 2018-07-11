@@ -1,0 +1,113 @@
+// Icons
+$icons: ( 'add-card',
+'filter-on',
+'filter-off',
+'map-on',
+'map-off',
+'view-on',
+'view-off',
+'search',
+'card',
+'dish',
+'dish-2',
+'pencil-2',
+'restaurant-menu-2',
+'coupon-tag',
+'location',
+'restaurant-map',
+'basket',
+'basket-empty',
+'mastercard',
+'visa',
+'amex',
+'discover',
+'delete-2',
+'account-circle-white',
+'arrow-left-1',
+'arrow-right-1',
+'arrow-left-4',
+'arrow-right-4',
+'add-photo',
+);
+
+@mixin getCRIcon($propValue) {
+    @include getIcon($propValue, 'cr');
+}
+
+@each $propValue in $icons {
+
+    .#{$propValue}-icon {
+        @include getCRIcon($propValue);
+
+        // display: inline-block;
+        // width: 24px;
+        // height: 24px;
+        // background-image: url('img/cr/#{$propValue}.svg');
+        // background-repeat: no-repeat;
+        // background-position: 50%;
+        // cursor: pointer;
+    }
+}
+
+// 36x36
+.basket-empty-icon {
+    width: 36px;
+    height: 36px;
+}
+
+// 40x16
+.visa-icon,
+.amex-icon {
+    width: 40px;
+    height: 16px;
+}
+
+// 40x32
+.mastercard-icon {
+    width: 40px;
+    height: 32px;
+}
+
+// 40x40
+// .email-arrow-icon {
+//     width: 40px;
+//     height: 40px;
+// }
+// 56x16
+.discover-icon {
+    width: 56px;
+    height: 16px;
+}
+
+// 64x64
+.card-icon,
+.dish-2-icon,
+.restaurant-menu-2-icon,
+.add-photo-icon {
+    width: 64px;
+    height: 64px;
+}
+
+.map-on-icon,
+.map-off-icon,
+.view-on-icon,
+.view-off-icon {
+    width: 18px;
+    height: 18px;
+}
+
+// 112x112
+.dish-icon {
+    width: 112px;
+    height: 112px;
+}
+
+
+// 32x64
+.arrow-left-2-icon,
+.arrow-right-2-icon,
+.arrow-left-4-icon,
+.arrow-right-4-icon {
+    width: 32px;
+    height: 64px;
+}

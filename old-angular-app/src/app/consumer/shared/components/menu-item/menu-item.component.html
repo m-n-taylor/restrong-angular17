@@ -1,0 +1,58 @@
+<div class="menu-item {{ sharedDataService.serviceType }}" [ngClass]="{ 'view-only': config.mode == 'viewOnly' }" ng-class="{ 'rest-closed' : !item.IsOpen, 'item-trending': item.PopularLevel == 1 }">
+    <div class="clearfix">
+
+        <div class="menu-item-img-container">
+            <div *ngIf="item.MenuImageExist || item.RestImageExist" class="menu-item-img">
+                <img src="{{ constants.SERVER_URL + '/' + item.FileName }}" alt="{{ item.MenuItemName }}" />
+            </div>
+
+            <div *ngIf="!item.MenuImageExist && !item.RestImageExist" class="item-cuisine-icon-parent clearfix">
+                <div class="cuisine-icon-{{item.CuisineID}} item-cuisine-icon"></div>
+            </div>
+
+            <div class="yelp-rating">
+                <div class="yelp-icon yelp-icon-0 yelp-icon-{{ item.RestRating }}">&nbsp;</div>
+                <div><img class="yelp-logo" src="img/yelp-logo.svg" alt=""></div>
+            </div>
+        </div>
+
+        <!-- <div *ngIf="item.MenuImageExist" class="menu-item-img-container">
+            <div class="menu-item-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + item.FileName + ')'}"></div>
+            <div class="trending-text">trending</div>
+        </div>
+        <div *ngIf="!item.MenuImageExist" class="item-cuisine-icon-container">
+            <div class="item-cuisine-icon-parent">
+                <div class="cuisine-icon-{{item.CuisineID}} item-cuisine-icon"></div>
+            </div>
+            <div class="trending-text">trending</div>
+        </div> -->
+
+        <div class="item-details">
+            <div class="clearfix">
+                <div class="menu-item-name text-overflow">{{ item.MenuItemName }}</div>
+                <div class="item-price">${{ item.Price }}</div>
+            </div>
+
+            <div class="menu-item-desc">{{ item.MenuItemDescription?.substr(0, 80) }}</div>
+
+            <div class="item-rest-name-container clearfix">
+                <div class="item-rest-name text-overflow">{{ item.RestaurantName || '&nbsp;' }}</div>
+            </div>
+
+            <div class="clearfix">
+                <div class="item-fees" [hidden]="sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN">Delivery Fee ${{ item.DeliveryCharge }}&nbsp;&nbsp;•&nbsp;&nbsp;Min Order ${{ item.MinOrder }}&nbsp;&nbsp;•&nbsp;&nbsp;ETA
+                    {{ item.ETA }} MIN
+                </div>
+
+                <div class="item-available"><span class="item-available-status">Closed</span><span class="item-available-text">{{ item.Availability }}</span></div>
+            </div>
+        </div>
+    </div>
+
+    <div class="item-actions clearfix">
+        <div [hidden]="item.ItemCount > 1 && !item.busy" class="more-dishes-placeholder"></div>
+        <button *ngIf="config.mode != 'viewOnly' && item.ItemCount > 1 && !item.busy" (click)="doAction(ACTION_VIEW_MORE_DISHES)" class="btn btn-success btn-xs more-dishes">More Dishes</button>
+        <button class="btn btn-success btn-xs view-menu">View Menu</button>
+        <button *ngIf="config.mode != 'viewOnly'" class="btn btn-success btn-xs add-to-cart" (click)="doAction(ACTION_VIEW_ADD_CART)">Add to Cart</button>
+    </div>
+</div>

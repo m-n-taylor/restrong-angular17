@@ -1,0 +1,105 @@
+/**
+ * PlatformSettings
+ */
+
+import { PlatformSettingsIntroPage } from "./platform-settings-intro-page";
+
+export class PlatformSettings {
+    PublicKey: string;
+    Enable_App: boolean;
+    App_ID: string;
+    App_Name: string;
+    WEBSITE_URL: string;
+    Contact_Email: string;
+    App_Logo: string;
+    App_Icon: string;
+    App_Splash: string;
+    Default_View_Mode: number;
+    Color_Light: string;
+    Color_Stable: string;
+    Color_Positive: string;
+    Color_Calm: string;
+    Color_Balanced: string;
+    Color_Energized: string;
+    Color_Assertive: string;
+    Color_Royal: string;
+    Color_Dark: string;
+    Color_Gray: string;
+    Color_Gray1: string;
+    Color_Gray2: string;
+    Color_Gray3: string;
+    Color_Gray4: string;
+    Color_GrayDark: string;
+    Color_GrayLight: string;
+    Color_GrayLighter: string;
+    Color_Silver: string;
+    Color_Text1: string;
+    Color_Text2: string;
+    Color_Text3: string;
+    Color_UserMapIcon: string;
+    Color_RestMapIcon: string;
+    Color_SelectedMapIcon: string;
+    Points_Name: string;
+    Review_Points: string;
+    Image_Points: string;
+    Order_Points: string;
+    App_IOS_Store_Link: string;
+    App_Android_Store_Link: string;
+    App_Version: string;
+    About_Text: string;
+    YourPoints: string;
+    ReturnPolicy: string;
+    PrivacyPolicy: string;
+    TermsOfUse: string;
+    Promo_BGColor: string;
+    Promo_TabTextColor: string;
+    Promo_ActiveTabTextColor: string;
+    Promo_ActiveTabUnderlineColor: string;
+    Enable_Map_Icon: boolean;
+    Enable_Yelp_Rating: boolean;
+    Enable_Yelp_Count: boolean;
+    Enable_Cuisine_Filter: boolean;
+    Enable_Dish_Filter: boolean;
+    Enable_View_Mode: boolean;
+    Enable_Intro_Pages: boolean;
+    Enable_HiWaiter: boolean;
+    EnableGuestSupportChat: boolean;
+    EnableLoggedInSupportChat: boolean;
+    Enable_Facebook_Login: boolean;
+    Enable_Google_Login: boolean;
+    Enable_Coupons: boolean;
+    Enable_Points: boolean;
+    Enable_Popular_Ribbon: boolean;
+    Enable_DiningIn: boolean;
+    Enable_Catering: boolean;
+    Enable_Delivery: boolean;
+    Enable_Pickup: boolean;
+    Enable_About_Text: boolean;
+    Enable_ApplePay: boolean;
+    Enable_AndroidPay: boolean;
+    Enable_List_View: boolean;
+    Enable_Filters: boolean;
+    SocialLinks: any;
+    MapStyles: any;
+    Default_View: number;
+    Enable_Map_View: boolean;
+    Default_ServiceType: number;
+    Intro_Action_Button_Text: string;
+    Intro_Action_Button_Color: string;
+    Intro_Action_Button_BGColor: string;
+    IntroPages = new Array<PlatformSettingsIntroPage>();
+    FB_CLIENT_ID: string;
+    GOOGLE_PLUS_WEB_CLIENT_ID: string;
+    GOOGLE_PLUS_REVERSE_CLIENT_ID: string;
+    Google_ClientSecret: string;
+    SocialLink_Facebook: string;
+    SocialLink_Twitter: string;
+    SocialLink_Instagram: string;
+    SocialLink_Youtube: string;
+    Footer_Description: string;
+
+    // Custom fields
+    // App_LogoChanged: boolean;
+    // App_IconChanged: boolean;
+    // App_SplashChanged: boolean;
+}

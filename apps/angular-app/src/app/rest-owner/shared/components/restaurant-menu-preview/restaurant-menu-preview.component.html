@@ -1,0 +1,47 @@
+<menu-item-preview-modal #menuItemPreviewModal></menu-item-preview-modal>
+
+<div class="restaurant-menu-preview">
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div *ngIf="!busy && !data.MasterHeading.length" class="no-records">No Records to display</div>
+
+    <div [hidden]="busy">
+        <div *ngFor="let masterHead of data.MasterHeading" class="menu-section">
+            <div class="menu-section-heading">
+                <div class="row">
+                    <div class="col-xs-9">
+                        {{ masterHead.MasterHeadingName }}
+                    </div>
+                    <div class="col-xs-3 text-right">
+                        <div [ngClass]="{ 'open-icon': masterHead.hidden, 'close-icon': !masterHead.hidden }" (click)="masterHead.hidden = !masterHead.hidden"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-section-details" [hidden]="masterHead.hidden">
+
+                <div *ngFor="let head of masterHead.Heading" class="menu-item-section">
+
+                    <div class="menu-item-section-heading">
+                        <div class="row">
+                            <div class="col-xs-9">
+                                {{ head.HeadingName }}
+                            </div>
+                            <div class="col-xs-3 text-right">
+                                <div [ngClass]="{ 'open-icon': head.hidden, 'close-icon': !head.hidden }" (click)="head.hidden = !head.hidden"></div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="menu-item-section-details" [hidden]="head.hidden">
+                        <div *ngFor="let menuItem of head.Menu" class="row menu-item-name-price" [ngClass]="{ 'have-option': menuItem.HaveOption == 1 }" (click)="openMenuItemPreviewModal(menuItem)">
+                            <div class="col-xs-6 menu-item-name">{{ menuItem.MenuItemName }}</div>
+                            <div class="col-xs-6 text-right f-black">${{ menuItem.Price }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

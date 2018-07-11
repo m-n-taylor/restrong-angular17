@@ -1,0 +1,22 @@
+.opera-modal {
+
+    .modal-body, .modal-footer {
+        padding: 40px;
+    }
+
+    .modal-body {
+
+        a {
+            color: $brand-success;
+            font-weight: $lato-bold;
+        }
+    }
+
+    .modal-footer {
+        border-top: 1px solid #DBDBDB;
+
+        @media (min-width : $screen-sm-min) {
+            text-align: right;
+        }
+    }
+}

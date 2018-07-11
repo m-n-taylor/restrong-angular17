@@ -1,0 +1,31 @@
+.rest-contract-modal {
+    
+     .info-section {
+
+        .info-title {
+            margin-top: 43px;
+            font-weight: $lato-black;
+            font-size: 18px;
+        }
+
+        .info-details {
+            margin-top: 20px;
+            padding: 26px;
+            border: 1px solid rgba(#455A64, .3);
+            border-radius: 3px;
+
+            .info-field {
+                margin-top: 6px;
+
+                &.delivery-address-field {
+                    margin-top: 22px;
+                }
+            }
+        }
+
+    }
+
+    .terms-checkbox {
+        margin: 24px 0;
+    }
+}

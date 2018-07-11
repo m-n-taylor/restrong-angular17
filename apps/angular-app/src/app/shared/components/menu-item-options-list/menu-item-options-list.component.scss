@@ -1,0 +1,20 @@
+.menu-item-options-list {
+
+    &.disabled {
+
+        .table {
+
+            th,
+            td {
+                cursor: default;
+
+                .radio-on-icon,
+                .radio-off-icon,
+                .checkbox-on-icon,
+                .checkbox-off-icon {
+                    cursor: not-allowed;
+                }
+            }
+        }
+    }
+}

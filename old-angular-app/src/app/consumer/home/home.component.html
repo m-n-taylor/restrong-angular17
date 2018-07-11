@@ -1,0 +1,130 @@
+<div class="home-page">
+
+    <div class="video-container">
+        <div class="video-overlay"></div>
+         <!--playsinline autoplay muted loop-->
+        <video #videoPlayer poster="/videos/poster.png" playsinline muted loop>
+            <!--<source src="http://test2.menus.mine.nu/videos/foodreel-v2.mp4" type="video/mp4">-->
+        </video>
+    </div>
+
+    <div class="top-content">
+
+        <div class="clearfix">
+            <div class="menus-logo-section">
+                <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo-white.svg" alt="menus"></a>
+            </div>
+
+            <div class="nav-links">
+                <a class="login-link" routerLink="/backoffice">
+                    <div class="account-circle-white-icon"></div> Restaurateur Login</a>
+            </div>
+        </div>
+
+        <div class="menus-app-text">
+            <div class="tag-heading">Now Serving Los Angeles</div>
+            <div class="tag-subheading">Download our app to start forking</div>
+
+            <div class="store-links">
+                <a class="playstore-link" href="#"><img src="data:image/svg+xml;base64,PHN2ZyBpZD0iYXJ0d29yayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDE1NSA2MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHgxPSIzMS44IiB5MT0iMTgzLjI5IiB4Mj0iMTUuMDIiIHkyPSIxNjYuNTEiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwMGEwZmYiLz48c3RvcCBvZmZzZXQ9IjAuMDEiIHN0b3AtY29sb3I9IiMwMGExZmYiLz48c3RvcCBvZmZzZXQ9IjAuMjYiIHN0b3AtY29sb3I9IiMwMGJlZmYiLz48c3RvcCBvZmZzZXQ9IjAuNTEiIHN0b3AtY29sb3I9IiMwMGQyZmYiLz48c3RvcCBvZmZzZXQ9IjAuNzYiIHN0b3AtY29sb3I9IiMwMGRmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMGUzZmYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTIiIHgxPSI0My44MyIgeTE9IjE3MiIgeDI9IjE5LjY0IiB5Mj0iMTcyIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEsIDAsIDAsIC0xLCAwLCAyMDIpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlMDAwIi8+PHN0b3Agb2Zmc2V0PSIwLjQxIiBzdG9wLWNvbG9yPSIjZmZiZDAwIi8+PHN0b3Agb2Zmc2V0PSIwLjc4IiBzdG9wLWNvbG9yPSJvcmFuZ2UiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjljMDAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTMiIHgxPSIzNC44MyIgeTE9IjE2OS43IiB4Mj0iMTIuMDciIHkyPSIxNDYuOTUiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZjNhNDQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjMzExNjIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTQiIHgxPSIxNy4zIiB5MT0iMTkxLjgyIiB4Mj0iMjcuNDYiIHkyPSIxODEuNjYiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzMmEwNzEiLz48c3RvcCBvZmZzZXQ9IjAuMDciIHN0b3AtY29sb3I9IiMyZGE3NzEiLz48c3RvcCBvZmZzZXQ9IjAuNDgiIHN0b3AtY29sb3I9IiMxNWNmNzQiLz48c3RvcCBvZmZzZXQ9IjAuOCIgc3RvcC1jb2xvcj0iIzA2ZTc3NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwZjA3NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjx0aXRsZT5maWxfZ2V0PC90aXRsZT48cmVjdCB3aWR0aD0iMTU1IiBoZWlnaHQ9IjYwIiBzdHlsZT0iZmlsbDojZmZmO2ZpbGwtb3BhY2l0eTowIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMTM1IiBoZWlnaHQ9IjQwIiByeD0iNSIgcnk9IjUiLz48cGF0aCBkPSJNMTQwLDEwLjhhNC4yLDQuMiwwLDAsMSw0LjIsNC4yVjQ1YTQuMiw0LjIsMCwwLDEtNC4yLDQuMkgxNUE0LjIsNC4yLDAsMCwxLDEwLjgsNDVWMTVBNC4yLDQuMiwwLDAsMSwxNSwxMC44SDE0MG0wLS44SDE1YTUsNSwwLDAsMC01LDVWNDVhNSw1LDAsMCwwLDUsNUgxNDBhNSw1LDAsMCwwLDUtNVYxNWE1LDUsMCwwLDAtNS01WiIgc3R5bGU9ImZpbGw6I2E2YTZhNiIvPjxwYXRoIGQ9Ik01Ny40MiwyMC4yNGEyLjcxLDIuNzEsMCwwLDEtLjc1LDIsMi45MSwyLjkxLDAsMCwxLTIuMi44OSwzLjE1LDMuMTUsMCwwLDEtMi4yMS01LjM3LDMsMywwLDAsMSwyLjIxLS45LDMuMSwzLjEsMCwwLDEsMS4yMy4yNSwyLjQ3LDIuNDcsMCwwLDEsLjk0LjY3bC0uNTMuNTNhMiwyLDAsMCwwLTEuNjQtLjcxQTIuMzIsMi4zMiwwLDAsMCw1Mi4xNCwyMGEyLjM2LDIuMzYsMCwwLDAsNCwxLjczLDEuODksMS44OSwwLDAsMCwuNS0xLjIySDU0LjQ3di0uNzJoMi45MUEyLjU0LDIuNTQsMCwwLDEsNTcuNDIsMjAuMjRaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik02MiwxNy43NEg1OS4zdjEuOWgyLjQ2di43Mkg1OS4zdjEuOUg2MlYyM2gtMy41VjE3SDYyWiIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6I2ZmZjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MC4ycHgiLz48cGF0aCBkPSJNNjUuMjgsMjNoLS43N1YxNy43NEg2Mi44M1YxN0g2N3YuNzRINjUuMjhaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik02OS45NCwyM1YxN2guNzd2NloiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiNmZmY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLXdpZHRoOjAuMnB4Ii8+PHBhdGggZD0iTTc0LjEzLDIzaC0uNzdWMTcuNzRINzEuNjhWMTdINzUuOHYuNzRINzQuMTNaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik04My42MSwyMi4yMmEzLjEyLDMuMTIsMCwwLDEtNC40LDAsMy4yNCwzLjI0LDAsMCwxLDAtNC40NSwzLjEsMy4xLDAsMCwxLDQuNCwwLDMuMjMsMy4yMywwLDAsMSwwLDQuNDVabS0zLjgzLS41YTIuMzEsMi4zMSwwLDAsMCwzLjI2LDAsMi41NiwyLjU2LDAsMCwwLDAtMy40NCwyLjMxLDIuMzEsMCwwLDAtMy4yNiwwLDIuNTYsMi41NiwwLDAsMCwwLDMuNDRaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik04NS41OCwyM1YxN2guOTRsMi45Miw0LjY3aDBsMC0xLjE2VjE3aC43N3Y2aC0uOGwtMy4wNS00Ljg5aDBsMCwxLjE2VjIzWiIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6I2ZmZjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MC4ycHgiLz48cGF0aCBkPSJNNzguMTQsMzEuNzVBNC4yNSw0LjI1LDAsMSwwLDgyLjQxLDM2LDQuMTksNC4xOSwwLDAsMCw3OC4xNCwzMS43NVptMCw2LjgzQTIuNTgsMi41OCwwLDEsMSw4MC41NCwzNiwyLjQ2LDIuNDYsMCwwLDEsNzguMTQsMzguNThabS05LjMxLTYuODNBNC4yNSw0LjI1LDAsMSwwLDczLjA5LDM2LDQuMTksNC4xOSwwLDAsMCw2OC44MiwzMS43NVptMCw2LjgzQTIuNTgsMi41OCwwLDEsMSw3MS4yMiwzNiwyLjQ2LDIuNDYsMCwwLDEsNjguODIsMzguNThaTTU3Ljc0LDMzLjA2djEuOGg0LjMyYTMuNzcsMy43NywwLDAsMS0xLDIuMjcsNC40Miw0LjQyLDAsMCwxLTMuMzMsMS4zMiw0LjgsNC44LDAsMCwxLDAtOS42QTQuNiw0LjYsMCwwLDEsNjEsMzAuMTRsMS4yNy0xLjI3QTYuMjksNi4yOSwwLDAsMCw1Ny43NCwyN2E2LjYxLDYuNjEsMCwxLDAsMCwxMy4yMSw2LDYsMCwwLDAsNC42MS0xLjg1LDYsNiwwLDAsMCwxLjU2LTQuMjIsNS44Nyw1Ljg3LDAsMCwwLS4xLTEuMTNabTQ1LjMxLDEuNGE0LDQsMCwwLDAtMy42NC0yLjcxLDQsNCwwLDAsMC00LDQuMjUsNC4xNiw0LjE2LDAsMCwwLDQuMjIsNC4yNSw0LjIzLDQuMjMsMCwwLDAsMy41NC0xLjg4bC0xLjQ1LTFhMi40MywyLjQzLDAsMCwxLTIuMDksMS4xOCwyLjE2LDIuMTYsMCwwLDEtMi4wNi0xLjI5bDUuNjktMi4zNVptLTUuOCwxLjQyYTIuMzMsMi4zMywwLDAsMSwyLjIyLTIuNDgsMS42NSwxLjY1LDAsMCwxLDEuNTguOVpNOTIuNjMsNDBIOTQuNVYyNy41SDkyLjYzWm0tMy4wNi03LjNIODkuNWEzLDMsMCwwLDAtMi4yNC0xLDQuMjYsNC4yNiwwLDAsMCwwLDguNTEsMi45LDIuOSwwLDAsMCwyLjI0LTFoLjA2di42MWMwLDEuNjMtLjg3LDIuNS0yLjI3LDIuNWEyLjM1LDIuMzUsMCwwLDEtMi4xNC0xLjUxbC0xLjYzLjY4YTQuMDUsNC4wNSwwLDAsMCwzLjc3LDIuNTFjMi4xOSwwLDQtMS4yOSw0LTQuNDNWMzJIODkuNTdabS0yLjE0LDUuODhhMi41OSwyLjU5LDAsMCwxLDAtNS4xNkEyLjQsMi40LDAsMCwxLDg5LjcsMzYsMi4zOCwyLjM4LDAsMCwxLDg3LjQyLDM4LjU4Wk0xMTEuODEsMjcuNWgtNC40N1Y0MGgxLjg3VjM1LjI2aDIuNjFhMy44OSwzLjg5LDAsMSwwLDAtNy43NlptMCw2SDEwOS4yVjI5LjI0aDIuNjVhMi4xNCwyLjE0LDAsMSwxLDAsNC4yOVptMTEuNTMtMS44YTMuNSwzLjUsMCwwLDAtMy4zMywxLjkxbDEuNjYuNjlhMS43NywxLjc3LDAsMCwxLDEuNy0uOTIsMS44LDEuOCwwLDAsMSwyLDEuNjF2LjEzYTQuMTMsNC4xMywwLDAsMC0xLjk1LS40OGMtMS43OSwwLTMuNiwxLTMuNiwyLjgxYTIuODksMi44OSwwLDAsMCwzLjEsMi43NUEyLjYzLDIuNjMsMCwwLDAsMTI1LjMyLDM5aC4wNnYxaDEuOFYzNS4xOUMxMjcuMTgsMzMsMTI1LjUyLDMxLjczLDEyMy4zOSwzMS43M1ptLS4yMyw2Ljg1Yy0uNjEsMC0xLjQ2LS4zMS0xLjQ2LTEuMDYsMC0xLDEuMDYtMS4zMywyLTEuMzNhMy4zMiwzLjMyLDAsMCwxLDEuNy40MkEyLjI2LDIuMjYsMCwwLDEsMTIzLjE2LDM4LjU4Wk0xMzMuNzQsMzJsLTIuMTQsNS40MmgtLjA2TDEyOS4zMiwzMmgtMmwzLjMzLDcuNTgtMS45LDQuMjFoMS45NUwxMzUuODIsMzJabS0xNi44MSw4aDEuODdWMjcuNWgtMS44N1oiIHN0eWxlPSJmaWxsOiNmZmYiLz48cGF0aCBkPSJNMjAuNDQsMTcuNTRhMiwyLDAsMCwwLS40NiwxLjRWNDEuMDZhMiwyLDAsMCwwLC40NiwxLjRsLjA3LjA3TDMyLjksMzAuMTV2LS4yOUwyMC41MSwxNy40N1oiIHN0eWxlPSJmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KSIvPjxwYXRoIGQ9Ik0zNywzNC4yOCwzMi45LDMwLjE1di0uMjlMMzcsMjUuNzJsLjA5LjA1TDQyLDI4LjU2YzEuNC43OSwxLjQsMi4wOSwwLDIuODlsLTQuODksMi43OFoiIHN0eWxlPSJmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50LTIpIi8+PHBhdGggZD0iTTM3LjEyLDM0LjIyLDMyLjksMzAsMjAuNDQsNDIuNDZhMS42MywxLjYzLDAsMCwwLDIuMDguMDZsMTQuNjEtOC4zIiBzdHlsZT0iZmlsbDp1cmwoI2xpbmVhci1ncmFkaWVudC0zKSIvPjxwYXRoIGQ9Ik0zNy4xMiwyNS43OGwtMTQuNjEtOC4zYTEuNjMsMS42MywwLDAsMC0yLjA4LjA2TDMyLjksMzBaIiBzdHlsZT0iZmlsbDp1cmwoI2xpbmVhci1ncmFkaWVudC00KSIvPjxwYXRoIGQ9Ik0zNywzNC4xMywyMi41MSw0Mi4zOGExLjY3LDEuNjcsMCwwLDEtMiwwaDBsLS4wNy4wN2gwbC4wNy4wN2gwYTEuNjYsMS42NiwwLDAsMCwyLDBsMTQuNjEtOC4zWiIgc3R5bGU9Im9wYWNpdHk6MC4yO2lzb2xhdGlvbjppc29sYXRlIi8+PHBhdGggZD0iTTIwLjQ0LDQyLjMyYTIsMiwwLDAsMS0uNDYtMS40di4xNWEyLDIsMCwwLDAsLjQ2LDEuNGwuMDctLjA3WiIgc3R5bGU9Im9wYWNpdHk6MC4xMjtpc29sYXRpb246aXNvbGF0ZSIvPjxwYXRoIGQ9Ik00MiwzMS4zbC01LDIuODMuMDkuMDlMNDIsMzEuNDRhMS43NSwxLjc1LDAsMCwwLDEtMS40NGgwQTEuODYsMS44NiwwLDAsMSw0MiwzMS4zWiIgc3R5bGU9Im9wYWNpdHk6MC4xMjtpc29sYXRpb246aXNvbGF0ZSIvPjxwYXRoIGQ9Ik0yMi41MSwxNy42Miw0MiwyOC43YTEuODYsMS44NiwwLDAsMSwxLDEuM2gwYTEuNzUsMS43NSwwLDAsMC0xLTEuNDRMMjIuNTEsMTcuNDhjLTEuNC0uNzktMi41NC0uMTMtMi41NCwxLjQ3di4xNUMyMCwxNy40OSwyMS4xMiwxNi44MywyMi41MSwxNy42MloiIHN0eWxlPSJmaWxsOiNmZmY7b3BhY2l0eTowLjI1O2lzb2xhdGlvbjppc29sYXRlIi8+PC9zdmc+" alt="google play badge"></a>
+                <a class="appstore-link" href="#"><img src="img/cr/app-store-badge.svg" alt="app store badge"></a>
+            </div>
+        </div>
+    </div>
+
+    <!-- <div class="rest-owner-text">
+            For Restaurant Owners. Please <a href="https://menus.com/backoffice/login">Click Here</a> to login
+        </div> -->
+
+    <div class="main-map-wrapper">
+
+        <div id="home-page-map" class="main-map"></div>
+
+        <div class="own-business-section">
+
+            <div class="clearfix">
+                <div class="slider-container">
+
+                    <!-- Swiper -->
+                    <div class="swiper-container">
+                        <div class="swiper-wrapper">
+                            <div class="swiper-slide"><img src="img/cr/macbook1.png" style="max-width: 100%"></div>
+                            <div class="swiper-slide"><img src="img/cr/macbook4.png" style="max-width: 100%"></div>
+                        </div>
+                        <!-- Add Pagination -->
+                        <div class="swiper-pagination swiper-pagination-white"></div>
+                    </div>
+
+                </div>
+
+                <div class="own-business-text clearfix">
+                    <div class="text-title">Own A Restaurant?</div>
+                    <div class="text-subtitle">We Have Premium Plans</div>
+                    <div class="action-signup">
+                        <a routerLink="/backoffice/signup" class="btn btn-success">Signup</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="features-section clearfix">
+                <div class="feature-item">
+                    <div class="item-title">Menus.com Listing</div>
+                    <div class="item-subtitle">Share your menu with the world and receive orders.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="item-title">Menu Sense Report</div>
+                    <div class="item-subtitle">Fine tune your menu offering and pricing.</div>
+                </div>
+                <div class="feature-item">
+                    <div class="item-title">Integrated Point of Sales</div>
+                    <div class="item-subtitle">Use our cloud based POS with integrated Software.</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="footer-section">
+        <div class="alphabets-list">
+            <div class="alphabets-item" *ngFor="let item of alphabets" [ngClass]="{ 'active' : selectedAlphabet == item }" (click)="chooseAlphabet(item)">
+                <span class="alphabet-text">{{ item }}</span>
+            </div>
+        </div>
+
+        <page-loader *ngIf="busyCities"></page-loader>
+
+        <div *ngIf="!busyCities" class="row">
+            <div class="col-sm-3 section-3">
+                <div class="section-title">Browse by cities (delivery)</div>
+                <div class="section-links">
+                    <div *ngFor="let item of cities">
+                        <div class="section-link" [hidden]="!item.City.startsWith(selectedAlphabet)"><a routerLink="{{ getCityUrl('delivery', item) }}">{{ item.City }} restaurants delivery menu</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 section-3">
+                <div class="section-title">Browse by cities (pickup)</div>
+                <div class="section-links">
+                    <div *ngFor="let item of cities">
+                        <div class="section-link" [hidden]="!item.City.startsWith(selectedAlphabet)"><a routerLink="{{ getCityUrl('pick-up', item) }}">{{ item.City }} restaurants pickup menu</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 section-3">
+                <div class="section-title">Browse by cities (catering)</div>
+                <div class="section-links">
+                    <div *ngFor="let item of cities">
+                        <div class="section-link" [hidden]="!item.City.startsWith(selectedAlphabet)"><a routerLink="{{ getCityUrl('catering', item) }}">{{ item.City }} restaurants catering menu</a></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-3 section-3">
+                <div class="section-title">Browse by cities (dine-in)</div>
+                <div class="section-links">
+                    <div *ngFor="let item of cities">
+                        <div class="section-link" [hidden]="!item.City.startsWith(selectedAlphabet)"><a routerLink="{{ getCityUrl('dine-in', item) }}">{{ item.City }} restaurants dine-in menu</a></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

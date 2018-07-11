@@ -1,0 +1,117 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="menu-details-page">
+    <div class="main-contents">
+
+        <save-delivery-zone-modal #saveDeliveryZoneModal></save-delivery-zone-modal>
+        <save-schedule-modal #saveScheduleModal></save-schedule-modal>
+        <save-head-modal #saveHeadModal (modalEvents)="saveHeadModalEvents($event)"></save-head-modal>
+        <confirm-modal #confirmModal></confirm-modal>
+        
+        <page-loader *ngIf="busy"></page-loader>
+
+        <div [hidden]="busy">
+
+            <div class="page-title-section">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="page-title-text" (click)="goBack()">
+                            <div class="arrow-left-icon"></div> {{ masterHead.Name }}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="masterhead-details-section">
+                    <div class="row">
+                        <div class="col-sm-3 details-item">
+                            {{ masterHead.Description }}
+                        </div>
+                        <div class="col-sm-6 details-item">
+                            <div class="service-type-name">Delivery
+                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsDelivery }"></div>
+                            </div>
+                            <div class="service-type-name service-type-dinein">Dining-In
+                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsDiningIn }"></div>
+                            </div>
+                            <div class="service-type-name">Pickup
+                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsPickup }"></div>
+                            </div>
+                            <div class="service-type-name service-type-catering">Catering
+                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsCatering }"></div>
+                            </div>
+                        </div>
+                        <div class="col-sm-2 details-item">
+                            <a class="h-link" (click)="openSaveScheduleModal(masterHead)">
+                                <div class="history-icon"></div>
+                            </a>
+                        </div>
+                        <div class="col-sm-1 details-item">
+                            <m-checkbox toggle=true [(value)]="masterHead.Enabled" (change)="toggleActiveMasterHead(masterHead)"></m-checkbox>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="menu-search-box-wrapper">
+                <menu-search-box [fireFlyID]="fireFlyID"></menu-search-box>
+            </div>
+
+            <div *ngIf="headList.length == 0">
+
+                <div class="no-result-placeholder">
+
+                    <div class="burger-search-fail-icon"></div>
+
+                    <div class="placeholder-title">You can add categories for your menu</div>
+                    <div class="placeholder-subtitle">Click on the button below to add a category.</div>
+
+                    <div class="placeholder-action-buttons">
+                        <button class="btn btn-success" (click)="openSaveHeadModal()">Add Category</button>
+                        <button class="btn btn-success btn-inverse" (click)="goBack()">Back</button>
+                    </div>
+                </div>
+
+            </div>
+
+            <div *ngIf="isBrowser">
+                <div *ngIf="headList.length > 0">
+                    <div class="menu-info-table">
+                        <table class="table table-striped table-center">
+                            <tr>
+                                <th>Category Name</th>
+                                <th class="hidden-xs">Description</th>
+                                <th>Active</th>
+                                <th>Action</th>
+                                <th></th>
+                            </tr>
+                            <tbody dnd-sortable-container [sortableData]="headList">
+                                <tr *ngFor="let head of headList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onHeadDragSuccess($event)"
+                                    (click)="viewHeadDetails(head)">
+                                    <td class="f-bold">{{ head.Name }}</td>
+                                    <td class="hidden-xs">{{ head.Description }}</td>
+                                    <td mStopEvent>
+                                        <m-checkbox toggle=true [(value)]="head.Enabled" (change)="toggleActiveHead(head)"></m-checkbox>
+                                    </td>
+                                    <td mStopEvent>
+                                        <div class="pencil-icon" (click)="openSaveHeadModal(head)"></div>
+                                    </td>
+                                    <td mStopEvent>
+                                        <div class="delete-time-icon" (click)="deleteHead(index, head)"></div>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="action-buttons menu-details">
+                        <button class="btn btn-success" (click)="openSaveHeadModal()">Add Category</button>
+                        <button class="btn btn-success btn-inverse" (click)="goBack()">Back</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,25 @@
+<div class="menu-item-options-list" [ngClass]="{ 'disabled': disabled }">
+    <table class="table">
+        <tr>
+            <th colspan="3">{{ title }}
+                <div class="chip-label chip-label-primary" *ngIf="required">Required</div>
+                <div class="chip-label chip-label-gray" *ngIf="!required">Optional</div>
+            </th>
+        </tr>
+        <tr *ngFor="let optionItem of optionItems" (click)="chooseOptionItem(optionItem)">
+            <td class="nostretch">
+                <div class="radio-on-icon" *ngIf="isSingleSelect && optionItem.isSelected"></div>
+                <div class="radio-off-icon" *ngIf="isSingleSelect && !optionItem.isSelected"></div>
+
+                <div class="checkbox-on-icon" *ngIf="!isSingleSelect && optionItem.isSelected"></div>
+                <div class="checkbox-off-icon" *ngIf="!isSingleSelect && !optionItem.isSelected"></div>
+            </td>
+            <td>
+                {{ optionItem.Name }}
+            </td>
+            <td class="text-right">
+                ${{ optionItem.Price }}
+            </td>
+        </tr>
+    </table>
+</div>

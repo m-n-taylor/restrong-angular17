@@ -1,0 +1,79 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Write Review Modal -->
+<div class="modal write-review-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+            <page-loader *ngIf="busy" center="parent"></page-loader>
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">Write Review</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+                <div class="rest-details clearfix">
+                    <div *ngIf="pastOrder.RestImageExist" class="rest-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + pastOrder.FileName + ')'}"></div>
+                    <div *ngIf="!pastOrder.RestImageExist" class="rest-cuisine-icon">
+                        <div class="cuisine-icon-{{pastOrder.CuisineID}} custom-cuisine-icon"></div>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rest-name">{{ pastOrder.RestaurantName }}</div>
+                        <div class="item-address c-text2">{{ pastOrder.RestaurantAddress }}</div>
+                    </div>
+                </div>
+
+                <div class="order-item-list">
+                    <div class="order-item" *ngFor="let pastOrderItem of pastOrderItems">
+                        <div class="item-name">{{ pastOrderItem.ItemName }}</div>
+
+                        <div class="customer-rating">
+                            <img class="rating-image" [src]="pastOrderItem.CustomerRating >= 1 ? activeReviewIcon : inActiveReviewIcon" (click)="setRating(pastOrderItem, 1)" />
+                            <img class="rating-image" [src]="pastOrderItem.CustomerRating >= 2 ? activeReviewIcon : inActiveReviewIcon" (click)="setRating(pastOrderItem, 2)" />
+                            <img class="rating-image" [src]="pastOrderItem.CustomerRating >= 3 ? activeReviewIcon : inActiveReviewIcon" (click)="setRating(pastOrderItem, 3)" />
+                            <img class="rating-image" [src]="pastOrderItem.CustomerRating >= 4 ? activeReviewIcon : inActiveReviewIcon" (click)="setRating(pastOrderItem, 4)" />
+                            <img class="rating-image" [src]="pastOrderItem.CustomerRating >= 5 ? activeReviewIcon : inActiveReviewIcon" (click)="setRating(pastOrderItem, 5)" />
+                            <span class="customer-rating-text">{{ getForkRatingText(pastOrderItem) }}</span>
+                        </div>
+                        <div class="customer-comment">
+                            <textarea class="form-control" name="comment" [(ngModel)]="pastOrderItem.CustomerComment" (ngModelChange)="onCustomerCommentChange()" cols="30" rows="3"></textarea>
+                        </div>
+
+                        <div class="order-images clearfix">
+                            <div class="order-image" *ngFor="let orderImage of pastOrderItem.orderImages; let index = index">
+                                <div *ngIf="!orderImage.exist" class="add-photo-icon no-photo" ng-click="vm.uploadImage(pastOrderItem, index)">
+                                    <input class="order-image-file" type="file" (change)="uploadReviewImage(pastOrderItem, reviewImageInput, index)" #reviewImageInput />
+                                </div>
+                                <div *ngIf="orderImage.exist" class="custom-photo" [ngStyle]="{'background-image': 'url(' + orderImage.URL + ')'}">
+                                    <div class="custom-photo-close">
+                                        <div class="close-3-white-icon custom-icon" (click)="deleteReviewImage(pastOrderItem, index)"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- ng-click="vm.updateImage(pastOrderItem, index)" -->
+
+                        <!-- <div class="customer-images clearfix">
+                            <div *ngFor="let image of pastOrderItem.CustomerMenuItemUploads" class="customer-image">
+                                <img [src]="image.URL" />
+                            </div>
+                        </div> -->
+
+                        <!-- <label class="file-upload-label">
+                            <input type="file" (change)="uploadReviewImage(pastOrderItem, reviewImageInput)" #reviewImageInput />
+                            <span>Upload</span>
+                        </label> -->
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button [ladda]="busySubmitReview" type="button" class="btn btn-primary" (click)="submitReview()">Save</button>
+                    <button type="button" class="btn btn-primary btn-inverse" (click)="close()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

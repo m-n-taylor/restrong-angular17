@@ -1,0 +1,78 @@
+import { Component, ChangeDetectionStrategy, ViewEncapsulation, PLATFORM_ID, Inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { isPlatformBrowser } from '@angular/common';
+
+// Shared Helpers
+import { Util } from '../../shared/util';
+import { Constants } from '../../shared/constants';
+
+// // Shared Models
+import { UserAddress } from '../../shared/models/user-address';
+import { QueryParams } from '../../shared/models/query-params';
+
+// // Shared Services
+import { EventsService } from '../../shared/services/events.service';
+import { SharedDataService } from '../../shared/services/shared-data.service';
+
+declare var google, window;
+
+@Component({
+  changeDetection: ChangeDetectionStrategy.Default,
+  encapsulation: ViewEncapsulation.Emulated,
+  selector: 'home',
+  templateUrl: './home.component.html'
+})
+export class HomeComponent {
+  serviceType: string;
+  autocomplete: any;
+  queryParams = new QueryParams();
+  yourAdressText = '';
+
+  constructor( @Inject(PLATFORM_ID) private platformId: Object, private router: Router, public constants: Constants, private sharedDataService: SharedDataService, private eventsService: EventsService) {
+
+    this.serviceType = this.constants.SERVICE_TYPE_DELIVERY;
+
+  }
+
+  ngOnInit() {
+    Util.log('ngOnInit', this.platformId);
+
+    if (isPlatformBrowser(this.platformId)) {
+
+      if (Util.isDefined(this.sharedDataService.userAddress))
+        this.yourAdressText = this.sharedDataService.userAddress.Address;
+
+      this.initAutoCompleteLocation();
+    }
+  }
+
+  
+
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  // geolocate = () => {
+  //   if (navigator.geolocation) {
+  //     Util.log('geolocate()');
+
+  //     navigator.geolocation.getCurrentPosition((position) => {
+
+  //       var geolocation = {
+  //         lat: position.coords.latitude,
+  //         lng: position.coords.longitude
+  //       };
+
+  //       var circle = new google.maps.Circle({
+  //         center: geolocation,
+  //         radius: position.coords.accuracy
+  //       });
+
+  //       Util.log('autocomplete.setBounds()', circle.getBounds());
+
+  //       this.autocomplete.setBounds(circle.getBounds());
+  //     });
+  //   }
+  // }
+
+  
+
+}

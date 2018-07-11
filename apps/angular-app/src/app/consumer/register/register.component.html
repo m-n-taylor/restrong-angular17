@@ -1,0 +1,120 @@
+<div class="page register-page">
+
+    <div *ngIf="!sharedDataService.isPlatform" class="header-logo-section">
+        <img class="brand-logo" src="img/shared/brand-logo.svg" alt="">
+    </div>
+
+    <page-loader center="page" *ngIf="busy"></page-loader>
+
+    <div>
+        <div class="register-section-wrapper">
+
+            <div class="register-section">
+                <div class="register-section-label">Signup</div>
+
+                <div class="register-progress-wrapper">
+                    <div class="register-progress-line" [ngStyle]="{ 'width': (stepProgress + '%') }"></div>
+                </div>
+
+                <div class="register-form">
+
+                    <form #formStep1="ngForm" (ngSubmit)="formStep1.valid && submitForm1(formStep1)">
+
+                        <div [hidden]="step != 1">
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep1, FirstName) }">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" required #FirstName="ngModel" name="FirstName" [(ngModel)]="user.FirstName">
+
+                                <validation-messages [form]="formStep1" [input]="FirstName" label="First name"></validation-messages>
+                            </div>
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep1, LastName) }">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" required #LastName="ngModel" name="LastName" [(ngModel)]="user.LastName">
+
+                                <validation-messages [form]="formStep1" [input]="LastName" label="Last name"></validation-messages>
+                            </div>
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep1, Phone) }">
+                                <label>Phone</label>
+                                <input type="text" class="form-control" required mValidPhone #Phone="ngModel" name="Phone" [(ngModel)]="user.Phone">
+
+                                <validation-messages [form]="formStep1" [input]="Phone" label="Phone"></validation-messages>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-success btn-block btn-xlg next-btn">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form #formStep2="ngForm" (ngSubmit)="formStep2.valid && submitForm2(formStep2)">
+
+                        <div [hidden]="step != 2">
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep2, Email) }">
+                                <label>Email</label>
+                                <input type="email" class="form-control" required mValidateEqual="ConfirmEmail" reverse="true" mValidEmail #Email="ngModel" name="Email" [(ngModel)]="user.Email">
+
+                                <validation-messages [form]="formStep2" [input]="Email" label="Email" labelEqual="Confirm Email"></validation-messages>
+                            </div>
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep2, ConfirmEmail) }">
+                                <label>Confirm Email</label>
+                                <input type="email" class="form-control" required mValidateEqual="Email" mValidEmail #ConfirmEmail="ngModel" name="ConfirmEmail" [(ngModel)]="user.ConfirmEmail">
+
+                                <validation-messages [form]="formStep2" [input]="ConfirmEmail" label="Confirm Email" labelEqual="Email"></validation-messages>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-success btn-block btn-xlg next-btn">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form #formStep3="ngForm" (ngSubmit)="formStep3.valid && submitForm3(formStep3)">
+
+                        <div [hidden]="step != 3">
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep3, Password) }">
+                                <label>Password</label>
+                                <input type="password" class="form-control" required mValidateEqual="ConfirmPassword" reverse="true" mValidPassword #Password="ngModel" name="Password" [(ngModel)]="user.Password">
+
+                                <validation-messages [form]="formStep3" [input]="Password" label="Password" labelEqual="Confirm Password"></validation-messages>
+                            </div>
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep3, ConfirmPassword) }">
+                                <label>Confirm Password</label>
+                                <input type="password" class="form-control" required mValidateEqual="Password" mValidPassword #ConfirmPassword="ngModel" name="ConfirmPassword" [(ngModel)]="user.ConfirmPassword">
+
+                                <validation-messages [form]="formStep3" [input]="ConfirmPassword" label="Confirm Password" labelEqual="Password"></validation-messages>
+                            </div>
+
+                            <div>
+                                <button class="btn btn-success btn-block btn-xlg next-btn">Continue</button>
+                            </div>
+                        </div>
+                    </form>
+
+                    <form #formStep4="ngForm" (ngSubmit)="formStep4.valid && submitForm4(formStep4)">
+
+                        <div [hidden]="step != 4">
+
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(formStep4, SecurityAnswer) }">
+                                <label>{{ user.SecurityQuestion }}</label>
+                                <input type="text" class="form-control" required #SecurityAnswer="ngModel" name="SecurityAnswer" [(ngModel)]="user.SecurityAnswer">
+
+                                <validation-messages [form]="formStep4" [input]="SecurityAnswer" label="Answer"></validation-messages>
+                            </div>
+
+                            <div>
+                                <button [ladda]="busySave" class="btn btn-success btn-block btn-xlg next-btn">Confirm</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,118 @@
+<div class="cr-main-dashboard" [ngClass]="{ 'backoffice-mobile-menu-opened' : sharedDataService.isMobileMenuOpen }">
+
+    <!-- <nav class="navbar main-navbar">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                            <span class="sr-only">Toggle navigation</span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                            <span class="icon-bar"></span>
+                        </button>
+                <a class="navbar-brand" routerLink="/">
+                            <img src="img/shared/brand-logo.svg" alt="">
+                        </a>
+            </div>
+
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a routerLink="/">Home</a></li>
+                    <li><a routerLink="/search">Search</a></li>
+                    <li *ngIf="!userService.loginUser"><a routerLink="/login">Login</a></li>
+
+                    <li *ngIf="userService.loginUser" class="dropdown profile-dropdown" [ngClass]="{ 'active': isOpenProfileDropdown }">
+                        <a class="dropdown-toggle" (click)="toggleProfileDropdown()" (clickOutside)="clickOutsideProfileDropdown($event)">{{ userService.loginUser.FirstName}} {{ userService.loginUser.LastName}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu" [ngClass]="{ 'd-block': isOpenProfileDropdown }">
+                            <li *ngIf="sharedDataService.platformSettings.Enable_Points"><a class="list-item" routerLink="/my-points" (click)="toggleProfileDropdown()">You have {{ userService.loginUser.Points }} pts.</a></li>
+                            <li><a class="list-item" routerLink="/past-orders" (click)="toggleProfileDropdown()">My Orders</a></li>
+                            <li><a class="list-item" routerLink="/settings" (click)="toggleProfileDropdown()">Settings</a></li>
+                            <li><a class="list-item" (click)="logout()">Log Out</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a class="shopping-cart-link" (click)="sharedDataService.toggleShoppingCart()">
+                                    <div [ngClass]="{ 'basket-icon': shoppingCart.totalMenuItems > 0, 'basket-empty-icon': shoppingCart.totalMenuItems == 0 }"></div>
+                                    <div *ngIf="shoppingCart.totalMenuItems > 0" class="shopping-cart-count">{{ shoppingCart.totalMenuItems }}</div>
+                                </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav> -->
+
+    <nav class="navbar navbar-backoffice navbar-style-2">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="sharedDataService.toggleMobileMenu()">
+                    <div class="base-icon toggle-menu-icon"></div>
+                </button>
+
+                <!-- <button type="button" class=""> -->
+                <div class="shopping-cart-link">
+                    <a (click)="sharedDataService.toggleShoppingCart(); closeMobileMenuIfOpen()">
+                        <div *ngIf="shoppingCart.totalMenuItems == 0" class="basket-empty-icon"></div>
+                        <img *ngIf="shoppingCart.totalMenuItems > 0" [src]="cartIcon" />
+                        <div *ngIf="shoppingCart.totalMenuItems > 0" class="shopping-cart-count">{{ shoppingCart.totalMenuItems }}</div>
+                    </a>
+                </div>
+                <!-- </button> -->
+                <a class="navbar-brand" routerLink="/">
+                    <!-- <div class="brand-logo-white-icon"></div> -->
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse" [ngClass]="{ 'collapse' : !sharedDataService.isMobileMenuOpen }">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a routerLink="/">Home</a></li>
+                    <!-- <li><a routerLink="/search">Search</a></li> -->
+                    <li *ngIf="!userService.loginUser"><a routerLink="/login">Login</a></li>
+                    <li *ngIf="userService.loginUser" class="dropdown profile-dropdown" [ngClass]="{ 'open': isOpenProfileDropdown }">
+                        <a class="dropdown-toggle" (click)="toggleProfileDropdown()" [ngClass]="{ 'active': isOpenProfileDropdown }" (clickOutside)="clickOutsideProfileDropdown($event)">{{ userService.loginUser.FirstName}} {{ userService.loginUser.LastName}} <span class="caret"></span></a>
+                        <ul class="dropdown-menu">
+                            <li *ngIf="sharedDataService.platformSettings.Enable_Points"><a class="list-item" routerLink="/my-points" (click)="toggleProfileDropdown()">You have {{ userService.loginUser.Points }} pts.</a></li>
+                            <li><a class="list-item" routerLink="/past-orders" (click)="toggleProfileDropdown()">My Orders</a></li>
+                            <li><a class="list-item" routerLink="/settings" (click)="toggleProfileDropdown()">Settings</a></li>
+                            <li><a class="list-item" (click)="logout()">Log Out</a></li>
+                        </ul>
+                    </li>
+                    <li class="shopping-cart-link">
+                        <a (click)="sharedDataService.toggleShoppingCart(); closeMobileMenuIfOpen()">
+                            <div *ngIf="shoppingCart.totalMenuItems == 0" class="basket-empty-icon"></div>
+                            <img *ngIf="shoppingCart.totalMenuItems > 0" [src]="cartIcon" />
+                            <div *ngIf="shoppingCart.totalMenuItems > 0" class="shopping-cart-count">{{ shoppingCart.totalMenuItems }}</div>
+                        </a>
+                    </li>
+                    <!-- <li class="big-link"><a routerLink="/backoffice">Restaurant Backoffice</a></li> -->
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <router-outlet></router-outlet>
+
+    <page-overlay class="filters-cart-overlay" *ngIf="sharedDataService.isFiltersOpened" (click)="sharedDataService.toggleFiltersOpened()"></page-overlay>
+
+    <!-- [@rightSidebarState]="'in'" -->
+    <div *ngIf="sharedDataService.isFiltersOpened" class="filters-section-wrapper">
+        <filters></filters>
+    </div>
+
+    <available-coupons-modal #availableCouponsModal></available-coupons-modal>
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <page-overlay class="shopping-cart-overlay" *ngIf="sharedDataService.isShoppingCartOpened" (click)="sharedDataService.toggleShoppingCart()"></page-overlay>
+
+    <!-- [@rightSidebarState]="'in'" -->
+    <div *ngIf="sharedDataService.isShoppingCartOpened" class="shopping-cart-section-wrapper">
+        <shopping-cart [availableCouponsModal]="availableCouponsModal" [confirmModal]="confirmModal"></shopping-cart>
+    </div>
+
+    <div *ngIf="!sharedDataService.hideSupportChatWindow && !sharedDataService.hideSupportChatWindowUserSession">
+        <div *ngIf="(!userService.isLoggedIn && sharedDataService.platformSettings.EnableGuestSupportChat) || (userService.isLoggedIn && sharedDataService.platformSettings.EnableLoggedInSupportChat)">
+            <support-chat-box type="TYPE_CUSTOMER" [confirmModal]="confirmModal"></support-chat-box>
+        </div>
+    </div>
+
+</div>

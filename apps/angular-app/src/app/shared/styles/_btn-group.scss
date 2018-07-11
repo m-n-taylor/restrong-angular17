@@ -1,0 +1,31 @@
+.btn-group {
+
+    &.btn-group-style-1 {
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .btn {
+            border-radius: 3px 0 0 3px;
+            background-color: transparent;
+            border: 1px solid white;
+            color: white;
+            font-weight: $lato-regular;
+            font-size: 18px;
+
+            @media (max-width: $screen-xs-max) {
+                width: 100%;
+                border-radius: 0;
+                margin-bottom: 8px;
+            }
+
+            &.active,
+            &:hover {
+                background-color: white;
+                color: $gray;
+            }
+        }
+    }
+}

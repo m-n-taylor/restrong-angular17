@@ -1,0 +1,59 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="settings-page">
+
+    <div class="main-contents">
+        <!-- <page-loader *ngIf="busy"></page-loader> -->
+
+        <div class="row">
+            <div class="col-sm-6">
+
+                <form #form="ngForm" novalidate (ngSubmit)="form.valid && save(form)">
+
+                    <div class="notification-tone-section">
+                        <div class="section-title">
+                            Change Notification Tone
+                        </div>
+
+                        <div class="form-group">
+                            <select name="NotificationTone" class="form-control" [(ngModel)]="selectedNotificationTone" (ngModelChange)="onNotificationToneChanged()">
+                                <option value="-1">Off</option>
+                                <option *ngFor="let item of constants.NOTIFICATION_TONE_LIST" [value]="item.fileName">{{ item.title }}</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="change-password-section">
+                        <div class="change-password-title">
+                            Change Password
+                        </div>
+
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, oldPassword) }">
+                            <label>Current Password</label>
+                            <input type="password" class="form-control" [required]="hasPassword" mValidPassword #oldPassword="ngModel" name="oldPassword" [(ngModel)]="password.old" (ngModelChange)="onPasswordEnter()">
+
+                            <validation-messages [form]="form" [input]="oldPassword" label="Current Password"></validation-messages>
+                        </div>
+
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, newPassword) }">
+                            <label>New Password</label>
+                            <input type="password" class="form-control" [required]="hasPassword" mValidPassword #newPassword="ngModel" name="newPassword" [(ngModel)]="password.new" (ngModelChange)="onPasswordEnter()">
+
+                            <validation-messages [form]="form" [input]="newPassword" label="New Password"></validation-messages>
+                        </div>
+
+                        <div class="change-password-actions">
+                            <button [ladda]="busy" type="submit" class="btn btn-success btn-lg">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+
+            </div>
+        </div>
+
+    </div>
+
+</div>

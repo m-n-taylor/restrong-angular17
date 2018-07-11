@@ -1,0 +1,116 @@
+<div class="page search-page">
+
+    <!--<button class="btn btn-primary" (click)="openRestMapView()" *ngIf="sharedDataService.viewMode == constants.VIEW_MODE_RESTAURANT">Map View</button>-->
+
+    <search-box #searchBoxComponent [queryParams]="queryParams"></search-box>
+
+    <div class="dish-section" *ngIf="sharedDataService.viewMode == constants.VIEW_MODE_DISH" infinite-scroll (scrolled)="loadDishes(true)">
+
+        <div class="section-title">
+            Dish
+        </div>
+
+        <no-result-placeholder *ngIf="dishNoResults" [config]="dishNoResultConfig"></no-result-placeholder>
+
+        <div class="dish-list clearfix">
+            <dish-item *ngFor="let dish of dishes" [dish]="dish" (click)="selectDishItem(dish)"></dish-item>
+        </div>
+
+        <page-loader *ngIf="busyDish"></page-loader>
+
+    </div>
+
+    <div class="rest-section" *ngIf="sharedDataService.viewMode == constants.VIEW_MODE_RESTAURANT" infinite-scroll (scrolled)="loadRestaurants(true)">
+
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="section-title">Restaurants</div>
+            </div>
+            <div class="col-sm-6 action-icons">
+                <a *ngIf="sharedDataService.platformSettings.Enable_Map_View" routerLink="/rest-map-view">
+                    <div class="map-off-icon"></div>
+                </a>
+
+                <div class="view-on-icon cursor-default"></div>
+            </div>
+        </div>
+
+        <no-result-placeholder *ngIf="restNoResults" [config]="restNoResultConfig"></no-result-placeholder>
+
+        <div class="rest-list clearfix">
+            <a *ngFor="let restaurant of restaurants" routerLink="/restaurant/{{replaceSpaceWithDash(restaurant.CuisineName)}}/{{replaceSpaceWithDash(restaurant.RestaurantName)}}-{{replaceSpaceWithDash(restaurant.Address)}}/{{restaurant.FFID}}">
+                <div class="rest-item">
+                    <div class="rest-img">
+                        <div *ngIf="restaurant.RestImageExist" class="rest-cuisine-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + restaurant.RestImage + ')'}"></div>
+                        <div *ngIf="!restaurant.RestImageExist" class="rest-cuisine-icon cuisine-icon-{{restaurant.CuisineID}}"></div>
+                    </div>
+                    <div class="rest-details">
+                        <div class="rest-name text-overflow">{{ restaurant.RestaurantName }}</div>
+                        <div class="yelp-rating">
+                            <div *ngIf="sharedDataService.platformSettings.Enable_Yelp_Rating" class="yelp-icon yelp-icon-0 yelp-icon-{{ restaurant.RestRating }}">&nbsp;</div>
+                            <div *ngIf="sharedDataService.platformSettings.Enable_Yelp_Count" class="yelp-rating-count c-text2">({{ restaurant.RestRatingCount || 0 }})</div>
+                            <img *ngIf="sharedDataService.platformSettings.Enable_Yelp_Rating || sharedDataService.platformSettings.Enable_Yelp_Count" class="yelp-logo" src="img/yelp-logo.svg" alt="">
+                        </div>
+                        <div class="rest-info c-text2">{{ restaurant.CuisineName }} • {{ restaurant.Distance }}mi • {{ restaurant.PriceLevel }}</div>
+                        <div class="rest-eta c-text3">ETA {{ restaurant.ETA }} MIN</div>
+                        <div class="rest-status" [ngClass]="{ 'c-success': restaurant.IsOpen, 'c-primary': !restaurant.IsOpen }">{{ restaurant.IsOpen ? 'Open Now' : (restaurant.Availability || '&nbsp;') }}</div>
+                    </div>
+                </div>
+            </a>
+        </div>
+
+        <page-loader *ngIf="busyRest"></page-loader>
+
+    </div>
+
+    <!--infinite-scroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="500" (scrolled)="loadDishes(true)" -->
+    <!--<div  class="card dish-list" *ngIf="sharedDataService.viewMode == constants.VIEW_MODE_DISH">
+                <div class="dish-item" *ngFor="let dish of dishes" (click)="selectDishItem(dish)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container dish-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{dish.FileName}}" alt="{{ dish.DishName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <div class="dish-title">{{ dish.DishName }} <span class="dish-count">({{ dish.Count }})</span></div>
+                            <div>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Illum libero officia at! Non dolorem
+                                voluptatem minus et quis dolorum, facere quo libero quas cupiditate, rem, provident deleniti
+                                sit eos incidunt.
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busyDish"></div>
+            </div>-->
+    <!--<div class="card rest-list" *ngIf="sharedDataService.viewMode == constants.VIEW_MODE_RESTAURANT">
+                <div class="rest-item" *ngFor="let restaurant of restaurants" (click)="selectRestItem(restaurant)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{restaurant.FileName}}" alt="{{ restaurant.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ restaurant.RestaurantName }}</h3>
+
+                            <div class="rest-status">{{ restaurant.Availability }}</div>
+
+                            <h4>{{ restaurant.MenuItemName }}</h4>
+
+                            <div>{{ restaurant.MenuItemDescription }}</div>
+
+                            <div class="row item-info">
+                                <div class="col-sm-3">Distance: {{ restaurant.Distance }} miles</div>
+                                <div class="col-sm-3">ETA: {{ restaurant.ETA }} miles</div>
+                                <div class="col-sm-3">Delivery Fee: ${{ restaurant.DeliveryCharge }}</div>
+                                <div class="col-sm-3">Min Order: {{ restaurant.MinOrder }} miles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busyRest"></div>
+            </div>-->
+</div>

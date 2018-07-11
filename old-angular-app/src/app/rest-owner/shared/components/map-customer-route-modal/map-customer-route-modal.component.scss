@@ -1,0 +1,79 @@
+.modal.map-customer-route-modal {
+    .left-side {
+        padding-top: 44px;
+
+        .customer-address-label {
+            font-weight: $lato-black;
+        }
+
+        .customer-address-value {
+            margin-top: 13px;
+        }
+
+        .away-rest-section, .arrival-time-section {
+            padding: 19px 24px;
+            border: 1px solid rgba(#455A64, .3);
+            border-radius: 3px;
+
+            .est-title {
+                font-weight: $lato-black;
+                font-size: 32px;
+            }
+        }
+
+        .away-rest-section {
+            margin-top: 42px;
+        }
+
+        .arrival-time-section {
+            margin-top: 24px;
+        }
+
+        .text-success {
+            &.text-clear {
+                margin-left: 8px;
+            }
+        }
+
+        .input-circle-radius {
+            display: inline-block;
+            width: 80px;
+            height: 40px;
+
+            margin-left: 11px;
+            margin-right: 16px;
+        }
+
+        .radio-area {
+            margin-top: 50px;
+        }
+
+        .action-buttons {
+            margin-top: 48px;
+
+            .btn {
+                &:first-child {
+                    margin-right: 24px;
+                }
+            }
+        }
+    }
+
+    .right-side {
+        
+        @media (max-width : $screen-md-max) {
+            margin-top: 20px;
+        }
+
+        #customer-route-map {
+            width: 100%;
+            height: 400px;
+        }
+    }
+
+    .close-btn {
+        @media (min-width : $screen-lg-min) {
+            max-width: 300px;
+        }
+    }
+}

@@ -1,0 +1,387 @@
+<page-loader center="page" *ngIf="!isBrowser"></page-loader>
+
+<div>
+
+    <opera-modal #operaModal></opera-modal>
+
+    <div class="signup-page">
+
+        <div class="header-logo-section">
+            <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus"></a>
+        </div>
+
+        <div [hidden]="!isBrowser">
+
+            <div class="reg-restaurant-section">
+                <div class="reg-rest-title">Register Your Restaurant</div>
+                <div class="reg-rest-subtitle">Get started with Menus for free</div>
+            </div>
+
+            <div class="container-fluid">
+
+                <div class="row">
+                    <div class="col-md-offset-3 col-md-6">
+                        <div class="signup-section">
+
+                            <div class="progress-text-section">
+
+                                <div class="row">
+                                    <div class="col-xs-4">
+                                        <div class="progress-text text-left">Find</div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="progress-text text-center">Register</div>
+                                    </div>
+                                    <div class="col-xs-4">
+                                        <div class="progress-text text-right">Finish</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="progress-bar-section">
+                                <div class="progress-bar-bg"></div>
+                                <div class="progress-bar-bg-active" [ngStyle]="{ 'width': progressWidth + '%' }"></div>
+
+                                <div class="row">
+                                    <div class="col-xs-4 text-left">
+                                        <div class="progress-knob progress-knob-1 active"></div>
+                                    </div>
+                                    <div class="col-xs-4 text-center">
+                                        <div class="progress-knob progress-knob-2" [ngClass]="{ 'active': progressWidth >= 50 }"></div>
+                                    </div>
+                                    <div class="col-xs-4 text-right">
+                                        <div class="progress-knob progress-knob-3" [ngClass]="{ 'active': progressWidth >= 100 }"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <!-- Section 1 START -->
+                            <form id="signup-form" #zipCodeForm="ngForm" novalidate (ngSubmit)="zipCodeForm.valid && continueStepZipCode()">
+
+                                <div *ngIf="step == STEP_ZIPCODE" class="zip-code-section">
+
+                                    <div class="form-group zip-code-input" [ngClass]="{ 'has-error': input.hasError(zipCodeForm, zipCode1) }">
+                                        <label>Please enter your ZIP Code</label>
+                                        <input type="text" class="form-control" required mValidZipCode #zipCode1="ngModel" name="zipCode1" [(ngModel)]="zipCode"
+                                        />
+
+                                        <validation-messages [form]="zipCodeForm" [input]="zipCode1" label="Zip Code"></validation-messages>
+                                    </div>
+
+
+                                    <div class="continue-btn-section">
+                                        <button class="btn btn-success btn-block btn-xlg" type="submit">Continue</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section 1 END -->
+
+                            <!-- Section 2 START -->
+                            <form #restNameForm="ngForm" novalidate autocomplete="off" (ngSubmit)="restNameForm.valid && continueStepRestList()">
+
+                                <div *ngIf="step == STEP_REST_LIST" class="rest-name-section">
+
+                                    <div class="form-group rest-name-input" [ngClass]="{ 'has-error': input.hasError(restNameForm, restName1) }">
+                                        <label>Please enter your restaurant name</label>
+                                        <input type="text" class="form-control" required #restName1="ngModel" name="restName1" [(ngModel)]="restName" (ngModelChange)="searchRestTextChange()"
+                                            (focus)="searchRest()" (blur)="restNameBlur()">
+
+                                        <validation-messages [form]="restNameForm" [input]="restName1" label="Restaurant name"></validation-messages>
+                                    </div>
+
+                                    <div *ngIf="showRestAutoComplete" class="rest-auto-complete-list">
+
+                                        <!--<div *ngIf="!busyAutoComplete && !restList.length" class="no-record">
+                    No Records to display
+                  </div>-->
+
+                                        <div *ngIf="busyAutoComplete">
+                                            <page-loader></page-loader>
+                                        </div>
+
+                                        <div *ngIf="!busyAutoComplete" class="auto-complete-item-wrapper">
+
+                                            <div class="auto-complete-item" *ngFor="let item of restList" (click)="chooseRest(item)">
+                                                <div class="rest-name">{{ item.Name }}</div>
+                                                <div class="rest-address">
+                                                    {{ item.Address_1 }}<span *ngIf="item.Address_2"> {{ item.Address_2 }}</span>,
+                                                    {{ item.City }}, {{ item.State }} {{ item.ZipCode }}
+                                                </div>
+                                            </div>
+
+                                            <div class="auto-complete-item create-new" (click)="restNotInList()">
+                                                Create New Restaurant
+                                            </div>
+
+                                        </div>
+
+                                    </div>
+
+                                    <div class="continue-btn-section">
+                                        <button class="btn btn-success btn-block btn-xlg" type="submit" [disabled]="!selectedRest">Continue</button>
+                                    </div>
+
+                                    <div class="my-rest-not-found-btn">
+                                        <button class="btn btn-success btn-inverse btn-block btn-xlg" type="button" (click)="restNotInList()">Can't find your restaurant?</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section 2 END -->
+
+                            <!-- Section 3 START -->
+                            <form #newRestForm="ngForm" novalidate (ngSubmit)="newRestForm.valid && continueStepNewRest()">
+
+                                <div *ngIf="step == STEP_NEW_REST">
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestName) }">
+                                        <label>Restaurant Name</label>
+                                        <input type="text" class="form-control" required #newRestName="ngModel" name="newRestName" [(ngModel)]="newRest.Name">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestName" label="Restaurant name"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestAddress) }">
+                                        <label>Address</label>
+                                        <input type="text" class="form-control" required #newRestAddress="ngModel" name="newRestAddress" [(ngModel)]="newRest.Address_1">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestAddress" label="Address"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestZipCode) }">
+                                        <label>Zip Code</label>
+                                        <input type="text" class="form-control" required #newRestZipCode="ngModel" mValidZipCode name="newRestZipCode" [(ngModel)]="newRest.ZipCode">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestZipCode" label="Zip Code"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestCName) }">
+                                        <label>Name</label>
+                                        <input type="text" class="form-control" required #newRestCName="ngModel" name="newRestCName" [(ngModel)]="newRest.customerName">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestCName" label="Name"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestCTitle) }">
+                                        <label>Title</label>
+                                        <!-- #newRestCTitle="ngModel"   [(ngModel)]="newRest.customerTitle" -->
+                                        <input type="text" class="form-control" required name="newRestCTitle">
+                                        <!-- [input]="newRestCTitle" -->
+                                        <validation-messages [form]="newRestForm"  label="Title"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestEmail) }">
+                                        <label>Email</label>
+                                        <input type="email" class="form-control" required mValidEmail #newRestEmail="ngModel" name="newRestEmail" [(ngModel)]="newRest.Email">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestEmail" label="Email"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newRestForm, newRestPhone) }">
+                                        <label>Phone</label>
+                                        <input type="text" class="form-control" required #newRestPhone="ngModel" mValidPhone name="newRestPhone" [(ngModel)]="newRest.Phone">
+
+                                        <validation-messages [form]="newRestForm" [input]="newRestPhone" label="Phone"></validation-messages>
+                                    </div>
+
+                                    <div class="continue-btn-section">
+                                        <button class="btn btn-success btn-block btn-xlg" type="submit" [disabled]="busy">Continue</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section 3 END -->
+
+                            <!-- Section 4 START -->
+                            <form #emailForm="ngForm" novalidate (ngSubmit)="emailForm.valid && continueStepEmail()">
+
+                                <div *ngIf="step == STEP_EMAIL">
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(emailForm, ownerEmailRef) }">
+                                        <label>Please enter your email address</label>
+                                        <input type="email" class="form-control" required mValidEmail #ownerEmailRef="ngModel" name="ownerEmail" [(ngModel)]="ownerEmail">
+
+                                        <validation-messages [form]="emailForm" [input]="ownerEmailRef" label="Email"></validation-messages>
+                                    </div>
+
+                                    <div class="checkbox">
+                                        <label>
+                                            <input type="checkbox" name="opera" [(ngModel)]="opera"/>
+                                            <span class="icon"></span>
+                                            <span class="text">Signup for </span>
+                                        </label>
+                                        <span class="text-success opera-link" (click)="openOperaModal()">OPERA</span>
+                                    </div>
+
+                                    <div class="continue-btn-section">
+                                        <button [ladda]="busyVerifyEmail" class="btn btn-success btn-block btn-xlg" type="submit">Continue</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section 4 END -->
+
+                            <!-- Section 5 START -->
+                            <div *ngIf="step == STEP_VERIFY_PHONE" class="verify-phone-section">
+
+                                <!--<div class="form-group input-container">
+                <label>Please Verify if this your phone number</label>
+                <input type="text" class="form-control" name="restPhone" [ngModel]="restPhone" disabled>
+              </div>-->
+                                <div>Please Verify if this your phone number</div>
+
+                                <div class="verify-phone-number">{{ restPhone }}</div>
+
+                                <google-recaptcha (setVerified)="captchaVerified($event)" [siteKey]="constants.RECAPTCHA_SITE_KEY"></google-recaptcha>
+
+                                <div class="call-customer-service-text">
+                                    Call restaurant customer service if you have not received a call {{ sharedDataService.globalSettings.CustomerService.Phone }}
+                                </div>
+
+                                <div class="continue-btn-section">
+                                    <button [ladda]="busyRegSelectedRest" class="btn btn-success btn-block btn-xlg" type="button" (click)="continueStepVerifyPhone()"
+                                        [disabled]="!isCaptchaVerified">Continue</button>
+                                </div>
+
+                            </div>
+                            <!-- Section 5 END -->
+
+                            <!-- Section 6 START -->
+                            <form #verifyCodeForm="ngForm" novalidate (ngSubmit)="verifyCodeForm.valid && continueStepVerifyCode(verifyCodeForm)">
+
+                                <div *ngIf="step == STEP_VERIFY_CODE">
+
+                                    <div class="form-group input-container verification-code-input" [ngClass]="{ 'has-error': input.hasError(verifyCodeForm, verifyCodeRef) }">
+                                        <label>Please enter your verification code</label>
+                                        <input type="text" class="form-control" required #verifyCodeRef="ngModel" name="verifyCode" [(ngModel)]="verifyCode">
+
+                                        <validation-messages [form]="verifyCodeForm" [input]="verifyCodeRef" label="Verification Code"></validation-messages>
+                                    </div>
+                                    <div class="input-container">
+                                        Call restaurant customer service if you have not received a call {{ sharedDataService.globalSettings.CustomerService.Phone }}
+                                    </div>
+
+                                    <div class="resend-code-btn-section">
+                                        <button class="btn btn-success btn-inverse btn-block btn-xlg" type="button" (click)="resendCode()">Resend Code</button>
+                                    </div>
+
+                                    <div class="continue-btn-section">
+                                        <button class="btn btn-success btn-block btn-xlg" type="submit">Continue</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section 6 END -->
+
+                            <!-- Section SET Password START -->
+                            <form #newPasswordForm="ngForm" novalidate (ngSubmit)="newPasswordForm.valid && continueStepNewPassword()">
+
+                                <div *ngIf="step == STEP_SET_PASSWORD">
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newPasswordForm, newPasswordRef) }">
+                                        <label>Password</label>
+                                        <input type="password" class="form-control" required mValidateEqual="newConfirmPassword" reverse="true" mValidPassword #newPasswordRef="ngModel"
+                                            name="newPassword" [(ngModel)]="newPassword">
+
+                                        <validation-messages [form]="newPasswordForm" [input]="newPasswordRef" label="New Password" labelEqual="Confirm Password"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(newPasswordForm, newConfirmPasswordRef) }">
+                                        <label>Confirm Password</label>
+                                        <input type="password" class="form-control" required mValidateEqual="newPassword" #newConfirmPasswordRef="ngModel" name="newConfirmPassword"
+                                            [(ngModel)]="newConfirmPassword">
+
+                                        <validation-messages [form]="newPasswordForm" [input]="newConfirmPasswordRef" label="Confirm Password" labelEqual="Password"></validation-messages>
+                                    </div>
+
+                                    <div class="continue-btn-section">
+                                        <button class="btn btn-success btn-block btn-xlg" type="submit" [disabled]="busy">Continue</button>
+                                    </div>
+
+                                </div>
+
+                            </form>
+                            <!-- Section SET Password END -->
+
+                            <!-- Section 7 START -->
+                            <div *ngIf="step == STEP_SUCCESS">
+
+                                <div class="success-section">
+                                    <div class="success-icon"></div>
+                                    <div class="success-section-title">Success!</div>
+                                    <div class="success-section-subtitle">Let's continue to your dashboard.</div>
+                                </div>
+
+                                <div class="continue-btn-section">
+                                    <button class="btn btn-success btn-block btn-xlg" (click)="continueStepSuccess()">Continue</button>
+                                </div>
+
+                            </div>
+                            <!-- Section 7 END -->
+
+                            <!-- Section Sent Email START -->
+                            <div *ngIf="step == STEP_SENT_EMAIL">
+
+                                <div class="success-section">
+                                    <div class="success-section-title">Success</div>
+                                    <div class="success-section-subtitle">We received your request. We will get back to you in 24 hours.</div>
+                                </div>
+
+                                <div class="continue-btn-section">
+                                    <button class="btn btn-success btn-block btn-xlg" (click)="continueStepSentEmail()">Continue</button>
+                                </div>
+
+                            </div>
+                            <!-- Section Sent Email END -->
+
+                            <!-- Section Verify Email START -->
+                            <div *ngIf="step == STEP_VERIFY_EMAIL">
+
+                                <div class="success-section">
+                                    <div class="success-section-title">Verify your email</div>
+                                    <div class="success-section-subtitle">We have sent you an email. Please click on the link that is provided in the email to
+                                        continue.</div>
+                                </div>
+
+                            </div>
+                            <!-- Section Verify Email END -->
+
+                            <!-- Section Error START -->
+                            <div *ngIf="step == STEP_ERROR_LINK">
+
+                                <div class="success-section">
+                                    <div class="success-section-title">Error</div>
+                                    <div class="success-section-subtitle">The link you opened in not valid. Please open correct link from email.</div>
+                                </div>
+
+                            </div>
+                            <!-- Section Error END -->
+
+                            <page-loader *ngIf="busy"></page-loader>
+
+                        </div>
+                    </div>
+
+                    <div class="col-md-3">
+                        <div class="customer-service-section">
+                            <div>Restaurant Customer service</div>
+                            <div class="phone-number">
+                                <div class="phone-icon"></div> {{ sharedDataService.globalSettings.CustomerService?.Phone }}</div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </div>
+
+</div>

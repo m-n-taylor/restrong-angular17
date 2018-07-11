@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>restaurant-map</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="12" cy="12" r="12"></circle>
+        <filter x="-39.6%" y="-31.2%" width="179.2%" height="179.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feMorphology radius="4" operator="dilate" in="SourceAlpha" result="shadowSpreadOuter1"></feMorphology>
+            <feOffset dx="0" dy="2" in="shadowSpreadOuter1" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feComposite in="shadowBlurOuter1" in2="SourceAlpha" operator="out" result="shadowBlurOuter1"></feComposite>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="restaurant-map">
+            <g id="Group-3" transform="translate(8.000000, 8.000000)">
+                <g id="Oval-2-Copy-7">
+                    <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                    <use fill="#F96C30" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <circle stroke="#FFFFFF" stroke-width="4" cx="12" cy="12" r="14"></circle>
+                </g>
+                <path d="M15,15.2047093 C15,15.850324 14.7152681,16.4125217 14.2235614,16.725016 L13.2929686,17.3078397 C13.0601504,17.4536826 12.9053161,17.7243771 12.9309329,18.1409145 L13.1632977,24 L10.8362489,24 L11.0432236,18.1409145 C11.0688404,17.7243771 10.9137794,17.4743087 10.6811879,17.3286484 L9.74991499,16.7248334 C9.25911512,16.4123391 9,15.8713151 9,15.2045268 C9,12.2894953 9.28450523,10.4780506 9.41394945,8.66660582 C9.46563645,8.20863375 9.56901047,8 9.8274455,8 C10.0863339,8 10.1899346,8.20863375 10.2411682,8.66660582 L10.5256735,12.3311125 C10.5775872,12.5391987 10.7324215,12.6850415 10.8879359,12.6850415 C11.0432236,12.6850415 11.1985114,12.5391987 11.2499717,12.3311125 L11.6122341,8.66660582 C11.6376242,8.18746007 11.7672951,8 11.9998867,8 C12.2327049,8 12.3363056,8.18746007 12.3877659,8.66660582 L12.750255,12.3311125 C12.750255,12.5391987 12.9055428,12.6850415 13.0862206,12.6850415 C13.2929686,12.6850415 13.4482563,12.5391987 13.4482563,12.3311125 L13.7583784,8.66660582 C13.7844486,8.20863375 13.9141195,8 14.1723278,8 C14.405146,8 14.5343635,8.20863375 14.5602071,8.66660582 C14.7152681,10.4782331 15,12.2896778 15,15.2047093 Z" id="Shape-Copy-2" fill="#FFFFFF" fill-rule="nonzero"></path>
+            </g>
+        </g>
+    </g>
+</svg>

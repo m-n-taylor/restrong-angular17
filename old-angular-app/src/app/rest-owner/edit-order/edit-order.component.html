@@ -1,0 +1,160 @@
+<div class="sidebar" style="width: 330px;
+    height: calc(100vh - 85px);
+    position: absolute;
+    border: 1px solid red;
+    left: 0;
+    z-index: 1;
+    background: white;
+    padding: 24px;
+    ">
+
+    <menu-item-options *ngIf="selectedMenuItem" [menuItem]="selectedMenuItem" [fireFlyID]="fireFlyID"></menu-item-options>
+
+</div>
+
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="order-details-page">
+
+    <div class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> Order 123123123
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix" style="margin-top: 50px;">
+
+            <div class="cart-rest-list">
+                <div class="rest-item">
+                    <div class="menu-item" *ngFor="let item of order.MenuDetail">
+                        <div class="clearfix">
+                            <div class="menu-item-name">
+                                {{ item.ItemName }}
+                            </div>
+
+                            <div class="menu-item-qty-section noselect">
+                                <div class="menu-item-qty">
+                                    <div class="qty-minus">
+                                        <div class="close-icon"></div>
+                                    </div>
+                                    <div class="qty-value">{{ item.Qty }}</div>
+                                    <div class="qty-plus">
+                                        <div class="open-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="menu-item-price">
+                                {{ item.Price | currency:'USD':true }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rest-price-info">
+
+                        <div class="sub-total">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">Subtotal</div>
+                                <div class="col-sm-6 right-text">$20</div>
+                            </div>
+                        </div>
+
+                        <div class="delivery-total">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">Delivery</div>
+                                <div class="col-sm-6 right-text">$4</div>
+                            </div>
+                        </div>
+
+                        <div class="tax-total">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">Tax</div>
+                                <div class="col-sm-6 right-text">$9</div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix driver-tip-total">
+                            <div class="tip-label">Driver Tip</div>
+                            <div class="tip-range">
+                                <div class="tip-range-container">
+                                    <div class="range-fill range-fill-active" style="left: 0;" [ngStyle]="{ 'width': '10%' }"></div>
+                                    <input class="custom-range-slider" style="padding-right: 0;" type="range" min="0" max="20" step="1">
+                                </div>
+                            </div>
+                            <div class="tip-percent">50%</div>
+                            <div class="tip-value">$20</div>
+                        </div>
+
+                        <div class="service-fee-total">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">Service Fee</div>
+                                <div class="col-sm-6 right-text">$5</div>
+                            </div>
+                        </div>
+
+                        <div class="full-total">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">Total</div>
+                                <div class="col-sm-6 right-text">$10</div>
+                            </div>
+                        </div>
+
+                        <div class="eta-time">
+                            <div class="row">
+                                <div class="col-sm-6 left-text">
+                                    Est. Arrival Time
+                                </div>
+                                <div class="col-sm-6 right-text">123 minutes</div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div class="item-details">
+
+                <!-- Master Heading Tabs -->
+                <ul class="nav nav-pills scrollable master-head-tabs" [hidden]="busy">
+                    <li [ngClass]="{ 'active' : selectedMasterHead.ID == masterHead.ID }" *ngFor="let masterHead of masterHeads; let index = index;"><a (click)="chooseMasterHead(masterHead)">{{ masterHead.Name }}</a></li>
+                </ul>
+
+                <div class="head-list clearfix">
+                    <div class="head-item" [ngClass]="{ 'active' : selectedHead.ID == head.ID }" *ngFor="let head of heads; let index = index;" (click)="chooseHead(head)">
+                        <span>{{ head.Name }}</span>
+                    </div>
+                </div>
+
+                <!-- [ngStyle]="{'background-image': 'url(' + menuItem.FileName + ')'}" -->
+
+                <div class="menu-item-list-section">
+
+                    <page-loader *ngIf="busyMenuItems"></page-loader>
+
+                    <div class="menu-item-list clearfix" [hidden]="busyMenuItems">
+                        <div class="menu-item" *ngFor="let menuItem of menuItems; let index = index;" (click)="chooseMenuItem(menuItem)">
+                            <span class="name">{{ menuItem.Name }}</span>
+                            <span class="price">{{ menuItem.Price | currency:'USD':true }}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="masterhead-list">
+                    <div class="masterhead-item" [ngClass]="{ 'active' : selectedMasterHead.ID == masterHead.ID }" *ngFor="let masterHead of masterHeads; let index = index;" (click)="chooseMasterHead(masterHead)">
+                        <span>{{ masterHead.Name }}</span>
+                    </div>
+                </div> -->
+            </div>
+        </div>
+    </div>
+</div>

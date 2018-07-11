@@ -1,0 +1,28 @@
+.seo-dish-list-page {
+
+    .main-contents {
+
+        padding: 48px 24px;
+        @media (min-width: $screen-sm-min) {
+            padding: 48px;
+        }
+
+        .links-container {
+
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .section-links {
+                margin-top: 13px;
+
+                .section-link {
+                    margin-bottom: 8px;
+                }
+            }
+        }
+
+       
+    }
+}

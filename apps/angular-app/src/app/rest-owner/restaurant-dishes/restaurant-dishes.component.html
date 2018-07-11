@@ -1,0 +1,33 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="restaurant-dishes-page">
+
+    <div *ngIf="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> {{ pageTitle }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [hidden]="busy" class="dish-list">
+
+            <div class="clearfix" infinite-scroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="500" (scrolled)="loadMoreDishes()">
+                <a *ngFor="let dish of dishes">
+                    <dish-item [dish]="dish" (click)="selectDish(dish)"></dish-item>
+                </a>
+            </div>
+
+            <page-loader *ngIf="busyLoadMoreDish"></page-loader>
+
+        </div>
+    </div>
+</div>

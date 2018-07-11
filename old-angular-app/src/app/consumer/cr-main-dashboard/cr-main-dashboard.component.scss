@@ -1,0 +1,38 @@
+.cr-main-dashboard {
+    padding-top: $cr-navbar-height;
+
+    .main-navbar {
+        padding-left: 135px;
+        padding-right: 135px;
+        position: fixed;
+        width: 100%;
+        height: $cr-navbar-height;
+        top: 0;
+        z-index: 1;
+        background-color: white;
+        border-bottom: 1px solid #DBDBDB;
+
+        .navbar-brand {
+            padding: 24px 0;
+        }
+
+        @media (min-width: 768px) {
+            .navbar-nav > li > a {
+                padding-top: 33px;
+                padding-bottom: 33px;
+
+                &.shopping-cart-link {
+                    padding-top: 30px;
+                    padding-bottom: 30px;
+                }
+            }
+        }
+    }
+
+    // Main Dashboard Components
+    @import '../../consumer/home/home.component';
+    @import '../../consumer/menu/menu.component';
+    @import '../../consumer/search/search.component';
+    @import '../../consumer/checkout/checkout.component';
+    @import '../../consumer/restaurant-details/restaurant-details.component';
+}

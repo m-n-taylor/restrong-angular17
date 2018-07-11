@@ -1,0 +1,68 @@
+<div class="seo-cuisine-list-page">
+
+    <div class="header-logo-section">
+        <a routerLink="/"><img class="brand-logo" src="img/shared/brand-logo.svg"></a>
+    </div>
+
+    <div class="main-contents">
+
+        <div class="top-section-container">
+
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb">
+                    <li *ngFor="let item of breadcrumbList; let last = last" class="breadcrumb-item" [ngClass]="{ 'active': last }">
+                        <a *ngIf="!last" routerLink="{{ item.url }}">{{ item.name }}</a>
+                        <span *ngIf="last">{{ item.name }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="links-container">
+                <h1 class="section-title">{{ replaceDashWithSpace(params.city) }}</h1>
+                <h4 class="browse-by-heading">Filter by zip codes</h4>
+
+                <page-loader *ngIf="busyZip"></page-loader>
+
+                <div *ngIf="!busyZip" class="chips-container">
+                    <div class="chips style-2">
+                        <a class="chip-item" *ngFor="let item of city?.ZipInfo; let index = index" [ngClass]="{ 'active': item.Zip == zipcode?.Zip }" routerLink="/city/{{params.city}}/{{item.Zip}}/menu/page/1">{{ item.Zip }}</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="busy-cuisine-dish-container">
+                <page-loader *ngIf="busyCuisineDish"></page-loader>
+            </div>
+
+            <div *ngIf="zipcode && !busyCuisineDish" class="cuisine-list">
+                <h4 class="browse-by-heading">Filter by cuisines (optional)</h4>
+
+                <div class="clearfix">
+                    <a class="cuisine-item" [ngClass]="{'active': item.isSelected }" *ngFor="let item of cuisines; let index = index" routerLink="/city/{{params.city}}/{{zipcode.Zip}}/{{replaceSpaceWithDash(item.Cuisine)}}/page/1">
+                        <div>
+                            <div class="cuisine-icon-{{item.id}} cuisine-img" [ngClass]="{'cuisine-icon-active': item.isSelected }"></div>
+                            <div class="cuisine-name">{{ item.Cuisine }}</div>
+                            <!-- <div class="cuisine-count">({{ item.Count }})</div> -->
+                        </div>
+                    </a>
+                </div>
+
+                <div *ngIf="!busyCuisineDish && cuisines.length == 0">No cuisines available</div>
+            </div>
+        </div>
+
+        <div *ngIf="zipcode && !busyCuisineDish" class="dish-list">
+            <h4 class="browse-by-heading">Browse by dishes</h4>
+
+            <div class="clearfix">
+                <a *ngFor="let dish of dishes" routerLink="/city/{{params.city}}/{{params.zipcode}}/{{cuisineUrl}}/{{replaceSpaceWithDash(dish.DishName)}}/page/1">
+                    <dish-item [dish]="dish"></dish-item>
+                </a>
+            </div>
+
+            <div *ngIf="!busyCuisineDish && dishes.length == 0">No dishes available</div>
+
+            <m-bs-pagination *ngIf="!busyCuisineDish && dishes.length > 0" [baseUrl]="'/city/' + params.city + '/' + params.zipcode + '/' + cuisineUrl" [(page)]="page" [(pageSize)]="pageSize" [totalPages]="totalPages" [totalRows]="totalRows" (valueChange)="loadDishes()"></m-bs-pagination>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,107 @@
+.support-page {
+
+    .faq-title {
+        font-weight: $lato-black;
+        font-size: 32px;
+        margin: 22px 40px 40px;
+
+        @media (max-width : $screen-xs-max) {
+            margin-left: 20px;
+            margin-right: 20px;
+        }
+    }
+
+    .main-contents {
+        padding: 0 40px 100px;
+
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .faq-section {
+            // overflow: hidden;
+
+            .faq-item {
+                padding: 26px 0;
+                border-bottom: 1px solid #DBDBDB;
+
+                .faq-side {
+                    float: left;
+                    width: 64px;
+                    text-align: center;
+                }
+
+                .faq-details {
+                    overflow: hidden;
+
+                    .faq-question {
+                        font-weight: $lato-black;
+                        font-size: 18px;
+                        cursor: pointer;
+                    }
+
+                    .faq-answer {
+                        margin-top: 22px;
+                    }
+                }
+
+                &.collapsed {
+                    
+                    .faq-details {
+                        .faq-answer {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+
+        .support-center-section {
+            padding: 32px;
+            width: 100%;
+            background-color: #263238;
+            border: 1px solid #979797;
+            border-radius: 3px;
+            max-width: 300px;
+            margin-left: auto;
+            margin-right: auto;
+
+            @media (max-width : $screen-sm-max) {
+                margin-top: 50px;
+            }
+
+            .support-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+                color: white;
+                letter-spacing: 0;
+
+                .support-icon {
+                    vertical-align: middle;
+                    margin-right: 16px;
+                }
+            }
+
+            .support-text {
+                margin-top: 14px;
+                color: white;
+            }
+
+            .support-email {
+                margin-top: 35px;
+                color: white;
+            }
+
+            .support-phone {
+                margin-top: 16px;
+                color: white;
+
+                .phone-icon {
+                    vertical-align: middle;
+                    margin-right: 19px;
+                }
+            }
+        }
+    }    
+}

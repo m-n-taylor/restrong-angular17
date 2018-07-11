@@ -1,0 +1,53 @@
+<div [hidden]="!sharedDataService.sideMenu.isOpened && false">
+    <div class="side-menu-overlay" [ngClass]="{ 'opened': sharedDataService.sideMenu.isOpened }" (click)="sharedDataService.toggleSideMenu()"></div>
+</div>
+<div class="side-menu" [ngClass]="{ 'opened': sharedDataService.sideMenu.isOpened }">
+
+    <div class="menus-logo-container">
+        <div class="menus-logo-white-icon"></div>
+    </div>
+
+    <ul class="list-group">
+        <!--<a class="list-group-item item-dashboard" routerLink="/backoffice/dashboard" routerLinkActive="active">
+            <div class="item-icon"></div> Dashboard
+        </a>-->
+        <a *ngIf="userService.isUser" class="list-group-item item-foodbytes" routerLink="/backoffice/food-bytes" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> FoodBytes
+        </a>
+        <a *ngIf="userService.isUser" class="list-group-item item-restaurant" routerLink="/backoffice/manage-restaurant" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Manage Restaurants
+        </a>
+        <a *ngIf="userService.isAdmin" class="list-group-item item-users" routerLink="/backoffice/users" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Users
+        </a>
+        <a *ngIf="userService.isUser" class="list-group-item item-support" routerLink="/backoffice/support" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Support
+        </a>
+        <a *ngIf="userService.isAgent" class="list-group-item item-settings" routerLink="/backoffice/chat" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Chat
+        </a>
+        <a class="list-group-item item-settings" routerLink="/backoffice/settings" routerLinkActive="active" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Settings
+        </a>
+        <a class="list-group-item item-settings visible-xs" (click)="logout()" (click)="sharedDataService.toggleSideMenu('mobile')">
+            <div class="item-icon"></div> Logout
+        </a>
+    </ul>
+</div>
+
+<div class="page-contents" [ngClass]="{ 'has-sidebar': sharedDataService.sideMenu.isOpened }">
+    <div class="main-header">
+        <div class="row">
+            <div class="col-xs-3 col-sm-6">
+                <div class="hamburger-menu-icon" (click)="sharedDataService.toggleSideMenu()"></div>
+            </div>
+            <div class="col-xs-9 col-sm-6 right-side text-overflow">
+                <a class="user-email-link">{{ userService.loginUser?.Email }}</a>
+                <button class="btn btn-success btn-xs logout-btn hidden-xs" (click)="logout()">Logout</button>
+            </div>
+        </div>
+    </div>
+    <confirm-modal #confirmModal></confirm-modal>
+    <router-outlet></router-outlet>
+
+</div>

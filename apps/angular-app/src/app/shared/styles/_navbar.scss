@@ -1,0 +1,300 @@
+/* Navbar */
+
+$navbar-backoffice-height: 80px;
+
+.navbar.navbar-backoffice {
+    z-index: 3;
+    border: none;
+    padding: 0 135px;
+
+    @media (max-width: $screen-sm-max) {
+        padding-left: 36px;
+        padding-right: 36px;
+    }
+
+    .navbar-header {
+
+        .toggle-menu-icon {
+            width: 36px;
+            height: 24px;
+        }
+
+        .navbar-brand {
+            padding: 27px 0 26px;
+            height: auto; // @media (min-width: $screen-sm-min) {
+            //     padding-top: 12px;
+            // }
+        }
+    }
+
+    .navbar-collapse {
+
+        @media (max-width: $screen-xs-max) {
+            position: fixed;
+            left: 0;
+            right: 0;
+            width: 100%;
+            height: 100%;
+            background: white;
+            margin: 0;
+            padding-top: 16px;
+            padding-left: 50px;
+            padding-right: 50px;
+        }
+
+        @media (min-width: $screen-sm-min) {
+            padding: 0;
+        }
+    }
+
+    .navbar-toggle {
+        padding: 0;
+        border: none;
+        margin: 0;
+
+        @media (max-width: $screen-xs-max) {
+            padding-top: 26px; 
+            padding-bottom: 25px;
+        }
+
+        .icon-bar {
+            width: 36px;
+            height: 4px;
+            background-color: white;
+
+            &+.icon-bar {
+                margin-top: 5px;
+            }
+        }
+    }
+
+    .navbar-nav {
+
+        >li {
+            padding-top: 28px;
+            padding-bottom: 28px;
+
+            >a {
+                font-weight: $lato-bold;
+                border: 2px solid transparent;
+                padding: 0 24px;
+
+                @media (max-width: $screen-xs-max) {
+                    font-weight: $lato-bold;
+                    font-size: 24px;
+                    color: #2A3134;
+                    text-align: center; // padding-top: 28px;
+                    // padding-bottom: 28px;
+                }
+            }
+
+            &:hover,
+            &:active,
+            &.active {
+
+                >a {
+                    background-color: transparent;
+                }
+            }
+
+            &.big-link {
+                padding-top: 16px;
+                padding-bottom: 16px;
+                margin-left: 24px;
+                margin-right: 24px;
+
+                >a {
+                    padding: 12px 48px;
+                    /*background-color: $brand-success;
+                    border-color: $brand-success;*/
+                    background-color: $brand-primary;
+                    border-color: $brand-primary;
+                    border-radius: 100px;
+                    color: white;
+                }
+            }
+
+            &.dropdown {
+                .dropdown-menu {
+                    min-width: 224px;
+                    padding-top: 28px;
+                    padding-bottom: 0;
+
+                    &>li {
+
+                        &>a {
+                            padding-top: 18px;
+                            padding-bottom: 18px;
+                        }
+
+                        &:hover {
+
+                            &>a {
+                                background-color: $brand-success;
+                                color: white;
+                            }
+                        }
+                    }
+                }
+            }
+
+            &.last-link {
+                >a {
+                    @media (min-width: $screen-sm-min) {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    &.navbar-style-1 {
+        background-color: $gray;
+
+        .navbar-nav {
+
+            >li {
+
+                >a {
+                    color: white;
+                }
+
+                &:hover,
+                &:active,
+                &.active {
+
+                    >a {
+                        text-decoration: underline;
+                    }
+                }
+            }
+        }
+
+        .navbar-header {
+
+            .navbar-brand {
+
+                .brand-logo-white-icon {
+                    background-image: url('img/shared/brand-logo-white.svg');
+                }
+            }
+
+            .toggle-menu-icon {
+                background-image: url('img/shared/menu-white.svg');
+            }
+        } // padding-top: 0;
+        // padding-bottom: 0;
+        // 
+        // .navbar-header {
+        //     .navbar-brand {
+        //         padding-top: 27px;
+        //         padding-bottom: 26px;
+        //     }
+        //     .toggle-menu-icon {
+        //         background-image: url('img/shared/menu-white.svg');
+        //     }
+        // }
+        // .navbar-nav {
+        //     >li {
+        //         >a {
+        //             color: white; // margin-right: 48px;
+        //             padding: 28px 24px;
+        //         }
+        //         &.big-link {
+        //             >a {
+        //                 border-color: white;
+        //                 border-radius: 100px;
+        //             }
+        //         }
+        //     }
+        // }
+    }
+
+    &.navbar-style-2 {
+        background-color: white;
+
+        .navbar-nav {
+
+            >li {
+
+                >a {
+                    color: $gray;
+                }
+
+                &:hover,
+                &:active,
+                &.active {
+                    background-color: rgba(242, 242, 242, 0.5);
+
+                    >a {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+
+        .navbar-header {
+
+            .navbar-brand {
+
+                .brand-logo-white-icon {
+                    background-image: url('img/shared/brand-logo.svg');
+                }
+            }
+
+            .toggle-menu-icon {
+                background-image: url('img/shared/menu.svg');
+            }
+        }
+    }
+}
+
+.backoffice-mobile-menu-opened {
+
+    @media (max-width: $screen-xs-max) {
+        /* Navbar */
+        .navbar.navbar-backoffice {
+
+            &.navbar-style-1,
+            &.navbar-style-2 {
+                background-color: white;
+
+                .navbar-nav {
+
+                    >li {
+                        >a {
+                            color: $gray;
+                        }
+
+                        &.big-link {
+
+                            >a {
+                                color: white;
+                            }
+                        }
+
+                        // &:hover {
+
+                        //     >a {
+                        //         background-color: transparent;
+                        //     }
+                        // }
+                    }
+                }
+
+                .toggle-menu-icon {
+                    width: 28px;
+                    height: 28px;
+                    background-image: url('img/shared/close-1.svg');
+                }
+
+                .navbar-brand {
+
+                    .brand-logo-white-icon {
+                        background-image: url('img/shared/brand-logo.svg');
+                    }
+                }
+            }
+        }
+    }
+}

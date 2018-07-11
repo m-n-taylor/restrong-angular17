@@ -1,0 +1,82 @@
+<div class="login-page">
+
+    <div class="header-logo-section">
+        <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus"></a>
+    </div>
+
+    <page-loader center="page" *ngIf="busy"></page-loader>
+
+    <page-loader center="page" *ngIf="!isBrowser"></page-loader>
+
+    <div *ngIf="isBrowser" class="login-section-wrapper">
+        <div class="login-section">
+
+            <div class="login-section-label">Please login below</div>
+
+            <form class="login-form" #form="ngForm" novalidate (ngSubmit)="form.valid && login()">
+                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, email) }">
+                    <label>Email</label>
+
+                    <div class="m-input-group has-addon-left">
+                        <div class="m-input-group-addon m-addon-left">
+                            <div class="email-icon cursor-default"></div>
+                        </div>
+
+                        <input type="email" class="form-control" required mValidEmail #email="ngModel" name="email" [(ngModel)]="loginUser.Email"
+                            placeholder="Email">
+                    </div>
+
+                    <validation-messages [form]="form" [input]="email" label="Email"></validation-messages>
+                </div>
+                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, password) }">
+                    <label>Password</label>
+
+                    <div class="m-input-group has-addon-left has-addon-right">
+                        <div class="m-input-group-addon m-addon-left">
+                            <div class="password-icon cursor-default"></div>
+                        </div>
+
+                        <input type="{{ showPassword ? 'text' : 'password' }}" class="form-control" required #password="ngModel" name="password"
+                            [(ngModel)]="loginUser.Password" placeholder="Password">
+
+                        <div class="m-input-group-addon m-addon-right show-password-addon" [ngClass]="{ 'active': showPassword }" (click)="toggleShowPassword()">
+                            <div class="show-password-icon"></div>
+                        </div>
+                    </div>
+
+                    <validation-messages [form]="form" [input]="password" label="Password"></validation-messages>
+                </div>
+
+                <div>
+
+                    <div class="row">
+
+                        <div class="col-sm-6">
+                            <div class="checkbox remember-me">
+                                <label>
+                                    <input type="checkbox"/>
+                                    <span class="icon"></span>
+                                    <span class="text">Remember me</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-6 login-btn-wrapper">
+                            <button type="submit" class="btn btn-success btn-lg login-btn">Login</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="forgot-password-link">
+                    <a routerLink="/backoffice/forgot-password">Forgot your password?</a>
+                </div>
+
+                <div class="login-seprator"></div>
+
+                <div class="signup-btn">
+                    <button class="btn btn-primary btn-lg btn-block signup-btn" (click)="signup()">Sign up</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,139 @@
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div *ngIf="isBrowser && userService.isLoggedIn" class="page checkout-page">
+    <thank-you-order-modal #thankYouOrderModal></thank-you-order-modal>
+    <available-coupons-modal #availableCouponsModal></available-coupons-modal>
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <checkout-confirm-address-modal #checkoutConfirmAddressModal></checkout-confirm-address-modal>
+    <user-address-list-modal #userAddressListModalComponent></user-address-list-modal>
+
+    <div class="row">
+        <div class="col-sm-6">
+            <div class="user-details-section">
+
+                <div class="delivery-address-section">
+                    <div class="section-heading">Delivery Address</div>
+
+                    <div class="delivery-address-map-container">
+                        <div id="delivery-address-map"></div>
+                        <div class="map-marker user-marker active"></div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            {{ sharedDataService.userAddress?.Address }}
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button class="btn btn-success btn-inverse btn-lg" (click)="openUserAddressListModal()">Change</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="delivery-instruction-section">
+                    <div class="section-heading">Delivery Instructions</div>
+
+                    <div class="form-group input-container">
+                        <label>Apartment / Suite #</label>
+                        <input type="text" [(ngModel)]="sharedDataService.aptSuiteNo" class="form-control" placeholder="Enter Here">
+                    </div>
+
+                    <div class="form-group input-container">
+                        <label>Delivery Note</label>
+                        <input type="text" [(ngModel)]="sharedDataService.deliveryNotes" class="form-control" placeholder="Enter your message here">
+                    </div>
+                </div>
+
+                <div class="user-payment-section">
+                    <user-payment-list [(selectedUserPayment)]="selectedUserPayment"></user-payment-list>
+                </div>
+
+                <!-- <div class="complete-order-section">
+                    <button class="btn btn-success" (click)="checkout()">Complete Order</button>
+                </div> -->
+            </div>
+        </div>
+        <div class="col-sm-6">
+            <div class="order-details-section">
+                <div *ngIf="shoppingCart.cartItems.length" class="shopping-cart-section-wrapper">
+                    <shopping-cart [mode]="'MODE_NORMAL'" [availableCouponsModal]="availableCouponsModal" [confirmModal]="confirmModal" (completeOrder)="checkout()"></shopping-cart>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!--<div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <choose-user-payment-modal #chooseUserPaymentModal (modalEvents)="userPaymentsModalEvents($event)"></choose-user-payment-modal>
+
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">Checkout</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div class="card" *ngIf="!busy">
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Apartment Suite</label>
+                            <input [(ngModel)]="sharedDataService.aptSuiteNo" type="text" class="form-control" placeholder="Enter a keyword">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Delivery Note</label>
+                            <input [(ngModel)]="sharedDataService.deliveryNotes" type="text" class="form-control" placeholder="Enter a keyword">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Driver Tip</label>
+                            <input [(ngModel)]="sharedDataService.driverTipPercent" (ngModelChange)="driverTipChanged()" type="text" class="form-control" placeholder="Enter a driver tip">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div>
+                            <div>{{ selectedUserAddress?.Address }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="openUserAddressesModal()">Change Address</button>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div>
+                            <div>{{ selectedUserPayment?.CardHolder }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="openUserPaymentsModal()">Choose Payment</button>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>-->
+</div>

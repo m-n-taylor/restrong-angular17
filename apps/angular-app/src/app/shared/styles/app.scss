@@ -1,0 +1,158 @@
+// 3rd Party
+@import './node_modules/Devices.css/assets/devices.min';
+@import './node_modules/flatpickr/dist/flatpickr.min';
+@import './node_modules/ng2-toastr/bundles/ng2-toastr.min';
+@import "./node_modules/ladda/css/ladda";
+@import "./node_modules/swiper/dist/css/swiper.min";
+@import "./node_modules/quill/dist/quill.snow";
+
+$fa-font-path: "~font-awesome/fonts";
+@import "~font-awesome/scss/font-awesome";
+
+@import '_variables';
+@import "_variables-bootstrap";
+
+@import './node_modules/bootstrap-sass/assets/stylesheets/_bootstrap';
+
+@import '_helpers';
+@import '_global-overrides';
+@import '_icons';
+@import '_yelp-icons';
+@import '_chips';
+@import '_common';
+@import '_cuisines-icons';
+@import '_navbar';
+@import '_social-icons';
+@import '_btn-group';
+@import '_tabs';
+
+// Shared Components
+@import '../components/page-loader/page-loader.component';
+@import '../components/page-overlay/page-overlay.component';
+@import '../components/datetime/datetime.component';
+@import '../components/select/select.component';
+@import '../components/pagination/pagination.component';
+@import '../components/terms-of-use/terms-of-use.component';
+@import '../components/page-not-found/page-not-found.component';
+@import '../components/verify-email/verify-email.component';
+@import '../components/menu-item-options-list/menu-item-options-list.component';
+@import '../components/menu-item/menu-item.component';
+@import '../components/dish-item/dish-item.component';
+@import '../components/site-footer/site-footer.component';
+@import '../components/mobile-device/mobile-device.component';
+@import '../components/macbook-device/macbook-device.component';
+@import '../components/confirm-modal/confirm-modal.component';
+@import '../components/text-editor/text-editor.component';
+@import '../components/support-chat-box/support-chat-box.component';
+
+@import '../../rest-owner/shared/styles/_landing-pages';
+
+.ro-app {
+
+    /* RO Shared Styles */
+    @import '../../rest-owner/shared/styles/_icons';
+    @import '../../rest-owner/shared/styles/_common';
+    @import '../../rest-owner/shared/components/add-user-modal/add-user-modal.component';
+    @import '../../rest-owner/shared/components/order-status-history-modal/order-status-history-modal.component';
+    @import '../../rest-owner/shared/components/rest-contract-modal/rest-contract-modal.component';
+    @import '../../rest-owner/shared/components/opera-modal/opera-modal.component';
+    @import '../../rest-owner/shared/components/save-masterhead-modal/save-masterhead-modal.component';
+    @import '../../rest-owner/shared/components/save-coupon-modal/save-coupon-modal.component';
+    @import '../../rest-owner/shared/components/save-delivery-zone-modal/save-delivery-zone-modal.component';
+    @import '../../rest-owner/shared/components/map-customer-route-modal/map-customer-route-modal.component';
+    @import '../../rest-owner/shared/components/menu-item-preview-modal/menu-item-preview-modal.component';
+    @import '../../rest-owner/shared/components/menu-search-box/menu-search-box.component';
+    @import '../../rest-owner/shared/components/restaurant-menu-preview/restaurant-menu-preview.component';
+    @import '../../rest-owner/shared/components/request-demo/request-demo.component';
+    @import '../../rest-owner/shared/components/restaurant-coupons/restaurant-coupons.component';
+    @import '../../rest-owner/shared/components/restaurant-menu-sense/restaurant-menu-sense.component';
+    @import '../../rest-owner/shared/components/save-schedule-modal/save-schedule-modal.component';
+    @import '../../rest-owner/shared/components/color-picker-modal/color-picker-modal.component';
+
+    /* RO Styles */
+    @import '../../rest-owner/login/login.component';
+    @import '../../rest-owner/signup/signup.component';
+    @import '../../rest-owner/forgot-password/forgot-password.component';
+    @import '../../rest-owner/reset-password/reset-password.component';
+    @import '../../rest-owner/food-bytes/food-bytes.component';
+    @import '../../rest-owner/food-bytes-details/food-bytes-details.component';
+    @import '../../rest-owner/home/home.component';
+    @import '../../rest-owner/pricing/pricing.component';
+    @import '../../rest-owner/dashboard/dashboard.component';
+    @import '../../rest-owner/order-details/order-details.component';
+    @import '../../rest-owner/edit-order/edit-order.component';
+    @import '../../rest-owner/manage-restaurant/manage-restaurant.component';
+    @import '../../rest-owner/edit-restaurant/edit-restaurant.component';
+    @import '../../rest-owner/restaurant-preview/restaurant-preview.component';
+    @import '../../rest-owner/masterhead-details/masterhead-details.component';
+    @import '../../rest-owner/head-details/head-details.component';
+    @import '../../rest-owner/menu-item-details/menu-item-details.component';
+    @import '../../rest-owner/chat/chat.component';
+    @import '../../rest-owner/settings/settings.component';
+    @import '../../rest-owner/support/support.component';
+    @import '../../rest-owner/users/users.component';
+    @import '../../rest-owner/terms-conditions/terms-conditions.component';
+    @import '../../rest-owner/restaurant-menu-items/restaurant-menu-items.component';
+    @import '../../rest-owner/restaurant-dishes/restaurant-dishes.component';
+    @import '../../rest-owner/manage-platform/manage-platform.component';
+}
+
+.cr-app {
+
+    // CR Shared Styles
+    @import '../../consumer/shared/styles/_variables';
+    @import '../../consumer/shared/styles/_global-overrides';
+    @import '../../consumer/shared/styles/_icons';
+    @import '../../consumer/shared/components/filters/filters.component';
+    @import '../../consumer/shared/components/search-box/search-box.component';
+    @import '../../consumer/shared/components/available-coupons-modal/available-coupons-modal.component';
+    @import '../../consumer/shared/components/shopping-cart/shopping-cart.component';
+    @import '../../consumer/shared/components/change-address-modal/change-address-modal.component';
+    @import '../../consumer/shared/components/no-result-placeholder/no-result-placeholder.component';
+    @import '../../consumer/shared/components/menu-item-options-modal/menu-item-options-modal.component';
+    @import '../../consumer/shared/components/profile/profile.component';
+    @import '../../consumer/shared/components/user-address-list/user-address-list.component';
+    @import '../../consumer/shared/components/user-address-list-modal/user-address-list-modal.component';
+    @import '../../consumer/shared/components/user-payment-list/user-payment-list.component';
+    @import '../../consumer/shared/components/save-user-payment-modal/save-user-payment-modal.component';
+    @import '../../consumer/shared/components/map-customer-route-modal/map-customer-route-modal.component';
+    @import '../../consumer/shared/components/checkout-confirm-address-modal/checkout-confirm-address-modal.component';
+    @import '../../consumer/shared/components/write-review-modal/write-review-modal.component';
+    @import '../../consumer/shared/components/thank-you-points-modal/thank-you-points-modal.component';
+    @import '../../consumer/shared/components/thank-you-order-modal/thank-you-order-modal.component';
+
+    /* CR Components */
+    @import '../../consumer/cr-main-dashboard/cr-main-dashboard.component';
+    @import '../../consumer/login/login.component';
+    @import '../../consumer/home/home.component';
+    @import '../../consumer/seo-cuisine-list/seo-cuisine-list.component';
+    @import '../../consumer/seo-dish-list/seo-dish-list.component';
+    @import '../../consumer/seo-menu-item-list/seo-menu-item-list.component';
+    @import '../../consumer/register/register.component';
+    @import '../../consumer/about-us/about-us.component';
+    @import '../../consumer/privacy-policy/privacy-policy.component';
+    @import '../../consumer/return-policy/return-policy.component';
+    @import '../../consumer/profile-orders/profile-orders.component';
+    @import '../../consumer/profile-order-details/profile-order-details.component';
+    @import '../../consumer/profile-order-chat/profile-order-chat.component';
+    @import '../../consumer/profile-settings/profile-settings.component';
+    @import '../../consumer/my-points/my-points.component';
+
+
+    /* Commented bcoz CR module is under development (will use later) */
+    // @import 'cr/_variables';
+    // @import "cr/_variables-bootstrap";
+    // //@import 'cr/_style-css'; not needed
+    // @import 'cr/_menu-css';
+    // @import 'cr/_global-overrides';
+    // @import 'cr/_helpers';
+    // @import 'cr/_common';
+    @import '../../consumer/search/search.component';
+    @import '../../consumer/menu/menu.component';
+    @import '../../consumer/menu-map-view/menu-map-view.component';
+    @import '../../consumer/rest-map-view/rest-map-view.component'; // @import '../../consumer/login/login.component';
+    @import '../../consumer/reset-password/reset-password.component'; // @import '../../consumer/change-password/change-password.component';
+    @import '../../consumer/forgot-password/forgot-password.component';
+    @import '../../consumer/checkout/checkout.component';
+    @import '../../consumer/restaurant-details/restaurant-details.component'; // @import '../../consumer/shared/components/shopping-cart-modal/shopping-cart-modal.component';
+}

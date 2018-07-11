@@ -1,0 +1,155 @@
+.restaurant-menu-sense {
+
+    page-loader {
+
+        .page-loader-container {
+            margin-top: 48px;
+        }
+    }
+
+    .chart-map-section {
+        position: relative;
+
+        #charts-map {
+            height: 322px;
+            width: 100%;
+        }
+
+        /* Map Marker */
+        .chart-map-marker {
+            position: absolute;
+            z-index: 1;
+            height: 28px;
+            width: 28px;
+            cursor: pointer;
+            background-color: #455A64;
+            border: 4px solid #FFFFFF;
+            box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.50);
+            border-radius: 50%;
+
+            top: 50%;
+            left: 50%;
+            margin-left: -14px; // Should be half of element width
+            margin-top: -14px; // Should be half of element height
+        }
+    }
+
+    .rest-map-details {
+        padding: 22px 0;
+        border-bottom: 1px solid #DBDBDB;
+
+        .rest-address-wrapper {
+            padding-top: 5px;
+
+            .restaurant-map-orange-icon {
+                vertical-align: middle;
+                margin-right: 16px;
+                border-radius: 50%;
+            }
+        }
+
+        .rest-cuisine-segment-info {
+            padding-top: 7px;
+
+            @media (max-width: $screen-md-max) {
+                margin-top: 20px;
+                margin-bottom: 20px;
+            }
+
+            @media (min-width: $screen-lg-min) {
+                text-align: right;
+            }
+
+            .cuisine-text {
+                margin-right: 24px;
+            }
+        }
+
+        .chart-proximity-select-wrapper {
+            @media (min-width: $screen-lg-min) {
+                text-align: right;
+            }
+
+            .chart-proximity-select {
+                display: inline-block;
+
+                .form-control {
+                    height: auto;
+                }
+            }
+        }
+    }
+
+    .compare-price-section {
+        padding: 44px 0 38px;
+        border-bottom: 1px solid #DBDBDB;
+
+        .compare-rest-name {
+            font-weight: $lato-black;
+            margin-left: 8px;
+        }
+
+        .price-details {
+            text-align: center;
+
+            .price-value {
+                font-weight: $lato-black;
+                font-size: 32px;
+
+                @media (max-width: $screen-xs-max) {
+                    margin-bottom: 20px;
+                }
+            }
+        }
+    }
+
+    .chart-heading {
+        font-weight: $lato-black;
+        font-size: 18px;
+        margin: 44px 0 43px;
+    }
+
+    .chart-page-size {
+        margin: 39px 0 43px;
+
+        .form-control {
+            height: auto;
+        }
+    }
+
+    .item-compare-chart-wrapper,
+    .missing-menu-chart-wrapper {
+        position: relative;
+        height: 500px;
+    }
+
+    .pie-chart-section {
+        position: relative;
+        height: 240px;
+        width: 240px;
+
+        .chart-label-list {
+            position: absolute;
+            top: 0;
+            right: -150px;
+
+            .chart-label-item {
+                margin-bottom: 16px;
+
+                .bg-color {
+                    width: 16px;
+                    height: 16px;
+                    border-radius: 50%;
+                    display: inline-block;
+                    vertical-align: text-bottom;
+                    margin-right: 8px;
+                }
+            }
+        }
+    }
+
+    .cuisine-type-chart-wrapper {
+        position: relative;
+        height: 500px;
+    }
+}

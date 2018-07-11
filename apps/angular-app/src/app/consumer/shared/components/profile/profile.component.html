@@ -1,0 +1,33 @@
+<div class="page profile-page">
+
+    <div class="main-contents">
+
+        <div class="user-info-section">
+            <div class="user-details-section clearfix">
+                <div class="user-img-wrapper">
+                    <div *ngIf="userService.loginUser?.SocialPicture" class="user-img" [ngStyle]="{'background-image': 'url(' + userService.loginUser?.SocialPicture + ')'}"></div>
+                    <div *ngIf="!userService.loginUser?.SocialPicture" class="placeholder-img"></div>
+                </div>
+                <div class="user-details clearfix">
+                    <div class="user-info">
+                        <div class="user-name">{{ userService.loginUser.FirstName }} {{ userService.loginUser.LastName }}</div>
+                        <div class="user-email c-text2">{{ userService.loginUser.Email }}</div>
+                    </div>
+                    <div class="user-points-wrapper">
+                        <div class="user-points">
+                            <div class="user-points-title">Total points</div>
+                            <div class="user-points-count">{{ userService.loginUser.Points }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div>
+            <ul class="nav nav-pills nav-primary">
+                <li [ngClass]="{'active': activeTab == constants.PROFILE_TAB_ORDERS }"><a routerLink="/past-orders">My Orders</a></li>
+                <li [ngClass]="{'active': activeTab == constants.PROFILE_TAB_SETTINGS }"><a routerLink="/settings">Settings</a></li>
+            </ul>
+        </div>
+    </div>
+</div>

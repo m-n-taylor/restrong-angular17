@@ -1,0 +1,101 @@
+site-footer {
+
+    .site-footer-section {
+        padding: 80px 135px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-top: 45px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-1 {
+
+            @media (max-width: $screen-xs-max) {
+                text-align: center;
+                margin-bottom: 32px;
+            }
+
+            .logo-image-wrapper {
+                position: relative;
+                width: 120px;
+                height: 120px;
+                background-color: #F5F7F7;
+                border: 1px solid #F5F7F7;
+
+                @media (max-width: $screen-xs-max) {
+                    margin: 0 auto;
+                }
+
+                .logo-image {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    max-width: 100%;
+                }
+            }
+
+            .menus-about-text {
+                margin-top: 15px;
+            }
+
+            .social-icons-wrapper {
+                padding-top: 12px;
+
+                .social-icons {
+
+                    a {
+                        color: white !important;
+                    }
+                }
+            }
+        }
+
+        .section-2 {
+            .enter-email-text {
+                margin-top: 15px;
+            }
+            .email-input {
+                margin-top: 16px;
+
+                .input-group-addon {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .section-2,
+        .section-3,
+        .section-4 {
+
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+        }
+
+        .section-3,
+        .section-4 {
+
+            .section-links {
+                margin-top: 13px;
+
+                .section-link {
+                    margin-bottom: 8px;
+                }
+            }
+        }
+
+        &.top-border {
+            border-top: 10px solid #263238;
+        }
+    }
+}

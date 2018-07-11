@@ -1,0 +1,115 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "project": {
+        "name": "Dishzilla"
+    },
+    "apps": [{
+            "root": "src",
+            "outDir": "dist/browser",
+            "assets": [
+                "assets",
+                "img",
+                "favicon.ico",
+                "config.js",
+                "config.json"
+            ],
+            "index": "index.html",
+            "main": "main.ts",
+            "polyfills": "polyfills.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.app.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app2",
+            "styles": [
+                "../node_modules/c-p/color-picker.css",
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        },
+        {
+            "root": "src",
+            "outDir": "dist/server",
+            "assets": [
+                "assets",
+                "img",
+                "favicon.ico",
+                "config.js",
+                "config.json"
+            ],
+            "platform": "server",
+            "index": "index.html",
+            "main": "main.server.ts",
+            "test": "test.ts",
+            "tsconfig": "tsconfig.server.json",
+            "testTsconfig": "tsconfig.spec.json",
+            "prefix": "app2",
+            "styles": [
+                "../node_modules/c-p/color-picker.css",
+                "styles.scss"
+            ],
+            "scripts": [],
+            "environmentSource": "environments/environment.ts",
+            "environments": {
+                "dev": "environments/environment.ts",
+                "prod": "environments/environment.prod.ts"
+            }
+        }
+    ],
+    "e2e": {
+        "protractor": {
+            "config": "./protractor.conf.js"
+        }
+    },
+    "lint": [{
+            "project": "src/tsconfig.app.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "src/tsconfig.spec.json",
+            "exclude": "**/node_modules/**"
+        },
+        {
+            "project": "e2e/tsconfig.e2e.json",
+            "exclude": "**/node_modules/**"
+        }
+    ],
+    "test": {
+        "karma": {
+            "config": "./karma.conf.js"
+        }
+    },
+    "defaults": {
+        "styleExt": "scss",
+        "serve": {
+            "port": 8003
+        },
+        "class": {
+            "spec": false
+        },
+        "component": {
+            "spec": false,
+            "inlineStyle": true,
+            "inlineTemplate": true
+        },
+        "directive": {
+            "spec": false
+        },
+        "guard": {
+            "spec": false
+        },
+        "module": {
+            "spec": false
+        },
+        "pipe": {
+            "spec": false
+        },
+        "service": {
+            "spec": false
+        }
+    }
+}

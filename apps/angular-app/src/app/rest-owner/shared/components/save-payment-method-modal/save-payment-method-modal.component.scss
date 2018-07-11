@@ -1,0 +1,107 @@
+.add-user-modal {
+
+    form {
+        margin-bottom: 0;
+    }
+
+    .main-page-loader {
+        padding: 40px 0;
+    }
+
+    .modal-body {
+        padding-left: 0;
+        padding-right: 0;
+
+        .nav {
+            padding: 0 40px 0;
+
+            @media (max-width : $screen-xs-max) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .associate-rest-count {
+                padding: 4px;
+                border: 1px solid $gray;
+                color: $gray;
+                border-radius: 2px;
+                position: absolute;
+                right: -30px;
+                top: 12px;
+                min-width: 30px;
+                text-align: center;
+
+                &.active {
+                    background: $brand-success;
+                    border-color: $brand-success;
+                    border-radius: 2px;
+                    color: white;
+                }
+
+                &.error {
+                    background: #FA691F;
+                    border-color: #FA691F;
+                    border-radius: 2px;
+                    color: white;
+                }
+            }
+        }
+
+        .profile-tab-pane, .associate-restaurant-tab-pane {
+            padding: 28px 40px 0;
+
+            @media (max-width : $screen-xs-max) {
+                padding-left: 20px;
+                padding-right: 20px;
+            }
+        }
+
+        .associate-restaurant-tab-pane {
+
+            .select-all-wrapper {
+                padding-top: 14px;
+
+                @media (max-width : $screen-xs-max) {
+                    margin-bottom: 24px;
+                }
+            }
+
+            .dishes-list {
+                border: 1px solid #DBDBDB;
+                max-height: 300px;
+                overflow-y: auto;
+
+                .no-records {
+                    text-align: center;
+                    padding: 12px 0;
+                }
+
+                .dish-item {
+
+                    .checkbox {
+                        padding: 12px 18px;
+                        margin: 0;
+                    }
+
+                    &.active {
+                        background: rgba(#33CF79, 0.1);
+                    }
+                }
+            }
+        }
+    } 
+
+    .modal-footer {
+        padding-bottom: 40px;
+
+        .new-user-actions {
+            margin-top: 8px;
+
+            button {
+                &:first-child {
+                    margin-right: 24px;
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,43 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg choose-user-payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Choose a payment method</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div>
+                    <div class="loader" *ngIf="busy"></div>
+
+                    <div class="table-responsive" *ngIf="!busy">
+                        <table class="table">
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th>Card Holder</th>
+                                <th>Card Number</th>
+                                <th>Card Type</th>
+                                <th></th>
+                            </tr>
+                            <tr *ngFor="let userPayment of userPayments; let index = index">
+                                <td>{{ index + 1 }}</td>
+                                <td><img [src]="userPayment.CardTypeImageURL" [alt]="userPayment.CardHolder"></td>
+                                <td>{{ userPayment.CardHolder }}</td>
+                                <td>{{ userPayment.CardNumber }}</td>
+                                <td>{{ userPayment.CardType }}</td>
+                                <td><button class="btn btn-primary" (click)="chooseUserPayment(userPayment)">Choose</button></td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

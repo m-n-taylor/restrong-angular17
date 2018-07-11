@@ -1,0 +1,19 @@
+<div class="privacy-policy-page">
+    <div *ngIf="!sharedDataService.isPlatform" class="header-logo-section">
+        <a routerLink="/"><img class="brand-logo" src="img/shared/brand-logo.svg"></a>
+    </div>
+
+    <div class="main-title-section">
+        <div class="main-title">Privacy Policy</div>
+    </div>
+
+    <div class="main-contents">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="page-text" [innerHTML]="sharedDataService.platformSettings.PrivacyPolicy"></div>
+            </div>
+        </div>
+    </div>
+
+    <site-footer topBorder="true"></site-footer>
+</div>

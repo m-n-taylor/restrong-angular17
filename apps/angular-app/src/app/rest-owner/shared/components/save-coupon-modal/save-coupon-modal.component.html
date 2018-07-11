@@ -1,0 +1,209 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen" (click)="close()"></div>
+
+<!-- Modal -->
+<div class="modal save-coupon-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}">
+    <div class="modal-dialog">
+        <div class="modal-content" (clickOutside)="clickOutside($event)">
+
+            <form #form="ngForm" (ngSubmit)="save($event, form)">
+
+                <div class="modal-header">
+                    <button type="button" class="close" (click)="close()"><div class="delete-icon"></div></button>
+                    <h4 class="modal-title" id="myModalLabel">{{ isNewCoupon ? 'New Coupon' : coupon?.CouponCode }}</h4>
+                </div>
+
+                <div class="modal-body modal-scrollable">
+                    <page-loader *ngIf="busy"></page-loader>
+
+                    <div [hidden]="busy">
+
+                        <!-- Nav tabs -->
+                        <div class="nav-service-types" [ngClass]="{ 'has-error': serviceTypeError }">
+                            <ul class="nav nav-pills scrollable">
+                                <li [ngClass]="{ 'active' : coupon.Delivery, 'disabled' : !rest.ST_Delivery_Enabled || !canUpdateCoupon }" (click)="selectServiceType('Delivery', 'Delivery', rest.ST_Delivery_Enabled)"><a>Delivery</a></li>
+                                <li [ngClass]="{ 'active' : coupon.Pickup, 'disabled' : !rest.ST_Pickup_Enabled || !canUpdateCoupon }" (click)="selectServiceType('Pickup', 'Pickup', rest.ST_Pickup_Enabled)"><a>Pickup</a></li>
+                                <li [ngClass]="{ 'active' : coupon.Catering, 'disabled' : !rest.ST_Catering_Enabled || !canUpdateCoupon }" (click)="selectServiceType('Catering', 'Catering', rest.ST_Catering_Enabled)"><a>Catering</a></li>
+                                <li [ngClass]="{ 'active' : coupon.DiningIn, 'disabled' : !rest.ST_DiningIn_Enabled || !canUpdateCoupon }" (click)="selectServiceType('DiningIn', 'Dine-in', rest.ST_DiningIn_Enabled)"><a>Dine in</a></li>
+                            </ul>
+                            <div *ngIf="serviceTypeError" class="help-block f-bold">Atleast one Service type is required.</div>
+                        </div>
+
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Code) }">
+                            <label>Code</label>
+                            <input type="text" class="form-control" name="Code" required #Code="ngModel" [(ngModel)]="coupon.CouponCode" [disabled]="!canUpdateCoupon"
+                            />
+
+                            <validation-messages [form]="form" [input]="Code" label="Code"></validation-messages>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group input-container">
+                                    <label>Description (optional) (internal only)</label>
+                                    <textarea type="text" name="Description" [(ngModel)]="coupon.Description" rows="4" class="form-control" [disabled]="!canUpdateCoupon"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group input-container">
+                                    <label>Limitation (optional) (internal only)</label>
+                                    <textarea type="text" name="Limitation" [(ngModel)]="coupon.Limitation" rows="4" class="form-control" [disabled]="!canUpdateCoupon"></textarea>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row input-container">
+                            <div class="col-sm-12">
+                                <div class="radio-section">
+                                    <m-radio inline=true text="Always Valid" name="optionsDurationTypeRadios" [(value)]="coupon.DurationType" [defaultValue]=DURATION_TYPE_ALWAYS
+                                        (change)="changeDurationType()" [disabled]="!canUpdateCoupon">
+                                    </m-radio>
+                                    <m-radio inline=true text="Choose Dates / Time" name="optionsDurationTypeRadios" [(value)]="coupon.DurationType" [defaultValue]=DURATION_TYPE_DATE
+                                        (change)="changeDurationType()" [disabled]="!canUpdateCoupon">
+                                    </m-radio>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row input-container" [hidden]="coupon.DurationType != DURATION_TYPE_DATE">
+                            <div class="col-sm-12">
+                                <div>
+                                    <label>Select Dates (optional)</label>
+                                    <m-datetime [(value)]="rangeDate" (valueChange)="validateRangeDate()" [error]="rangeDateError" [options]="DTOptions" [disabled]="coupon.DurationType != DURATION_TYPE_DATE || !canUpdateCoupon"></m-datetime>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row" [hidden]="coupon.DurationType != DURATION_TYPE_DATE">
+                            <div class="col-sm-6">
+                                <div class="input-container">
+                                    <label>Start Time (optional)</label>
+                                    <m-datetime [(value)]="coupon.DailyStartTime" [error]="dailyStartTimeError" [options]="timeDTOptions" [disabled]="coupon.DurationType != DURATION_TYPE_DATE || !canUpdateCoupon"
+                                        (valueChange)="validateDailyTime()"></m-datetime>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="input-container">
+                                    <label>End Time (optional)</label>
+                                    <m-datetime [(value)]="coupon.DailyEndTime" [error]="dailyEndTimeError" [options]="timeDTOptions" [disabled]="coupon.DurationType != DURATION_TYPE_DATE || !canUpdateCoupon"
+                                        (valueChange)="validateDailyTime()"></m-datetime>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row input-container">
+                            <div class="col-sm-12">
+                                <div class="radio-section">
+                                    <m-radio inline=true text="Order Based" name="optionsCouponTypeRadios" [(value)]="coupon.CouponType" [defaultValue]=TYPE_ORDER_BASED
+                                        (change)="changeCouponType()" [disabled]="!canUpdateCoupon">
+                                    </m-radio>
+                                    <m-radio inline=true text="Item Based" name="optionsCouponTypeRadios" [(value)]="coupon.CouponType" [defaultValue]=TYPE_ITEM_BASED
+                                        (change)="changeCouponType()" [disabled]="!canUpdateCoupon">
+                                    </m-radio>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="coupon.CouponType == TYPE_ITEM_BASED" class="row input-container">
+                            <div class="col-sm-12">
+                                <m-select [items]="menuItemList" [error]="menuItemsError" [itemLabelProp]="'Name'" [disabled]="!canUpdateCoupon" multiSelect=true></m-select>
+                            </div>
+                        </div>
+
+                        <div class="row input-container">
+                            <div class="col-sm-12">
+                                <m-checkbox [(value)]="coupon.Is_AllowBundle" text="Bundleable" [disabled]="!canUpdateCoupon"></m-checkbox>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Discount Type</label>
+                                    <select name="DiscountType" [(ngModel)]="coupon.DiscountType" (ngModelChange)="validateDiscount(form)" class="form-control" [disabled]="!canUpdateCoupon || coupon.CouponType == TYPE_ITEM_BASED">
+                                        <option [value]="DISCOUNT_TYPE_PERCENT">Percent</option>
+                                        <option [value]="DISCOUNT_TYPE_AMOUNT" [hidden]="coupon.CouponType == TYPE_ITEM_BASED">Amount</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, DiscountValue) }">
+                                    <label>Discount {{ coupon.DiscountType == DISCOUNT_TYPE_PERCENT ? 'Percent (%)' : 'Amount ($)' }}</label>
+                                    <input type="text" class="form-control" name="DiscountValue" required [gt]="0" number mValidateNumber mMaxDecimalDigits="2" #DiscountValue="ngModel" [(ngModel)]="coupon.DiscountValue" (input)="validateDiscount(form)"
+                                        [disabled]="!canUpdateCoupon" />
+
+                                    <validation-messages [form]="form" [input]="DiscountValue" label="Discount" [valueGT]="0"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="coupon.CouponType == TYPE_ORDER_BASED" class="row input-container">
+                            <div class="col-sm-12">
+                                <div class="radio-section">
+                                    <m-radio inline=true text="Full Discount" name="optionsDiscountCriteriaRadios" [(value)]="coupon.DiscountCriteria" [defaultValue]=constants.DISCOUNT_CRITERIA_FULL
+                                        [disabled]="!canUpdateCoupon" (change)="changeDiscountCriteria()">
+                                    </m-radio>
+                                    <m-radio inline=true text="Incremental Discount" name="optionsDiscountCriteriaRadios" [(value)]="coupon.DiscountCriteria"
+                                        [defaultValue]=constants.DISCOUNT_CRITERIA_INCREMENTAL [disabled]="!canUpdateCoupon" (change)="changeDiscountCriteria()">
+                                    </m-radio>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, MinSubtotal) }">
+                                    <label>Min. Subtotal ($)<span *ngIf="coupon.DiscountCriteria == constants.DISCOUNT_CRITERIA_FULL"> (optional)</span></label>
+                                    <input type="text" class="form-control" name="MinSubtotal" [gt]="0" [required]="requiredMinSubtotal" number mValidateNumber mMaxDecimalDigits="2" #MinSubtotal="ngModel" [(ngModel)]="coupon.MinOrder"
+                                        (input)="validateMinMaxOrder(form)" [disabled]="!canUpdateCoupon" />
+
+                                    <validation-messages [form]="form" [input]="MinSubtotal" label="Min Subtotal" [valueGT]="0"></validation-messages>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div *ngIf="coupon.CouponType != TYPE_ITEM_BASED" class="form-group" [ngClass]="{ 'has-error': input.hasError(form, MaxSubtotal) }">
+                                    <label>Max. Subtotal ($) (optional)</label>
+                                    <input type="text" class="form-control" name="MaxSubtotal" [gt]="0" number mValidateNumber mMaxDecimalDigits="2" #MaxSubtotal="ngModel" [(ngModel)]="coupon.MaxOrder"
+                                        (input)="validateMinMaxOrder(form)" [disabled]="!canUpdateCoupon" />
+
+                                    <validation-messages [form]="form" [input]="MaxSubtotal" label="Max Subtotal" [valueGT]="0"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, TotalCouponsPerCustomer) }">
+                                    <label>Total Coupons (Per Customer) (optional)</label>
+                                    <input type="text" class="form-control" name="TotalCouponsPerCustomer" [gt]="0" digits #TotalCouponsPerCustomer="ngModel"
+                                        [(ngModel)]="coupon.MaxRedeemPerCustomer" />
+
+                                    <validation-messages [form]="form" [input]="TotalCouponsPerCustomer" label="Total Coupons" [valueGT]="0"></validation-messages>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, TotalCoupons) }">
+                                    <label>Total Coupons (optional)</label>
+                                    <input type="text" class="form-control" name="TotalCoupons" [gt]="0" digits #TotalCoupons="ngModel" [(ngModel)]="coupon.MaxRedeem"
+                                    />
+
+                                    <validation-messages [form]="form" [input]="TotalCoupons" label="Total Coupons" [valueGT]="0"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="modal-footer" [hidden]="busy">
+                    <div class="action-buttons">
+                        <button [ladda]="busySave" type="submit" class="btn btn-success">{{ isNewCoupon ? 'Add' : 'Save' }}</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

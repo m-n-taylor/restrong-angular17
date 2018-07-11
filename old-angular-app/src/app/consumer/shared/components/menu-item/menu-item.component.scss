@@ -1,0 +1,324 @@
+menu-item {
+    .menu-item {
+        // display: inline-block;
+        // width: 32%;
+        // margin-right: 1%;
+        // margin-bottom: 30px;
+        padding: 16px;
+        box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+        border-radius: 3px;
+        background-color: white;
+
+        .menu-item-img-container {
+            float: left;
+            margin-right: 16px;
+            
+            .menu-item-img {
+                position: relative;
+                width: 96px;
+                height: 96px;
+                margin: 0 auto;
+                background-color: #F5F7F7;
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    max-width: 100%;
+                }
+            }
+
+            .item-cuisine-icon-parent {
+                background-color: #F5F7F7;
+                padding: 24px;
+
+                .item-cuisine-icon {
+                    width: 48px;
+                    height: 48px;
+                    margin: 0 auto;
+                }
+            }  
+
+            .yelp-rating {
+                margin: 7px 0 12px;
+
+                .yelp-icon {
+                    display: inline-block;
+                    width: 100px;
+                }
+
+                .yelp-logo {
+                    vertical-align: middle;
+                }
+            }
+        }
+
+        .item-details {
+            overflow: hidden;
+        }
+
+        // .menu-item-img-container,
+        // .item-cuisine-icon-container {
+        //     .trending-text {
+        //         display: none;
+        //         background-color: $brand-primary;
+        //         color: white;
+
+        //         padding: 0 5px;
+        //         text-transform: uppercase;
+        //         font-weight: $lato-black;
+        //         font-size: 8px;
+        //         width: 100%;
+        //         text-align: center;
+        //     }
+        // }
+
+        // .menu-item-img-container {
+        //     float: left;
+        //     margin-right: 16px;
+
+        //     .menu-item-img {
+        //         width: 96px;
+        //         height: 96px;
+        //         margin: 0 auto;
+        //         background-size: cover;
+        //         background-repeat: no-repeat;
+        //         background-position: 50%;
+
+        //         @media (max-width: $screen-md-max) {
+        //             width: 64px;
+        //             height: 64px;
+        //         }
+        //     }
+        // }
+
+        .item-cuisine-icon-container {
+            float: left;
+            margin-right: 16px;
+            background-color: #F5F7F7;
+
+            .item-cuisine-icon-parent {
+                padding: 12px; 
+
+                .item-cuisine-icon {
+                    width: 48px;
+                    height: 48px;
+                    margin: 0 auto;
+                }
+            }
+        }
+
+        .menu-item-name {
+            font-weight: $lato-bold;
+            font-size: 14px;
+            letter-spacing: 0;
+            line-height: 20px;
+            float: left;
+            width: 70%;
+        }
+
+        .item-price {
+            font-weight: $lato-black;
+            font-size: 14px;
+            letter-spacing: 0;
+            padding-left: 4px;
+            float: right;
+        }
+
+        .menu-item-desc {
+            font-size: 12px;
+            color: #7C8B92;
+            margin: 4px 0 10px;
+
+            height: 34px;
+            overflow: hidden;
+        }
+
+        .item-actions {
+            text-align: center;
+            border-top: 1px solid #DBDBDB;
+            margin-top: 0;
+            padding-top: 16px;
+
+            .row,
+            .col {
+                padding: 0;
+            }
+        }
+
+        .item-rest-name-container {
+
+            .item-rest-name {
+                width: 100%;
+                font-weight: $lato-bold;
+                font-size: 12px;
+                letter-spacing: 0;
+            }
+
+            .view-menu {
+                float: left;
+                width: 30%;
+                text-align: right;
+
+                opacity: 0.39;
+                font-family: $lato-bold;
+                font-size: 10px;
+            }
+        }
+
+        .item-fees {
+            font-weight: $lato-regular;
+            font-size: 10px;
+            color: #7C8B92;
+            letter-spacing: 0;
+            height: 34px;
+        }
+
+        .item-available {
+            display: none;
+        }
+
+        .view-menu,
+        .more-dishes,
+        .add-to-cart {
+            min-width: auto;
+            width: 96px;
+            height: 24px;
+            font-size: 12px;
+        }
+
+        .view-menu,
+        .more-dishes {
+            color: $gray !important;
+            border: none !important;
+            background: #F5F7F7 !important;
+        }
+
+        .more-dishes {
+            float: left;
+        }
+
+        .more-dishes-placeholder {
+            float: left;
+            width: 96px;
+            height: 24px;
+        }
+
+        .add-to-cart {
+            float: right;
+        }
+
+        .menu-item-more {
+            margin-top: 10px;
+            width: 30px;
+            height: 30px;
+        } // When restaurant is closed
+        &.rest-closed {
+
+            // .menu-item-img-container,
+            // .item-cuisine-icon-container {
+            //     opacity: .5;
+            // }
+
+            .item-rest-name {
+                color: #7C8B92;
+            }
+
+            .item-available {
+                display: block;
+
+                .item-available-status {
+                    font-size: 10px;
+                    color: $brand-primary;
+                    margin-right: 5px;
+                }
+
+                .item-available-text {
+                    font-size: 10px;
+                    color: #7C8B92;
+                }
+            }
+
+            .item-fees {
+                display: none;
+            }
+
+            .item-actions {
+                .more-dishes,
+                .view-menu,
+                .add-to-cart {
+                    color: #7C8B92 !important;
+                    background-color: #F5F7F7 !important;
+                    border-color: #F5F7F7 !important;
+                }
+            }
+        } // When menu item is trending
+        &.item-trending {
+
+            // .menu-item-name, .item-price {
+            //     color: $brand-primary;
+            // }
+            // .menu-item-img-container,
+            // .item-cuisine-icon-container {
+            //     .trending-text {
+            //         margin-top: -20px;
+            //         display: block;
+            //     }
+            // }
+        } // If service type is dine-in
+        &.dine-in {
+            button.more-dishes {
+                float: none;
+            }
+            button.view-menu {
+                float: right;
+                background-color: $brand-success !important;
+                color: white !important;
+            }
+            button.add-to-cart {
+                display: none;
+            }
+            .more-dishes-placeholder {
+                display: block !important;
+            }
+        }
+
+        &.view-only {
+
+            .item-actions {
+                text-align: right;
+            }
+        }
+    }
+
+    .menu-items-pager {
+        //border-top: 1px solid #DBDBDB;
+        text-align: center;
+        margin-left: 24px;
+        margin-right: 24px;
+        padding: 13px 8px;
+
+        .page-no {
+            font-size: 12px;
+            color: #455A64;
+        }
+
+        .left-arrow,
+        .right-arrow {
+            color: #474747;
+        }
+    }
+
+    .menu-item-loader {
+        padding-top: 25px;
+        background-color: white;
+        width: 100%;
+        position: absolute;
+        height: 100%;
+        top: 0;
+        bottom: 0;
+    }
+}

@@ -1,0 +1,40 @@
+<div class="food-bytes-page">
+    <div class="main-contents">
+
+        <div class="heading-list">FoodBytes</div>
+
+        <page-loader *ngIf="busy" center="page"></page-loader>
+
+        <div [hidden]="busy">
+
+            <div class="table-responsive1 food-bytes-list">
+                <!-- <table class="table table-striped">
+                    <tr *ngFor="let item of foodBytesList" (click)="viewDetails(item)">
+                        <td>
+                            <img class="item-image" [src]="item.Thumbnail" [alt]="item.Title">
+                        </td>
+                        <td>
+                            <div class="item-title">{{ item.Title }}</div>
+                            <div class="item-date">{{ item.IssueDate | date: 'MM/dd/yyyy' }}</div>
+                            <div class="item-pages">{{ item.PagesCount }} Pages</div>
+                            <div class="item-description" [innerHTML]="item.Description"></div>
+                        </td>
+                    </tr>
+                </table> -->
+                <div *ngFor="let item of foodBytesList" (click)="viewDetails(item)">
+                    <div class="foodbyte-item clearfix">
+                        <div class="item-image-wrapper">
+                            <img class="item-image" [src]="item.Thumbnail" [alt]="item.Title">
+                        </div>
+                        <div class="item-details">
+                            <div class="item-title">{{ item.Title }}</div>
+                            <div class="item-date">{{ item.IssueDate | date: 'MM/dd/yyyy' }}</div>
+                            <div class="item-pages">{{ item.PagesCount }} Pages</div>
+                            <div class="item-description" [innerHTML]="item.Description"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

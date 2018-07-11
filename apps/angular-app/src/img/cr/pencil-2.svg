@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>pencil-2</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" opacity="0.200000003">
+        <g id="pencil-2" fill-rule="nonzero" fill="#263238">
+            <path d="M16.9392736,10.5896192 L13.4103808,7.06072636 L4,16.4711072 L4,20 L7.52889281,20 L16.9392736,10.5896192 Z M19.7247464,7.80414645 C20.0917512,7.4371416 20.0917512,6.8442876 19.7247464,6.47728275 L17.5227172,4.27525364 C17.1557124,3.90824879 16.5628584,3.90824879 16.1958536,4.27525364 L14.3514189,6.11968828 L17.8803117,9.64858109 L19.7247464,7.80414645 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

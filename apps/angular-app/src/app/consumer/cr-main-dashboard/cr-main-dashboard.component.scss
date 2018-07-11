@@ -1,0 +1,95 @@
+.cr-main-dashboard {
+    @include cr-navbar-height('padding-top');
+
+    >.navbar-backoffice {
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 2;
+        border-bottom: 1px solid #DBDBDB;
+        padding-left: 48px;
+        padding-right: 48px;
+
+        .shopping-cart-link {
+            padding-top: 16px;
+            padding-bottom: 24px;
+
+            position: relative;
+
+            >a {
+                // padding-top: 8px;
+                // padding-bottom: 0;
+                // padding-top: 28px;
+                // padding-bottom: 27px;
+                .basket-empty-icon {
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+
+                .shopping-cart-count {
+                    position: absolute;
+                    top: 13px;
+                    left: 0;
+                    right: 0;
+                    font-size: 12px;
+                    text-align: center;
+                    color: white;
+                    font-weight: $lato-bold;
+                }
+            }
+        }
+
+        .navbar-header {
+
+            .navbar-toggle {
+                float: left;
+                padding-top: 14px;
+                padding-bottom: 10px;
+            }
+
+            .shopping-cart-link {
+                float: right;
+                padding-top: 6px;
+                padding-bottom: 11px;
+
+                @media (min-width: $screen-sm-min) {
+                    display: none;
+                }
+
+                a {
+                    position: relative;
+                    display: block;
+                    line-height: 20px;
+                }
+            }
+        }
+    } 
+
+    .shopping-cart-overlay,
+    .filters-cart-overlay {
+
+        .page-overlay {
+            @include cr-navbar-height('top');
+        }
+    }
+
+    >.shopping-cart-section-wrapper {
+        width: 394px;
+        position: fixed;
+        @include cr-navbar-height('top');
+        right: 0;
+        background-color: white;
+        border-left: 1px solid #DBDBDB;
+        @include cr-navbar-height('height-100vh');
+        overflow-y: auto;
+        padding-right: 24px;
+        padding-bottom: 48px;
+        z-index: 5;
+
+        @media (max-width: $screen-xs-max) {
+            width: 90%;
+            padding-right: 0;
+        }
+    }
+}

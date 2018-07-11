@@ -1,0 +1,68 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<div class="modal menu-item-option-items-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">{{ menuItem.Name }}</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+                <div class="menu-item-sizes-list">
+                    <table *ngIf="menuItem.menuItemSizes?.length" class="table table-hover">
+                        <tr>
+                            <th colspan="3">Choose item size
+                                <div class="chip-label chip-label-primary">Required</div>
+                            </th>
+                        </tr>
+                        <tr *ngFor="let menuItemSize of menuItem.menuItemSizes" (click)="chooseSize(menuItemSize)">
+                            <td class="nostretch">
+                                <div class="radio-on-icon" *ngIf="menuItemSize.id == menuItem.selectedMenuItemSize?.id"></div>
+                                <div class="radio-off-icon" *ngIf="menuItemSize.id != menuItem.selectedMenuItemSize?.id"></div>
+                            </td>
+                            <td>
+                                {{ menuItemSize.Name }}
+                            </td>
+                            <td class="text-right">
+                                ${{ menuItemSize.Price }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <page-loader *ngIf="menuItem.busy"></page-loader>
+
+                <div *ngIf="!menuItem.busy" class="menu-item-options-list">
+                    <table class="table" *ngFor="let menuItemOption of menuItem.menuItemOptions">
+                        <tr>
+                            <th colspan="3">{{menuItemOption.OptionHeader}}
+                                <div class="chip-label chip-label-primary" *ngIf="menuItemOption.Minimum_Select !== 0">Required</div>
+                                <div class="chip-label chip-label-gray" *ngIf="menuItemOption.Minimum_Select === 0">Optional</div>
+                            </th>
+                        </tr>
+                        <tr *ngFor="let optionItem of menuItemOption.OptionItems">
+                            <td class="nostretch">
+                                <div class="radio-on-icon" *ngIf="menuItemOption.Is_Single_Select && optionItem.Is_Default"></div>
+                                <div class="radio-off-icon" *ngIf="menuItemOption.Is_Single_Select && !optionItem.Is_Default"></div>
+
+                                <div class="checkbox-on-icon" *ngIf="!menuItemOption.Is_Single_Select && optionItem.Is_Default"></div>
+                                <div class="checkbox-off-icon" *ngIf="!menuItemOption.Is_Single_Select && !optionItem.Is_Default"></div>
+                            </td>
+                            <td>
+                                {{ optionItem.Name }}
+                            </td>
+                            <td class="text-right">
+                                ${{ optionItem.Price }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="close()">OK</button>
+            </div>
+        </div>
+    </div>
+</div>

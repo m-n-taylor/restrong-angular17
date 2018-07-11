@@ -1,0 +1,238 @@
+<div class="restaurant-menu-sense">
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div [hidden]="busy">
+        <div class="chart-map-section">
+            <div id="charts-map"></div>
+        </div>
+
+        <div class="rest-map-details">
+            <div class="row">
+                <div class="col-lg-4">
+                    <div class="rest-address-wrapper">
+                        <div class="restaurant-map-orange-icon"></div>
+                        <span>{{ rest.Address_1 }} {{ rest.Address_2 }} {{ rest.City }} {{ rest.State }} {{ rest.ZipCode }}</span>
+                    </div>
+                </div>
+                <div class="col-lg-5">
+                    <div class="rest-cuisine-segment-info">
+                        <span class="cuisine-text">Cuisine:
+                            <span class="f-black">{{ rest.Cuisine }}</span>
+                        </span>
+                        <span>Segment:
+                            <span class="f-black">{{ rest.Segment }}</span>
+                        </span>
+                    </div>
+                </div>
+                <div class="col-lg-3 chart-proximity-select-wrapper">
+                    <div class="chart-proximity-select">
+                        <div class="form-group">
+                            <select class="form-control" [(ngModel)]="proximity" (ngModelChange)="loadData()">
+                                <option value="3">Search 3 miles around me</option>
+                                <option value="6">Search 6 miles around me</option>
+                                <option value="9">Search 9 miles around me</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="compare-price-section">
+            <div class="price-details">
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="price-text">Your Menu Density</div>
+                        <div class="price-value">{{ chartInfo.MenuCounts.YourMenuCount }}</div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="price-text">Other's Menu Density</div>
+                        <div class="price-value">{{ chartInfo.MenuCounts.OtherMenuAvg }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- <page-loader *ngIf="busyChartCompare || busyChartCuisineType || busyChartMenuCompetition || busyChartMissingMenu || busyChartRestType || busyChartSegmentType"></page-loader> -->
+
+        <div>
+            <div class="chart-section-wrapper">
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="chart-heading">Top dishes price comparison</div>
+                    </div>
+                    <div class="col-sm-4">
+                        <div class="chart-page-size text-right">
+                            <m-checkbox toggle=true text="Exclude Catering?" [(value)]="excludeCatering" (change)="loadChartItemCompareData()"></m-checkbox>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="chart-page-size">
+                            <div class="form-group">
+                                <select class="form-control" [(ngModel)]="chartCompareTypeConfig.type" (ngModelChange)="updateItemCompareChartType()">
+                                    <option [value]="CHART_TYPE_LINE">Line Chart</option>
+                                    <option [value]="CHART_TYPE_HBAR">Horizontal Bar Chart</option>
+                                    <option [value]="CHART_TYPE_VBAR">Vertical Bar Chart</option>
+                                    <option [value]="CHART_TYPE_RADAR">Menuradar &trade; Chart</option>
+                                    <option [value]="CHART_TYPE_BUBBLE">Bubble Chart</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <page-loader *ngIf="busyChartCompare"></page-loader>
+
+                <div [hidden]="busyChartCompare">
+                    <div class="item-compare-chart-wrapper" [ngStyle]="{ 'height': chartCompareTypeConfig.type == CHART_TYPE_HBAR ? (((otherRests.length + 3) * 500) + 'px') : null }">
+                        <canvas id="item-compare-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section-wrapper">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="chart-heading">Cuisine types distribution</div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="chart-page-size">
+                            <div class="form-group">
+                                <select class="form-control" [(ngModel)]="chartCuisineTypeConfig.type" (ngModelChange)="updateCuisineTypeChartType()">
+                                    <option [value]="CHART_TYPE_LINE">Line Chart</option>
+                                    <option [value]="CHART_TYPE_HBAR">Horizontal Bar Chart</option>
+                                    <option [value]="CHART_TYPE_VBAR">Vertical Bar Chart</option>
+                                    <option [value]="CHART_TYPE_RADAR">Menuradar &trade; Chart</option>
+                                    <option [value]="CHART_TYPE_BUBBLE">Bubble Chart</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <page-loader *ngIf="busyChartCuisineType"></page-loader>
+
+                <div [hidden]="busyChartCuisineType">
+                    <div class="cuisine-type-chart-wrapper" [ngStyle]="{ 'height': chartCuisineTypeConfig.type == CHART_TYPE_HBAR ? (((otherRests.length + 1) * 500) + 'px') : null }">
+                        <canvas id="cuisine-type-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section-wrapper">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="chart-heading">
+                            Top recommended menu addons
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="chart-page-size">
+                            <div class="form-group">
+                                <select class="form-control" [(ngModel)]="chartMissingMenuConfig.type" (ngModelChange)="updateMissingMenuChartType()">
+                                    <option [value]="CHART_TYPE_LINE">Line Chart</option>
+                                    <option [value]="CHART_TYPE_HBAR">Horizontal Bar Chart</option>
+                                    <option [value]="CHART_TYPE_VBAR">Vertical Bar Chart</option>
+                                    <option [value]="CHART_TYPE_RADAR">Menuradar &trade; Chart</option>
+                                    <option [value]="CHART_TYPE_BUBBLE">Bubble Chart</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <page-loader *ngIf="busyChartMissingMenu"></page-loader>
+
+                <div [hidden]="busyChartMissingMenu">
+                    <div class="missing-menu-chart-wrapper" [ngStyle]="{ 'height': chartMissingMenuConfig.type == CHART_TYPE_HBAR ? (((otherRests.length + 1) * 500) + 'px') : null }">
+                        <canvas id="missing-menu-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section-wrapper">
+                <div class="row">
+                    <div class="col-sm-9">
+                        <div class="chart-heading">
+                            <div>Normalized menu coverage by key dish/item categories of similar type restaurants</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-3">
+                        <div class="chart-page-size">
+                            <div class="form-group">
+                                <select class="form-control" [(ngModel)]="chartMenuCompetitionTypeConfig.type" (ngModelChange)="updateMenuCompetitionChartType()">
+                                    <option [value]="CHART_TYPE_LINE">Line Chart</option>
+                                    <option [value]="CHART_TYPE_HBAR">Horizontal Bar Chart</option>
+                                    <option [value]="CHART_TYPE_VBAR">Vertical Bar Chart</option>
+                                    <option [value]="CHART_TYPE_RADAR">Menuradar &trade; Chart</option>
+                                    <option [value]="CHART_TYPE_BUBBLE">Bubble Chart</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <page-loader *ngIf="busyChartMenuCompetition"></page-loader>
+
+                <div [hidden]="busyChartMenuCompetition">
+                    <div class="menu-competition-bar-chart-wrapper" [ngStyle]="{ 'height': chartMenuCompetitionTypeConfig.type == CHART_TYPE_HBAR ? (((otherRests.length + 2) * 500) + 'px') : null }">
+                        <canvas id="menu-competition-bar-chart"></canvas>
+                    </div>
+                </div>
+            </div>
+
+            <div class="chart-section-wrapper">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <page-loader *ngIf="busyChartRestType"></page-loader>
+
+                        <div [hidden]="busyChartRestType">
+
+                            <div *ngFor="let restTypeChartItem of restTypeChartList; let index = index">
+                                <div class="chart-heading">Restaurants surrounding {{ restTypeChartItem.name }}</div>
+
+                                <div class="pie-chart-section-wrapper">
+                                    <div class="pie-chart-section">
+                                        <canvas id="rest-type-chart-{{index}}" class="pie-chart-canvas"></canvas>
+                                    </div>
+
+                                    <div class="chart-label-list">
+                                        <div class="chart-label-item" *ngFor="let item of restTypeChartItem.labels; let index = index">
+                                            <span class="bg-color" [ngStyle]="{ 'background-color': restTypeChartItem.bgColors[index] }"></span>
+                                            <span class="label-text">{{ item }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-sm-6">
+                        <page-loader *ngIf="busyChartSegmentType"></page-loader>
+
+                        <div [hidden]="busyChartSegmentType">
+                            <div *ngFor="let segmentTypeChartItem of segmentTypeChartList; let index = index">
+                                <div class="chart-heading">Segment types around {{ segmentTypeChartItem.name }}</div>
+
+                                <div class="pie-chart-section-wrapper">
+                                    <div class="pie-chart-section">
+                                        <canvas id="segment-type-chart-{{index}}" class="pie-chart-canvas"></canvas>
+                                    </div>
+
+                                    <div class="chart-label-list">
+                                        <div class="chart-label-item" *ngFor="let item of segmentTypeChartItem.labels; let index = index">
+                                            <span class="bg-color" [ngStyle]="{ 'background-color': segmentTypeChartItem.bgColors[index] }"></span>
+                                            <span class="label-text">{{ item }}</span>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

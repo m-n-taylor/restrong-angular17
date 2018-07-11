@@ -1,0 +1,33 @@
+.confirm-modal {
+
+    .modal-body,
+    .modal-footer {
+        padding: 40px;
+    }
+
+    .modal-body {
+
+        .confirm-message {
+            font-size: 18px;
+            font-weight: $lato-bold;
+        }
+    }
+
+    .modal-footer {
+        border-top: 1px solid #DBDBDB;
+
+        @media (min-width: $screen-sm-min) {
+            text-align: right;
+        }
+
+        .confirm-action-buttons {
+
+            .btn {
+
+                @media (max-width: $screen-xs-max) {
+                    width: 100%;
+                }
+            }
+        }
+    }
+}

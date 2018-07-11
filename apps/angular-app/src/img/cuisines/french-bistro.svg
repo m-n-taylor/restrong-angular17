@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>french-bistro</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-KIT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="french-bistro" fill-rule="nonzero" fill="#455A64">
+            <polygon id="Shape" points="7.31914894 24 7.31914894 39 8.68085106 39 8.68085106 24"></polygon>
+            <polygon id="Shape" points="15.3191489 33.6808511 15.3191489 40 16.6808511 40 16.6808511 32.3191489 8 32.3191489 8 33.6808511"></polygon>
+            <polygon id="Shape" points="13.0861195 32.7159687 14.3236726 33.2840313 17.0616776 27.3191489 8 27.3191489 8 28.6808511 14.9383224 28.6808511"></polygon>
+            <polygon id="Shape" points="38.3191489 24 38.3191489 39 39.6808511 39 39.6808511 24"></polygon>
+            <polygon id="Shape" points="31.6808511 33.6808511 39 33.6808511 39 32.3191489 30.3191489 32.3191489 30.3191489 40 31.6808511 40"></polygon>
+            <polygon id="Shape" points="39 28.6808511 39 27.3191489 29.9383224 27.3191489 32.6763274 33.2840313 33.9138805 32.7159687 32.0616776 28.6808511"></polygon>
+            <polygon id="Shape" points="16 26.6808511 31 26.6808511 31 25.3191489 16 25.3191489"></polygon>
+            <polygon id="Shape" points="23.3191489 26 23.3191489 39 24.6808511 39 24.6808511 26"></polygon>
+            <polygon id="Shape" points="21 39.6808511 26 39.6808511 26 38.3191489 21 38.3191489"></polygon>
+            <polygon id="Shape" points="23.3191489 18 23.3191489 24 24.6808511 24 24.6808511 18"></polygon>
+            <path d="M23.5,9.31914894 C29.6023803,9.31914894 34.9403029,12.3556503 36.6353298,16.7552262 L36.9919458,17.6808511 L10.0078992,17.6808511 L10.3647059,16.7551335 C12.0604446,12.3556222 17.3983177,9.31914894 23.5,9.31914894 Z M23.5,10.6808511 C18.3833758,10.6808511 13.9110318,12.9843608 12.0680254,16.3191489 L34.932133,16.3191489 C33.0896692,12.9843857 28.6172634,10.6808511 23.5,10.6808511 Z" id="Shape"></path>
+            <polygon id="Shape" points="23.3191489 8 23.3191489 10 24.6808511 10 24.6808511 8"></polygon>
+        </g>
+    </g>
+</svg>

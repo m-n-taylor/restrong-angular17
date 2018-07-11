@@ -1,0 +1,37 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Thank You Points Modal -->
+<div class="modal thank-you-points-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content bg-primary">
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <div class="close-3-white-icon"></div>
+                </button>
+                <h4 class="modal-title"></h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+                <div class="text-heading">
+                    <div>Woohoo!</div>
+                    <div>You got {{ totalPoints }} pts.</div>
+                </div>
+                <div class="text-subheading">
+                    <div>Thank you for your review for</div>
+                    <div>{{ pastOrder.RestaurantName }}</div>
+                </div>
+                <div class="text-para">
+                    <div>Remember, then more points you earn,</div>
+                    <div>then more free orders you can get!</div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-primary btn-inverse btn-no-hover close-btn" (click)="close()">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

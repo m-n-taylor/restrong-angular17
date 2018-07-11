@@ -1,0 +1,490 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="menu-item-details-page">
+
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <page-loader *ngIf="busy" center="page"></page-loader>
+
+    <div class="page-title-section">
+        <div class="row">
+            <div class="col-sm-12">
+                <div class="page-title-text" (click)="goBack()">
+                    <div class="arrow-left-icon"></div> {{ menuItem.Name || 'Add Menu Item' }}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="menu-search-box-wrapper">
+        <div class="row">
+            <div class="col-sm-6">
+                <menu-search-box [fireFlyID]="fireFlyID"></menu-search-box>
+            </div>
+            <div class="col-sm-6 text-right">
+                <div *ngIf="activeTab == TAB_SIZE">
+                    <button class="btn btn-success btn-lg btn-option-category" (click)="toggleMenuItemSizesSection()">Select Size</button>
+                    <button class="btn btn-success btn-inverse btn-create-option-category" (click)="addMenuItemSize()">Create Size</button>
+                </div>
+
+                <div *ngIf="activeTab == TAB_OPTION && !isOpenMenuOption">
+                    <button class="btn btn-success btn-lg btn-option-category" (click)="toggleOptionGroupSuggestionSection()">Option Category</button>
+                    <button class="btn btn-success btn-inverse btn-create-option-category" (click)="openMenuOption()">Create Option Category</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <ul class="nav nav-pills">
+        <li [ngClass]="{ 'active': activeTab == TAB_ITEM_INFO }"><a (click)="selectTab(TAB_ITEM_INFO)">Item Info</a></li>
+        <li [ngClass]="{ 'active': activeTab == TAB_SIZE, 'disabled': isNewMenuItem }"><a (click)="selectTab(TAB_SIZE)">Multi Size</a></li>
+        <li [ngClass]="{ 'active': activeTab == TAB_OPTION, 'disabled': isNewMenuItem }"><a (click)="selectTab(TAB_OPTION)">Option</a></li>
+    </ul>
+
+    <div *ngIf="activeTab == TAB_ITEM_INFO">
+
+        <div class="item-info-tab-pane">
+
+            <div class="clearfix">
+
+                <div class="photo-upload-container">
+                    <div>Photo</div>
+                    <div class="photo-viewer">
+                        <img *ngIf="!menuItem.MenuImageExist" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                        <img *ngIf="menuItem.MenuImageExist" src="{{ menuItem.FileName }}" [alt]="menuItem.Name">
+                    </div>
+
+                    <label class="file-upload-label" [ngClass]="{ 'disabled': isNewMenuItem }" (click)="clickMenuItemImageLabel()">
+                        <input type="file" (change)="uploadMenuItemImage()" #menuItemImageInput [disabled]="isNewMenuItem" />
+                        <span>Upload</span>
+                    </label>
+
+                    <div *ngIf="menuItem.MenuImageExist" class="delete-menu-item-image">
+                        <button class="btn btn-danger btn-sm" (click)="deleteMenuItemImage()">Remove</button>
+                    </div>
+                </div>
+
+                <div class="menu-item-details">
+
+                    <form #itemInfoForm="ngForm" novalidate (ngSubmit)="itemInfoForm.valid && save(itemInfoForm)">
+
+                        <div class="row">
+                            <div class="col-sm-8" [ngClass]="{ 'col-sm-12': menuItemSizeList.length }">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(itemInfoForm, Name) }">
+                                    <label>Name</label>
+                                    <input type="text" name="Name" required #Name="ngModel" [(ngModel)]="menuItem.Name" class="form-control" />
+
+                                    <validation-messages [form]="itemInfoForm" [input]="Name" label="Name"></validation-messages>
+                                </div>
+                            </div>
+
+                            <div *ngIf="!menuItemSizeList.length" class="col-sm-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(itemInfoForm, Price) }">
+                                    <label>Single Size Price ($) (Add 0 if Multisize)</label>
+                                    <input type="text" name="Price" required #Price="ngModel" [gte]="0" [(ngModel)]="menuItem.Price" class="form-control" />
+
+                                    <validation-messages [form]="itemInfoForm" [input]="Price" label="Price" valueGTE="0"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group input-container">
+                            <label>Description (optional)</label>
+                            <textarea type="text" name="Description" [(ngModel)]="menuItem.Description" rows="5" class="form-control"></textarea>
+                        </div>
+
+                        <div class="text-right">
+                            <button [ladda]="busyItemInfo" type="submit" class="btn btn-success">Save Item Info</button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+
+    <div *ngIf="activeTab == TAB_SIZE">
+
+        <div class="size-tab-pane" [ngClass]="{ 'opened-menu-item-sizes': isOpenMenuItemSizesSection }">
+
+            <div *ngIf="menuItem.Is_Single_Size && !menuItemSizeList.length" class="pizza-placeholder">
+                <img src="img/ro/pizza-placeholder.svg" alt="Pizza Placeholder">
+
+                <div class="title-text">You can choose multiple sizes</div>
+                <div class="subtitle-text">For your item. Want to this right now?</div>
+                <button class="btn btn-success btn-sm btn-sizes" (click)="toggleMenuItemSizesSection()">Select Size</button>
+                <button class="btn btn-success btn-sm btn-inverse btn-create-size" (click)="addMenuItemSize()">Create Size</button>
+            </div>
+
+            <div *ngIf="!menuItem.Is_Single_Size || menuItemSizeList.length">
+
+                <div *ngIf="isOpenMenuItemSizesSection" class="menu-item-sizes-section">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <!--<div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" (click)="toggleOptionGroupSuggestion()">
+                                    Select Size
+                                    <span class="caret"></span>
+                                </button>
+                                <ul *ngIf="isOpenOptionGroupSuggestion" class="dropdown-menu d-block">
+                                    <li class="dropdown-submenu" *ngFor="let item of menuItemSizes" [ngClass]="{ 'active': item.ID == selectedOptionGroupSuggestionItem?.ID }">
+                                        <a (click)="chooseOptionGroupSuggestionItem(item)">{{ item.Name }}</a>
+                                    </li>
+                                </ul>
+                            </div>-->
+                            <div class="select-size-wrapper">
+                                <m-select [items]="menuItemSizes" itemLabelProp="Name" theme="dark" multiSelect=true placeholder="Select Size"></m-select>
+                            </div>
+
+                            <button class="btn btn-success btn-lg btn-add-option-category" (click)="saveSelectedMenuItemSize()">Add</button>
+                            <button class="btn btn-success btn-lg btn-cancel-option-category" (click)="toggleMenuItemSizesSection()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="menu-item-sizes-list">
+                    <div class="table table-striped m-table" dnd-sortable-container [sortableData]="menuItemSizeList">
+                        <div class="m-tr">
+                            <div class="m-th">Default</div>
+                            <div class="m-th">Size</div>
+                            <div class="m-th">Price</div>
+                            <div class="m-th">Active</div>
+                            <div class="m-th">Edit</div>
+                            <div class="m-th">Delete</div>
+                        </div>
+
+                        <form #MISForm="ngForm" class="m-tr" *ngFor="let size of menuItemSizeList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onMenuItemSizeDragSuccess($event)" (click)="openMenuItemSize(size)">
+                            <div mStopEvent (click)="setDefaultMenuItemSize(size)" class="m-td">
+                                <div class="radio-on-icon" *ngIf="size.Is_Default"></div>
+                                <div class="radio-off-icon" *ngIf="!size.Is_Default"></div>
+                            </div>
+
+                            <div class="m-td">
+                                <div *ngIf="!size.editMode">{{ size.Name }}</div>
+
+                                <div [hidden]="!size.editMode">
+                                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MISForm, MISName) }">
+                                        <input type="text" name="Name" required #MISName="ngModel" [(ngModel)]="size.Name" class="form-control" placeholder="{{ !MISForm.valid ? 'Size is required' : '' }}">
+
+                                        <validation-messages [form]="MISForm" [input]="MISName" label="Name"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="m-td">
+                                <div *ngIf="!size.editMode">${{ size.Price }}</div>
+
+                                <div [hidden]="!size.editMode">
+                                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MISForm, MISPrice) }">
+                                        <input type="text" name="Price" required #MISPrice="ngModel" [gte]="0" [(ngModel)]="size.Price" class="form-control" placeholder="{{ !MISForm.valid ? 'Price is required' : '' }}">
+
+                                        <validation-messages [form]="MISForm" [input]="MISPrice" label="Price" valueGTE="0"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div mStopEvent class="m-td">
+                                <m-checkbox toggle=true [(value)]="size.Enabled" (change)="toggleActiveMenuItemSize(size)"></m-checkbox>
+                            </div>
+
+                            <div mStopEvent class="m-td">
+                                <div *ngIf="!size.editMode">
+                                    <div class="pencil-icon" (click)="openMenuItemSize(size)"></div>
+                                </div>
+                                <div [hidden]="!size.editMode">
+                                    <div>
+                                        <button type="submit" (click)="saveMenuItemSize(size, MISForm)" class="btn btn-link save-link">Save</button>
+                                        <button type="button" class="btn btn-link cancel-link" (click)="closeMenuItemSize(size, true)">Cancel</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div mStopEvent class="m-td">
+                                <div *ngIf="size.ID" class="delete-time-icon" (click)="deleteMenuItemSize(index, size)"></div>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="empty-record" *ngIf="!busy && !menuItemSizeList.length">
+                        No Records to display
+                    </div>
+
+                    <!--<button class="btn btn-success btn-sm btn-add-menu-item" (click)="addMenuItemSize()">Add Size</button>-->
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="activeTab == TAB_OPTION">
+
+        <div class="option-tab-pane" [ngClass]="{ 'opened-option-group-suggestion': isOpenOptionGroupSuggestionSection }">
+
+            <div [hidden]="isOpenMenuOption" class="menu-option-list">
+
+                <!--<div class="menu-search-box-wrapper">
+                    <div class="row">
+                        <div class="col-sm-12 text-right">
+                            <button class="btn btn-success btn-lg btn-option-category" (click)="toggleOptionGroupSuggestionSection()">Option Category</button>
+                            <button class="btn btn-success btn-inverse btn-create-option-category">Create Option Category</button>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div *ngIf="isOpenOptionGroupSuggestionSection" class="option-category-section">
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="dropdown">
+                                <button class="btn btn-default dropdown-toggle" type="button" (click)="toggleOptionGroupSuggestion()">
+                                    Select Option Category
+                                    <span class="caret"></span>
+                                </button>
+                                <ul *ngIf="isOpenOptionGroupSuggestion" class="dropdown-menu d-block">
+                                    <li class="dropdown-submenu" *ngFor="let item of optionGroupSuggestionList" [ngClass]="{ 'active': item.ID == selectedOptionGroupSuggestionItem?.ID }">
+                                        <a (click)="chooseOptionGroupSuggestionItem(item)">{{ item.Name }}</a>
+                                        <ul class="dropdown-menu" [ngClass]="{ 'd-block': item.ID == selectedOptionGroupSuggestionItem?.ID }">
+                                            <li *ngFor="let detailItem of item.Details" [ngClass]="{ 'active': detailItem.isActive }" (click)="chooseOptionGroupSuggestionItemDetail(detailItem)"><a>{{ detailItem.Name }}</a></li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                            <button class="btn btn-success btn-lg btn-add-option-category" (click)="saveSelectedOptionGroupSuggestion()">Add</button>
+                            <button class="btn btn-success btn-lg btn-cancel-option-category" (click)="toggleOptionGroupSuggestionSection()">Cancel</button>
+                        </div>
+                    </div>
+                </div>
+
+                <!--<div class="dropdown option-group-suggestion">
+                    <button class="btn btn-success dropdown-toggle" type="button" (click)="toggleOptionGroupSuggestion()">Option Category <span class="caret"></span></button>
+
+                    <div *ngIf="isOpenOptionGroupSuggestion" class="dropdown-menu-wrapper">
+                        <ul class="dropdown-menu">
+                            <li class="text-center f-black">Option Category</li>
+                            <li [ngClass]="{ 'active': item.ID == selectedOptionGroupSuggestionItem?.ID }" *ngFor="let item of optionGroupSuggestionList">
+                                <a (click)="chooseOptionGroupSuggestionItem(item)">{{ item.Name }}</a>
+                            </li>
+                        </ul>
+
+                        <ul *ngIf="selectedOptionGroupSuggestionItem" class="dropdown-menu">
+                            <li class="text-center f-black">Option Items</li>
+                            <li [ngClass]="{ 'active': detailItem.isActive }" *ngFor="let detailItem of selectedOptionGroupSuggestionItem.Details">
+                                <a (click)="chooseOptionGroupSuggestionItemDetail(detailItem)">{{ detailItem.Name }}</a>
+                            </li>
+                        </ul>
+                        <div>
+                            <button class="btn btn-sm btn-success" (click)="saveSelectedOptionGroupSuggestion()">Add</button>
+                        </div>
+                    </div>
+
+                </div>-->
+
+                <div class="table-responsive">
+                    <table class="table table-striped" dnd-sortable-container [sortableData]="menuOptionList">
+                        <tr>
+                            <th>Option Category</th>
+                            <th>Description</th>
+                            <th>Active</th>
+                            <th>Delete</th>
+                        </tr>
+
+                        <tr *ngIf="!busy && !menuOptionList.length">
+                            <td class="text-center" colspan="6">No Records to display</td>
+                        </tr>
+
+                        <tr *ngFor="let item of menuOptionList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onMenuOptionDragSuccess($event)" (click)="openMenuOption(item)">
+                            <td>{{ item.Name }}</td>
+                            <td>{{ item.Description }}</td>
+                            <td mStopEvent>
+                                <m-checkbox toggle=true [(value)]="item.Enabled" (change)="toggleActiveMenuOption(item)"></m-checkbox>
+                            </td>
+                            <td mStopEvent>
+                                <div class="delete-time-icon" (click)="deleteMenuOption(index, item)"></div>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+
+            <div *ngIf="isOpenMenuOption" class="add-menu-option-section">
+
+                <div [hidden]="isOpenMenuOptionItem">
+                    <div>
+                        <form #MOForm="ngForm" novalidate (ngSubmit)="MOForm.valid && saveMenuOption(menuOption)">
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(MOForm, MONameRef) }">
+                                        <label>Option Name</label>
+                                        <input type="text" class="form-control" required #MONameRef="ngModel" name="MOName" [(ngModel)]="menuOption.Name">
+
+                                        <validation-messages [form]="MOForm" [input]="MONameRef" label="Name"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="active-option-wrapper">
+                                        <label>Active</label>
+                                        <m-checkbox toggle=true [(value)]="menuOption.Enabled"></m-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group input-container">
+                                <label>Description (optional)</label>
+                                <textarea name="Description" class="form-control" rows="4" [(ngModel)]="menuOption.Description"></textarea>
+                            </div>
+
+                            <div class="single-select-section">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="radioMOSingleMultiSelect" [value]="true" [(ngModel)]="menuOption.Is_Single_Select" />
+                                        <span class="icon"></span>
+                                        <span class="text">Single Select</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div class="multi-select-section form-inline">
+                                <div class="radio-inline">
+                                    <label>
+                                        <input type="radio" name="radioMOSingleMultiSelect" [value]="false" [(ngModel)]="menuOption.Is_Single_Select" />
+                                        <span class="icon"></span>
+                                        <span class="text">Multi Select</span>
+                                    </label>
+                                </div>
+
+                                <div class="d-iblock">
+
+                                    <!-- (change)="toggleActiveMenuOptionItem(item)"-->
+                                    <m-checkbox [text]="'Add Limitation (optional)'" [(value)]="menuOptionAddLimitation" (valueChange)="menuOptionAddLimitationChanged()" [disabled]="menuOption.Is_Single_Select"></m-checkbox>
+
+                                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOForm, MOMultiSelectMinRef) }">
+                                        <span>Min</span>
+                                        <input type="text" class="form-control input-select-min" required #MOMultiSelectMinRef="ngModel" name="multiSelectMin" [(ngModel)]="menuOption.Minimum_Select" [disabled]="menuOption.Is_Single_Select || !menuOptionAddLimitation">
+
+                                        <validation-messages [form]="MOForm" [input]="MOMultiSelectMinRef" label="Min"></validation-messages>
+                                    </div>
+
+                                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOForm, MOMultiSelectMaxRef) }">
+                                        <span>Max</span>
+                                        <input type="text" class="form-control input-select-max" required #MOMultiSelectMaxRef="ngModel" name="multiSelectMax" [(ngModel)]="menuOption.Maximum_Select" [disabled]="menuOption.Is_Single_Select || !menuOptionAddLimitation">
+
+                                        <validation-messages [form]="MOForm" [input]="MOMultiSelectMaxRef" label="Max"></validation-messages>
+                                    </div>
+
+                                </div>
+                            </div>
+
+                            <!--<div class="quantity-select-section form-inline">
+                                <div class="checkbox-inline">
+                                    <label>
+                                        <input type="checkbox" name="quantitySelect" [(ngModel)]="menuOption.Is_Quantity_Select" />
+                                        <span class="icon"></span>
+                                        <span class="text">Quantity Select</span>
+                                    </label>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOForm, MOQuantitySelectMinRef) }">
+                                    <span>Min</span>
+                                    <input type="text" class="form-control input-select-min" required #MOQuantitySelectMinRef="ngModel" name="quantitySelectMin" [(ngModel)]="menuOption.Minimum_Quantity" [disabled]="!menuOption.Is_Quantity_Select">
+
+                                    <validation-messages [form]="MOForm" [input]="MOQuantitySelectMinRef" label="Min"></validation-messages>
+                                </div>
+
+                                <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOForm, MOQuantitySelectMaxRef) }">
+                                    <span>Max</span>
+                                    <input type="text" class="form-control input-select-max" required #MOQuantitySelectMaxRef="ngModel" name="quantitySelectMax" [(ngModel)]="menuOption.Maximum_Quantity" [disabled]="!menuOption.Is_Quantity_Select">
+
+                                    <validation-messages [form]="MOForm" [input]="MOQuantitySelectMaxRef" label="Max"></validation-messages>
+                                </div>
+                            </div>-->
+
+                            <div class="item-size-action-buttons action-buttons">
+                                <button type="submit" class="btn btn-success btn-sm btn-add-menu-item">Save Option Category</button>
+                                <button type="button" class="btn btn-success btn-inverse btn-sm btn-add-menu-item" (click)="closeMenuOption()">Back</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="menu-option-item-list">
+
+                        <div class="table table-striped m-table" dnd-sortable-container [sortableData]="menuOptionItemList">
+                            <div class="m-tr">
+                                <div class="m-th">Default</div>
+                                <div class="m-th">Option Item</div>
+                                <div *ngIf="!menuItemSizeList.length" class="m-th">Price</div>
+                                <div class="m-th" *ngFor="let sizeDetail of menuOptionItemList[0]?.SizeDetails">
+                                    {{ sizeDetail.Name }}
+                                </div>
+                                <div class="m-th">Active</div>
+                                <div class="m-th">Edit</div>
+                                <div class="m-th">Delete</div>
+                            </div>
+
+                            <form #MOIForm="ngForm" class="m-tr" *ngFor="let item of menuOptionItemList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onMenuOptionItemDragSuccess($event)" (click)="openMenuOptionItem(item)">
+                                <div mStopEvent (click)="setDefaultMenuOptionItem(item)" class="m-td">
+                                    <div class="radio-on-icon" *ngIf="item.Is_Default"></div>
+                                    <div class="radio-off-icon" *ngIf="!item.Is_Default"></div>
+                                </div>
+                                <div class="m-td">
+                                    <div *ngIf="!item.editMode">{{ item.Name }}</div>
+                                    <div *ngIf="item.editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOIForm, MOIName) }">
+                                            <input type="text" name="Name" required #MOIName="ngModel" [(ngModel)]="item.Name" class="form-control" placeholder="{{ !MOIForm.valid ? 'Name is required' : '' }}">
+
+                                            <validation-messages [form]="MOIForm" [input]="MOIName" label="Name"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div *ngIf="!menuItemSizeList.length" class="m-td">
+                                    <div *ngIf="!item.editMode">{{ item.Price }}</div>
+                                    <div *ngIf="item.editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(MOIForm, MOIPrice) }">
+                                            <input type="text" name="Price" #MOIPrice="ngModel" [(ngModel)]="item.Price" class="form-control" placeholder="{{ !MOIForm.valid ? 'Price is required' : '' }}">
+
+                                            <validation-messages [form]="MOIForm" [input]="MOIPrice" label="Price"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-td" *ngFor="let sizeDetail of item.SizeDetails">
+                                    <div *ngIf="!item.editMode">{{ sizeDetail.Price }}</div>
+                                    <div *ngIf="item.editMode"><input type="text" name="{{ 'Price' + sizeDetail.id }}" class="form-control" [(ngModel)]="sizeDetail.Price"></div>
+                                </div>
+                                <div class="m-td" mStopEvent>
+                                    <m-checkbox toggle=true [(value)]="item.Enabled" (change)="toggleActiveMenuOptionItem(item)"></m-checkbox>
+                                </div>
+                                <div class="m-td" mStopEvent>
+                                    <div *ngIf="!item.editMode">
+                                        <div class="pencil-icon" (click)="openMenuOptionItem(item)"></div>
+                                    </div>
+                                    <div *ngIf="item.editMode">
+                                        <div>
+                                            <button type="submit" class="btn btn-link save-link" (click)="saveMenuOptionItem(item, MOIForm)">Save</button>
+                                            <button type="button" class="btn btn-link cancel-link" (click)="closeMenuOptionItem(item, true)">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="m-td" mStopEvent>
+                                    <div *ngIf="item.ID" class="delete-time-icon" (click)="deleteMenuOptionItem(index, item)"></div>
+                                </div>
+                            </form>
+
+                        </div>
+
+                        <div class="empty-record" *ngIf="!busy && !menuOptionItemList.length">
+                            No Records to display
+                        </div>
+
+                        <button class="btn btn-success btn-sm btn-add-menu-option" (click)="addMenuOptionItem()">Add Option Item</button>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -1,0 +1,134 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<div class="modal menu-item-options-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block': isModalOpen, 'in': isModalOpenAnimate}" (click)="close()">
+    <div class="modal-dialog" mStopEvent>
+        <div class="modal-content" [ngClass]="{ 'has-menu-item-image' : selectedMenuItem.MenuImageExist }">
+            <div class="modal-header" [ngStyle]="{ 'background-image': selectedMenuItem.MenuImageExist ? ('url(' + constants.SERVER_URL + '/' + selectedMenuItem.FileName + ')') : '' }">
+                <div class="modal-header-overlay"></div>
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ selectedMenuItem.MenuItemName }}</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <!--<div *ngIf="!busy">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Quantity</label>
+                                <input type="number" min="1" class="form-control" [(ngModel)]="selectedMenuItem.quantity" (ngModelChange)="updateTotalPrice()" placeholder="Enter Quantity">
+                            </div>
+                        </div>
+                    </div>
+                </div>-->
+
+                <div *ngIf="sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN" class="item-unavailable bg-danger">
+                    Right now your are using {{ sharedDataService.serviceType }} service and you are not able to order food from this restaurant. You have to change your service type.
+                </div>
+
+                <div *ngIf="!isRestOpen" [hidden]="sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN" class="rest-unavailable bg-danger">
+                    You are in pre-order mode. {{ selectedMenuItem.RestaurantName }} will {{ selectedMenuItem.Availability }}. and then your order will be placed.
+                </div>
+
+                <div *ngIf="selectedMenuItem.MenuItemDescription" class="menu-item-desc">({{ selectedMenuItem.MenuItemDescription }})</div>
+
+                <div class="menu-item-options-list">
+                    <table *ngIf="selectedMenuItem.menuItemSizes?.length" class="table table-hover">
+                        <tr>
+                            <th colspan="3">Choose item size
+                                <div class="chip-label chip-label-primary">Required</div>
+                            </th>
+                        </tr>
+                        <tr *ngFor="let menuItemSize of selectedMenuItem.menuItemSizes" (click)="selectMenuItemSize(menuItemSize)">
+                            <td class="nostretch">
+                                <img [src]="constants.IMG_RADIO_ACTIVE" *ngIf="menuItemSize.id == selectedMenuItem.selectedMenuItemSize?.id" />
+                                <img [src]="constants.IMG_RADIO" *ngIf="menuItemSize.id != selectedMenuItem.selectedMenuItemSize?.id" />
+                            </td>
+                            <td>
+                                {{ menuItemSize.Name }}
+                            </td>
+                            <td class="text-right">
+                                ${{ menuItemSize.Price }}
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+
+                <page-loader *ngIf="busy"></page-loader>
+
+                <div [hidden]="busy">
+
+                    <div class="menu-item-options-list">
+                        <table class="table table-hover" *ngFor="let menuItemOption of selectedMenuItem.menuItemOptions">
+                            <tr>
+                                <th colspan="3">{{menuItemOption.OptionHeader}}
+                                    <div class="chip-label chip-label-primary" *ngIf="menuItemOption.Minimum_Select !== 0">Required</div>
+                                    <div class="chip-label chip-label-gray" *ngIf="menuItemOption.Minimum_Select === 0">Optional</div>
+                                </th>
+                            </tr>
+                            <tr *ngFor="let optionItem of menuItemOption.OptionItems" (click)="selectMenuItemOptionItem(optionItem, menuItemOption)">
+                                <td class="nostretch">
+                                    <img [src]="constants.IMG_RADIO_ACTIVE" *ngIf="menuItemOption.Is_Single_Select && menuItemOption.selectedOptionItem?.ID == optionItem.ID" />
+                                    <img [src]="constants.IMG_RADIO" *ngIf="menuItemOption.Is_Single_Select && menuItemOption.selectedOptionItem?.ID != optionItem.ID" />
+
+                                    <img [src]="constants.IMG_CHECKBOX_ACTIVE" *ngIf="!menuItemOption.Is_Single_Select && optionItem.isSelected" />
+                                    <img [src]="constants.IMG_CHECKBOX" *ngIf="!menuItemOption.Is_Single_Select && !optionItem.isSelected" />
+                                </td>
+                                <td>
+                                    {{ optionItem.Name }}
+                                </td>
+                                <td class="text-right">
+                                    <div *ngIf="optionItem.Price">${{ optionItem.Price }}</div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <div class="special-instruction-section">
+                        <div class="section-label">Special Instructions</div>
+                        <textarea class="form-control special-instruction-textarea" rows="3" placeholder="Enter your message here… (max 300 characters)" [(ngModel)]="selectedMenuItem.menuItemSuggestion"></textarea>
+                    </div>
+
+                    <div class="soldout-section">
+                        <div [hidden]="busySoldOutAction" class="form-group">
+                            <label class="f-bold">If item is sold out / price changing</label>
+                            <select class="form-control" name="selectedSoldOutAction" [(ngModel)]="selectedSoldOutAction" (ngModelChange)="onSoldOutActionChanged()">
+                                <option *ngFor="let item of soldOutActions" [ngValue]="item">{{ item.Name }}</option>
+                            </select>
+                        </div>
+                        <div *ngIf="busySoldOutAction">
+                            <page-loader></page-loader>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <!--<button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+                <button type="button" class="btn btn-primary" *ngIf="!busy" (click)="addToCart()">OK (${{ totalPrice }})</button>-->
+
+                <div class="row">
+                    <div class="col-sm-5">
+                        <div class="menu-item-qty-section-wrapper">
+                            <div class="menu-item-qty-section noselect">
+                                <div class="menu-item-qty b-text3">
+                                    <div class="qty-minus" (click)="updateQty(-1)">
+                                        <div class="close-icon"></div>
+                                    </div>
+                                    <div class="qty-value">{{ selectedMenuItem.quantity }}</div>
+                                    <div class="qty-plus" (click)="updateQty(1)">
+                                        <div class="open-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-7">
+                        <button class="btn btn-success btn-xlg btn-block" (click)="addToCart()" [disabled]="busy || busySoldOutAction">Add to Cart ({{ totalPrice | currency:'USD':true }})</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

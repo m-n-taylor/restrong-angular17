@@ -1,0 +1,91 @@
+/**
+ * Global Overrides of Boostrap Framework
+ */
+
+body {
+    font-family: 'Roboto', sans-serif;
+}
+
+// Inputs
+
+.form-control {
+    // background-color: #eee;
+    // border: none;
+    box-shadow: none;
+    &:focus {
+        box-shadow: none; 
+    }
+}
+
+// Button
+
+.btn:focus, .btn:active:focus, .btn.active:focus {
+    outline: 0 none;
+}
+
+// Panel
+
+.panel {
+    .panel-title {
+        font-size: 24px;
+        text-transform: uppercase;
+    }
+    &.panel-primary {
+        border: none;
+        border-top: 8px solid $brand-primary;
+    }
+}
+
+// Nav Tabs
+
+.nav-tabs {
+    padding-left: 20px;
+
+    li {
+        a, a:hover, a:focus {
+            background-color: $gray-lighter;
+            border: 1px solid #ddd;
+            border-bottom: none;
+            border-top-width: 5px;
+        }
+        &.active {
+            a, a:hover, a:focus {
+                border-top-width: 5px;
+            }
+        }
+    }
+}
+
+// Label
+
+.label {
+    //padding: 5px 10px;
+    //font-size: 100%;
+    font-weight: normal;
+    text-transform: uppercase;
+}
+
+// Table
+
+.table {
+    th, td {
+        cursor: pointer;
+    }
+
+    th {
+        background-color: $brand-info;
+        color: white;
+        font-weight: 400;
+    }
+
+    &.table-center {
+        th, td {
+            text-align: center;
+            vertical-align: middle;
+
+            .material-icons {
+                vertical-align: middle;
+            }   
+        }
+    }
+}

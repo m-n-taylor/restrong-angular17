@@ -1,0 +1,39 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog change-address-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Change Address</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div class="change-location-section">
+                    
+                    <div class="form-group">
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <div class="search-icon"></div>
+                            </div>
+                            <input type="text" class="form-control input-lg" placeholder="Enter Your Address" [(ngModel)]="yourAddressText" id="change-address-ac">
+                        </div>
+                    </div>
+                    <div *ngIf="isBrowser" class="top-location-section" (click)="openChangeAddressModal()">
+                        <div class="location-icon icon-custom"></div>
+                        <span class="location-text">{{ sharedDataService.userAddress.Address }}</span>
+                    </div>
+                </div>
+
+                <div id="change-address-map"></div>
+                <div class="map-marker user-marker active"></div>
+
+                <div class="save-address-container">
+                    <button type="button" class="btn btn-success btn-xlg btn-block" (click)="saveAddress()">Save</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

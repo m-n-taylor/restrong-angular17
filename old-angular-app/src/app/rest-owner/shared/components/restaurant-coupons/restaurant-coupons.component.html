@@ -1,0 +1,64 @@
+<div class="restaurant-coupons">
+    <confirm-modal #confirmModal></confirm-modal>
+    <save-coupon-modal #saveCouponModal (modalEvents)="saveCouponModalEvents($event)"></save-coupon-modal>
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div [hidden]="busy">
+
+        <div class="row input-container">
+            <div class="col-sm-6">
+                <div class="form-group">
+                    <input type="text" class="form-control input-sm" placeholder="Search" name="Search" [(ngModel)]="searchText" (keyup.enter)="searchTextEnter()">
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <button class="btn btn-success btn-inverse" (click)="openSaveCouponModal()">Create Coupon</button>
+            </div>
+        </div>
+
+        <div class="coupon-list">
+            <div *ngIf="coupons.length == 0" class="no-records">No Records to display</div>
+
+            <div *ngFor="let coupon of coupons; let index = index" class="coupon-item">
+
+                <div class="coupon-item-header clearfix">
+                    <div class="left-text text-overflow">{{ coupon.CouponCode }}</div>
+                    <div class="right-text">
+                        {{ coupon.DiscountType == constants.DISCOUNT_TYPE_PERCENT ? (coupon.DiscountValue + '%') : ('$' + coupon.DiscountValue) }}
+                        OFF
+                    </div>
+                </div>
+
+                <div class="coupon-loader">
+
+                    <page-loader *ngIf="coupon.busy" center="parent"></page-loader>
+
+                </div>
+
+                <div class="coupon-details">
+                    <div class="coupon-title-description">Description</div>
+                    <div class="coupon-description">{{ coupon.Description || 'N/A' }}</div>
+                    <div class="coupon-title-limitation">Limitation</div>
+                    <div class="coupon-limitation">{{ coupon.Limitation || 'N/A' }}</div>
+                </div>
+
+                <div class="coupon-start-date">Starts on {{ coupon.StartDate | date: 'shortDate' }}</div>
+                <div class="coupon-end-date">Ends on {{ coupon.EndDate | date: 'shortDate' }}</div>
+
+                <div class="coupon-status-toggle">
+                    <m-checkbox inline=true toggle=true [(value)]="coupon.Enabled" [text]="'Enable'" (valueChange)="saveCoupon(coupon)"></m-checkbox>
+                    <m-checkbox inline=true toggle=true [(value)]="coupon.Is_Visible" [text]="'Visible'" (valueChange)="saveCoupon(coupon)"></m-checkbox>
+                </div>
+
+                <div class="coupon-action-buttons">
+                    <button class="btn btn-sm btn-success btn-inverse action-edit" (click)="openSaveCouponModal(coupon)">Edit</button>
+                    <button [ladda]="coupon.busyDelete" class="btn btn-sm btn-danger btn-inverse" [ngClass]="{ 'active': coupon.busyDelete }"
+                        (click)="deleteCoupon(index, coupon)">
+                        Delete
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

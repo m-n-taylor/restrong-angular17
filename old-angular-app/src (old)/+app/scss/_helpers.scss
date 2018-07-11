@@ -1,0 +1,66 @@
+$colors: (
+    primary: $brand-primary,
+    success: $brand-success,
+    info: $brand-info,
+    warning: $brand-warning,
+    danger: $brand-danger,
+    white: white,
+    gray-darker: $gray-darker,
+    gray-dark: $gray-dark,
+    gray: $gray,
+    gray-light: $gray-light,
+    gray-lighter: $gray-lighter,
+);
+
+@each $propKey, $propValue in $colors {
+    
+    .c-#{$propKey} {
+        color: #{$propValue} !important;
+    }
+    
+    .bg-#{$propKey} {
+        background-color: #{$propValue} !important;
+    }
+}
+
+$directions: (
+    t: top, 
+    l: left, 
+    b: bottom, 
+    r: right
+);
+$properties: (
+    m: margin,
+    p: padding
+);
+$increment: 0;
+@for $i from 0 to 10 {
+    @each $propKey, $propValue in $properties {
+        @each $dirKey, $dirValue in $directions {
+            .#{$propKey}-#{$dirKey}-#{$increment} {
+                #{$propValue}-#{$dirValue}: #{$increment}px !important;
+            }
+        }
+        .#{$propKey}-#{$increment} {
+            #{$propValue}: #{$increment}px !important;
+        }
+    }
+    $increment : $increment + 5;
+}
+
+.o-5 {
+    opacity: 0.5;
+}
+.f-bold {
+    font-weight: bold;
+}
+.v-middle {
+    vertical-align: middle;
+}
+.text-ellipsis {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+.display-block {
+    display: block;
+}

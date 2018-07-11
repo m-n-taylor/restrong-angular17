@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="48px" height="48px" viewBox="0 0 48 48" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>vietnamese</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-KIT" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="vietnamese" fill-rule="nonzero" fill="#455A64">
+            <path d="M5.65,12.65 L42.35,12.65 L42.35,37.35 L5.65,37.35 L5.65,12.65 Z M40.85,35.85 L40.85,14.15 L7.15,14.15 L7.15,35.85 L40.85,35.85 Z M23.286179,18.8240764 L23.9990227,16.6305654 L26.0206869,22.84415 L32.5571059,22.84415 L27.2695934,26.6886197 L29.2892932,32.9075509 L23.9995512,29.0639186 L18.7098438,32.9090097 L20.7321784,26.6886188 L15.4425446,22.84415 L21.9795263,22.84415 L23.286179,18.8240764 Z M23.0692132,24.34415 L20.0577774,24.34415 L22.4955623,26.1158754 L21.5646449,28.9794224 L23.9993819,27.2096348 L26.4368964,28.9807251 L25.5064882,26.1158748 L27.943352,24.34415 L24.9313785,24.34415 L23.9997972,21.4811149 L23.0692132,24.34415 Z" id="Combined-Shape"></path>
+        </g>
+    </g>
+</svg>

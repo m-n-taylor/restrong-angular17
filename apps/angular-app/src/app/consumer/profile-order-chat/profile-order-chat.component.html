@@ -1,0 +1,61 @@
+<div class="profile-order-chat">
+    <page-loader *ngIf="busy" center="page"></page-loader>
+
+    <div class="chat-top-bg"></div>
+
+    <div class="chat-section-wrapper">
+
+        <div class="chat-section" [ngClass]="{ 'selected-thread': thread }">
+
+            <div class="clearfix">
+
+                <div class="thread-details-wrapper">
+                    <div class="thread-details">
+
+                        <div *ngIf="thread">
+
+                            <div class="thread-details-header clearfix">
+                                <div class="back-button" (click)="goBack()">
+                                    <div class="arrow-back-black-icon"></div>
+                                </div>
+
+                                <div class="customer-img profile-name-initials bg-primary" [ngClass]="{ 'online': thread.userOnline }">
+                                    <div class="profile-logo">{{ thread.UserName | nameinitials }}</div>
+                                    <div class="user-status-wrapper">
+                                        <div class="user-status"></div>
+                                    </div>
+                                </div>
+
+                                <div class="thread-info">
+                                    <div class="customer-name">{{ thread.UserName }}</div>
+                                    <div class="order-number">{{ thread.OrderNumber }}</div>
+                                </div>
+                            </div>
+
+                            <div class="thread-chat-section" #threadChatSection>
+
+                                <div class="chat-item" [ngClass]="{ 'outgoing': item.SenderType == 'customer', 'incoming': item.SenderType != 'customer' }" *ngFor="let item of thread.messages">
+                                    <div class="chat-img profile-name-initials bg-primary">
+                                        <div class="profile-logo" *ngIf="item.SenderType != 'customer'">{{ thread.UserName | nameinitials }}</div>
+                                        <div class="profile-logo" *ngIf="item.SenderType == 'customer'">{{ thread.CustomerName | nameinitials }}</div>
+                                    </div>
+                                    <div class="chat-message">
+                                        <div class="message-text">{{ item.Message }}</div>
+                                        <div class="message-date">{{ item.DateCreated | date: 'short' }}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="send-message-section clearfix">
+                                <div class="send-message-textarea">
+                                    <textarea class="form-control" name="messageText" [(ngModel)]="messageText" (keyup.enter)="sendMessage()" placeholder="Press Enter to send message."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

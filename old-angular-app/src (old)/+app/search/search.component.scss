@@ -1,0 +1,64 @@
+@import '../scss/variables';
+
+.search-page {
+    margin-top: 150px;
+    padding-left: 20px;
+    padding-right: 20px;
+
+    .dish-list, .rest-list {
+        .dish-item, .rest-item {
+            border-bottom: 1px solid color(gray-l2);
+            padding-bottom: 20px;
+            margin-bottom: 20px;
+            cursor: pointer;
+            
+            &:last-child {
+                border-bottom: none;
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+
+            .dish-img, .rest-img {
+                border-radius: 2px;
+            }
+
+            .dish-title {
+                font-size: 17px;
+                font-weight: 600;
+                margin-bottom: 10px;
+                color: black;
+            }
+            .dish-count {
+                color: color(gray-l1);
+            }
+        }
+    }
+
+    .dish-list {
+        .img-thumb-container {
+            &.dish-thumb {
+                width: 100px;
+                height: 100px;
+            }
+        }
+    }
+
+    .rest-list {
+        .rest-name {
+            margin-top: 0;
+            color: $brand-info;
+        }
+        .rest-status {
+            font-size: 12px;
+        }
+        .item-info {
+            margin-top: 20px;
+        }
+        .img-thumb-container {
+            &.rest-thumb {
+                width: 130px;
+                height: 130px;
+            }
+        }
+    }
+}

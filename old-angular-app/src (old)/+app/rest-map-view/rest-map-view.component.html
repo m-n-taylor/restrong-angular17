@@ -1,0 +1,53 @@
+<div class="page rest-map-view-page">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">Rest Map View</a>
+                    </li>
+                </ul>
+            </div>
+
+            <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+
+            <div class="card">
+                <div id="rest-map"></div>
+            </div>
+
+            <div class="card menu-list" *ngIf="selectedRestaurant && !busyRest">
+                <div class="rest-item" (click)="selectRestItem(selectedRestaurant)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{selectedRestaurant.FileName}}" alt="{{ selectedRestaurant.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ selectedRestaurant.RestaurantName }}</h3>
+
+                            <div class="rest-status">{{ selectedRestaurant.Availability }}</div>
+
+                            <h4>{{ selectedRestaurant.MenuItemName }}</h4>
+
+                            <div>{{ selectedRestaurant.MenuItemDescription }}</div>
+
+                            <div class="row item-info">
+                                <div class="col-sm-3">Distance: {{ selectedRestaurant.Distance }} miles</div>
+                                <div class="col-sm-3">ETA: {{ selectedRestaurant.ETA }} miles</div>
+                                <div class="col-sm-3">Delivery Fee: ${{ selectedRestaurant.DeliveryCharge }}</div>
+                                <div class="col-sm-3">Min Order: {{ selectedRestaurant.MinOrder }} miles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loader" *ngIf="busyRest"></div>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" (click)="openRestListView()">List View</button>
+            <filters #filters [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></filters>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,43 @@
+macbook-device {
+
+    .marvel-device {
+        margin-left: 8px;
+        margin-right: 8px;
+
+        .screen {
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        &.macbook {
+            width: 40vw;
+            height: 21vw;
+            max-width: 960px;
+            max-height: 600px;
+
+            .top-bar,
+            .bottom-bar {
+                top: 94.4%;
+            }
+
+            /* FOR Mobile devices */
+            @media (max-width: $screen-xs-max) {
+                padding: 0;
+
+                width: auto;
+                height: auto;
+
+                .top-bar,
+                .bottom-bar {
+                    opacity: 0 !important;
+                }
+
+                .screen {
+                    box-shadow: none;
+                }
+            }
+        }
+    }
+}

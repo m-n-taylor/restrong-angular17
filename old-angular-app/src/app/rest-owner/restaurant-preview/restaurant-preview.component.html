@@ -1,0 +1,25 @@
+<div class="breadcrumb-container" [hidden]="!isAllLoaded">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="!isAllLoaded" center="page"></page-loader>
+
+<div class="restaurant-preview-page">
+
+    <div *ngIf="!busy" [hidden]="!isAllLoaded" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> {{ otherFireFlyData?.RestName }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="otherFireFlyID" class="restaurant-menu-preview-container">
+            <restaurant-menu-preview [fireFlyID]="otherFireFlyID" (fireFlyDataChange)="otherFireFlyDataChange($event)"></restaurant-menu-preview>
+        </div>
+    </div>
+</div>

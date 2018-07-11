@@ -1,0 +1,561 @@
+.toast-new-orders {
+    margin-top: 100px;
+}
+
+.edit-restaurant-page {
+
+    .main-contents {
+        padding: 0 40px 200px;
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .main-page-loader {
+            padding-top: 34px;
+        }
+
+        .page-title-section {
+            padding-bottom: 34px;
+        }
+
+        .alert-new-orders {
+            cursor: pointer;
+            margin-top: -1px;
+            margin-bottom: 34px;
+        }
+    }
+
+    .nav-pills {
+
+        //@media (max-width: $screen-xs-max) {
+        &.main-tabs {}
+        //}
+    }
+
+    .service-type-name {
+        font-weight: $lato-bold;
+
+        &.service-type-dinein,
+        &.service-type-catering {
+            margin-top: 22px;
+        }
+    }
+
+    .history-icon {
+        margin-right: 24px;
+    }
+
+    .rest-right-nav {
+        position: absolute;
+        top: 464px;
+        right: 50px;
+        width: 220px; //height: 600px; 
+        background-color: $gray;
+        border-radius: 4px;
+        padding: 28px 24px 55px;
+
+        @media (max-width: $screen-lg-min - 1) {
+            display: none;
+        }
+
+        .rest-nav-heading,
+        .rest-nav-item {
+            color: white;
+        }
+
+        .rest-nav-heading {
+            margin-bottom: 28px;
+            font-weight: $lato-black;
+            font-size: 18px;
+            cursor: default;
+
+            &.second-nav-heading {
+                margin-top: 43px;
+            }
+        }
+
+        .rest-nav-item {
+            padding: 13px 0 14px;
+            border-bottom: 1px solid #394A53;
+            cursor: pointer;
+
+            &.active {
+                color: $brand-success;
+            }
+        }
+
+        &.fixed-nav {
+            position: fixed;
+            top: 50px;
+        }
+    }
+
+    .rest-info-tab-pane {
+
+        .online-ordering-note {
+            // margin-top: 43px;
+            padding: 36px 16px;
+            background-color: rgba(#7C8B92, .3);
+            border-radius: 3px;
+
+            .online-ordering-text {
+                padding-top: 10px;
+            }
+
+            .active-online-ordering-wrapper {
+
+                @media (max-width: $screen-xs-max) {
+                    margin-top: 24px;
+                }
+
+                @media (min-width: $screen-lg-min) {
+                    text-align: right;
+                }
+            }
+        }
+
+        .online-ordering-section {
+            padding: 36px 16px;
+            background-color: rgba(#7C8B92, .3);
+            border-radius: 3px;
+        }
+
+        .photo-upload-container {
+            // float: left;
+            .photo-viewer {
+                position: relative;
+                margin-top: 7px;
+                margin-bottom: 12px;
+                width: 144px;
+                height: 144px;
+                background-color: rgba(#455A64, 0.05);
+
+                img {
+                    position: absolute;
+                    margin: auto;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    max-width: 100%;
+                }
+
+                &.photo-exist {
+                    background-color: transparent;
+                }
+            }
+
+            .delete-image {
+                margin-top: 12px;
+            }
+        }
+
+        .section-heading {
+            font-weight: $lato-black;
+            font-size: 18px;
+            margin-top: 43px;
+            margin-bottom: 40px;
+        }
+
+        .action-buttons-wrapper {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            margin: 64px 0 0;
+            transition: padding $side-menu-transition-speed;
+
+            @media (min-width: $screen-sm-min) {
+                background-color: white;
+            }
+
+            .action-buttons {
+                padding: 24px 64px;
+
+                @media (max-width: $screen-xs-max) {
+                    padding: 16px 24px;
+                }
+
+                @media (min-width: $screen-sm-min) {
+                    border-top: 1px solid #DBDBDB;
+                }
+
+                .btn {
+
+                    @media (max-width: $screen-xs-max) {
+                        // @include btn-xs;
+                        width: 100%;
+                    }
+                }
+            }
+        }
+
+        .subscription-select {
+
+            .more-pricing-info {
+                color: $gray;
+
+                a {
+                    color: $brand-success;
+                }
+            }
+        }
+
+        .service-type-section {
+
+            .checkbox-section {
+                .checkbox-inline {
+                    @media (max-width: $screen-xs-max) {
+                        display: block;
+                        margin-top: 16px;
+                        padding-left: 0;
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+
+        .braintree-status {
+            border: 1px solid rgba(69, 90, 100, .3);
+            padding: 13px 12px;
+            border-radius: 3px;
+            line-height: 1.42857;
+            background-color: #eee;
+        }
+
+        .tax-settings-section {
+
+            .tax-container {
+                border: 1px solid rgba(69, 90, 100, .3);
+                padding: 13px 12px;
+                border-radius: 3px;
+                line-height: 1.42857;
+                background-color: #eee;
+            }
+        }
+
+        .delivery-zone-section {
+
+            .delivery-zone-action-buttons {
+                margin-bottom: 20px;
+            }
+        }
+
+        #working-hours-section,
+        #delivery-hours-section,
+        #holidays-section {
+
+            .table {
+
+                tr {
+                    th,
+                    td {
+                        vertical-align: middle;
+                    }
+                }
+            }
+        }
+    }
+
+    .menus-tab-pane {
+        padding-top: 48px;
+
+        .menu-search-box-wrapper {
+            margin: 0 0 48px;
+        }
+
+        .no-result-placeholder {
+            margin-top: 48px;
+            text-align: center;
+
+            .placeholder-title {
+                font-weight: $lato-black;
+                font-size: 24px;
+            }
+
+            .placeholder-subtitle {
+                margin-top: 6px;
+            }
+
+            .placeholder-action-buttons {
+                margin-top: 19px; // .btn {
+                //     &:first-child {
+                //         margin-right: 24px;
+                //     }
+                // }
+            }
+        }
+
+        .action-buttons {
+            margin: 64px 0 0;
+        }
+    }
+
+    // Orders Tab
+    .orders-tab-pane {
+
+        page-loader {
+            .page-loader-container {
+                margin-top: 48px;
+            }
+        }
+
+        .customer-order-search {
+            padding: 48px 0;
+            border-bottom: 1px solid #DBDBDB;
+
+            .search-section {
+
+                .search-actions {
+
+                    @media (max-width: $screen-xs-max) {
+                        margin-top: 20px;
+                    }
+
+                    .btn {
+                        margin-right: 24px;
+                        margin-bottom: 16px;
+
+                        &:last-child {
+                            margin-right: 0;
+                        }
+                    }
+                }
+            }
+
+            &.filters-active {
+                padding-left: 22px;
+                padding-right: 22px;
+                color: white;
+                background-color: $gray;
+                border-radius: 4px;
+
+                .form-group {
+
+                    input,
+                    select {
+                        border: 1px solid $brand-success;
+                        color: white;
+                        background-color: rgba(#FFFFFF, .1);
+                    }
+
+                    select {
+                        option {
+                            color: $gray; // color of all the other options
+                        }
+                    }
+                }
+
+                .select-dates,
+                .select-service-type,
+                .select-status {
+                    margin-bottom: 0;
+                }
+
+                .select-dates,
+                .select-service-type,
+                .select-status,
+                .apply-button,
+                .reset-button,
+                .cancel-button {
+                    @media (max-width: $screen-md-max) {
+                        margin-bottom: 16px;
+                    }
+                }
+
+                .apply-button,
+                .reset-button,
+                .cancel-button {
+                    margin-right: 24px;
+                }
+
+                .cancel-button {
+                    background-color: $gray;
+                    color: $brand-success;
+                }
+
+                .search-section {
+                    display: none;
+                }
+
+                .filters-section {
+                    display: block;
+                }
+
+                .select-dates,
+                .select-service-type,
+                .select-status {
+                    @media (max-width: 1100px) {
+                        width: 100%;
+                    }
+                }
+
+                .filter-buttons-wrapper {
+                    display: inline-block;
+                    width: 100%;
+                    margin-top: 24px;
+                    display: block;
+                }
+            }
+        }
+
+        .customer-order-list {
+
+            table {
+                margin-bottom: 0;
+
+                tbody>tr>td {
+                    vertical-align: middle;
+
+                    @media (max-width: $screen-xs-max) {
+                        padding: 4px;
+                    }
+                }
+
+                tr {
+                    &.new-order {
+                        td {
+                            position: relative;
+
+                            .arrow-right-icon {
+                                margin-top: 30px;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .text-success,
+            .text-danger,
+            .text-dark-gray {
+                font-weight: $lato-black;
+            }
+
+            .customer-img {
+                width: 48px;
+                height: 48px;
+                background-color: #DBDBDB;
+            }
+        }
+    } // Coupons Tab
+    .coupons-tab-pane {
+        padding-top: 48px;
+    } // Preview tab
+    .preview-tab-pane {
+        padding-top: 48px;
+    }
+
+    .charts-graphs-tab-pane {
+        padding-bottom: 100px;
+    }
+
+    /* Finn Reports tab */
+    .fin-reports-tab-pane {
+        padding-top: 48px;
+
+        .fin-report-search {
+            .generate-report {
+                margin-top: 27px;
+            }
+        }
+
+        .fin-report-chart-section {
+            padding-top: 48px;
+
+            .fin-report-chart-heading {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .fin-sales-orders-chart-wrapper {
+                height: 500px;
+            }
+        }
+
+        .fin-report-details-section {
+            padding-top: 48px;
+
+            .fin-report-details-heading {
+                padding-bottom: 28px;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .fin-report-list {
+
+                .table {
+                    tr {
+                        td {
+                            cursor: text;
+                        }
+                    }
+                }
+
+                .total-text {
+                    font-size: 18px;
+                    font-weight: $lato-black;
+                }
+            }
+        }
+    } // Finn Reviews tab
+    .fin-statements-tab-pane {
+        padding-top: 48px;
+
+        .fin-statments-search {
+
+            .generate-statement {
+                margin-top: 27px;
+            }
+
+            .export-button {
+                margin-right: 24px;
+            }
+
+            .export-button,
+            .print-button {
+                margin-top: 27px;
+            }
+        }
+
+        .fin-summary-section {
+            margin: 64px 0;
+
+            .number-count-section {
+                margin: 16px 0;
+                text-align: center;
+
+                .number-count-title {
+                    font-weight: $lato-black;
+                    font-size: 32px;
+                }
+            }
+        }
+    } // Customer Reviews Tab
+    .customer-reviews-tab-pane {
+        padding-top: 48px;
+
+        .customer-reviews-search {
+            padding: 0 0 48px;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .customer-reviews-list {
+
+            table {
+                margin-bottom: 0;
+
+                tbody>tr>td {
+                    @media (max-width: $screen-xs-max) {
+                        padding: 4px;
+                    }
+                }
+            }
+
+            .ratings-container {
+                width: 120px;
+            }
+        }
+    }
+}

@@ -1,0 +1,111 @@
+<div class="support-chat-box">
+
+    <div class="chat-section-wrapper">
+
+        <div class="chat-section" [ngClass]="{ 'selected-thread': thread }">
+
+            <div class="clearfix">
+                <div class="thread-details-wrapper">
+                    <div class="thread-details">
+
+                        <div *ngIf="minimize && !thread" (click)="openChat()" class="thread-details-header clearfix cursor-pointer">
+                            <div class="customer-img profile-name-initials bg-primary" [ngClass]="{ 'online': true }">
+                                <div class="profile-logo">&nbsp;</div>
+                                <div class="user-status-wrapper">
+                                    <div class="user-status"></div>
+                                </div>
+                            </div>
+
+                            <button type="button" class="close" (click)="hideChatWindow($event)" aria-label="Close"><div class="delete-icon"></div></button>
+
+                            <div class="chat-with-us-section clearfix">
+                                <div class="customer-name">Chat with us!</div>
+                                <div>Any question? Click here.</div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!minimize || thread">
+                            <div class="thread-details-header cursor-pointer clearfix" (click)="toggleMinimize()">
+                                <div class="customer-img profile-name-initials bg-primary" [ngClass]="{ 'online': thread?.userOnline }">
+                                    <div class="profile-logo">{{ thread?.UserName | nameinitials }}</div>
+                                    <div class="user-status-wrapper">
+                                        <div class="user-status"></div>
+                                    </div>
+                                </div>
+
+                                <div class="thread-info">
+                                    <div class="customer-name">{{ thread?.UserName }}</div>
+                                    <div *ngIf="thread && !busy">{{ thread?.userOnline ? '(online)' : '(offline)' }}</div>
+                                    <div *ngIf="!showGuestForm && (!thread || busy)">Connecting...</div>
+                                </div>
+
+                                <button type="button" class="close" (click)="closeChatWindow($event)" aria-label="Close"><div class="delete-icon"></div></button>
+                            </div>
+                        </div>
+
+                        <div *ngIf="!minimize">
+                            <div class="thread-chat-section" [ngClass]="{ 'has-guest-form': showGuestForm }" #threadChatSection>
+
+                                <div *ngIf="busy" class="chat-loader">
+                                    <page-loader></page-loader>
+
+                                    <div class="busy-text">
+                                        Our waiters are serving other customers. Please wait we will connect your shortly. Sorry for the delay.
+                                    </div>
+                                </div>
+
+                                <div class="guest-form" [hidden]="!showGuestForm">
+                                    <form #guestForm="ngForm" (ngSubmit)="submitGuestForm(guestForm)">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(guestForm, Name) }">
+                                            <label>Name</label>
+                                            <input type="text" class="form-control" name="Name" required #Name="ngModel" [(ngModel)]="guestInfo.name" placeholder="Enter your name here.">
+
+                                            <validation-messages [form]="guestForm" [input]="Name" label="Name"></validation-messages>
+                                        </div>
+
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(guestForm, Email) }">
+                                            <label>Email</label>
+                                            <input type="email" class="form-control" name="Email" required mValidEmail #Email="ngModel" [(ngModel)]="guestInfo.email" placeholder="Enter your email here.">
+
+                                            <validation-messages [form]="guestForm" [input]="Email" label="Email"></validation-messages>
+                                        </div>
+
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(guestForm, Phone) }">
+                                            <label>Phone</label>
+                                            <input type="text" class="form-control" name="Phone" mValidPhone #Phone="ngModel" [(ngModel)]="guestInfo.phone" placeholder="Enter your phone here.">
+
+                                            <validation-messages [form]="guestForm" [input]="Phone" label="Phone"></validation-messages>
+                                        </div>
+
+                                        <div>
+                                            <button class="btn btn-success btn-block">Start Chat</button>
+                                        </div>
+                                    </form>
+                                </div>
+
+                                <div class="chat-item" [ngClass]="{ 'outgoing': item.SenderType != 'user', 'incoming': item.SenderType == 'user' }" *ngFor="let item of thread?.messages">
+                                    <div class="chat-img profile-name-initials bg-primary">
+                                        <div class="profile-logo" *ngIf="item.SenderType == 'user'">{{ thread.UserName | nameinitials }}</div>
+                                        <div class="profile-logo" *ngIf="item.SenderType != 'user'">{{ (thread.RestUserID ? thread.RestUserName : thread.CustomerID ? thread.CustomerName : thread.GuestName) | nameinitials }}</div>
+                                    </div>
+                                    <div class="chat-message">
+                                        <div class="message-text">{{ item.Message }}</div>
+                                        <div class="message-date">{{ item.DateCreated | date: 'short' }}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="send-message-section clearfix">
+                                <div class="send-message-textarea">
+                                    <textarea [disabled]="!thread || busy" class="form-control" name="messageText" [(ngModel)]="messageText" (keyup.enter)="sendMessage()" placeholder="Press Enter to send message."></textarea>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</div>

@@ -1,0 +1,13 @@
+{
+  "files": [
+    "src/*.ts",
+    "src/model/*.ts",
+    "src/controllers/*.ts"
+  ],
+  "compilerOptions": {
+    "noImplicitAny": true,
+    "target": "es5",
+    "showOutput": "never",
+    "lib": [ "es2015" ]
+  }
+}

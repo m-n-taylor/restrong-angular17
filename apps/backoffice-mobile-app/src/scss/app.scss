@@ -1,0 +1,8 @@
+body {
+    -webkit-user-select: none !important;
+}
+
+input[type=text],
+textarea {
+    -webkit-user-select: text !important;
+}

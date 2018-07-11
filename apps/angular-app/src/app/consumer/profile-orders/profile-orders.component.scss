@@ -1,0 +1,87 @@
+profile-orders {
+
+    .profile-orders {
+        padding: 40px 135px;
+
+        .past-orders-no-result-section {
+            text-align: center;
+            margin-top: 48px;
+
+            .no-result-title {
+                font-weight: $lato-black;
+                font-size: 24px;
+            }
+
+            .no-result-subtitle {
+                margin-top: 4px;
+            }
+
+            .no-result-action {
+                margin-top: 18px;
+
+                .btn {
+                    min-width: 184px;
+                }
+            }
+        }
+
+        .past-orders-section {
+
+            .past-orders-list {
+
+                .rest-img,
+                .cuisine-img {
+                    width: 64px;
+                    height: 64px;
+
+                    background-size: contain;
+                    background-repeat: no-repeat;
+                    background-position: center;
+                }
+
+                .cuisine-img {
+                    padding: 8px;
+                    background-color: rgba(69, 90, 100, 0.05);
+
+                    .item-cuisine-icon {
+                        width: 48px;
+                        height: 48px;
+                    }
+                }
+
+                .btn-write-review {
+                    margin-top: 16px;
+                }
+
+                .btn-hi-waiter,
+                .btn-write-review {
+                    min-width: 112px;
+                }
+            }
+
+            .stats-section {
+                border: 1px solid #DDDDDD;
+                border-radius: 3px;
+                padding: 32px;
+                max-width: 270px;
+                margin: 0 auto;
+
+                .section-title {
+                    font-weight: $lato-black;
+                    font-size: 18px;
+                }
+
+                .stat-section {
+                    margin-top: 33px;
+
+                    .stat-count {
+                        font-weight: $lato-black;
+                        font-size: 24px;
+                    }
+
+                    .stat-label {}
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,26 @@
+<div class="select-btn-group-container" (clickOutside)="clickOutside($event)">
+    <div class="btn-group select-btn-group" [ngClass]="{ 'single-select' : !multiSelect, 'theme-dark' : theme == 'dark' }">
+        <button type="button" class="btn btn-default btn-xlg dropdown-toggle" [ngClass]="{ 'has-error' : error, 'disabled': disabled }" (click)="toggleOpen()">
+            <div class="placeholder-text text-overflow">{{ makeSelectedText() || placeholder }}</div> <span class="caret"></span>
+        </button>
+        <ul class="dropdown-menu search-section" [ngClass]="{ 'd-block' : isOpen }">
+            <li>
+                <div class="form-group">
+                    <input class="form-control input-sm" type="text" placeholder="Search..." name="searchText" [(ngModel)]="searchText" (ngModelChange)="searchTextChanged()" autocomplete="off">
+                </div>
+            </li>
+        </ul>
+        <ul class="dropdown-menu list-section" [ngClass]="{ 'd-block' : isOpen }">
+            <li *ngFor="let item of items" (click)="itemClicked(item)" [ngClass]="{ 'active': !multiSelect && item.isSelected }" [hidden]="item.isHidden">
+                <a>
+                    <!--<m-radio *ngIf="!multiSelect" inline=true name="optionsDurationTypeRadios" [(value)]="item.isSelected" [defaultValue]="true"></m-radio>-->
+                    <m-checkbox *ngIf="multiSelect" inline=true [(value)]="item.isSelected"></m-checkbox>
+                    {{ item[itemLabelProp] }}
+                </a>
+            </li>
+        </ul>
+    </div>
+    <div *ngIf="error" class="has-error">
+        <div class="help-block f-bold">{{ error }}</div>
+    </div>
+</div>

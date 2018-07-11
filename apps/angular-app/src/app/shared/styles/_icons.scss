@@ -1,0 +1,105 @@
+// Icons
+$icons: ( 'burger-search-fail',
+'facebook',
+'google',
+'restaurant-menu',
+'checkbox-on',
+'checkbox-off',
+'radio-on',
+'radio-off',
+'toggle-on',
+'toggle-off',
+'brand-logo',
+'brand-logo-white',
+'phone',
+'success',
+'arrow-right-1',
+'close-1',
+'close-3',
+'close-3-white',
+'menu',
+'menu-white',
+'open',
+'close',
+'delete',
+'arrow-left',
+'delete-time',
+'pencil',
+'email',
+'password',
+'show-password',
+'arrow-back-black',
+);
+
+@mixin baseProps() {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+}
+
+@mixin getIcon($propValue, $parent) {
+    @include baseProps();
+    background-image: url('img/#{$parent}/#{$propValue}.svg');
+}
+
+@each $propValue in $icons {
+
+    .#{$propValue}-icon {
+        @include getIcon($propValue, 'shared');
+    }
+
+    .base-icon {
+        @include baseProps();
+    }
+}
+
+// Toggle ON/OFF
+.toggle-on-icon,
+.toggle-off-icon {
+    width: 44px;
+}
+
+.brand-logo-icon,
+.brand-logo-white-icon {
+    width: 176px;
+    height: 24px;
+}
+
+// 112x112
+.burger-search-fail-icon,
+.restaurant-menu-icon {
+    width: 112px;
+    height: 112px;
+}
+
+// 120x120
+.success-icon {
+    width: 120px;
+    height: 120px;
+}
+
+// 36x24
+.menu-icon,
+.menu-white-icon {
+    width: 36px;
+    height: 24px;
+}
+
+// 28x28
+.close-1-icon {
+    width: 28px;
+    height: 28px;
+}
+
+.facebook-icon {
+    width: 24px;
+    height: 25px;
+}
+
+.google-icon {
+    width: 33px;
+    height: 25px;
+}

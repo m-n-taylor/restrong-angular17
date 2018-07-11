@@ -1,0 +1,64 @@
+// Icons
+$icons: ( 
+    'filter-on', 
+    'filter-off', 
+    'search', 
+    'card', 
+    'dish-2', 
+    'restaurant-menu-2', 
+    //'email-arrow', 
+    'location', 
+    'restaurant-map', 
+    'basket', 
+    'basket-empty', 
+    'mastercard', 
+    'visa', 
+    'amex', 
+    'discover', 
+    'delete-2', 
+    'account-circle-white', 
+);
+
+@each $propValue in $icons {
+
+    .#{$propValue}-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-image: url('img/cr/#{$propValue}.svg');
+        background-repeat: no-repeat;
+        background-position: 50%;
+        cursor: pointer;
+    }
+
+}
+
+// 40x16
+.visa-icon, .amex-icon {
+    width: 40px;
+    height: 16px;
+}
+
+// 40x32
+.mastercard-icon {
+    width: 40px;
+    height: 32px;
+}
+
+// 40x40
+// .email-arrow-icon {
+//     width: 40px;
+//     height: 40px;
+// }
+
+// 56x16
+.discover-icon {
+    width: 56px;
+    height: 16px;
+}
+
+// 64x64
+.card-icon, .dish-2-icon, .restaurant-menu-2-icon {
+    width: 64px;
+    height: 64px;
+}

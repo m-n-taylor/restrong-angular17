@@ -1,0 +1,28 @@
+.user-address-list {
+
+    .top-section {
+
+        .section-title {
+            margin-top: 8px;
+            font-weight: $lato-black;
+            font-size: 18px;
+        }
+
+        .btn-add-new-address {
+            min-width: 176px;
+        }
+    }
+
+    .user-address-table {
+        position: relative;
+        margin-top: 40px;
+
+        .table {
+            tr {
+                th {
+                    border-top: 1px solid #ddd !important;
+                }
+            }
+        }
+    }
+}

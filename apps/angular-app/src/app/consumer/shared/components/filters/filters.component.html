@@ -1,0 +1,140 @@
+<div>
+
+    <div class="filters-section">
+
+        <div class="filters-overlay"></div>
+
+        <div class="close-icon-container">
+            <div class="delete-icon" (click)="sharedDataService.toggleFiltersOpened()"></div>
+        </div>
+
+        <ul class="nav nav-pills service-type-tabs">
+            <li *ngIf="sharedDataService.platformSettings.Enable_Delivery" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_DELIVERY}" (click)="filtersSerivce.changeServiceType(constants.SERVICE_TYPE_DELIVERY)"><a>Delivery</a></li>
+            <li *ngIf="sharedDataService.platformSettings.Enable_Pickup" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_PICKUP}" (click)="filtersSerivce.changeServiceType(constants.SERVICE_TYPE_PICKUP)"><a>Pickup</a></li>
+            <li *ngIf="sharedDataService.platformSettings.Enable_Catering" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_CATERING}" (click)="filtersSerivce.changeServiceType(constants.SERVICE_TYPE_CATERING)"><a>Catering</a></li>
+            <li *ngIf="sharedDataService.platformSettings.Enable_DiningIn" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN}" (click)="filtersSerivce.changeServiceType(constants.SERVICE_TYPE_DINEIN)"><a>Dine In</a></li>
+        </ul>
+
+        <div *ngIf="sharedDataService.platformSettings.Enable_View_Mode" class="view-types-container">
+            <div class="view-types clearfix">
+                <button class="btn btn-block1 view-type" [ngClass]="{'btn-success view-active': sharedDataService.viewMode == constants.VIEW_MODE_DISH}" (click)="filtersSerivce.changeViewMode(constants.VIEW_MODE_DISH)">Dish</button>
+                <button class="btn btn-block1 view-type" [ngClass]="{'btn-success view-active': sharedDataService.viewMode == constants.VIEW_MODE_RESTAURANT}" (click)="filtersSerivce.changeViewMode(constants.VIEW_MODE_RESTAURANT)">Restaurants</button>
+            </div>
+        </div>
+
+        <!-- Dish filters -->
+        <div *ngIf="sharedDataService.platformSettings.Enable_Dish_Filter" class="dish-filters">
+            <div class="filter-title">
+                Dish Filters
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 min-price-wrapper">
+                    <div class="min-price">
+                        <span>Min Price:</span>
+                        <span class="value c-success">${{ sharedDataService.minPrice }}</span>
+                    </div>
+                    <div class="price-range">
+                        <div class="range-fill range-fill-active" [ngStyle]="{ 'width': (sharedDataService.minPrice + '%') }"></div>
+                        <input class="custom-range-slider" type="range" min="0" max="100" [(ngModel)]="sharedDataService.minPrice" (mouseup)="filtersSerivce.applyFilter(constants.FILTER_MIN_PRICE)" ng-disabled="busyCuisine">
+                    </div>
+                </div>
+                <div class="col-xs-6 max-price-wrapper">
+                    <div class="min-price">
+                        <span>Max Price:</span>
+                        <span class="value c-success">${{ sharedDataService.maxPrice }}</span>
+                    </div>
+                    <div class="price-range">
+                        <div class="range-fill range-fill-active" [ngStyle]="{ 'width': (sharedDataService.maxPrice + '%') }"></div>
+                        <input class="custom-range-slider" type="range" min="0" max="100" [(ngModel)]="sharedDataService.maxPrice" (mouseup)="filtersSerivce.applyFilter(constants.FILTER_MAX_PRICE)" ng-disabled="busyCuisine">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-xs-6 delivery-fee-wrapper">
+                    <div class="delivery-fee">
+                        <span>Delivery Fee:</span>
+                        <span class="value c-success">{{ constants.DELIVERY_STEPS_TEXT[sharedDataService.deliveryFeeStep] }}</span>
+                    </div>
+                    <div class="price-range delivery-fee-range">
+                        <div class="range-fill range-fill-active" [ngStyle]="{ 'width': ((sharedDataService.deliveryFeeStep) * 33.33 + '%') }"></div>
+                        <input class="custom-range-slider" type="range" min="0" max="3" [(ngModel)]="sharedDataService.deliveryFeeStep" (mouseup)="filtersSerivce.applyFilter(constants.FILTER_DELIVERY_FEE)" ng-disabled="busyCuisine">
+                    </div>
+                </div>
+                <div class="col-xs-6 min-order-wrapper">
+                    <div class="min-order">
+                        <span>Min Order:</span>
+                        <span class="value c-success">{{ constants.MIN_ORDER_STEPS_TEXT[sharedDataService.minOrderStep] }}</span>
+                    </div>
+                    <div class="price-range min-order-range">
+                        <div class="range-fill range-fill-active" [ngStyle]="{ 'width': ((sharedDataService.minOrderStep) * 33.33 + '%') }"></div>
+                        <input class="custom-range-slider" type="range" min="0" max="3" [(ngModel)]="sharedDataService.minOrderStep" (mouseup)="filtersSerivce.applyFilter(constants.FILTER_MIN_ORDER)" ng-disabled="busyCuisine">
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="proximity">
+                        <span>Proximity:</span>
+                        <span class="value c-success">{{ sharedDataService.proximity }} miles</span>
+                    </div>
+                    <div class="proximity-range">
+                        <div class="range-fill range-fill-active" [ngStyle]="{ 'width': ((sharedDataService.proximity - 1) * 11.11 + '%') }"></div>
+                        <input class="custom-range-slider" type="range" min="1" max="10" [(ngModel)]="sharedDataService.proximity" (mouseup)="filtersSerivce.applyFilter(constants.FILTER_PROXIMITY)" ng-disabled="busyCuisine">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Cuisine filters -->
+        <div *ngIf="sharedDataService.platformSettings.Enable_Cuisine_Filter && sharedDataService.cuisines.length" class="cuisine-filters">
+            <div class="filter-title">
+                Cuisine Filters
+            </div>
+
+            <page-loader *ngIf="sharedDataService.busyCuisines"></page-loader>
+
+            <!-- [ngClass]="{ 'active' : item.isSelected }" ng-repeat="item in cuisineItems track by $index" ng-click="selectCuisine(item)"-->
+            <div *ngIf="!sharedDataService.busyCuisines" class="cuisine-list clearfix">
+                <div class="cuisine-item" *ngFor="let item of sharedDataService.cuisines; let index = index" [ngClass]="{'active': item.isSelected }" (click)="filtersSerivce.selectCuisine(item)">
+                    <div class="cuisine-icon-{{item.id}} cuisine-img" [ngClass]="{'cuisine-icon-active': item.isSelected }"></div>
+                    <div class="cuisine-name">{{ item.Cuisine }}</div>
+                </div>
+            </div>
+        </div>
+
+        <!--<div class="row m-t-20">
+        <div class="col-sm-12">
+            <div class="chip" *ngFor="let keyword of sharedDataService.keywords; let index = index" (click)="removeKeyword(index)">{{ keyword }} x</div>
+        </div>
+    </div>
+
+    <div class="row m-t-20">
+        <div class="col-sm-12">
+            <div class="form-group">
+
+                <label>Search</label>
+                <input type="text" class="form-control" 
+                    placeholder="Enter a keyword">
+
+                
+
+            </div>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button class="btn btn-info" (click)="applyFilter()">Filter</button>
+    </div>-->
+
+        <!--<div class="row m-t-20">
+        <div class="col-sm-12">
+            <h3>Cuisine Filters</h3>
+            <div class="chip" *ngFor="let item of sharedDataService.data.cuisines; let index = index" [ngClass]="{'active': item.isSelected }"
+                (click)="selectCuisine(item)">{{ item.Cuisine }}</div>
+        </div>
+    </div>-->
+    </div>
+</div>

@@ -1,0 +1,182 @@
+<div class="home-page">
+
+  <div class="row">
+    <div class="big-image-section">
+      <div class="tag-heading">The Worlds Biggest Kitchen...</div>
+      <div class="tag-subheading">We Have Everything On The Menu</div>
+
+      <div class="search-section">
+        <div class="form-inline">
+          <input type="text" class="form-control your-address" [(ngModel)]="yourAdressText" placeholder="Your address" id="autocomplete-location">
+          <select class="form-control service-type" [(ngModel)]="serviceType">
+                <option [value]="constants.SERVICE_TYPE_DELIVERY">Delivery</option>
+                <option [value]="constants.SERVICE_TYPE_PICKUP">Pickup</option>
+                <option [value]="constants.SERVICE_TYPE_CATERING">Catering</option>
+                <option [value]="constants.SERVICE_TYPE_DINEIN">Dine In</option>
+            </select>
+          <button class="btn btn-success btn-lg find-rest" (click)="search()">Find Restaurants</button>
+        </div>
+      </div>
+
+      <img class="bg-dish-image" src="img/cr/main-dish.png" alt="">
+    </div>
+  </div>
+
+  <div class="dish-section">
+    <div class="title-heading">Dishes In Your Area</div>
+    <div class="subtitle-heading">Here is some of the top cusines and dishes in your area.</div>
+
+    <div class="dish-list clearfix">
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+      <dish-item name="Pizza" count="1,227 dishes"></dish-item>
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-success btn-inverse btn-xlg view-more-dishes">View More</button>
+    </div>
+  </div>
+
+
+
+  <div class="how-menus-work-section">
+    <div class="title-heading">How Menus.com Works</div>
+
+    <div class="row">
+
+      <div class="col-sm-4">
+        <div class="how-works">
+          <div class="how-works-icon1 restaurant-menu-2-icon"></div>
+          <div class="how-works-title">Search Nearby Menus</div>
+          <div class="how-works-text">Use the menus.com search to find all menu items near you. Find the exact item you want (ex. chicken burrito)</div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="how-works">
+          <div class="how-works-icon1 card-icon"></div>
+          <div class="how-works-title">Add To Cart</div>
+          <div class="how-works-text">Being the worlds biggest menu. We allow you to add items from various menus to your cart for checkout.</div>
+        </div>
+      </div>
+
+      <div class="col-sm-4">
+        <div class="how-works">
+          <div class="how-works-icon1 dish-2-icon"></div>
+          <div class="how-works-title">Delivery or Pickup</div>
+          <div class="how-works-text">Depending on your food order you can have it delivered within the hour or scheduled</div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="text-center">
+      <button class="btn btn-success btn-xlg download-now">Download Now</button>
+    </div>
+
+  </div>
+
+  <div class="row own-business-section">
+    <div class="col-sm-6">
+      <div class="left-side">
+
+        <div class="title-heading">Own A Business?</div>
+        <div class="subtitle-heading">We Have Premium Plans</div>
+
+        <div class="features-list">
+
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="feature-section">
+                <div class="feature-section-title">Verify Menus.com Listing</div>
+                <div class="feature-section-subtitle">Keep your items up to date and take orders easily.</div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="feature-section">
+                <div class="feature-section-title">Integrated Point of Sale</div>
+                <div class="feature-section-subtitle">Use our cloud based POS with integrated hardware.</div>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="row">
+
+            <div class="col-sm-6">
+              <div class="feature-section">
+                <div class="feature-section-title">Feature #3</div>
+                <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+              </div>
+            </div>
+
+            <div class="col-sm-6">
+              <div class="feature-section">
+                <div class="feature-section-title">Feature #4</div>
+                <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+              </div>
+            </div>
+
+          </div>
+
+        </div>
+
+        <div class="text-center">
+          <button class="btn btn-success btn-xlg signup">Sign Up</button>
+        </div>
+
+      </div>
+    </div>
+    <div class="col-sm-6">
+      <div class="right-side">
+        <div class="bg-rest-dashboard">
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="footer-section">
+    <div class="row">
+      <div class="col-sm-3 section-1">
+        <div><img src="img/shared/menus-logo.svg" alt=""></div>
+        <div class="menus-about-text">Menus.com is an online destination for searching every available food item near you. Find the exact items you want
+          to order and add them to your cart for easy delivery.</div>
+      </div>
+      <div class="col-sm-3 section-2">
+        <div class="section-title">Want Free Food?</div>
+        <div class="enter-email-text">Enter your email for deals on free food on menus.com</div>
+        <div class="form-group email-input">
+          <div class="input-group">
+            <input type="text" class="form-control input-sm" placeholder="Your Email">
+            <div class="input-group-addon">
+              <div class="email-arrow-icon"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="col-sm-3 section-3">
+        <div class="section-title">About</div>
+        <div class="section-links">
+          <div class="section-link"><a href="#">About us</a></div>
+          <div class="section-link"><a href="#">Faqs</a></div>
+          <div class="section-link"><a href="#">Contacts</a></div>
+        </div>
+      </div>
+      <div class="col-sm-3 section-4">
+        <div class="section-title">Account</div>
+        <div class="section-links">
+          <div class="section-link"><a href="#">Login</a></div>
+          <div class="section-link"><a href="#">Register</a></div>
+          <div class="section-link"><a href="#">Terms and conditions</a></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

@@ -1,0 +1,54 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Modal -->
+<div class="modal save-masterhead-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><div class="delete-icon"></div></button>
+                <h4 class="modal-title" id="myModalLabel">{{ isNewMasterHead ? 'New Menu' : masterHead.Name }}</h4>
+            </div>
+
+            <form #form="ngForm" novalidate (ngSubmit)="form.valid && save(form)">
+
+                <div class="modal-body modal-scrollable">
+
+                    <!--<page-loader *ngIf="busy"></page-loader>-->
+
+                    <div class="form-group" [ngClass]="{ 'has-error': input.hasError(form, Name) }">
+                        <label>Name</label>
+                        <input type="text" name="Name" required #Name="ngModel" [(ngModel)]="masterHead.Name" class="form-control" />
+
+                        <validation-messages [form]="form" [input]="Name" label="Name"></validation-messages>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description</label>
+                        <textarea type="text" name="Description" [(ngModel)]="masterHead.Description" rows="5" class="form-control"></textarea>
+                    </div>
+
+                    <div class="service-type-checkbox-section">
+                        <m-checkbox inline=true text="Dining-In" [(value)]="masterHead.IsDiningIn"></m-checkbox>
+                        <m-checkbox inline=true text="Catering" [(value)]="masterHead.IsCatering"></m-checkbox>
+                        <m-checkbox inline=true text="Delivery" [(value)]="masterHead.IsDelivery"></m-checkbox>
+                        <m-checkbox inline=true text="Pick-Up" [(value)]="masterHead.IsPickup"></m-checkbox>
+                    </div>
+
+                    <div class="active-now-checkbox">
+                        <m-checkbox toggle=true [(value)]="masterHead.Enabled" text="Active Now?" text-align="left"></m-checkbox>
+                    </div>
+
+                </div>
+
+                <div class="modal-footer">
+                    <div class="action-buttons">
+                        <button type="submit" [ladda]="busy" class="btn btn-success">{{ isNewMasterHead ? 'Add' : 'Save' }}</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+
+            </form>
+        </div>
+    </div>
+</div>

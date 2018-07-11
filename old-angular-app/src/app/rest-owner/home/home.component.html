@@ -1,0 +1,300 @@
+<div class="landing-page home-page" [ngClass]="{ 'backoffice-mobile-menu-opened' : sharedDataService.isMobileMenuOpen }">
+
+    <nav class="navbar navbar-backoffice navbar-backoffice-1">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="sharedDataService.toggleMobileMenu()">
+                    <div class="base-icon toggle-menu-icon"></div>
+                </button>
+                <a class="navbar-brand" routerLink="/">
+                    <div class="menus-logo-white-icon"></div>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse" [ngClass]="{ 'collapse' : !sharedDataService.isMobileMenuOpen }">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a routerLink="/backoffice/pricing">Pricing</a></li>
+                    <li class="request-demo"><a routerLink="/backoffice">Request a demo</a></li>
+                    <li class="last-link"><a routerLink="/backoffice/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="top-content-wrapper">
+        <div class="top-content-bg"></div>
+        <div class="top-content-overlay"></div>
+
+        <div class="top-content">
+
+
+            <!-- <div class="top-nav-section clearfix">
+                <div class="menus-logo-section">
+                    <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo-white.svg" alt="menus"></a>
+                </div>
+
+                <div class="nav-links">
+                    <a class="nav-link" routerLink="/backoffice/pricing">
+                    Pricing
+                </a>
+                    <a class="nav-link request-demo" routerLink="/backoffice">
+                    Request a demo
+                </a>
+                    <a class="nav-link" routerLink="/backoffice/login">
+                    Login
+                </a>
+                </div>
+            </div> -->
+
+            <div class="main-text">
+                <div class="tag-heading">Online ordering built just for your restaurant.</div>
+                <div class="tag-subheading">Your brand. Your customers. Your online ordering system. Powered by Menus.</div>
+
+                <div class="call-to-action">
+                    <button class="btn btn-success btn-xlg">How It Works</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-take-control clearfix">
+
+        <div class="section-image">
+            <img src="img/ro/macbook-iphone.svg" alt="">
+        </div>
+
+        <div class="section-details">
+            <div class="section-title">
+                Take control with a branded online ordering system, built just for you.
+            </div>
+            <div class="section-subtitle">
+                Menus Direct allows customers to place orders directly from your website, Facebook page, and branded iPhone and Android apps — all for a flat rate.
+            </div>
+            <div class="section-call-action">
+                <button class="btn btn-success btn-xlg">See How It Works</button>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-reach-customers clearfix">
+        <div class="section-details">
+            <div class="section-details-wrapper">
+                <div class="section-title">
+                    Reach new customers and lower your commission rates.
+                </div>
+                <div class="section-subtitle">
+                    Menus.com is your menu window to the world, so hungry customers craving your dishes can find you with a click.
+                </div>
+                <div class="section-call-action">
+                    <button class="btn btn-success btn-xlg">See It Action</button>
+                </div>
+            </div>
+        </div>
+        <div class="section-image">
+            <img src="img/ro/iphone.svg" alt="">
+        </div>
+    </div>
+
+    <div class="section-online-ordering">
+        <div class="section-title">
+            Integrated online ordering and analytical platform
+        </div>
+
+        <div class="section-details">
+            <div class="feature-list clearfix">
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/power-up.svg" alt=""></div>
+                    <div class="feature-title">Power up</div>
+                    <div class="feature-text">with our online, app and phone ordering integration</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/get-listed.svg" alt=""></div>
+                    <div class="feature-title">Get listed on the menus.com</div>
+                    <div class="feature-text">market place and receive orders at lower cost</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/modernize.svg" alt=""></div>
+                    <div class="feature-title">Modernize your concept</div>
+                    <div class="feature-text">with your own branded mobile app and website that is already integrated with popular payment platform</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/gain-market.svg" alt=""></div>
+                    <div class="feature-title">Gain market intelligence</div>
+                    <div class="feature-text">and optimize your menu pricing and offering by utilizing menusense&trade; reporting</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/promote.svg" alt=""></div>
+                    <div class="feature-title">Manage and promote your restaurant</div>
+                    <div class="feature-text">to existing and potential customers via integrated Mpoints&trade; Coupons system and analyze results for further insights</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/feedback.svg" alt=""></div>
+                    <div class="feature-title">Get direct feedback</div>
+                    <div class="feature-text">from customers and turn a complains into an opportunity</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/manage.svg" alt=""></div>
+                    <div class="feature-title">Manage your online transaction</div>
+                    <div class="feature-text">and reporting from palm of your hand and chat directly with customers</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/streamline.svg" alt=""></div>
+                    <div class="feature-title">Streamline your phone orders</div>
+                    <div class="feature-text">to a trained DigitalWaiters&trade; to save cost and increase average check</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/optimize.svg" alt=""></div>
+                    <div class="feature-title">Optimize your menu</div>
+                    <div class="feature-text">wording and listing for Search Optimization to gain new clients</div>
+                </div>
+                <div class="feature-item item-center">
+                    <div class="feature-image"><img src="img/ro/support-2.svg" alt=""></div>
+                    <div class="feature-title">24/7 Customer support</div>
+                    <div class="feature-text">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-testimonials">
+        <div class="section-title">Hear What Restaurants Are Saying About Us</div>
+        <div class="testimonial-title">«Menus creates a dialogue between our restaurant and the guest.»</div>
+        <div class="testimonial-by">John Sungkamee, Owner</div>
+        <div class="testimonial-by-logo"></div>
+    </div>
+
+    <div class="section-did-you-know clearfix">
+        <div class="section-details">
+            <div class="section-details-wrapper">
+                <div class="section-title">
+                    Do you use Menusense™
+                </div>
+                <div class="section-subtitle">
+                    Restaurants who use Menusense™ know more about their competitors.
+                </div>
+            </div>
+        </div>
+        <div class="section-image">
+            <img src="img/ro/graph.svg" alt="">
+        </div>
+    </div>
+
+    <request-demo></request-demo>
+
+    <div class="section-already-client">
+        <div class="section-text">Already a client, or need help with an order? Contact Menus Support.</div>
+        <div class="section-phone">
+            <div class="phone-icon"></div>{{ sharedDataService.globalSettings?.CustomerService?.Phone }}</div>
+    </div>
+
+    <div class="footer-section">
+        <div class="row">
+            <div class="col-sm-4 section-1">
+                <div><img src="img/shared/menus-logo.svg" alt=""></div>
+                <div class="menus-about-text">Menus.com is an online destination for searching every available food item near you. Find the exact items you want to order and add them to your cart for easy delivery.</div>
+            </div>
+            <!-- <div class="col-sm-4 section-2">
+                <div class="section-title">Want Free Food?</div>
+                <div class="enter-email-text">Enter your email for deals on free food on menus.com</div>
+                <div class="form-group email-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" placeholder="Your Email">
+                        <div class="input-group-addon">
+                            <div class="arrow-right-1-icon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-xs-6 col-sm-4 section-3">
+                <div class="section-title">About</div>
+                <div class="section-links">
+                    <div class="section-link"><a href="#">About us</a></div>
+                    <div class="section-link"><a href="#">Faqs</a></div>
+                    <div class="section-link"><a href="#">Contacts</a></div>
+                </div>
+            </div>
+            <div class="col-xs-6 col-sm-4 section-4">
+                <div class="section-title">Account</div>
+                <div class="section-links">
+                    <div class="section-link"><a href="#">Login</a></div>
+                    <div class="section-link"><a href="#">Register</a></div>
+                    <div class="section-link"><a href="#">Terms and conditions</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row1">
+    <div class="home-page">
+        <div class="header-logo-section">
+            <img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus">
+        </div>
+
+        <div class="own-business-section clearfix">
+
+            <div class="left-side">
+
+                <div class="title-heading">Own A Business?</div>
+                <div class="subtitle-heading">We Have Premium Plans</div>
+
+                <div class="container-fluid">
+
+                    <div class="features-list">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Verify Menus.com Listing</div>
+                                    <div class="feature-section-subtitle">Keep your items up to date and take orders easily.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Integrated Point of Sale</div>
+                                    <div class="feature-section-subtitle">Use our cloud based POS with integrated hardware.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #3</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #4</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-success btn-xlg signup" routerLink="/backoffice/login">Sign Up</button>
+                </div>
+
+            </div>
+
+            <div class="right-side">
+                <div class="bg-rest-dashboard"></div>
+            </div>
+
+        </div>
+    </div>
+</div> -->

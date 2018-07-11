@@ -1,0 +1,81 @@
+.restaurant-menu-preview {
+
+    .menu-section {
+        border: 1px solid #DBDBDB;
+        border-radius: 3px;
+        margin-bottom: 24px;
+
+        .menu-section-heading {
+            font-weight: $lato-black;
+            font-size: 24px;
+            padding: 18px 32px;
+        }
+
+        .menu-section-details {
+            padding: 0 33px 33px;
+            border-top: 1px solid #DBDBDB;
+
+            @media (max-width: $screen-xs-max) {
+                padding-left: 11px;
+                padding-right: 11px;
+            }
+
+            .menu-item-section {
+                margin-top: 33px;
+                border: 1px solid #DBDBDB;
+
+                @media (max-width: $screen-xs-max) {
+                    margin-top: 11px;
+                }
+
+                .menu-item-section-heading {
+                    font-weight: $lato-black;
+                    font-size: 18px;
+                    padding: 21px 24px;
+                }
+
+                .menu-item-section-details {
+                    padding: 28px 24px;
+                    border-top: 1px solid #DBDBDB;
+
+                    .menu-item-name-price {
+                        margin-bottom: 12px;
+
+                        &.have-option {
+                            cursor: pointer;
+                            color: $brand-success;
+
+                            .menu-item-name {
+                                text-decoration: underline;
+                            }
+                        }
+
+                        &:last-child {
+                            margin-bottom: 0;
+                        }
+                    }
+                }
+
+                &.collapsed {
+                    .menu-item-section-heading {
+                        border-bottom: none;
+                    }
+
+                    .menu-item-section-details {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        &.collapsed {
+            .menu-section-heading {
+                border-bottom: none;
+            }
+
+            .menu-section-details {
+                display: none;
+            }
+        }
+    }
+}

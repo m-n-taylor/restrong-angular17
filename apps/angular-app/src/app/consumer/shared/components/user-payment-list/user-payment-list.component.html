@@ -1,0 +1,50 @@
+<confirm-modal #confirmModal></confirm-modal>
+<save-user-payment-modal #saveUserPaymentModal></save-user-payment-modal>
+
+<div class="user-payment-list">
+
+    <div class="section-title">Payment method</div>
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div *ngIf="!busy" class="payment-card-section-wrapper clearfix">
+
+        <div class="payment-card-section" [ngClass]="{ 'active': userPayment.Is_Default }" *ngFor="let userPayment of userPayments; let index = index" (click)="setDefaultUserPayment(userPayment)">
+
+            <page-loader *ngIf="userPayment.busy" [center]="'parent'"></page-loader>
+
+            <div class="payment-card-container">
+                <div class="payment-card-top clearfix">
+                    <div class="payment-card-actions" mStopEvent>
+                        <div class="pencil-2-icon" (click)="editUserPayment(userPayment)"></div>
+                        <div class="delete-2-icon" (click)="deleteUserPayment(index, userPayment)"></div>
+                    </div>
+
+                    <div class="{{ constants.CARD_TYPE_CLASS[userPayment.CardType] }}-icon payment-card-logo"></div>
+                </div>
+
+                <div class="payment-card-number">
+                    **** **** **** {{ userPayment.CardNumber | unmaskcardno }}
+                </div>
+
+                <div class="payment-card-details clearfix">
+                    <div class="payment-card-holder">
+                        {{ userPayment.CardHolder }}
+                    </div>
+                    <div class="payment-card-expiry">
+                        {{ userPayment.Expiry }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="payment-card-section" (click)="editUserPayment()">
+            <div class="payment-card-container">
+                <div class="payment-card-number">
+                    <div class="add-card-icon"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="32px" height="24px" viewBox="0 0 32 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>google</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="google" fill="#FFFFFF">
+            <polygon id="Path" points="28 11 28 8 25 8 25 11 22 11 22 14 25 14 25 17 28 17 28 14 31 14 31 11"></polygon>
+            <path d="M11,11 L11,14 C11.1265181,14.3811881 14.6329083,14.376297 16,14 C15.2874875,16.8153515 14.0853173,18.1435644 11,18 C8.13220694,18.1435644 5.79518576,15.6168465 6,13 C5.79518576,9.38315347 8.13220694,6.85643564 11,7 C12.7096528,6.85643564 13.7320939,7.43565347 15,8 C15.4206805,7.4615198 15.3579696,7.35015347 17,5 C15.6465844,3.93645545 13.4916418,3 11,3 C6.08605964,3 2,7.25327228 2,13 C2,17.7466337 6.08605964,22 11,22 C18.6605944,22 20.5020728,15.1712871 20,11 C18.1080334,10.6188119 11.1265181,10.6188119 11,11 L11,11 Z" id="Path"></path>
+        </g>
+    </g>
+</svg>

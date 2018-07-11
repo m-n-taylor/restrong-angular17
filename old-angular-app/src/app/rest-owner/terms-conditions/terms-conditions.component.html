@@ -1,0 +1,21 @@
+<div *ngIf="isBrowser" class="terms-conditions-page">
+    <div class="header-logo-section">
+        <img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus">
+    </div>
+
+    <div class="main-title-section">
+        <div class="main-title">Terms & Conditions</div>
+    </div>
+
+    <div class="main-contents">
+        <div class="row">
+            <div class="col-sm-8 col-sm-offset-2">
+                <div class="page-text" [innerHTML]="sharedDataService.globalSettings.UserTerms?.Description"></div>
+
+                <m-checkbox [(value)]="isAcceptedTC" text="I Accept Terms & Conditions"></m-checkbox>
+
+                <button [ladda]="busy" class="btn btn-success btn-continue" [disabled]="!isAcceptedTC" (click)="acceptTC()">Continue</button>
+            </div>
+        </div>
+    </div>
+</div>

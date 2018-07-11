@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="40px" height="40px" viewBox="0 0 40 40" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>customer-map</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <path d="M20,32 C13.372583,32 8,26.627417 8,20 C8,13.372583 13.372583,8 20,8 C26.627417,8 32,13.372583 32,20 C32,26.627417 26.627417,32 20,32 Z" id="path-1"></path>
+        <filter x="-22.9%" y="-14.6%" width="145.8%" height="145.8%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="2" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.5 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="customer-map">
+            <g id="Path">
+                <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                <use fill="#FFFFFF" fill-rule="evenodd" xlink:href="#path-1"></use>
+            </g>
+            <path d="M20,28 C24.418278,28 28,24.418278 28,20 C28,15.581722 24.418278,12 20,12 C15.581722,12 12,15.581722 12,20 C12,24.418278 15.581722,28 20,28 Z" id="Path" fill="#F96C30"></path>
+        </g>
+    </g>
+</svg>

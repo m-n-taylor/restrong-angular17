@@ -1,0 +1,118 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="manage-restaurant-page">
+    <div class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text">
+                        Manage Restaurant
+                    </div>
+                </div>
+                <div class="col-sm-6 search-rest-wrapper">
+                    <div class="form-group">
+                        <div class="m-input-group has-addon-left">
+                            <div class="m-input-group-addon m-addon-left">
+                                <div class="search-icon cursor-default"></div>
+                            </div>
+
+                            <input type="text" class="form-control" name="search" [(ngModel)]="searchText" (keyup.enter)="searchTextEnter()" placeholder="Search for Restaurant">
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <page-loader *ngIf="busy"></page-loader>
+
+        <div [hidden]="busy">
+
+            <div class="rest-list">
+
+                <div *ngIf="!restList.length" class="no-records">No records found</div>
+
+                <div class="rest-item clearfix" *ngFor="let rest of restList" (click)="viewRestaurant(rest)">
+
+                    <div *ngIf="!rest.RestImageExist" class="photo-viewer">
+                        <img src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                    </div>
+
+                    <div *ngIf="rest.RestImageExist" class="rest-img">
+                        <img [src]="rest.FileName" [alt]="rest.Name">
+                    </div>
+
+                    <div class="rest-details">
+
+                        <div class="rest-info">
+                            <div class="rest-name">{{ rest.Name }} <span [ngClass]="{ 'text-success': rest.Enabled, 'text-danger': !rest.Enabled }">{{ rest.Enabled ? 'Enabled' : 'Disabled' }}</span></div>
+                            <div class="rest-address">
+                                {{ rest.Address_1 }}<span *ngIf="rest.Address_2"> {{ rest.Address_2 }}</span>, {{ rest.City
+                                }}, {{ rest.State }} {{ rest.ZipCode }}
+                            </div>
+                            <div class="rest-phone">{{ rest.Phone }}</div>
+                        </div>
+
+                        <div class="rest-service-types">
+                            <div class="rest-service-type">
+                                <div class="service-type-name">Delivery
+                                    <div class="service-type-status" [ngClass]="{ 'active': rest.ST_Delivery_Enabled }"></div>
+                                </div>
+                                <div class="service-type-value-section">
+                                    <div class="service-type-value">Delivery Charge</div>
+                                </div>
+                                <div class="service-type-value-section last-section">
+                                    <div class="service-type-price">${{ rest.DeliveryCharge }}</div>
+                                </div>
+                            </div>
+                            <div class="rest-service-type">
+                                <div class="service-type-name">Pickup
+                                    <div class="service-type-status" [ngClass]="{ 'active': rest.ST_Pickup_Enabled }"></div>
+                                </div>
+                                <div class="service-type-value-section">
+                                    <div class="service-type-value">Min Order</div>
+                                </div>
+                                <div class="service-type-value-section last-section">
+                                    <div class="service-type-price">${{ rest.MinOrder }}</div>
+                                </div>
+                            </div>
+                            <div class="rest-service-type">
+                                <div class="service-type-name">Dining-In
+                                    <div class="service-type-status" [ngClass]="{ 'active': rest.ST_DiningIn_Enabled }"></div>
+                                </div>
+                                <div class="service-type-value-section">
+                                    <div class="service-type-value">Delivery Time</div>
+                                </div>
+                                <div class="service-type-value-section last-section">
+                                    <div class="service-type-eta">{{ rest.DeliveryTime }} min</div>
+                                </div>
+                            </div>
+                            <div class="rest-service-type">
+                                <div class="service-type-name">Catering
+                                    <div class="service-type-status" [ngClass]="{ 'active': rest.ST_Catering_Enabled }"></div>
+                                </div>
+                                <div class="service-type-value-section">
+                                    <div class="service-type-value">Pickup Time</div>
+                                </div>
+                                <div class="service-type-value-section last-section">
+                                    <div class="service-type-eta">{{ rest.PickupTime }} min</div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="rest-icon-section">
+                            <div class="rest-right-arrow"></div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <m-pagination *ngIf="restList.length" [id]="PAGINATION_ID" [(page)]="page" [(pageSize)]="pageSize" [totalPages]="totalPages" [totalRows]="totalRows" (valueChange)="pageChange()"></m-pagination>
+
+        </div>
+
+    </div>
+</div>

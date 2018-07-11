@@ -1,0 +1,53 @@
+<div class="page">
+    <!--<add-user-payment-modal #addUserPaymentModal (modalEvents)="addUserPaymentModalEvents($event)"></add-user-payment-modal>-->
+    <div class="user-payments-page">
+        <div class="row">
+            <div class="col-sm-10 col-sm-offset-1">
+                <div class="card p-0">
+                    <ul class="row tabs">
+                        <li class="col-sm-12 tab">
+                            <a class="active">User Payments</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <alert title="Success!" [message]="successMessage" type="success"></alert>
+                    <alert title="Error!" [message]="errorMessage" type="danger"></alert>
+                
+                    <div class="p-10">
+                        <button class="btn btn-primary" (click)="openAddUserPaymentModal()">Add Payment Method</button>
+                    </div>
+
+                    <div class="m-t-20">
+                        <div class="loader" *ngIf="busy"></div>
+
+                        <div class="table-responsive" *ngIf="!busy">
+                            <table class="table">
+                                <tr>
+                                    <th></th>
+                                    <th></th>
+                                    <th>Card Holder</th>
+                                    <th>Card Number</th>
+                                    <th>Card Type</th>
+                                    <th></th>
+                                    <th></th>
+                                </tr>
+                                <tr *ngFor="let userPayment of userPayments; let index = index">
+                                    <td>{{ index + 1 }}</td>
+                                    <td><img [src]="userPayment.CardTypeImageURL" [alt]="userPayment.CardHolder"></td>
+                                    <td>{{ userPayment.CardHolder }}</td>
+                                    <td>{{ userPayment.CardNumber }}</td>
+                                    <td>{{ userPayment.CardType }}</td>
+                                    <td><button class="btn btn-warning" (click)="openAddUserPaymentModal(userPayment)">Edit</button></td>
+                                    <td><button class="btn btn-danger" (click)="deleteUserPayment(userPayment)">Delete</button></td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>

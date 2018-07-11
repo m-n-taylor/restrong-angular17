@@ -1,0 +1,27 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="food-bytes-details-page">
+
+    <div ng-if="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> {{ foodBytesItem.Title }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [hidden]="busy || !viewerURL">
+            <iframe #PDFViewer class="pdf-viewer" [src]="viewerURL" frameborder="0"></iframe>
+        </div>
+
+    </div>
+    
+</div>

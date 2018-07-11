@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>map-off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="map-off" fill-rule="nonzero" fill="#263238">
+            <path d="M15,6.75 L9.015375,3 L3,6.7558125 L3,21 L9,17.25 L15,21 L21,17.25 L21,3 L15,6.75 Z M4.5,18.293625 L4.5,7.58775 L8.25,5.24625 L8.25,15.9495 L8.205,15.9774375 L4.5,18.293625 Z M9.75,15.9495 L9.75,5.2305 L14.2035,8.0210625 L14.25,8.0505 L14.25,18.7625625 L9.795,15.978 L9.75,15.9495 Z M19.5,16.418625 L15.75,18.762375 L15.75,8.0505 L15.795,8.022375 L19.5,5.706375 L19.5,16.418625 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

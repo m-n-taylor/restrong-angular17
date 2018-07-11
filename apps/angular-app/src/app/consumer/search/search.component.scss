@@ -1,0 +1,217 @@
+.search-page {
+
+    min-height: 100vh;
+    background-color: #F2F2F2;
+
+    .dish-section,
+    .rest-section {
+        padding: 43px 60px; // 135px
+        @media (max-width: $screen-md-max) {
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-title {
+            font-weight: $lato-black;
+            font-size: 18px;
+        }
+    }
+
+    .dish-section {
+
+        .dish-list {
+            margin-top: 37px;
+            font-size: 0; // FIX: the extra spaces caused by child element `display: inline-block`
+            text-align: center;
+
+            dish-item {
+                .dish-item {
+                    display: inline-block;
+                    width: 100%;
+                    max-width: 370px;
+                    height: 250px;
+                    margin-bottom: 30px;
+
+                    @media (min-width: $screen-sm-min) {
+                        margin-right: 30px;
+                    }
+                }
+            }
+        }
+    }
+
+
+    .rest-section {
+
+        .action-icons {
+            text-align: right;
+
+            .view-on-icon {
+                margin-left: 16px;
+            }
+        }
+
+        .rest-list {
+            margin-top: 37px;
+            font-size: 0; // FIX: the extra spaces caused by child element `display: inline-block`
+            text-align: center;
+
+            .rest-item {
+                display: inline-block;
+                width: 100%;
+                max-width: 370px;
+                margin-bottom: 30px;
+                cursor: pointer;
+                text-align: left;
+                font-size: initial;
+
+                @media (min-width: $screen-sm-min) {
+                    margin-right: 30px;
+                }
+
+                .rest-img {
+                    position: relative;
+                    background-color: #F7F7F7;
+                    width: 100%;
+                    height: 250px;
+                    background-size: cover;
+                    border-radius: 3px 3px 0 0;
+
+                    .rest-cuisine-img {
+                        width: 128px;
+                        height: 100%;
+                        margin: 0 auto;
+
+                        background-repeat: no-repeat;
+                        background-size: contain;
+                        background-position: 50%;
+                    }
+
+                    .rest-cuisine-icon {
+                        width: 96px;
+                        height: 96px;
+                        position: absolute;
+                        top: 50%;
+                        left: 50%;
+                        transform: translateX(-50%) translateY(-50%);
+                    }
+                }
+
+                .rest-details {
+                    background-color: white;
+                    padding: 20px 24px;
+                    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+                    border-radius: 3px 3px 0 0;
+
+                    .rest-name {
+                        font-weight: $lato-black;
+                        font-size: 18px;
+                    }
+
+                    .yelp-rating {
+                        margin: 7px 0 12px;
+
+                        .yelp-icon {
+                            display: inline-block;
+                            width: 100px;
+                        }
+
+                        .yelp-rating-count {
+                            display: inline-block;
+                            font-size: 12px;
+                        }
+
+                        .yelp-logo {
+                            vertical-align: middle;
+                        }
+                    }
+
+                    .rest-info {
+                        margin-top: 4px;
+                        font-size: 12px;
+                    }
+
+                    .rest-eta {
+                        margin-top: 7px;
+                        font-size: 12px;
+                    }
+
+                    .rest-status {
+                        margin-top: 3px;
+                        font-size: 12px;
+                    }
+                }
+            }
+        }
+    }
+}
+
+
+// @import '../../shared/styles/_variables';
+// @import '../../shared/styles/_variables-bootstrap';
+// .search-page {
+//     margin-top: 150px;
+//     padding-left: 20px;
+//     padding-right: 20px;
+//     .dish-list, .rest-list {
+//         .dish-item, .rest-item {
+//             border-bottom: 1px solid color(gray-l2);
+//             padding-bottom: 20px;
+//             margin-bottom: 20px;
+//             cursor: pointer;
+//             &:last-child {
+//                 border-bottom: none;
+//                 padding-bottom: 0;
+//                 margin-bottom: 0;
+//             }
+//             .dish-img, .rest-img {
+//                 border-radius: 2px;
+//             }
+//             .dish-title {
+//                 font-size: 17px;
+//                 font-weight: 600;
+//                 margin-bottom: 10px;
+//                 color: black;
+//             }
+//             .dish-count {
+//                 color: color(gray-l1);
+//             }
+//         }
+//     }
+//     .dish-list {
+//         .img-thumb-container {
+//             &.dish-thumb {
+//                 width: 100px;
+//                 height: 100px;
+//             }
+//         }
+//     }
+//     .rest-list {
+//         .rest-name {
+//             margin-top: 0;
+//             color: $brand-info;
+//         }
+//         .rest-status {
+//             font-size: 12px;
+//         }
+//         .item-info {
+//             margin-top: 20px;
+//         }
+//         .img-thumb-container {
+//             &.rest-thumb {
+//                 width: 130px;
+//                 height: 130px;
+//             }
+//         }
+//     }
+// }

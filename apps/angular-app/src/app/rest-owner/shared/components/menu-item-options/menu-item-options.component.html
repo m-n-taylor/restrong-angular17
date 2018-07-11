@@ -1,0 +1,80 @@
+<div class="menu-item-details-section">
+    <div class="menu-item-name-wrapper">
+        <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+        <div class="menu-item-name">{{ menuItem.Name }}</div>
+    </div>
+
+    <div class="menu-item-description">{{ menuItem.Description }}</div>
+
+    <page-loader *ngIf="menuItem.busy"></page-loader>
+
+    <div *ngIf="!menuItem.busy">
+
+        <div class="menu-item-sizes-list">
+            <table *ngIf="menuItem.menuItemSizes?.length" class="table table-hover">
+                <tr>
+                    <th colspan="3">Choose item size
+                        <div class="chip-label chip-label-primary">Required</div>
+                    </th>
+                </tr>
+                <tr *ngFor="let menuItemSize of menuItem.menuItemSizes" (click)="chooseSize(menuItemSize)">
+                    <td class="nostretch">
+                        <div class="radio-on-icon" *ngIf="menuItemSize.id == menuItem.selectedMenuItemSize?.id"></div>
+                        <div class="radio-off-icon" *ngIf="menuItemSize.id != menuItem.selectedMenuItemSize?.id"></div>
+                    </td>
+                    <td>
+                        {{ menuItemSize.Name }}
+                    </td>
+                    <td class="text-right">
+                        ${{ menuItemSize.Price }}
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="menu-item-options-list">
+            <table class="table" *ngFor="let menuItemOption of menuItem.menuItemOptions">
+                <tr>
+                    <th colspan="3">{{menuItemOption.OptionHeader}}
+                        <div class="chip-label chip-label-primary" *ngIf="menuItemOption.Minimum_Select !== 0">Required</div>
+                        <div class="chip-label chip-label-gray" *ngIf="menuItemOption.Minimum_Select === 0">Optional</div>
+                    </th>
+                </tr>
+                <tr *ngFor="let optionItem of menuItemOption.OptionItems" (click)="selectMenuItemOptionItem(optionItem, menuItemOption)">
+                    <td class="nostretch">
+                        <div class="radio-on-icon" *ngIf="menuItemOption.Is_Single_Select && menuItemOption.selectedOptionItem?.ID == optionItem.ID"></div>
+                        <div class="radio-off-icon" *ngIf="menuItemOption.Is_Single_Select && menuItemOption.selectedOptionItem?.ID != optionItem.ID"></div>
+
+                        <div class="checkbox-on-icon" *ngIf="!menuItemOption.Is_Single_Select && optionItem.isSelected"></div>
+                        <div class="checkbox-off-icon" *ngIf="!menuItemOption.Is_Single_Select && !optionItem.isSelected"></div>
+                    </td>
+                    <td>
+                        {{ optionItem.Name }}
+                    </td>
+                    <td class="text-right">
+                        <span *ngIf="optionItem.Price">${{ optionItem.Price }}</span>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="text-center">
+            <div class="menu-item-qty-section noselect">
+                <div class="menu-item-qty">
+                    <div class="qty-minus" (click)="updateSelectedMenuItemQty(-1)">
+                        <div class="close-icon"></div>
+                    </div>
+                    <div class="qty-value">{{ menuItem.quantity }}</div>
+                    <div class="qty-plus" (click)="updateSelectedMenuItemQty(1)">
+                        <div class="open-icon"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="add-to-cart-wrapper">
+            <button class="btn btn-success btn-xlg btn-block" (click)="addToCart()">{{ action == 'add' ? 'Add' : 'Update'}} to Cart ({{ selectedMenuItemTotalPrice | currency:'USD':true }})</button>
+        </div>
+
+    </div>
+</div>

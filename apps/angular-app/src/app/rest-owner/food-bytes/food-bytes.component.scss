@@ -1,0 +1,63 @@
+.food-bytes-page {
+
+    .main-contents {
+        padding: 0 40px 100px;
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .heading-list {
+        font-weight: $lato-black;
+        font-size: 32px;
+        padding-top: 55px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #DBDBDB;
+    }
+
+    .food-bytes-list {
+        margin-top: -1px;
+
+        .foodbyte-item {
+            padding: 16px 0;
+            border-bottom: 1px solid #DBDBDB;
+
+            .item-image-wrapper {
+                float: left;
+                padding-right: 16px;
+
+                .item-image {
+
+                    @media (max-width: $screen-xs-max) {
+                        max-width: 100px;
+                    }
+                }
+            }
+
+            .item-details {
+
+                @media (min-width: $screen-sm-min) {
+                    overflow: hidden;
+                }
+
+                .item-title {
+                    font-weight: $lato-bold;
+                }
+
+                .item-date {
+                    margin-top: 8px;
+                }
+
+                .item-pages {
+                    margin-top: 8px;
+                }
+
+                .item-description {
+                    margin-top: 8px;
+                }
+            }
+        }
+    }
+}

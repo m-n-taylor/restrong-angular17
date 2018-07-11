@@ -1,0 +1,45 @@
+.modal.thank-you-points-modal {
+
+    .modal-content {
+
+        .modal-header {
+            border-bottom: none;
+
+            .close {
+                color: white;
+            }
+        }
+
+        .modal-body {
+            text-align: center;
+            color: white;
+
+            .text-heading {
+                font-weight: $lato-black;
+                font-size: 40px;
+            }
+
+            .text-subheading {
+                margin-top: 5px;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .text-para {
+                margin-top: 34px;
+                opacity: 0.8;
+            }
+        }
+
+        .modal-footer {
+
+            .action-buttons {
+                text-align: center;
+
+                .close-btn {
+                    border-color: transparent;
+                }
+            }
+        }
+    }
+}

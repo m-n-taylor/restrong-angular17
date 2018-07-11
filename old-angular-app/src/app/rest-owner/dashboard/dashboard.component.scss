@@ -1,0 +1,78 @@
+@import '../../shared/styles/_variables';
+@import '../../shared/styles/_variables-bootstrap';
+
+.dashboard-page {
+    .main-contents {
+        padding: 0 40px 100px;
+    }
+
+    .chart-info {
+        .chart-info-heading {
+            font-weight: $lato-black;
+            font-size: 36px;
+        }
+        .chart-info-subheading {
+            margin-top: 12px;
+            font-weight: $lato-black;
+            font-size: 18px;
+            line-height: 22px;
+        }
+        .chart-info-details {
+            margin-top: 4px;
+        }
+    }
+
+    .heading-list {
+        font-weight: $lato-black;
+        font-size: 32px;
+        margin-top: 55px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #DBDBDB;
+    }
+
+    .customer-order-list {
+
+        .text-success, .text-danger, .text-dark-gray {
+            font-weight: $lato-black;
+        }
+
+        .customer-img {
+            width: 48px;
+            height: 48px;
+            background-color: #DBDBDB;
+        }
+
+        .customer-order-history-modal {
+
+            .customer-order-history-list {
+                margin-top: 32px;
+
+                tr:first-child {
+                    td {
+                        border-top: none;
+                    }
+                }
+
+                .order-cancelled {
+                    color: $brand-danger;
+                }
+            }
+        }
+    }
+
+    .customer-reviews-list {
+        .ratings-container {
+            width: 120px;
+        }
+    }
+
+    .action-buttons {
+        margin-top: 20px;
+        
+        .btn {
+            &:first-child {
+                margin-right: 24px;
+            }
+        }
+    }
+}

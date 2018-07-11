@@ -1,0 +1,66 @@
+// Tabs
+.nav.nav-pills {
+    border-bottom: 1px solid #DBDBDB;
+
+    &.scrollable {
+        white-space: nowrap;
+        overflow-x: auto;
+    }
+
+    li {
+        float: none;
+        display: inline-block;
+        cursor: pointer;
+
+        a {
+            color: $gray;
+            font-weight: $lato-black;
+            font-size: 14px;
+            letter-spacing: 0;
+            padding-top: 18px;
+            padding-bottom: 18px;
+            border-radius: 0;
+            text-transform: uppercase;
+            border-bottom: 2px solid transparent;
+        }
+
+        &.active,
+        &:hover:not(.disabled) {
+            a,
+            a:hover {
+                border-color: $brand-success;
+                color: $brand-success;
+                background-color: transparent;
+            }
+        }
+
+        &.has-error {
+            a,
+            a:hover {
+                color: $brand-danger;
+            }
+        }
+
+        &.disabled {
+            opacity: .3;
+
+            a {
+                cursor: not-allowed;
+            }
+        }
+    }
+
+    &.nav-primary {
+
+        li {
+            &.active,
+            &:hover:not(.disabled) {
+                a,
+                a:hover {
+                    border-color: $brand-primary;
+                    color: $brand-primary;
+                }
+            }
+        }
+    }
+}

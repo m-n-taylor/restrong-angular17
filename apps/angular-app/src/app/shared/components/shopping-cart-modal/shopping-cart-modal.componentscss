@@ -1,0 +1,39 @@
+.shopping-cart-modal {
+    .cart-item {
+        border-bottom: 1px solid color(gray-l2);
+        padding-bottom: 20px;
+        margin-bottom: 20px;
+        cursor: pointer;
+        
+        &:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+            margin-bottom: 0;
+        }
+
+        .rest-name {
+            margin-top: 0;
+            color: $brand-info;
+        }
+
+        .rest-status {
+            font-size: 12px;
+        }
+        
+        .item-info {
+            margin-top: 20px;
+        } 
+
+        .img-thumb-container {
+            &.rest-thumb {
+                width: 130px;
+                height: 130px;
+            }
+        }
+
+        .increase-qty, .decrease-qty {
+            padding: 5px;
+            border: 1px solid #ccc;
+        }
+    }
+}

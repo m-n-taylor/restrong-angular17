@@ -1,0 +1,20 @@
+.chat-templates-modal {
+
+    .modal-body, .modal-footer {
+        padding: 40px;
+    }
+
+    .modal-footer {
+        border-top: 1px solid #DBDBDB;
+
+        @media (min-width : $screen-sm-min) {
+            text-align: right;
+        }
+
+        .confirm-action-buttons {
+            // button.btn {
+            //     margin-right: 24px;
+            // }
+        }
+    }
+}

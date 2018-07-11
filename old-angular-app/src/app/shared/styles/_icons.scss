@@ -1,0 +1,75 @@
+// Icons
+$icons: ( 
+    'burger-search-fail', 
+    'restaurant-menu',
+    'checkbox-on', 
+    'checkbox-off', 
+    'radio-on', 
+    'radio-off', 
+    'toggle-on', 
+    'toggle-off', 
+    'menus-logo', 
+    'menus-logo-white', 
+    'phone', 
+    'success', 
+    'arrow-right-1', 
+    'close-1', 
+    'menu', 
+    'menu-white', 
+);
+
+@mixin baseProps() {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    background-repeat: no-repeat;
+    background-position: 50%;
+    cursor: pointer;
+}
+
+@each $propValue in $icons {
+
+    .#{$propValue}-icon {
+        @include baseProps();
+        background-image: url('img/shared/#{$propValue}.svg');
+    }
+
+    .base-icon {
+        @include baseProps();
+    }
+
+}
+
+// Toggle ON/OFF
+.toggle-on-icon, .toggle-off-icon {
+    width: 44px;
+}
+
+.menus-logo-icon, .menus-logo-white-icon {
+    width: 155.4px;
+    height: 32.4px;
+}
+
+// 112x112
+.burger-search-fail-icon, .restaurant-menu-icon {
+    width: 112px;
+    height: 112px;
+}  
+
+// 120x120
+.success-icon {
+    width: 120px;
+    height: 120px;
+}    
+
+// 36x24
+.menu-icon, .menu-white-icon {
+    width: 36px;
+    height: 24px;
+}
+
+// 28x28
+.close-1-icon {
+    width: 28px;
+    height: 28px;
+}

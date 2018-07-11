@@ -1,0 +1,315 @@
+<div class="landing-page home-page" [ngClass]="{ 'backoffice-mobile-menu-opened' : sharedDataService.isMobileMenuOpen }">
+
+    <nav class="navbar navbar-backoffice navbar-style-1">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="sharedDataService.toggleMobileMenu()">
+                    <div class="base-icon toggle-menu-icon"></div>
+                </button>
+                <a class="navbar-brand" routerLink="/">
+                    <div class="brand-logo-white-icon"></div>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse" [ngClass]="{ 'collapse' : !sharedDataService.isMobileMenuOpen }">
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a routerLink="/backoffice/pricing">Pricing</a>
+                    </li>
+                    <li (click)="requestDemo()" class="big-link">
+                        <a class="btn-primary">Request a demo</a>
+                    </li>
+                    <li class="last-link">
+                        <a routerLink="/backoffice/login">Login</a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="video-container">
+
+        <div class="main-text">
+            <div class="tag-heading">Your own (food app) & online ordering system</div>
+            <div class="tag-subheading">Your brand. Your customer. Your influence.</div>
+
+            <div class="call-to-action">
+                <a routerLink="/backoffice/pricing" class="btn btn-primary btn-xlg">Sign Up</a>
+            </div>
+        </div>      
+
+        <div class="video-overlay"></div>
+        <!--video #videoPlayer poster="/img/cr/poster.png" playsinline muted loop></video-->
+    </div>
+
+    <div class="section-take-control clearfix">
+
+        <div class="section-video">
+            <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Ghd8FwKH8H4" frameborder="0" allowfullscreen></iframe>
+            </div>
+        </div>
+
+        <div class="section-details">
+            <div class="section-title">
+                Seamless online ordering system built for you and your customers.
+            </div>
+            <div class="section-subtitle">
+                Allows your customers to place orders directly from your website and mobile app with social login and easy checkout.
+            </div>
+        </div>
+
+    </div>
+
+    <div class="section-did-you-know clearfix">
+        <div class="section-details">
+            <div class="section-details-wrapper">
+                <div class="section-title">
+                    Do you use Menusense™
+                </div>
+                <div class="section-subtitle">
+                    Restaurants who use Menusense™ know more about their competitors.
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-menusense clearfix">
+        <div class="ro-home-swiper-container">
+            <div class="swiper-wrapper">
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-1.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-2.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-3.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-4.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-5.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+
+                <div class="swiper-slide">
+                    <div class="slide-device-wrapper">
+                        <macbook-device>
+                            <img src="img/ro/macbook-6.png" />
+                        </macbook-device>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-reach-customers clearfix">
+        <div class="section-details">
+            <div class="section-details-wrapper">
+                <div class="section-title">
+                    Reach new customers and lower your commission rates.
+                </div>
+                <div class="section-subtitle">
+                    Dishzilla.com is your menu window to the world, so hungry customers craving your dishes can find you with a click.
+                </div>
+            </div>
+        </div>
+        <div class="section-image">
+            <img src="img/ro/macbook-iphone.svg" alt="">
+            <!--<img src="img/ro/iphone.svg" alt="">-->
+        </div>
+    </div>
+
+    <div class="section-online-ordering">
+        <div class="section-title">
+            Integrated online ordering and analytical platform
+        </div>
+
+        <div class="section-details">
+            <div class="feature-list clearfix">
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/power-up.svg" alt="">
+                    </div>
+                    <div class="feature-title">Power up</div>
+                    <div class="feature-text">with our online, app and phone ordering integration</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/get-listed.svg" alt="">
+                    </div>
+                    <div class="feature-title">Get listed on the dishzilla.com</div>
+                    <div class="feature-text">market place and receive orders at lower cost</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/modernize.svg" alt="">
+                    </div>
+                    <div class="feature-title">Modernize your concept</div>
+                    <div class="feature-text">with your own branded mobile app and website that is already integrated with popular payment platform</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/gain-market.svg" alt="">
+                    </div>
+                    <div class="feature-title">Gain market intelligence</div>
+                    <div class="feature-text">and optimize your menu pricing and offering by utilizing menusense&trade; reporting</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/promote.svg" alt="">
+                    </div>
+                    <div class="feature-title">Manage and promote your restaurant</div>
+                    <div class="feature-text">to existing and potential customers via integrated Zpoints&trade; Coupons system and analyze results
+                        for further insights</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/feedback.svg" alt="">
+                    </div>
+                    <div class="feature-title">Get direct feedback</div>
+                    <div class="feature-text">from customers and turn a complains into an opportunity</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/manage.svg" alt="">
+                    </div>
+                    <div class="feature-title">Manage your online transaction</div>
+                    <div class="feature-text">and reporting from palm of your hand and chat directly with customers</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/streamline.svg" alt="">
+                    </div>
+                    <div class="feature-title">Streamline your phone orders</div>
+                    <div class="feature-text">to a trained DigitalWaiters&trade; to save cost and increase average check</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">
+                        <img src="img/ro/optimize.svg" alt="">
+                    </div>
+                    <div class="feature-title">Optimize your menu</div>
+                    <div class="feature-text">wording and listing for Search Optimization to gain new clients</div>
+                </div>
+                <div class="feature-item item-center">
+                    <div class="feature-image">
+                        <img src="img/ro/support-2.svg" alt="">
+                    </div>
+                    <div class="feature-title">24/7 Customer support</div>
+                    <div class="feature-text">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="request-demo">
+        <request-demo></request-demo>
+    </div>
+
+    <div class="section-already-client">
+        <div class="section-text">Already a client, or need help with an order? Contact Dishzilla Support.</div>
+        <div class="section-phone">
+            <div class="phone-icon"></div>{{ sharedDataService.globalSettings?.CustomerService?.Phone }}</div>
+    </div>
+
+    <site-footer></site-footer>
+</div>
+
+<!-- <div class="row1">
+    <div class="home-page">
+        <div class="header-logo-section">
+            <img class="brand-logo" src="img/shared/brand-logo.svg">
+        </div>
+
+        <div class="own-business-section clearfix">
+
+            <div class="left-side">
+
+                <div class="title-heading">Own A Business?</div>
+                <div class="subtitle-heading">We Have Premium Plans</div>
+
+                <div class="container-fluid">
+
+                    <div class="features-list">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Verify Dishzilla.com Listing</div>
+                                    <div class="feature-section-subtitle">Keep your items up to date and take orders easily.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Integrated Point of Sale</div>
+                                    <div class="feature-section-subtitle">Use our cloud based POS with integrated hardware.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #3</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #4</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-success btn-xlg signup" routerLink="/backoffice/login">Sign Up</button>
+                </div>
+
+            </div>
+
+            <div class="right-side">
+                <div class="bg-rest-dashboard"></div>
+            </div>
+
+        </div>
+    </div>
+</div> -->

@@ -1,0 +1,194 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Rest Contract Modal -->
+<div class="modal rest-contract-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">Contract</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div [innerHTML]="sharedDataService.globalSettings.RestTerms?.Description"></div>
+
+                <div class="info-section">
+                    <div class="info-title">
+                        Restaurant Details
+                    </div>
+                    <div class="info-details">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Name</div>
+                                    <div class="col-xs-6 f-black">{{ rest.Name }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Address</div>
+                                    <div class="col-xs-6">{{ rest.Address_1 }} {{ rest.Address_2 }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Tax</div>
+                                    <div class="col-xs-6">{{ rest.Tax | percent }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Menus ID</div>
+                                    <div class="col-xs-6">{{ rest.ID }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Phone</div>
+                                    <div class="col-xs-6">{{ rest.Phone }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Fax</div>
+                                    <div class="col-xs-6">{{ rest.Fax }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Mobile</div>
+                                    <div class="col-xs-6">{{ rest.Mobile }}</div>
+                                </div>
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Email</div>
+                                    <div class="col-xs-6">{{ rest.Email }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-title">
+                        Package Subscription
+                    </div>
+                    <div class="info-details">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Subscription</div>
+                                    <div class="col-xs-6 f-black">{{ subscription.Name }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Delivery by</div>
+                                    <div class="col-xs-6">{{ subscription.DeliveryBy }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Service Fee</div>
+                                    <div class="col-xs-6">{{ subscription.ServiceFeePercent }}%</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-title">
+                        Contact Details
+                    </div>
+                    <div class="info-details">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">First Name</div>
+                                    <div class="col-xs-6">{{ rest.CI_FirstName }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Last Name</div>
+                                    <div class="col-xs-6">{{ rest.CI_LastName }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Address</div>
+                                    <div class="col-xs-6">{{ rest.CI_Address }}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Contact #</div>
+                                    <div class="col-xs-6">{{ rest.CI_ContactNo }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Email</div>
+                                    <div class="col-xs-6">{{ rest.CI_Email }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-title">
+                        Sales Information
+                    </div>
+                    <div class="info-details">
+
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Delivery Min Order</div>
+                                    <div class="col-xs-6">{{ rest.MinOrder | currency:'USD':true }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Delivery Time (Min)</div>
+                                    <div class="col-xs-6">{{ rest.DeliveryTime_Min }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Delivery Time (Max)</div>
+                                    <div class="col-xs-6">{{ rest.DeliveryTime_Max }}</div>
+                                </div>
+                            </div>
+
+                            <div class="col-md-6">
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Delivery Charge</div>
+                                    <div class="col-xs-6">{{ rest.DeliveryCharge | currency:'USD':true }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Pickup Time (Min)</div>
+                                    <div class="col-xs-6">{{ rest.PickupTime_Min }}</div>
+                                </div>
+
+                                <div class="row info-field">
+                                    <div class="col-xs-6">Pickup Time (Max)</div>
+                                    <div class="col-xs-6">{{ rest.PickupTime_Max }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <div class="info-title">
+                        Agreement Dated: {{ today | date: 'shortDate'}}
+                    </div>
+                </div>
+
+                <div class="terms-checkbox">
+                    <m-checkbox [(value)]="isAcceptedTC" text="I Accept Terms & Conditions"></m-checkbox>
+                </div>
+
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success" [disabled]="!isAcceptedTC" (click)="acceptTC()">Accept</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

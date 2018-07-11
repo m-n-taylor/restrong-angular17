@@ -1,0 +1,91 @@
+<profile [activeTab]="constants.PROFILE_TAB_ORDERS"></profile>
+
+<div class="profile-orders">
+    <write-review-modal #writeReviewModal></write-review-modal>
+    <thank-you-points-modal #thankYouPointsModal></thank-you-points-modal>
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div *ngIf="!busy && pastOrders.length == 0" class="past-orders-no-result-section">
+        <div class="no-result-icon">
+            <div class="dish-icon cursor-default"></div>
+        </div>
+        <div class="no-result-title">No orders</div>
+        <div class="no-result-subtitle">You currently do not have any orders</div>
+        <!-- <div class="no-result-action">
+            <button class="btn btn-success">Find Dishes</button>
+        </div> -->
+    </div>
+
+    <div *ngIf="!busy && pastOrders.length > 0" class="past-orders-section">
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div class="form-group">
+                    <div class="m-input-group has-addon-left">
+                        <div class="m-input-group-addon m-addon-left">
+                            <div class="search-icon cursor-default"></div>
+                        </div>
+                        <input type="text" class="form-control" name="ordersTabSearchText" [(ngModel)]="searchText" placeholder="Search for Order" />
+                    </div>
+                </div>
+
+                <div class="table-responsive past-orders-list">
+                    <table class="table table-center">
+                        <tr>
+                            <th></th>
+                            <th>Restaurant</th>
+                            <th>Order Number</th>
+                            <th>Order Date</th>
+                            <th>Status</th>
+                            <th></th>
+                        </tr>
+
+                        <tr *ngFor="let pastOrder of pastOrders" (click)="openOrderDetails(pastOrder)">
+                            <td class="nostretch">
+                                <div *ngIf="pastOrder.RestImageExist" class="cuisine-img">
+                                    <div class="cuisine-icon-{{pastOrder.CuisineID}} item-cuisine-icon"></div>
+                                </div>
+                                <div *ngIf="!pastOrder.RestImageExist" class="rest-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + pastOrder.FileName + ')'}"></div>
+                            </td>
+                            <td>{{ pastOrder.RestaurantName }}</td>
+                            <td>{{ pastOrder.OrderNumber }}</td>
+                            <td>{{ pastOrder.OrderDate }}</td>
+                            <td>{{ constants.ORDER_STATUS_TEXT[pastOrder.OrderStatusID] }}</td>
+                            <td>
+                                <div mStopEvent>
+                                    <button *ngIf="sharedDataService.platformSettings.Enable_HiWaiter && pastOrder.AllowChat" class="btn btn-primary btn-inverse btn-xxs btn-hi-waiter" (click)="openOrderChat(pastOrder)">Hi Waiter</button>
+                                </div>
+                                <div mStopEvent>
+                                    <button class="btn btn-primary btn-xxs btn-write-review" (click)="writeReview(pastOrder)">{{ pastOrder.IsReviewed ? 'Edit' : 'Write' }} Review</button>
+                                </div>
+                            </td>
+                        </tr>
+
+                    </table>
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="stats-section">
+                    <div class="section-title">My Stats</div>
+
+                    <div class="stat-section">
+                        <div class="stat-count">76</div>
+                        <div class="stat-label">Total Orders</div>
+                    </div>
+
+                    <div class="stat-section">
+                        <div class="stat-count">3</div>
+                        <div class="stat-label">Orders Awaiting Review</div>
+                    </div>
+
+                    <div class="stat-section">
+                        <div class="stat-count">62</div>
+                        <div class="stat-label">Total Reviews</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>

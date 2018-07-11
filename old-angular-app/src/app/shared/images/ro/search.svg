@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>search</title>
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <rect id="path-1" x="0" y="0" width="24" height="24"></rect>
+    </defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="search">
+            <g id="Group">
+                <g id="Rectangle-3" opacity="0">
+                    <use fill="#455A64" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    <rect stroke="#979797" stroke-width="1" x="0.5" y="0.5" width="23" height="23"></rect>
+                </g>
+                <g id="search" transform="translate(2.000000, 2.000000)" fill-rule="nonzero" fill="#263238">
+                    <g id="Layer_1">
+                        <g id="Group">
+                            <path d="M18.25,19.2 C17.9793877,19.2 17.7773729,19.1102157 17.5835786,18.9164214 L11.5835786,12.9164214 C11.2054738,12.5383165 11.2054738,11.9616835 11.5835786,11.5835786 C11.9616835,11.2054738 12.5383165,11.2054738 12.9164214,11.5835786 L18.9164214,17.5835786 C19.2945262,17.9616835 19.2945262,18.5383165 18.9164214,18.9164214 C18.7226271,19.1102157 18.5206123,19.2 18.25,19.2 Z M7.75,14.7 C3.88954305,14.7 0.8,11.6104569 0.8,7.75 C0.8,3.88954305 3.88954305,0.8 7.75,0.8 C11.6104569,0.8 14.7,3.88954305 14.7,7.75 C14.7,11.6104569 11.6104569,14.7 7.75,14.7 Z M7.75,2.7 C4.93545695,2.7 2.7,4.93545695 2.7,7.75 C2.7,10.5645431 4.93545695,12.8 7.75,12.8 C10.5645431,12.8 12.8,10.5645431 12.8,7.75 C12.8,4.93545695 10.5645431,2.7 7.75,2.7 Z" id="Combined-Shape"></path>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

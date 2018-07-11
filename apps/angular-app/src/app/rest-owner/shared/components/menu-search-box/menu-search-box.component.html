@@ -1,0 +1,34 @@
+<div class="form-group menus-search-section">
+    <div class="m-input-group has-addon-left m-input-sm">
+        <div class="m-input-group-addon m-addon-left">
+            <div class="search-icon cursor-default"></div>
+        </div>
+        <input type="text" class="form-control input-sm" name="menusTabSearchText" [(ngModel)]="searchText" (ngModelChange)="menusSearchTextEnter()" placeholder="Search your Menu" (focus)="menusSearchTextEnter()" (blur)="openACList(false)">
+    </div>
+</div>
+
+<div *ngIf="isOpenACList" class="auto-complete-list">
+    <div class="ac-masterhead" *ngFor="let masterHead of autoCompleteList" (click)="viewMenuDetails(masterHead)">
+        <div class="ac-masterhead-item">
+            <div class="ac-masterhead-title">
+                {{ masterHead.MasterHeadingName }}
+            </div>
+        </div>
+
+        <div class="ac-head" *ngFor="let head of masterHead.Heading" mStopEvent (click)="viewHeadDetails(masterHead, head)">
+            <div class="ac-head-item">
+                <div class="ac-head-title">
+                    {{ head.HeadingName }}
+                </div>
+            </div>
+
+            <div class="ac-menuitem" *ngFor="let menuItem of head.Menu" mStopEvent (click)="viewMenuItemDetails(masterHead, head, menuItem)">
+                <div class="ac-menuitem-item">
+                    <div class="ac-menuitem-title">
+                        {{ menuItem.MenuItemName }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

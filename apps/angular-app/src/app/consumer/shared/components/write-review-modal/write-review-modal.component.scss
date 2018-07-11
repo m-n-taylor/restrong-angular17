@@ -1,0 +1,158 @@
+.modal.write-review-modal {
+
+    .modal-body {
+        padding-top: 42px;
+
+        .rest-details {
+            padding-bottom: 32px;
+            border-bottom: 1px solid #DBDBDB;
+
+            .item-details {
+                float: left;
+            }
+
+            .rest-cuisine-icon {
+                float: left;
+                width: 88px;
+                height: 94px;
+                padding: 18px 16px;
+                background-color: #F7F7F7;
+
+                .custom-cuisine-icon {
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+
+            .rest-img {
+                float: left;
+                width: 88px;
+                height: 94px;
+                margin: 0;
+                background-size: contain;
+                background-repeat: no-repeat;
+                background-position: 50%;
+            }
+
+            .item-details {
+                margin-top: 22px;
+                padding-left: 16px;
+
+                .item-rest-name {
+                    font-weight: $lato-bold;
+                    font-size: 18px;
+                }
+
+                .item-address {
+                    margin-top: 8px;
+                }
+            }
+        }
+
+        .order-item-list {
+
+            .order-item {
+                margin-top: 40px;
+
+                .item-name {
+                    font-weight: $lato-black;
+                    font-size: 18px;
+                }
+
+                .customer-rating {
+                    padding-left: 4px;
+
+                    .rating-image {
+                        cursor: pointer;
+                        width: 40px;
+                        margin-left: -10px;
+                    }
+
+                    .customer-rating-text {
+                        margin-left: 16px;
+                        font-size: 11px;
+                    }
+                }
+
+                .customer-comment {
+                    margin-top: 24px;
+
+                    textarea {
+                        padding-top: 11px;
+                        padding-bottom: 11px;
+                        padding-left: 16px;
+                        padding-right: 56px;
+                    }
+                }
+
+                .order-images {
+                    margin-top: 24px;
+
+                    .order-image {
+                        cursor: pointer;
+                        width: 80px;
+                        height: 80px;
+                        float: left;
+                        margin-right: 24px;
+                        // border: 1px solid red;
+
+                        .no-photo {
+                            position: relative;
+                            width: 100%;
+                            height: 100%;
+                            padding: 8px;
+
+                            .order-image-file {
+                                cursor: pointer;
+                                position: absolute;
+                                width: 100%;
+                                height: 100%;
+                                opacity: 0;
+                                top: 0;
+                                left: 0;
+                                opacity: 0;
+                            }
+                        }
+                        .custom-photo {
+                            height: 100%;
+                            background-repeat: no-repeat !important;
+                            background-position: 50% !important;
+                            background-size: contain !important;
+
+                            .custom-photo-close {
+                                display: none;
+                                text-align: right;
+
+                                .custom-icon {
+                                    background-color: #7D8488;
+                                }
+                            }
+
+                            &:hover {
+
+                                .custom-photo-close {
+                                    display: block;
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .customer-images {
+                    margin-top: 24px;
+
+                    .customer-image {
+                        float: left;
+                        margin-right: 24px;
+                        width: 80px;
+                        height: 80px;
+
+                        img {
+                            max-width: 100%;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

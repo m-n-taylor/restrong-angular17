@@ -1,0 +1,646 @@
+.home-page {
+    $banner-height: 190px;
+
+    .video-container {
+        position: relative;
+        top: 0;
+        left: 0;
+        right: 0;
+        width: 100%; // min-height: 700px;
+        height: auto;
+        z-index: 1;
+
+        .video-overlay {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            opacity: 0.6;
+            background: #2A3134;
+        }
+
+        .big-image-section {
+            position: absolute;
+            top: 0;
+            height: 100%;
+            width: 100%;
+            padding: 157px 135px;
+            z-index: 1;
+            color: white;
+
+            .tag-heading {
+                font-weight: $lato-black;
+                font-size: 36px;
+            }
+
+            .tag-subheading {
+                margin-top: 8px;
+                font-size: 24px;
+            }
+
+            .search-section {
+                margin-top: 81px;
+
+                .form-inline {
+
+                    .form-group {
+                        display: block;
+
+                        .m-input-group {
+
+                            .m-input-group-addon {
+                                padding: 16px;
+
+                                .icon-custom {
+                                    float: left;
+                                }
+                            }
+
+                            &.has-addon-left {
+
+                                .form-control {
+                                    padding-left: 56px;
+                                }
+                            }
+                        }
+
+                        .your-address {
+                            width: 35%;
+                            height: 56px;
+                            border: none; // box-shadow: 0 2px 20px 0 rgba(0,0,0,0.35);
+                            border-radius: 0;
+                            float: left;
+                        }
+                    }
+
+                    .service-type {
+                        height: 56px;
+                        border: none;
+                        border-radius: 0;
+                        float: left;
+                        margin-left: 1px;
+                    }
+
+                    .find-rest {
+                        height: 56px;
+                        border-radius: 0;
+                        float: left;
+                        margin-left: 1px;
+                        font-weight: $lato-bold;
+                    }
+                }
+            }
+        }
+
+        video {
+            width: 100%;
+            max-width: 100%;
+            background: url('/img/cr/poster.png') no-repeat;
+            background-size: cover;
+            transition: opacity 1s;
+        }
+    }
+
+    .top-content {
+        position: absolute;
+        top: 0;
+        z-index: 2;
+        width: 100%;
+        color: white; // .navbar {
+        //     background-color: $gray;
+        // }
+        .menus-app-text {
+            padding: 0 135px 2.7%;
+
+            @media (max-width: $screen-sm-max) {
+                text-align: center;
+                padding-left: 36px;
+                padding-right: 36px;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                padding-left: 0;
+                padding-right: 0;
+            }
+
+            .tag-heading {
+                font-weight: $lato-black;
+                margin-top: 24px;
+
+                @media (max-width: $screen-xs-max) {
+                    margin-top: 6px;
+                }
+
+                @media (min-width: $screen-md-min) {
+                    font-size: 36px;
+                    margin-top: 9.9%;
+                }
+            }
+
+            .tag-subheading {
+                margin-top: 0.8%;
+
+                @media (min-width: $screen-md-min) {
+                    font-size: 24px;
+                }
+            }
+
+            .store-links {
+                margin-top: 2.3%;
+
+                .playstore-link {
+
+                    img {
+                        margin-left: -16px;
+                        width: 273px;
+
+                        @media (max-width: $screen-sm-max) {
+                            width: 158px;
+                        }
+                    }
+                }
+
+                .appstore-link {
+
+                    img {
+                        width: 240px;
+
+                        @media (max-width: $screen-sm-max) {
+                            width: 138.9px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .banner-section {
+        position: absolute;
+        bottom: 0;
+        width: 100%;
+        height: $banner-height;
+        z-index: 1;
+        background-color: #ccc;
+
+        background-size: cover;
+        background-position: center;
+
+        @media (max-width: $screen-xs-max) {
+            $offset: 5px;
+            bottom: -$banner-height + $offset;
+        }
+
+        .banner-wrapper {
+            position: relative;
+
+            .btn-action {
+
+                .btn {
+                    width: 204px;
+                }
+            }
+        }
+
+        &.banner-style-1 {
+
+            .banner-wrapper {
+                padding: 0 24px;
+
+                @media (max-width: $screen-xs-max) {
+                    text-align: center !important;
+
+                    .now-serving-text {
+                        display: block !important;
+                    }
+
+                    .city-text {
+                        display: block !important;
+                    }
+                }
+
+                @media (min-width: $screen-sm-min) {
+                    padding-top: 32px;
+                    padding-bottom: 32px;
+                    padding-left: 135px;
+                    padding-right: 135px;
+                }
+
+                .now-serving-text,
+                .city-text {
+                    color: white;
+                    display: inline-block;
+                    font-size: 36px;
+                    font-weight: $lato-black;
+                }
+
+                .now-serving-text {
+
+                    @media (min-width: $screen-sm-min) {
+                        margin-right: 8px;
+                    }
+                }
+
+                .city-text {}
+
+                .btn-action {
+                    margin-top: 24px;
+
+                    .btn {}
+                }
+
+                .close-banner {
+                    cursor: pointer;
+                    background-image: url('img/shared/close-2-white.svg');
+                    height: 24px;
+                    position: absolute;
+                    right: 24px;
+                    top: 24px;
+                    width: 24px;
+
+                    @media (min-width: $screen-sm-min) {
+                        right: 135px;
+                    }
+                }
+            }
+        }
+
+        &.banner-1 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-1.jpg');
+            text-align: center;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: white;
+                        color: rgb(149, 221, 236);
+                    }
+                }
+            }
+        }
+
+        &.banner-2 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-1.jpg');
+            text-align: center;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: $gray;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        &.banner-3 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-2.jpg');
+            text-align: left;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: white;
+                        color: $brand-success;
+                    }
+                }
+            }
+        }
+
+        &.banner-4 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-3.jpg');
+            text-align: left;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: $brand-success;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        &.banner-5 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-4.jpg');
+            text-align: center;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: $brand-success;
+                        color: white;
+                    }
+                }
+            }
+        }
+
+        &.banner-6 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-5.jpg');
+            text-align: left;
+
+            .banner-wrapper {
+
+                .btn-action {
+
+                    .btn {
+                        background-color: white;
+                        color: rgb(67, 141, 200);
+                    }
+                }
+            }
+        }
+
+        &.banner-7 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-6.jpg');
+            text-align: left;
+
+            .banner-wrapper {
+
+                .now-serving-text {
+                    @media (min-width: $screen-sm-min) {
+                        display: block;
+                        font-size: 14px;
+                        margin-top: 16px;
+                    }
+                }
+
+                .city-text {
+                    @media (min-width: $screen-sm-min) {
+                        float: left;
+                        text-transform: uppercase;
+                        font-size: 56px;
+                    }
+                }
+
+                .btn-action {
+
+                    @media (min-width: $screen-sm-min) {
+                        display: block;
+                        float: right;
+                        text-align: right;
+                        margin-top: 16px;
+                    }
+
+                    .btn {
+                        background-color: white;
+                        color: $gray;
+                    }
+                }
+            }
+        }
+
+        &.banner-8 {
+            @extend .banner-style-1;
+
+            background-image: url('img/cr/banner-7.jpg');
+            text-align: center;
+
+            .banner-wrapper {
+
+                .now-serving-text {
+
+                    @media (min-width: $screen-sm-min) {
+                        font-weight: $lato-regular;
+                    }
+                }
+
+                .btn-action {
+
+                    .btn {
+                        background-color: $brand-primary;
+                        color: white;
+                    }
+                }
+            }
+        }
+    }
+
+    .main-map-wrapper {
+        position: relative;
+
+        $main-map-height: 993px;
+
+        @media (max-width: $screen-xs-max) {
+            margin-top: $banner-height;
+        }
+
+        .main-map {
+            opacity: 0.5;
+            width: 100%;
+            height: $main-map-height;
+
+            @media (max-width: $screen-md-max) {
+                height: 1550px;
+            }
+        }
+
+        .own-business-section {
+            position: absolute; // top: 112px;
+            top: 48px;
+            left: 0;
+            right: 0;
+            width: 100%;
+
+            .slider-container {
+                @media (min-width: $screen-sm-min) {
+                    padding-left: 135px;
+                    padding-right: 135px;
+                }
+
+                .swiper-container {
+                    width: 100%;
+                    height: 100%;
+
+                    .swiper-wrapper {
+
+                        text-align: center;
+
+                        img {
+
+                            @media (max-width: $screen-md-max) {
+                                display: inline-block;
+                            }
+                        }
+
+                        .swiper-slide {
+
+                            .slide-device-wrapper {
+
+                                @media (min-width: $screen-lg-min) {
+                                    float: left;
+                                }
+                            }
+
+                            .slide-text-wrapper {
+                                padding-top: 145px;
+
+                                @media (max-width: $screen-md-max) {
+                                    padding-top: 90px;
+                                    text-align: center;
+                                }
+
+                                @media (min-width: $screen-lg-min) {
+                                    overflow: auto;
+                                    padding-left: 48px;
+                                }
+
+                                .own-business-text {
+
+                                    .text-title {
+                                        font-weight: $lato-black;
+                                        font-size: 36px;
+                                    }
+
+                                    .text-subtitle {
+                                        margin-top: 16px;
+                                        font-size: 24px;
+                                    }
+
+                                    .action-signup {
+                                        margin-top: 29px;
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+
+                .swiper-container-horizontal>.swiper-pagination-bullets {
+                    bottom: 6px;
+                }
+
+                .swiper-pagination-white .swiper-pagination-bullet-active {
+                    background: $gray;
+                }
+
+                .swiper-pagination-white .swiper-pagination-bullet {
+                    background: $gray;
+                }
+            }
+
+            .features-section {
+                margin-top: 48px;
+                width: 100%;
+                padding: 0 24px;
+                text-align: center;
+
+                @media (min-width: $screen-lg-min) {
+                    //margin-top: 96px;
+                }
+
+                .feature-item {
+                    background-color: white; // cursor: pointer;
+                    width: 31%;
+                    display: inline-block;
+                    padding: 52px 27px;
+                    max-width: 370px;
+                    margin-right: 2%;
+                    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+                    border-radius: 3px;
+
+                    @media (max-width: $screen-md-max) {
+                        padding: 24px 12px;
+                        width: 100%;
+                        margin-bottom: 24px;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                    @media (max-width: $screen-sm-max) {}
+
+                    .item-title,
+                    .item-subtitle {
+                        font-size: 24px;
+
+                        @media (max-width: $screen-md-max) {
+                            font-size: 16px; // font-size: 20px;
+                        }
+
+                        @media (max-width: $screen-sm-max) {}
+                    }
+
+                    .item-title {
+                        font-weight: $lato-bold;
+                    }
+
+                    .item-subtitle {
+                        margin-top: 16px;
+                    }
+                }
+            }
+        }
+    }
+
+    .footer-section {
+        padding: 0 24px 38px;
+        margin-top: 100px;
+
+        @media (min-width: $screen-lg-min) {
+            margin-top: 200px;
+        }
+
+        .alphabets-list {
+            padding: 38px 0;
+
+            .alphabets-item {
+                display: inline-block;
+                width: 30px;
+                font-weight: $lato-black;
+                text-align: center;
+                margin: 10px;
+                text-decoration: underline;
+
+                .alphabet-text {}
+
+                &.active,
+                &:hover {
+                    // color: $brand-success;
+                    cursor: pointer;
+
+                    .alphabet-text {}
+                }
+            }
+        }
+    }
+
+    &.has-banner {
+        // padding-top: $banner-height;
+        // .top-content {
+        //     top: $banner-height;
+        // }
+    }
+
+    &.backoffice-mobile-menu-opened {
+
+        // .top-content {
+        //     .navbar {
+        //         background-color: white;
+        //     }
+        // }
+    }
+}

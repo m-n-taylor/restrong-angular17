@@ -1,0 +1,78 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Modal -->
+<div class="modal schedule-form fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">Schedule Form</h4>
+            </div>
+
+            <page-loader *ngIf="busy"></page-loader>
+
+            <div [hidden]="busy" class="modal-body modal-scrollable">
+
+                <!-- Nav tabs -->
+                <ul class="nav nav-pills scrollable">
+                    <li *ngIf="masterHead.IsDelivery" [ngClass]="{ 'active': activeTab == TAB_DELIVERY_HOURS, 'has-error': invalidTabs[TAB_DELIVERY_HOURS] }" (click)="selectTab(TAB_DELIVERY_HOURS)"><a>Delivery time</a></li>
+                    <li *ngIf="masterHead.IsPickup" [ngClass]="{ 'active': activeTab == TAB_PICKUP_HOURS, 'has-error': invalidTabs[TAB_PICKUP_HOURS] }" (click)="selectTab(TAB_PICKUP_HOURS)"><a>Pickup time</a></li>
+                    <li *ngIf="masterHead.IsCatering" [ngClass]="{ 'active': activeTab == TAB_CATERING_HOURS, 'has-error': invalidTabs[TAB_CATERING_HOURS] }" (click)="selectTab(TAB_CATERING_HOURS)"><a>Catering time</a></li>
+                    <li *ngIf="masterHead.IsDiningIn" [ngClass]="{ 'active': activeTab == TAB_DINING_HOURS, 'has-error': invalidTabs[TAB_DINING_HOURS] }" (click)="selectTab(TAB_DINING_HOURS)"><a>Dining-In time</a></li>
+                </ul>
+
+                <div class="tab-content">
+                    <div role="tabpanel" class="tab-pane rest-info-tab-pane active">
+                        <div class="table-responsive">
+
+                            <p class="f-black">
+                                (Note: If service types have different timing need to add here otherwise it's follow Restaurant Working/Delivery Hours.)
+                            </p>
+
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>From</th>
+                                    <th>Open Time</th>
+                                    <th>Close Time</th>
+                                    <th>Add<span class="hidden-xs"> more Time</span></th>
+                                    <th>Active</th>
+                                </tr>
+
+                                <tbody *ngFor="let item of schedule[activeTab]">
+
+                                    <tr *ngFor="let dayDetail of item.DayDetails; let index = index">
+                                        <td>
+                                            <div>{{ dayDetail.dayIDFrom ? constants.WEEK_DAYS[dayDetail.dayIDFrom] : '' }}</div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="!dayDetail.editMode" (click)="dayDetail.editMode = !dayDetail.editMode">{{ dayDetail.Opening_Time }}</div>
+                                            <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Opening_Time" [error]="dayDetail.openingTimeError" [options]="workingHoursDTOptions" (valueChange)="updateHoursValidation(activeTab)"></m-datetime>
+                                        </td>
+                                        <td>
+                                            <div>{{ dayDetail.dayIDTo ? constants.WEEK_DAYS[dayDetail.dayIDTo] : '' }}</div>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="!dayDetail.editMode" (click)="dayDetail.editMode = !dayDetail.editMode">{{ dayDetail.Closing_Time }}</div>
+                                            <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Closing_Time" [error]="dayDetail.closingTimeError" [options]="workingHoursDTOptions" (valueChange)="updateHoursValidation(activeTab)"></m-datetime>
+                                        </td>
+                                        <td>
+                                            <div *ngIf="index == 0" class="add-time-icon" (click)="addHour(index, item, true)"></div>
+                                            <div *ngIf="index > 0" class="text-danger" (click)="deleteHour(index, item)">DELETE</div>
+                                        </td>
+                                        <td>
+                                            <m-checkbox toggle=true [(value)]="dayDetail.Enabled" (valueChange)="save()"></m-checkbox>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div [hidden]="busy" class="modal-footer">
+                <button type="button" class="btn btn-success" (click)="save(true)">Save</button>
+                <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+            </div>
+        </div>
+    </div>
+</div>

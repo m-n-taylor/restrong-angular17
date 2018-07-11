@@ -1,0 +1,86 @@
+.modal.thank-you-order-modal {
+
+    .modal-content {
+
+        .modal-header {
+            border-bottom: none;
+
+            .modal-title {
+                text-align: center;
+                padding-left: 24px;
+                padding-right: 0;
+            }
+        }
+
+        .modal-body {
+            padding-left: 0;
+            padding-right: 0;
+            padding-bottom: 22px;
+            text-align: center;
+
+            .thank-you-image-left {
+                width: 154px;
+                margin-right: 27px;
+            }
+
+            .order-info-section {
+                float: left;
+                width: 260px;
+
+                .text-heading {
+                    font-weight: $lato-black;
+                    font-size: 18px;
+                    margin-top: 40px;
+                }
+
+                .order-confirm-section {
+                    width: 260px;
+                    margin: 28px auto 0;
+                    padding: 13px 8px 20px;
+                    box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.15);
+                    border-radius: 8px;
+
+                    .order-confirm-title {
+                        font-size: 12px;
+                    }
+
+                    .order-confirm-number {
+                        margin-top: 2px;
+                        font-weight: $lato-black;
+                        font-size: 18px;
+                        color: $brand-success;
+                    }
+
+                    &.order-declined {
+                        
+                    }
+                }
+            }
+
+            .thank-you-image-right {
+                width: 189px;
+                padding-top: 24px;
+            }
+
+            .thank-you-image-left,
+            .thank-you-image-right {
+                float: left;
+
+                img {
+                    max-width: 100%;
+                }
+            }
+        }
+
+        .modal-footer {
+
+            .action-buttons {
+                text-align: center;
+
+                .close-btn {
+                    width: 264px; // border-color: transparent;
+                }
+            }
+        }
+    }
+}

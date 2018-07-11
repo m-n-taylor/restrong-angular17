@@ -1,0 +1,159 @@
+profile-order-details {
+
+    .profile-order-details {
+        padding: 40px 135px 0;
+
+        .info-section {
+
+            .info-title {
+                margin-top: 43px;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .info-details {
+                margin-top: 20px;
+                padding: 26px;
+                border: 1px solid rgba(#455A64, .3);
+                border-radius: 3px;
+
+                .info-field {
+                    position: relative;
+                    margin-top: 6px;
+
+                    .info-field-dots {
+                        position: absolute;
+                        left: 0;
+                        bottom: 4px;
+                        border-top: 1px dotted rgba(38, 50, 56, 0.30);
+                        width: 100%;
+                        height: 1px;
+                    }
+
+                    .info-field-label {
+                        position: relative;
+                        float: left;
+                        background-color: white;
+                        padding-right: 6px;
+                    }
+
+                    .info-field-value {
+                        position: relative;
+                        float: right;
+                        background-color: white;
+                        padding-left: 6px;
+                    }
+
+                    &.delivery-address-field {
+                        margin-top: 22px;
+                    }
+                }
+            }
+        }
+
+        .order-details-section {
+
+            .order-details-title {
+                margin: 43px 0 28px;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .order-details-list {
+
+                .tr-totals {
+
+                    td {
+
+                        &.td-labels {
+                            padding-right: 0;
+
+                            .charge-label {
+                                margin-top: 3px;
+                                text-align: right;
+
+                                &.total-label,
+                                &.net-account-label {
+                                    margin: 11px 0;
+                                    font-weight: $lato-black;
+                                }
+
+                                &.total-label {
+                                    border-top: 1px solid #DBDBDB;
+                                    border-radius: 0;
+                                    padding-top: 11px;
+                                }
+
+                                &.net-account-label {
+                                    font-size: 18px;
+                                }
+                            }
+                        }
+
+                        &.td-values {
+                            padding-left: 0;
+
+                            .charge-value {
+                                margin-top: 3px;
+                                text-align: right;
+
+                                &.total-value,
+                                &.net-account-value {
+                                    margin: 11px 0;
+                                    font-weight: $lato-black;
+                                }
+
+                                &.total-value {
+                                    border-top: 1px solid #DBDBDB;
+                                    border-radius: 0;
+                                    padding-top: 11px;
+                                }
+
+                                &.net-account-value {
+                                    font-size: 18px;
+                                }
+
+                                .equal-sign,
+                                .plus-sign,
+                                .minus-sign {
+                                    display: inline-block;
+                                    font-weight: $lato-black;
+                                    width: 20px;
+                                    text-align: center;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        .top-section {
+            padding: 0 0 40px;
+            border-bottom: 1px solid #DBDBDB;
+
+            .order-number {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-top: 8px;
+                cursor: pointer;
+
+                .arrow-left-icon {
+                    display: block;
+                    float: left;
+                }
+            }
+
+            .btn-write-review,
+            .btn-reorder {
+                min-width: 200px;
+            }
+
+            .btn-write-review {
+                margin-right: 24px;
+            }
+
+            .btn-reorder {}
+        }
+    }
+}

@@ -1,0 +1,88 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg shopping-cart-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Shopping Cart</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div class="cart-item" *ngFor="let cartItem of shoppingCart.cartItems">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{cartItem.FileName}}" alt="{{ cartItem.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ cartItem.RestaurantName }}</h3>
+                            <div class="rest-status">{{ cartItem.Availability }}</div>
+                            <div>{{ cartItem.Address }}</div>
+                        </div>
+                    </div>
+
+                    <div class="p-10" *ngFor="let menuItem of cartItem.menuItems">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <div>{{ menuItem.MenuItemName }}</div>
+                                <div>{{ menuItem.Price * menuItem.quantity | currency:'USD':true }}</div>
+                            </div>
+                            <div class="col-md-4">
+                                <input type="number" min="1" class="form-control" [(ngModel)]="menuItem.quantity" (ngModelChange)="refreshCart()" placeholder="Enter Quantity">
+                            </div>
+                            <div class="col-md-2">
+                                <button class="btn btn-primary" (click)="shoppingCart.removeMenuItem(menuItem, cartItem)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table-striped">
+                                <tr>
+                                    <td>Subtotal</td>
+                                    <td>${{ cartItem.subTotal }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Delivery</td>
+                                    <td>${{ cartItem.delivery }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Tax</td>
+                                    <td>${{ cartItem.tax }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Driver Tip</td>
+                                    <td>${{ cartItem.driverTip }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Service Fee</td>
+                                    <td>${{ cartItem.serviceFee }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Total</td>
+                                    <td>${{ cartItem.total }}</td>
+                                </tr>
+                                <tr>
+                                    <td>Est. Arrival Time</td>
+                                    <td>{{ cartItem.ETA }} minutes</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="loader" *ngIf="busy"></div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="checkout()">Checkout (${{ shoppingCart.total }})</button>
+            </div>
+        </div>
+    </div>
+</div>

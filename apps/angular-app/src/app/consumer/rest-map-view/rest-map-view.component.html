@@ -1,0 +1,48 @@
+<div class="page rest-map-view-page">
+
+    <page-loader *ngIf="busyRest" center="page"></page-loader>
+
+    <search-box #searchBoxComponent [queryParams]="queryParams"></search-box>
+
+    <div class="rest-map-container">
+
+        <div class="action-icons">
+            <div class="map-on-icon icon-map"></div>
+
+            <a routerLink="/search">
+                <div class="view-off-icon icon-view"></div>
+            </a>
+        </div>
+
+        <div #activeRestItemElement class="active-rest-item-element m-gmaps-ui-view">
+            <div *ngIf="activeRestItem" class="rest-item-container" [ngClass]="{ 'rest-closed': activeRestItem.IsOpen }" (click)="onRestItemClick()">
+                <div class="s-bubble"></div>
+                <div class="rest-item clearfix">
+                    <div class="menu-item-img-container">
+                        <div *ngIf="activeRestItem.RestImageExist" class="menu-item-img" style="background-image: url('{{this.constants.SERVER_URL}}/{{activeRestItem.RestImage}}')"></div>
+
+                        <div *ngIf="!activeRestItem.RestImageExist" class="item-cuisine-icon-parent clearfix">
+                            <div class="cuisine-icon-{{activeRestItem.CuisineID}} item-cuisine-icon"></div>
+                        </div>
+                    </div>
+                    <div class="item-details">
+                        <div class="item-rest-name text-ellipsis">{{ activeRestItem.RestaurantName}}</div>
+
+                        <div class="yelp-rating">
+                            <div class="yelp-icon yelp-icon-0 yelp-icon-{{ activeRestItem.RestRating }}">&nbsp;</div>
+                            <div class="yelp-rating-count c-text2">({{ activeRestItem.RestRatingCount || 0}})</div>
+                            <img class="yelp-logo" src="img/yelp-logo.svg" alt="">
+                        </div>
+
+                        <div class="item-cuisine-name c-text2">{{ activeRestItem.CuisineName}} • {{activeRestItem.Distance}}mi • {{ activeRestItem.PriceLevel }}</div>
+
+                        <div class="item-eta c-text3" [hidden]="sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN">Delivery Fee $ {{ activeRestItem.DeliveryCharge}}&nbsp;&nbsp;•&nbsp;&nbsp;Min Order $ {{activeRestItem.MinOrder}}&nbsp;&nbsp;•&nbsp;&nbsp;ETA {{ activeRestItem.ETA}} MIN</div>
+                        <div class="item-available-status" ng-class="{ 'c-success' : activeRestItem.IsOpen, 'c-primary' : !activeRestItem.IsOpen }}">{{ activeRestItem.Availability}}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="rest-map"></div>
+    </div>
+</div>

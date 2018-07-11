@@ -1,0 +1,71 @@
+<div class="menu-item-container {{ sharedDataService.serviceType }}" [ngClass]="{ 'view-only': config.mode == 'viewOnly', 'rest-closed' : !item.IsOpen, 'item-trending': (sharedDataService.platformSettings.Enable_Popular_Ribbon && item.PopularLevel == 1), 'item-has-coupon': item.CouponCode }">
+    <div *ngIf="config.bubble" class="menu-item-bubble"></div>
+    <div class="menu-item">
+
+        <div class="ribbon ribbon-primary align-left trending-ribbon"><span>Popular</span></div>
+        <div class="ribbon ribbon-second ribbon-success align-left coupon-ribbon"><span>Coupon {{ item.CouponDiscount * 100 | number:0 }}% OFF</span></div>
+
+        <div class="clearfix">
+            <div class="menu-item-img-container">
+                <div *ngIf="item.MenuImageExist || item.RestImageExist" class="menu-item-img">
+                    <img src="{{ constants.SERVER_URL + '/' + item.FileName }}" alt="{{ item.MenuItemName }}" />
+                </div>
+
+                <div *ngIf="!item.MenuImageExist && !item.RestImageExist" class="item-cuisine-icon-parent clearfix">
+                    <div class="cuisine-icon-{{item.CuisineID}} item-cuisine-icon"></div>
+                </div>
+
+                <div class="yelp-rating">
+                    <div *ngIf="sharedDataService.platformSettings.Enable_Yelp_Rating" class="yelp-icon yelp-icon-0 yelp-icon-{{ item.RestRating }}">&nbsp;</div>
+                    <div>
+                        <img *ngIf="sharedDataService.platformSettings.Enable_Yelp_Rating || sharedDataService.platformSettings.Enable_Yelp_Count" class="yelp-logo" src="img/yelp-logo.svg" alt="">
+                        <span *ngIf="sharedDataService.platformSettings.Enable_Yelp_Count" class="yelp-rating-count c-text2">({{ item.RestRatingCount || 0 }})</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- <div *ngIf="item.MenuImageExist" class="menu-item-img-container">
+            <div class="menu-item-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + item.FileName + ')'}"></div>
+            <div class="trending-text">trending</div>
+        </div>
+        <div *ngIf="!item.MenuImageExist" class="item-cuisine-icon-container">
+            <div class="item-cuisine-icon-parent">
+                <div class="cuisine-icon-{{item.CuisineID}} item-cuisine-icon"></div>
+            </div>
+            <div class="trending-text">trending</div>
+        </div> -->
+
+            <div class="item-details">
+                <div class="clearfix">
+                    <div class="menu-item-name text-overflow">{{ item.MenuItemName }}</div>
+                    <div class="item-price">${{ item.Price }}</div>
+                </div>
+
+                <div class="menu-item-desc c-text2">{{ item.MenuItemDescription?.substr(0, 80) }}</div>
+
+                <div class="item-rest-name-container clearfix">
+                    <div class="item-rest-name text-overflow">{{ item.RestaurantName || '&nbsp;' }}</div>
+                </div>
+
+                <div class="clearfix">
+                    <div class="item-fees c-text2" [hidden]="sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN">
+                        <span [hidden]="sharedDataService.serviceType == constants.SERVICE_TYPE_PICKUP">Delivery Fee ${{ item.DeliveryCharge }}&nbsp;&nbsp;•&nbsp;&nbsp;Min Order ${{ item.MinOrder }}&nbsp;&nbsp;•&nbsp;&nbsp;</span>
+                        <span>ETA {{ item.ETA }} MIN</span>
+                    </div>
+
+                    <div class="item-available">
+                        <span class="item-available-status" [ngClass]="{ 'c-primary': !item.IsOpen }">{{ item.Availability }}</span>
+                        <!-- <span class="item-available-text">{{ item.Availability }}</span> -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="item-actions clearfix">
+            <div [hidden]="!config.hideMoreDishes && config.mode != 'viewOnly' && item.ItemCount > 1 && !item.busy" class="more-dishes-placeholder"></div>
+            <button *ngIf="!config.hideMoreDishes && config.mode != 'viewOnly' && item.ItemCount > 1 && !item.busy" (click)="doAction($event, ACTION_VIEW_MORE_DISHES)" class="btn btn-success1 btn-xs more-dishes c-text1">More Dishes</button>
+            <button class="btn btn-success1 btn-xs view-menu c-text1" (click)="doAction($event, ACTION_VIEW_MENU)">View Menu</button>
+            <button *ngIf="config.mode != 'viewOnly'" class="btn btn-success btn-xs add-to-cart" mStopEvent (click)="doAction($event, ACTION_VIEW_ADD_CART)">{{ item.IsOpen ? 'Add to Cart' : 'Preorder' }}</button>
+        </div>
+    </div>
+</div>

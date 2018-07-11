@@ -1,0 +1,67 @@
+<div class="page menu-page">
+
+    <search-box #searchBoxComponent [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></search-box>
+
+    <!-- Dish Type Chips -->
+	<div *ngIf="dishTypes.length" class="dish-chips-container">
+		<div class="chips style-2">
+			<div class="chip-item" *ngFor="let item of dishTypes; let index = index" [ngClass]="{ 'active': item.active }" (click)="chooseDishType(item)">{{ item.Name }}</div>
+		</div>
+	</div>
+
+    <no-result-placeholder *ngIf="noResults" [config]="noResultConfig"></no-result-placeholder>
+
+    <div class="menu-list" infinite-scroll (scrolled)="loadMenuItems(true)">
+        <menu-item *ngFor="let menuItem of menuItems" [item]="menuItem" (menuItemClicked)="menuItemClicked($event)"></menu-item>
+
+        <page-loader *ngIf="busyMenu"></page-loader>
+    </div>
+
+    <filters #filtersComponent *ngIf="sharedDataService.isFiltersOpened" [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></filters>
+
+    <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+    
+    <!--infinite-scroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="500" (scrolled)="loadMenuItems(true)" -->
+    <!--<div class="card menu-list">
+                <div class="menu-item" *ngFor="let menuItem of menuItems" (click)="selectMenuItem(menuItem)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{menuItem.FileName}}" alt="{{ menuItem.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ menuItem.RestaurantName }}</h3>
+
+                            <div class="rest-status">{{ menuItem.Availability }}</div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>{{ menuItem.MenuItemName }}</h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4>${{ menuItem.Price }}</h4>
+                                </div>
+                            </div>
+
+                            <div>{{ menuItem.MenuItemDescription }}</div>
+
+                            <div class="row item-info">
+                                <div class="col-sm-3">Distance: {{ menuItem.Distance }} miles</div>
+                                <div class="col-sm-3">ETA: {{ menuItem.ETA }} miles</div>
+                                <div class="col-sm-3">Delivery Fee: ${{ menuItem.DeliveryCharge }}</div>
+                                <div class="col-sm-3">Min Order: {{ menuItem.MinOrder }} miles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busyMenu"></div>
+            </div>-->
+    <!--<div class="col-sm-3">
+            <button class="btn btn-primary" (click)="openMenuMapView()">Map View</button>
+            <filters #filters [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></filters>
+            <div class="loader" *ngIf="busyDishTypes"></div>
+            <div class="chip" [hidden]="busyDishTypes" *ngFor="let item of dishTypes" (click)="chooseDishType(item)" [ngClass]="{'active': item.active }">{{ item.Name }} ({{ item.Count }}) </div>
+        </div>-->
+</div>

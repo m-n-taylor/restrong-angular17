@@ -1,0 +1,53 @@
+.settings-page {
+
+    .main-contents {
+        padding: 0 40px;
+
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .notification-tone-section {
+            margin-top: 48px;
+            
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+        }
+
+        .change-password-section {
+            margin-top: 48px;
+            
+            .change-password-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+
+            .change-password-actions {
+                margin-top: 40px;
+
+                .forgot-password-link {
+                    margin-left: 52px;
+                }
+            }            
+        }
+
+        .change-email-section {
+            margin-top: 48px;
+            
+            .change-email-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-bottom: 40px;
+            }
+
+            .change-email-actions {
+                margin-top: 40px;
+            }            
+        }
+    }    
+}

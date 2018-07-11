@@ -1,0 +1,70 @@
+<div class="request-demo">
+
+    <div class="section-ready-to-learn">
+        <div class="section-details">
+            <div class="section-title">Ready to learn more?</div>
+            <div class="section-subtitle">Request a free product demo today.</div>
+
+            <form #form="ngForm" (ngSubmit)="form.valid && submitRequestDemo($event, form)">
+
+                <div class="row">
+                    <div class="col-sm-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, FirstName) }">
+                            <label>First Name</label>
+                            <input type="text" class="form-control" name="FirstName" required #FirstName="ngModel" [(ngModel)]="data.FirstName">
+
+                            <validation-messages [form]="form" [input]="FirstName" label="First Name"></validation-messages>
+                        </div>
+                    </div>
+                    <div class="col-sm-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, LastName) }">
+                            <label>Last Name</label>
+                            <input type="text" class="form-control" name="LastName" required #LastName="ngModel" [(ngModel)]="data.LastName">
+
+                            <validation-messages [form]="form" [input]="LastName" label="Last Name"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, RestName) }">
+                            <label>Restaurant Name</label>
+                            <input type="text" class="form-control" name="RestName" required #RestName="ngModel" [(ngModel)]="data.RestName">
+
+                            <validation-messages [form]="form" [input]="RestName" label="Restaurant Name"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Email) }">
+                            <label>Email</label>
+                            <input type="text" class="form-control" name="Email" required mValidEmail #Email="ngModel" [(ngModel)]="data.Email">
+
+                            <validation-messages [form]="form" [input]="Email" label="Email"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Phone) }">
+                            <label>Phone</label>
+                            <input type="text" class="form-control" name="Phone" required mValidPhone #Phone="ngModel" [(ngModel)]="data.Phone">
+
+                            <validation-messages [form]="form" [input]="Phone" label="Phone"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="isBrowser" class="row">
+                    <div class="col-sm-12">
+                        <button [ladda]="busy" type="submit" class="btn btn-success btn-xlg btn-block btn-request-demo">Request a Demo</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

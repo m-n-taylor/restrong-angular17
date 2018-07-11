@@ -1,0 +1,62 @@
+<div class="page menu-map-view-page">
+    <div class="row">
+        <div class="col-sm-9">
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">MENU Map View</a>
+                    </li>
+                </ul>
+            </div>
+
+            <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+
+            <div class="card">
+                <div id="menu-map"></div>
+            </div>
+
+            <div class="card menu-list" *ngIf="selectedMenuItem && !busyMenu">
+                <div class="menu-item" (click)="selectMenuItem(selectedMenuItem)">
+                    <div class="row">
+                        <div class="col-md-2">
+                            <div class="img-thumb-container rest-thumb">
+                                <img class="img-thumb" src="{{constants.SERVER_URL}}/{{selectedMenuItem.FileName}}" alt="{{ selectedMenuItem.RestaurantName }}">
+                            </div>
+                        </div>
+
+                        <div class="col-md-9">
+                            <h3 class="rest-name">{{ selectedMenuItem.RestaurantName }}</h3>
+
+                            <div class="rest-status">{{ selectedMenuItem.Availability }}</div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <h4>{{ selectedMenuItem.MenuItemName }}</h4>
+                                </div>
+                                <div class="col-sm-6">
+                                    <h4>${{ selectedMenuItem.Price }}</h4>
+                                </div>
+                            </div>
+
+                            <div>{{ selectedMenuItem.MenuItemDescription }}</div>
+
+                            <div class="row item-info">
+                                <div class="col-sm-3">Distance: {{ selectedMenuItem.Distance }} miles</div>
+                                <div class="col-sm-3">ETA: {{ selectedMenuItem.ETA }} miles</div>
+                                <div class="col-sm-3">Delivery Fee: ${{ selectedMenuItem.DeliveryCharge }}</div>
+                                <div class="col-sm-3">Min Order: {{ selectedMenuItem.MinOrder }} miles</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="loader" *ngIf="busyMenu"></div>
+        </div>
+        <div class="col-sm-3">
+            <button class="btn btn-primary" (click)="openMenuListView()">List View</button>
+            <filters #filters [queryParams]="queryParams" (filtersChanged)="filtersChangedEvent($event)"></filters>
+            <div class="loader" *ngIf="busyDishTypes"></div>
+            <div class="chip" [hidden]="busyDishTypes" *ngFor="let item of dishTypes" (click)="selectDishType(item)">{{ item.Name }} ({{ item.Count }}) </div>
+        </div>
+    </div>
+</div>

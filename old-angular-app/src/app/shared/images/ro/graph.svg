@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="528px" height="192px" viewBox="0 0 528 192" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 46.2 (44496) - http://www.bohemiancoding.com/sketch -->
+    <title>graph</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="graph">
+            <g id="Group-19" transform="translate(20.000000, 2.000000)">
+                <g id="Group-7" transform="translate(0.379061, 0.000000)">
+                    <rect id="Rectangle-3" x="0" y="0" width="358.312858" height="173.184548"></rect>
+                    <rect id="Rectangle-3-Copy-2" stroke="#DBDBDB" stroke-width="0.597188097" x="0.298594049" y="172.885954" width="504.527065" height="1"></rect>
+                    <rect id="Rectangle-3-Copy-3" stroke="#DBDBDB" stroke-width="0.597188097" x="0.298594049" y="137.054668" width="504.527065" height="1"></rect>
+                    <rect id="Rectangle-3-Copy-4" stroke="#DBDBDB" stroke-width="0.597188097" x="0.298594049" y="95.2515015" width="504.527065" height="1"></rect>
+                    <rect id="Rectangle-3-Copy-5" stroke="#DBDBDB" stroke-width="0.597188097" x="0.298594049" y="53.4483347" width="504.527065" height="1"></rect>
+                    <rect id="Rectangle-3-Copy-6" stroke="#DBDBDB" stroke-width="0.597188097" x="0.298594049" y="11.6451679" width="504.527065" height="1"></rect>
+                </g>
+            </g>
+            <g id="Group-7-Copy" transform="translate(20.379061, 2.000000)" stroke="#DBDBDB" stroke-width="0.597188097">
+                <rect id="Rectangle-3" x="0.298594049" y="0.298594049" width="1" height="172.58736"></rect>
+            </g>
+            <g id="Group-11" transform="translate(1.000000, 7.971881)">
+                <rect id="Rectangle-5" fill="#33CF79" opacity="0.400000006" x="33.8787879" y="97.5757576" width="28.6650287" height="70.4681955"></rect>
+                <rect id="Rectangle-5-Copy" fill="#33CF79" x="33.8787879" y="111.363636" width="28.6650287" height="56.3712137"></rect>
+                <rect id="Rectangle-5-Copy-3" fill="#33CF79" opacity="0.400000006" x="83.7272727" y="112.424242" width="28.6650287" height="54.9413049"></rect>
+                <rect id="Rectangle-5-Copy-4" fill="#33CF79" x="83.7272727" y="123.030303" width="28.6650287" height="43.9515137"></rect>
+                <rect id="Rectangle-5-Copy-5" fill="#33CF79" opacity="0.400000006" x="133.575758" y="128.333333" width="28.6650287" height="38.8423082"></rect>
+                <rect id="Rectangle-5-Copy-6" fill="#33CF79" x="133.575758" y="135.757576" width="28.6650287" height="31.0757568"></rect>
+                <rect id="Rectangle-5-Copy-7" fill="#33CF79" opacity="0.400000006" x="183.424242" y="123.030303" width="28.6650287" height="43.8683539"></rect>
+                <rect id="Rectangle-5-Copy-8" fill="#33CF79" x="183.424242" y="132.575758" width="28.6650287" height="35.0954547"></rect>
+                <rect id="Rectangle-5-Copy-15" fill="#33CF79" opacity="0.400000006" x="232.212121" y="112.424242" width="28.6650287" height="54.9413049"></rect>
+                <rect id="Rectangle-5-Copy-16" fill="#33CF79" x="232.212121" y="123.030303" width="28.6650287" height="43.9515137"></rect>
+                <rect id="Rectangle-5-Copy-13" fill="#33CF79" opacity="0.400000006" x="282.060606" y="83.7878788" width="28.6650287" height="83.0091455"></rect>
+                <rect id="Rectangle-5-Copy-14" fill="#33CF79" x="282.060606" y="100.757576" width="28.6650287" height="66.4151504"></rect>
+                <rect id="Rectangle-5-Copy-11" fill="#33CF79" opacity="0.400000006" x="331.909091" y="63.6363636" width="28.6650287" height="103.576304"></rect>
+                <rect id="Rectangle-5-Copy-12" fill="#33CF79" x="331.909091" y="84.8484848" width="28.6650287" height="82.8651486"></rect>
+                <rect id="Rectangle-5-Copy-9" fill="#33CF79" opacity="0.400000006" x="381.757576" y="47.7272727" width="28.6650287" height="119.487783"></rect>
+                <rect id="Rectangle-5-Copy-10" fill="#33CF79" x="381.757576" y="72.1212121" width="28.6650287" height="95.5924213"></rect>
+                <rect id="Rectangle-5-Copy-23" fill="#33CF79" opacity="0.400000006" x="431.606061" y="58.3333333" width="28.6650287" height="108.879334"></rect>
+                <rect id="Rectangle-5-Copy-24" fill="#33CF79" x="431.606061" y="80.6060606" width="28.6650287" height="87.1075728"></rect>
+                <rect id="Rectangle-5-Copy-21" fill="#33CF79" opacity="0.400000006" x="481.454545" y="74.2424242" width="28.6650287" height="92.970243"></rect>
+                <rect id="Rectangle-5-Copy-22" fill="#33CF79" x="481.454545" y="93.3333333" width="28.6650287" height="74.3803001"></rect>
+                <text id="0" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="8.84357084" y="168.837974">0</tspan>
+                </text>
+                <text id="$2k" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="0.932022932" y="91.2035217">$2k</tspan>
+                </text>
+                <text id="$3k" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="0.932022932" y="49.4003549">$3k</tspan>
+                </text>
+                <text id="$4k" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="0.932022932" y="7.5971881">$4k</tspan>
+                </text>
+                <text id="8-AM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="39.1385135" y="180.781736">8 AM</tspan>
+                </text>
+                <text id="10AM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="87.4813243" y="180.781736">10AM</tspan>
+                </text>
+                <text id="12PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="137.458042" y="180.781736">12PM</tspan>
+                </text>
+                <text id="2PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="189.265738" y="180.781736">2PM</tspan>
+                </text>
+                <text id="4PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="238.995219" y="180.781736">4PM</tspan>
+                </text>
+                <text id="6PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="288.724701" y="180.781736">6PM</tspan>
+                </text>
+                <text id="8PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="338.454182" y="180.781736">8PM</tspan>
+                </text>
+                <text id="10PM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="386.105449" y="180.781736">10PM</tspan>
+                </text>
+                <text id="12AM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="435.587695" y="180.781736">12AM</tspan>
+                </text>
+                <text id="2AM" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="487.395391" y="180.781736">2AM</tspan>
+                </text>
+                <text id="$1k" font-family="Lato-Regular, Lato" font-size="7.16625717" font-weight="normal" fill="#263238">
+                    <tspan x="0.932022932" y="133.006689">$1k</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

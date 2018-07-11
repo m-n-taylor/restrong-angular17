@@ -1,0 +1,37 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'display-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg manage-user-addresses-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Manage Address</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div class="loader" *ngIf="busy"></div>
+
+                <div class="table-responsive" *ngIf="!busy">
+                    <table class="table">
+                        <tr>
+                            <th></th>
+                            <th>Address</th>
+                            <th></th>
+                        </tr>
+                        <tr *ngFor="let userAddress of userAddresses; let index = index">
+                            <td>{{ index + 1 }}</td>
+                            <td>{{ userAddress.Address }}</td>
+                            <td><button class="btn btn-primary" (click)="chooseUserAddress(userAddress)">Choose Address</button></td>
+                        </tr>
+                    </table>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()">Close</button>
+            </div>
+        </div>
+    </div>
+</div>

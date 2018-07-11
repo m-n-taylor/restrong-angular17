@@ -1,0 +1,1116 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="manage-platform-page">
+
+    <page-loader *ngIf="busy" center="page"></page-loader>
+
+    <div *ngIf="platformSettings" class="main-contents">
+
+        <color-picker-modal #colorPickerModal></color-picker-modal>
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-text cursor-default">
+                        Manage Platform
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="platform-controls-section">
+            <div *ngIf="userService.isSuperAdmin">
+                <div class="section-heading">Platform Companies</div>
+
+                <div class="row">
+                    <div class="col-xs-12">
+                        <div class="form-group">
+                            <label>Choose a company</label>
+                            <select class="form-control" name="selectedCompany" [(ngModel)]="selectedCompany" (ngModelChange)="onSelectedCompanyChanged()">
+                                <option *ngFor="let company of platformCompanies" [ngValue]="company">
+                                    {{ company.Name ? company.Name : '' }}{{ company.App_Name ? ' - ' + company.App_Name : '' }}{{ company.App_ID
+                                    ? ' - ' + company.App_ID : '' }}
+                                </option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <form #form="ngForm" (ngSubmit)="save(form)">
+
+                <div class="section-heading">View Settings</div>
+
+                <div class="row">
+                    <div class="col-sm-6 col-md-3">
+                        <div class="form-group">
+                            <label>Mobile Type</label>
+                            <select class="form-control" name="deviceType" [(ngModel)]="deviceType" (ngModelChange)="onMobileTypeChange()">
+                                <option *ngIf="constants.IsBeta" value="macbook">Macbook</option>
+                                <option value="iphone5s">Iphone 5s</option>
+                                <option value="iphone8">Iphone 8</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="col-sm-6 col-md-9">
+                        <!-- <div class="form-group">
+                                [error]="restInfoTab.CIStateError"
+                            <label>Addresses</label>
+                            <m-select [items]="restAddresses" [itemLabelProp]="'Address'"></m-select>
+                        </div> -->
+                        <div class="form-group">
+                            <label>Addresses</label>
+                            <select class="form-control" name="SelectedRestAddress" [(ngModel)]="selectedRestAddress" (ngModelChange)="onAddressChanged()">
+                                <option *ngFor="let restAddress of restAddresses" [ngValue]="restAddress">{{ restAddress.Address }}</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-heading">Main</div>
+
+                <div class="row">
+                    <div class="col-sm-12 col-md-6">
+                        <div class="enable-app-wrapper input-container">
+                            <m-checkbox toggle=true text="Enable App" [(value)]="platformSettings.Enable_App" (valueChange)="onSettingsChanged()"></m-checkbox>
+                        </div>
+                    </div>
+                    <div class="col-sm-12 col-md-6">
+                        <div class="form-group input-container">
+                            <label>Public Key</label>
+                            <input type="text" class="form-control cursor-text" name="PublicKey" [(ngModel)]="platformSettings.PublicKey" disabled="true">
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_ID) }">
+                            <label>App ID  (can not be changed)</label>
+                            <input type="text" class="form-control" name="App_ID" #App_ID="ngModel" [(ngModel)]="platformSettings.App_ID" (ngModelChange)="onAppNameChanged()">
+
+                            <validation-messages [form]="form" [input]="App_ID" label="App ID"></validation-messages>
+                            <div class="help-block text-success">com.dishzilla.{{ platformSettings.App_ID || '[example]' }}</div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_Name) }">
+                            <label>App Name (can not be changed)</label>
+                            <input type="text" class="form-control" name="App_Name" required #App_Name="ngModel" [(ngModel)]="platformSettings.App_Name" (ngModelChange)="onAppNameChanged()">
+
+                            <validation-messages [form]="form" [input]="App_Name" label="App Name"></validation-messages>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, WEBSITE_URL) }">
+                            <label>Website Name (can not be changed) </label>
+                            <input type="text" class="form-control" name="WEBSITE_URL" required #WEBSITE_URL="ngModel" [(ngModel)]="platformSettings.WEBSITE_URL" (ngModelChange)="onAppNameChanged()">
+
+                            <validation-messages [form]="form" [input]="WEBSITE_URL" label="Website Name"></validation-messages>
+                            <div class="help-block text-success"><a class="view-store-link text-success" target="_blank" href="{{ '//' + platformSettings.WEBSITE_URL + '.dishzilla.com' }}">Visit: {{ platformSettings.WEBSITE_URL || '[example]' }}.dishzilla.com</a></div>
+                        </div>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Contact_Email) }">
+                            <label>Contact Email</label>
+                            <input type="email" class="form-control" name="Contact_Email" required mValidEmail #Contact_Email="ngModel" [(ngModel)]="platformSettings.Contact_Email" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Contact_Email" label="Contact Email"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="section-subheading">App Logo</div>
+
+                <div class="row input-container">
+
+                    <div class="col-md-6">
+                        <div class="photo-upload-container">
+                            <div class="photo-viewer">
+                                <img *ngIf="!platformSettings.App_Logo" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                                <img *ngIf="platformSettings.App_Logo" src="{{ platformSettings.App_Logo }}">
+                            </div>
+
+                            <label class="file-upload-label">
+                                <input type="file" (change)="uploadImage('app-logo', appLogoImageElement)" #appLogoImageElement />
+                                <span>Upload</span>
+                            </label>
+
+                            <div *ngIf="platformSettings.App_Logo" class="delete-menu-item-image">
+                                <button class="btn btn-danger btn-sm" (click)="removeImage('app-logo', appLogoImageElement)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="section-subheading">App Icon (1024x1024)</div>
+
+                <div class="row input-container">
+
+                    <div class="col-md-6">
+                        <div class="photo-upload-container">
+                            <div class="photo-viewer">
+                                <img *ngIf="!platformSettings.App_Icon" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                                <img *ngIf="platformSettings.App_Icon" src="{{ platformSettings.App_Icon }}">
+                            </div>
+
+                            <label class="file-upload-label">
+                                <input type="file" (change)="uploadImage('app-icon', appIconImageElement)" #appIconImageElement />
+                                <span>Upload</span>
+                            </label>
+
+                            <div *ngIf="platformSettings.App_Icon" class="delete-menu-item-image">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeImage('app-icon', appIconImageElement)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="appIconPalette" class="palette-item">
+                    <div class="d-iblock" *ngFor="let item of appIconPaletteArray">
+                        <div *ngIf="item.value" class="palette-color" [ngStyle]="{ 'backgroundColor': 'rgb(' + item.value.r + ',' + item.value.g + ',' + item.value.b + ')' }">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">App Splash (2732x2732)</div>
+
+                <div class="row input-container">
+
+                    <div class="col-md-6">
+                        <div class="photo-upload-container">
+                            <div class="photo-viewer">
+                                <img *ngIf="!platformSettings.App_Splash" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                                <img *ngIf="platformSettings.App_Splash" src="{{ platformSettings.App_Splash }}">
+                            </div>
+
+                            <label class="file-upload-label">
+                                <input type="file" (change)="uploadImage('app-splash', appSplashImageElement)" #appSplashImageElement />
+                                <span>Upload</span>
+                            </label>
+
+                            <div *ngIf="platformSettings.App_Splash" class="delete-menu-item-image">
+                                <button type="button" class="btn btn-danger btn-sm" (click)="removeImage('app-splash', appSplashImageElement)">Remove</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="appSplashPalette" class="palette-item">
+                    <div class="d-iblock" *ngFor="let item of appSplashPaletteArray">
+                        <div *ngIf="item.value" class="palette-color" [ngStyle]="{ 'backgroundColor': 'rgb(' + item.value.r + ',' + item.value.g + ',' + item.value.b + ')' }">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-heading">Colors</div>
+
+                <div class="section-subheading">
+
+                    <div class="row">
+                        <div class="col-xs-12">
+                            <div>Palette</div>
+                        </div>
+                        <div class="col-xs-12 palette-actions-wrapper">
+                            <button type="button" class="btn btn-sm btn-success get-random-palette" (click)="getRandomPalette()">Get Random Palette</button>
+                            <button type="button" class="btn btn-sm btn-success pick-color" (click)="openColorPickerModal()">Choose Palette</button>
+                            <button type="button" class="btn btn-sm btn-success shuffle-palette" (click)="shufflePalette()" [disabled]="!selectedPaletteItem">Shuffle Palette</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="selectedPaletteItem" class="palette-item">
+                    <div class="palette-color" *ngFor="let item of selectedPaletteItem" [ngStyle]="{ 'backgroundColor': item }">
+                        &nbsp;
+                    </div>
+                </div>
+
+                <div *ngIf="!selectedPaletteItem" class="text-center">(No Palette Selected)</div>
+
+                <div class="section-subheading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>Global</div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button type="button" class="btn btn-sm btn-success shuffle-colors" (click)="shuffleGlobalColors()">Shuffle Colors</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Balanced) }">
+                            <label>Action Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_BalancedRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Balanced" required #Color_Balanced="ngModel" [(ngModel)]="platformSettings.Color_Balanced" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_BalancedRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Balanced }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Balanced" label="Color Balanced"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Positive) }">
+                            <label>Feedback Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_PositiveRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Positive" required #Color_Positive="ngModel" [(ngModel)]="platformSettings.Color_Positive" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_PositiveRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Positive }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Positive" label="Color Positive"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Assertive) }">
+                            <label>Notification Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_AssertiveRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Assertive" required #Color_Assertive="ngModel" [(ngModel)]="platformSettings.Color_Assertive" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_AssertiveRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Assertive }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Assertive" label="Color Assertive"></validation-messages>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Gray) }">
+                            <label>Profile Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_GrayRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Gray" required #Color_Gray="ngModel" [(ngModel)]="platformSettings.Color_Gray" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_GrayRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Gray }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Gray" label="Gray"></validation-messages>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Text1) }">
+                            <label>Primary Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_Text1Ref="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Text1" required #Color_Text1="ngModel" [(ngModel)]="platformSettings.Color_Text1" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_Text1Ref.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Text1 }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Text1" label="Color Text 1"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Text2) }">
+                            <label>Secondary Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_Text2Ref="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Text2" required #Color_Text2="ngModel" [(ngModel)]="platformSettings.Color_Text2" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_Text2Ref.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Text2 }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Text2" label="Color Text 2"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_Text3) }">
+                            <label>Tertiary Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_Text3Ref="colorPickerRef" colorPicker type="text" class="form-control" name="Color_Text3" required #Color_Text3="ngModel" [(ngModel)]="platformSettings.Color_Text3" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_Text3Ref.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_Text3 }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_Text3" label="Color Text 3"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>Top Navigation</div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button type="button" class="btn btn-sm btn-success shuffle-colors" (click)="shuffleTopNavigationColors()">Shuffle Colors</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Promo_BGColor) }">
+                            <label>Background Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Promo_BGColorRef="colorPickerRef" colorPicker type="text" class="form-control" name="Promo_BGColor" required #Promo_BGColor="ngModel" [(ngModel)]="platformSettings.Promo_BGColor" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Promo_BGColorRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Promo_BGColor }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Promo_BGColor" label="Background Color"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Promo_TabTextColor) }">
+                            <label>Tab Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Promo_TabTextColorRef="colorPickerRef" colorPicker type="text" class="form-control" name="Promo_TabTextColor" required #Promo_TabTextColor="ngModel" [(ngModel)]="platformSettings.Promo_TabTextColor" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Promo_TabTextColorRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Promo_TabTextColor }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Promo_TabTextColor" label="Tab Text Color"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Promo_ActiveTabTextColor) }">
+                            <label>Active Tab Text Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Promo_ActiveTabTextColorRef="colorPickerRef" colorPicker type="text" class="form-control" name="Promo_ActiveTabTextColor" required #Promo_ActiveTabTextColor="ngModel" [(ngModel)]="platformSettings.Promo_ActiveTabTextColor" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Promo_ActiveTabTextColorRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Promo_ActiveTabTextColor }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Promo_ActiveTabTextColor" label="Active Tab Text Color"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Promo_ActiveTabUnderlineColor) }">
+                            <label>Active Tab Underline Color</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Promo_ActiveTabUnderlineColorRef="colorPickerRef" colorPicker type="text" class="form-control" name="Promo_ActiveTabUnderlineColor" required #Promo_ActiveTabUnderlineColor="ngModel" [(ngModel)]="platformSettings.Promo_ActiveTabUnderlineColor"
+                                    (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Promo_ActiveTabUnderlineColorRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Promo_ActiveTabUnderlineColor }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Promo_ActiveTabUnderlineColor" label="Active Tab Underline Color"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>Map</div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button type="button" class="btn btn-sm btn-success shuffle-colors" (click)="shuffleMapColors()">Shuffle Colors</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_UserMapIcon) }">
+                            <label>User Map Icon</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_UserMapIconRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_UserMapIcon" required #Color_UserMapIcon="ngModel" [(ngModel)]="platformSettings.Color_UserMapIcon" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_UserMapIconRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_UserMapIcon }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_UserMapIcon" label="User Map Icon"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_RestMapIcon) }">
+                            <label>Rest Map Icon</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_RestMapIconRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_RestMapIcon" required #Color_RestMapIcon="ngModel" [(ngModel)]="platformSettings.Color_RestMapIcon" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_RestMapIconRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_RestMapIcon }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_RestMapIcon" label="Rest Map Icon"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Color_SelectedMapIcon) }">
+                            <label>Selected Map Icon</label>
+
+                            <div class="m-input-group has-addon-right">
+                                <input #Color_SelectedMapIconRef="colorPickerRef" colorPicker type="text" class="form-control" name="Color_SelectedMapIcon" required #Color_SelectedMapIcon="ngModel" [(ngModel)]="platformSettings.Color_SelectedMapIcon" (ngModelChange)="onSettingsChanged()">
+
+                                <div class="m-input-group-addon m-addon-right" (click)="Color_SelectedMapIconRef.toggle()">
+                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Color_SelectedMapIcon }"></div>
+                                </div>
+                            </div>
+
+                            <validation-messages [form]="form" [input]="Color_SelectedMapIcon" label="Selected Map Icon"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-heading">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div>Store</div>
+                        </div>
+                        <div class="col-sm-6 text-right">
+                            <button type="button" class="btn btn-sm btn-success" (click)="loadStoreLinks()">Refresh</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_IOS_Store_Link) }">
+                            <label>App Store Link (Android)</label>
+                            <input type="text" class="form-control" name="App_IOS_Store_Link" required #App_IOS_Store_Link="ngModel" [(ngModel)]="platformSettings.App_IOS_Store_Link" (ngModelChange)="onSettingsChanged()" disabled>
+
+                            <validation-messages [form]="form" [input]="App_IOS_Store_Link" label="Color Balanced"></validation-messages>
+                            <div class="help-block"><a class="view-store-link text-success" target="_blank" [href]="platformSettings.App_IOS_Store_Link">Visit on App Store</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_Android_Store_Link) }">
+                            <label>Play Store Link (Android)</label>
+                            <input type="text" class="form-control" name="App_Android_Store_Link" required #App_Android_Store_Link="ngModel" [(ngModel)]="platformSettings.App_Android_Store_Link" (ngModelChange)="onSettingsChanged()" disabled>
+
+                            <validation-messages [form]="form" [input]="App_Android_Store_Link" label="Color Positive"></validation-messages>
+                            <div class="help-block"><a class="view-store-link text-success" target="_blank" [href]="platformSettings.App_Android_Store_Link">Visit on Play Store</a></div>
+                        </div>
+                    </div>
+
+                    <!-- <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_Version) }">
+                            <label>App Version</label>
+                            <input type="text" class="form-control" name="App_Version" required #App_Version="ngModel" [(ngModel)]="platformSettings.App_Version"
+                                (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="App_Version" label="Color Assertive"></validation-messages>
+                        </div>
+                    </div> -->
+                </div>
+
+                <div class="section-heading">Features</div>
+
+                <div class="section-subheading">Service Types
+                    <span *ngIf="serviceTypeError" class="text-danger">({{ serviceTypeError }})</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Delivery" [(value)]="platformSettings.Enable_Delivery" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Pickup" [(value)]="platformSettings.Enable_Pickup" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Catering" [(value)]="platformSettings.Enable_Catering" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Dine in" [(value)]="platformSettings.Enable_DiningIn" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <!-- <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Default Service Type</label>
+                            <select class="form-control" name="DefaultServiceType" [(ngModel)]="platformSettings.Default_ServiceType" (ngModelChange)="onSettingsChanged()">
+                                <option *ngIf="platformSettings.Enable_Delivery" [value]="3">Delivery</option>
+                                <option *ngIf="platformSettings.Enable_Pickup" [value]="4">Pickup</option>
+                                <option *ngIf="platformSettings.Enable_Catering" [value]="2">Catering</option>
+                                <option *ngIf="platformSettings.Enable_DiningIn" [value]="1">Dine in</option>
+                            </select>
+                        </div>
+                    </div>
+                </div> -->
+
+                <div class="section-subheading">Intro Pages
+                    <span *ngIf="introPagesError" class="text-danger">({{ introPagesError }})</span>
+                </div>
+
+                <div class="row">
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Intro Pages" [(value)]="platformSettings.Enable_Intro_Pages" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div *ngIf="platformSettings.Enable_Intro_Pages">
+
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Intro_Action_Button_Text) }">
+                                <label>Action Button Text</label>
+
+                                <div class="m-input-group has-addon-right">
+                                    <input colorPicker type="text" class="form-control" name="Intro_Action_Button_Text" required #Intro_Action_Button_Text="ngModel" [(ngModel)]="platformSettings.Intro_Action_Button_Text" (ngModelChange)="onSettingsChanged()">
+
+                                    <div class="m-input-group-addon m-addon-right">
+                                        <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Intro_Action_Button_Text }"></div>
+                                    </div>
+                                </div>
+
+                                <validation-messages [form]="form" [input]="Intro_Action_Button_Text" label="Action Button Text"></validation-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Intro_Action_Button_Color) }">
+                                <label>Action Button Color</label>
+
+                                <div class="m-input-group has-addon-right">
+                                    <input colorPicker type="text" class="form-control" name="Intro_Action_Button_Color" required #Intro_Action_Button_Color="ngModel" [(ngModel)]="platformSettings.Intro_Action_Button_Color" (ngModelChange)="onSettingsChanged()">
+
+                                    <div class="m-input-group-addon m-addon-right">
+                                        <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Intro_Action_Button_Color }"></div>
+                                    </div>
+                                </div>
+
+                                <validation-messages [form]="form" [input]="Intro_Action_Button_Color" label="Action Button Color"></validation-messages>
+                            </div>
+                        </div>
+
+                        <div class="col-md-6">
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Intro_Action_Button_BGColor) }">
+                                <label>Action Button Background Color</label>
+
+                                <div class="m-input-group has-addon-right">
+                                    <input colorPicker type="text" class="form-control" name="Intro_Action_Button_BGColor" required #Intro_Action_Button_BGColor="ngModel" [(ngModel)]="platformSettings.Intro_Action_Button_BGColor" (ngModelChange)="onSettingsChanged()">
+
+                                    <div class="m-input-group-addon m-addon-right">
+                                        <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': platformSettings.Intro_Action_Button_BGColor }"></div>
+                                    </div>
+                                </div>
+
+                                <validation-messages [form]="form" [input]="Intro_Action_Button_BGColor" label="Action Button Background Color"></validation-messages>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="intro-page-list">
+                        <div class="table table-striped m-table" dnd-sortable-container [sortableData]="platformSettings.IntroPages">
+                            <div class="m-tr">
+                                <div class="m-th">Image</div>
+                                <div class="m-th">Color</div>
+                                <div class="m-th">BG Color</div>
+                                <div class="m-th">Text 1</div>
+                                <div class="m-th">Text 2</div>
+                                <div class="m-th">Active</div>
+                                <div class="m-th">Edit</div>
+                                <div class="m-th">Delete</div>
+                            </div>
+
+                            <form #IPForm="ngForm" class="m-tr" *ngFor="let introPage of platformSettings.IntroPages; let index = index" dnd-sortable [sortableIndex]="index" (click)="openIntroPage(introPage)">
+                                <div mStopEvent class="m-td">
+                                    <div class="photo-upload-container">
+                                        <div class="photo-viewer">
+                                            <img *ngIf="!introPage.Image" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                                            <img *ngIf="introPage.Image" src="{{ introPage.Image }}">
+                                        </div>
+
+                                        <label class="file-upload-label">
+                                            <input type="file" (change)="uploadIntroPageImage(introPage, introPageImage)" #introPageImage />
+                                            <span>Upload</span>
+                                        </label>
+
+                                        <div *ngIf="introPage.Image" class="delete-menu-item-image">
+                                            <button class="btn btn-danger btn-sm" (click)="deleteIntroPageImage(introPage, introPageImage)">Remove</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-td">
+                                    <div *ngIf="!introPage._editMode">{{ introPage.Color }}</div>
+
+                                    <div [hidden]="!introPage._editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(IPForm, IPColor) }">
+
+                                            <div class="m-input-group has-addon-right">
+                                                <input colorPicker type="text" name="IPColor" required #IPColor="ngModel" [(ngModel)]="introPage.Color" class="form-control" placeholder="{{ !IPForm.valid ? 'Color is required' : '' }}">
+
+                                                <div class="m-input-group-addon m-addon-right">
+                                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': introPage.Color }"></div>
+                                                </div>
+                                            </div>
+
+                                            <validation-messages [form]="IPForm" [input]="IPColor" label="Color"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-td">
+                                    <div *ngIf="!introPage._editMode">{{ introPage.BGColor }}</div>
+
+                                    <div [hidden]="!introPage._editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(IPForm, IPBGColor) }">
+
+                                            <div class="m-input-group has-addon-right">
+                                                <input colorPicker type="text" name="IPBGColor" required #IPBGColor="ngModel" [(ngModel)]="introPage.BGColor" class="form-control" placeholder="{{ !IPForm.valid ? 'Background Color is required' : '' }}">
+
+                                                <div class="m-input-group-addon m-addon-right">
+                                                    <div class="color-preview-addon cursor-default" [ngStyle]="{ 'backgroundColor': introPage.BGColor }"></div>
+                                                </div>
+                                            </div>
+
+                                            <validation-messages [form]="IPForm" [input]="IPBGColor" label="Background Color"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-td">
+                                    <div *ngIf="!introPage._editMode">{{ introPage.Text1 }}</div>
+
+                                    <div [hidden]="!introPage._editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(IPForm, IPText1) }">
+                                            <input type="text" name="IPText1" required #IPText1="ngModel" [(ngModel)]="introPage.Text1" class="form-control" placeholder="{{ !IPForm.valid ? 'Text1 is required' : '' }}">
+
+                                            <validation-messages [form]="IPForm" [input]="IPText1" label="Background Color"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="m-td">
+                                    <div *ngIf="!introPage._editMode">{{ introPage.Text2 }}</div>
+
+                                    <div [hidden]="!introPage._editMode">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(IPForm, IPText2) }">
+                                            <input type="text" name="IPText2" required #IPText2="ngModel" [(ngModel)]="introPage.Text2" class="form-control" placeholder="{{ !IPForm.valid ? 'Text2 is required' : '' }}">
+
+                                            <validation-messages [form]="IPForm" [input]="IPText2" label="Background Color"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div mStopEvent class="m-td">
+                                    <m-checkbox toggle=true [(value)]="introPage.Enabled"></m-checkbox>
+                                </div>
+
+                                <div mStopEvent class="m-td">
+                                    <div *ngIf="!introPage._editMode">
+                                        <div class="pencil-icon" (click)="openIntroPage(introPage)"></div>
+                                    </div>
+                                    <div [hidden]="!introPage._editMode">
+                                        <div>
+                                            <button type="submit" class="btn btn-link save-link" (click)="saveIntroPage(introPage, IPForm)">Save</button>
+                                            <button type="button" class="btn btn-link cancel-link" (click)="closeIntroPage(introPage, true)">Cancel</button>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div mStopEvent class="m-td">
+                                    <div *ngIf="!introPage._isNew" class="delete-time-icon" (click)="deleteIntroPage(index)"></div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="empty-record" *ngIf="!platformSettings.IntroPages.length">
+                            No Records to display
+                        </div>
+
+                    </div>
+
+                    <div class="add-page-btn">
+                        <button type="button" class="btn btn-success btn-sm" (click)="addIntroPage()">Add Page</button>
+                    </div>
+
+                </div>
+
+                <div *ngIf="!isPlatform">
+                    <div class="section-subheading">Points Feature</div>
+
+                    <div class="row input-container">
+                        <div class="col-md-6">
+                            <m-checkbox toggle=true text="Enable" [(value)]="platformSettings.Enable_Points" (valueChange)="onSettingsChanged()"></m-checkbox>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="platformSettings.Enable_Points" class="row">
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Points_Name) }">
+                            <label>Points Name</label>
+                            <input type="text" class="form-control" name="Points_Name" required #Points_Name="ngModel" [(ngModel)]="platformSettings.Points_Name" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Points_Name" label="Points Name"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Review_Points) }">
+                            <label>Review Points</label>
+                            <input type="text" class="form-control" name="Review_Points" required #Review_Points="ngModel" [(ngModel)]="platformSettings.Review_Points" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Review_Points" label="Review Points"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Image_Points) }">
+                            <label>Image Points</label>
+                            <input type="text" class="form-control" name="Image_Points" required #Image_Points="ngModel" [(ngModel)]="platformSettings.Image_Points" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Image_Points" label="Image Points"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Order_Points) }">
+                            <label>Order Points</label>
+                            <input type="text" class="form-control" name="Order_Points" required #Order_Points="ngModel" [(ngModel)]="platformSettings.Order_Points" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Order_Points" label="Order Points"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">Filters</div>
+
+                <div class="row">
+                    <div *ngIf="!isPlatform" class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Cuisine Filter" [(value)]="platformSettings.Enable_Cuisine_Filter" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Dish Filter" [(value)]="platformSettings.Enable_Dish_Filter" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div *ngIf="!isPlatform" class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="View Mode" [(value)]="platformSettings.Enable_View_Mode" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div *ngIf="!isPlatform" class="row">
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label>Default View</label>
+                            <select class="form-control" name="DefaultView" [(ngModel)]="platformSettings.Default_View_Mode" (ngModelChange)="onSettingsChanged()">
+                                <option [value]="0">Dish</option>
+                                <option [value]="1">Restaurant</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">Yelp</div>
+
+                <div class="row">
+                    <div class="col-md-6">
+                        <m-checkbox toggle=true text="Rating" [(value)]="platformSettings.Enable_Yelp_Rating" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6">
+                        <m-checkbox toggle=true text="Count" [(value)]="platformSettings.Enable_Yelp_Count" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div class="section-subheading">Social</div>
+
+                <div class="row input-container">
+                    <div class="col-md-6">
+                        <m-checkbox toggle=true text="Facebook Login" [(value)]="platformSettings.Enable_Facebook_Login" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6">
+                        <m-checkbox toggle=true text="Google Login" [(value)]="platformSettings.Enable_Google_Login" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div class="row input-container">
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, SocialLink_Facebook) }">
+                            <label>Facebook Link</label>
+                            <input type="text" class="form-control" name="SocialLink_Facebook" #SocialLink_Facebook="ngModel" [(ngModel)]="platformSettings.SocialLink_Facebook" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="SocialLink_Facebook" label="Facebook Link"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, SocialLink_Twitter) }">
+                            <label>Twitter Link</label>
+                            <input type="text" class="form-control" name="SocialLink_Twitter" #SocialLink_Twitter="ngModel" [(ngModel)]="platformSettings.SocialLink_Twitter" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="SocialLink_Twitter" label="Twitter Link"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, SocialLink_Instagram) }">
+                            <label>Instagram Link</label>
+                            <input type="text" class="form-control" name="SocialLink_Instagram" #SocialLink_Instagram="ngModel" [(ngModel)]="platformSettings.SocialLink_Instagram" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="SocialLink_Instagram" label="Instagram Link"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, SocialLink_Youtube) }">
+                            <label>Youtube Link</label>
+                            <input type="text" class="form-control" name="SocialLink_Youtube" #SocialLink_Youtube="ngModel" [(ngModel)]="platformSettings.SocialLink_Youtube" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="SocialLink_Youtube" label="Youtube Link"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row input-container">
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_IOS_Store_Link) }">
+                            <label>App Store Link (Android)</label>
+                            <input type="text" class="form-control" name="App_IOS_Store_Link" required #App_IOS_Store_Link="ngModel" [(ngModel)]="platformSettings.App_IOS_Store_Link" (ngModelChange)="onSettingsChanged()" disabled>
+
+                            <validation-messages [form]="form" [input]="App_IOS_Store_Link" label="Color Balanced"></validation-messages>
+                            <div class="help-block"><a class="view-store-link text-success" target="_blank" [href]="platformSettings.App_IOS_Store_Link">Visit on App Store</a></div>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, App_Android_Store_Link) }">
+                            <label>Play Store Link (Android)</label>
+                            <input type="text" class="form-control" name="App_Android_Store_Link" required #App_Android_Store_Link="ngModel" [(ngModel)]="platformSettings.App_Android_Store_Link" (ngModelChange)="onSettingsChanged()" disabled>
+
+                            <validation-messages [form]="form" [input]="App_Android_Store_Link" label="Color Positive"></validation-messages>
+                            <div class="help-block"><a class="view-store-link text-success" target="_blank" [href]="platformSettings.App_Android_Store_Link">Visit on Play Store</a></div>
+                        </div>
+                    </div>
+                </div>
+
+                <div *ngIf="userService.isSuperAdmin" class="row">
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, FB_CLIENT_ID) }">
+                            <label>Facebook App ID</label>
+                            <input type="text" class="form-control" name="FB_CLIENT_ID" #FB_CLIENT_ID="ngModel" [(ngModel)]="platformSettings.FB_CLIENT_ID" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="FB_CLIENT_ID" label="Facebook App ID"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, GOOGLE_PLUS_WEB_CLIENT_ID) }">
+                            <label>Google Plus Web Client ID</label>
+                            <input type="text" class="form-control" name="GOOGLE_PLUS_WEB_CLIENT_ID" #GOOGLE_PLUS_WEB_CLIENT_ID="ngModel" [(ngModel)]="platformSettings.GOOGLE_PLUS_WEB_CLIENT_ID" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="GOOGLE_PLUS_WEB_CLIENT_ID" label="Google Plus Web Client ID"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Google_ClientSecret) }">
+                            <label>Google Plus Client Secret</label>
+                            <input type="text" class="form-control" name="Google_ClientSecret" #Google_ClientSecret="ngModel" [(ngModel)]="platformSettings.Google_ClientSecret" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="Google_ClientSecret" label="Google Plus Client Secret"></validation-messages>
+                        </div>
+                    </div>
+
+                    <div class="col-md-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, GOOGLE_PLUS_REVERSE_CLIENT_ID) }">
+                            <label>Google Plus Reverse Client ID (IOS URL Scheme)</label>
+                            <input type="text" class="form-control" name="GOOGLE_PLUS_REVERSE_CLIENT_ID" #GOOGLE_PLUS_REVERSE_CLIENT_ID="ngModel" [(ngModel)]="platformSettings.GOOGLE_PLUS_REVERSE_CLIENT_ID" (ngModelChange)="onSettingsChanged()">
+
+                            <validation-messages [form]="form" [input]="GOOGLE_PLUS_REVERSE_CLIENT_ID" label="Color Assertive"></validation-messages>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="section-subheading">General</div>
+
+                <div class="row">
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Enable Coupons" [(value)]="platformSettings.Enable_Coupons" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Map View" [(value)]="platformSettings.Enable_Map_View" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Popular Ribbon" [(value)]="platformSettings.Enable_Popular_Ribbon" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div class="section-subheading">Chat</div>
+
+                <div class="row">
+                    <div class="col-md-6 input-container">
+                        <m-checkbox toggle=true text="Hi Waiter" [(value)]="platformSettings.Enable_HiWaiter" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div class="section-subheading">Support Chat</div>
+
+                <div class="row">
+                    <div class="col-md-7 input-container">
+                        <m-checkbox toggle=true text="Registered Users Chat" [(value)]="platformSettings.EnableLoggedInSupportChat" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+
+                    <div class="col-md-5 input-container">
+                        <m-checkbox toggle=true text="Guest Chat" [(value)]="platformSettings.EnableGuestSupportChat" (valueChange)="onSettingsChanged()"></m-checkbox>
+                    </div>
+                </div>
+
+                <div class="section-heading">Pages Text</div>
+
+                <div class="section-subheading">Footer Description</div>
+
+                <div class="row">
+                    <div class="col-sm-12">
+                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Footer_Description) }">
+                            <label>Footer Description</label>
+                            <textarea cols="30" rows="10" class="form-control" name="Footer_Description" required #Footer_Description="ngModel" [(ngModel)]="platformSettings.Footer_Description" (ngModelChange)="onSettingsChanged()"></textarea>
+
+                            <validation-messages [form]="form" [input]="Footer_Description" label="Footer Description"></validation-messages>
+                        </div>
+
+                        <div class="input-container">
+                            <m-checkbox toggle=true text="Enable About Page" [(value)]="platformSettings.Enable_About_Text" (valueChange)="onSettingsChanged()"></m-checkbox>
+                        </div>
+
+                        <div *ngIf="platformSettings.Enable_About_Text" class="form-group input-container">
+                            <div class="section-subheading">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div>About
+                                            <span *ngIf="aboutError" class="text-danger">({{ aboutError }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button [ladda]="busyAboutText" type="button" class="btn btn-sm btn-success" (click)="generatePageText(form, 'about', aboutTextEditor)">Generate Text</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <text-editor #aboutTextEditor [value]="platformSettings.About_Text" (valueChange)="textEditorsValueChange('about', $event)"></text-editor>
+                        </div>
+
+                        <div *ngIf="!isPlatform && platformSettings.Enable_Points" class="form-group input-container">
+                            <label>Your Points
+                                <span *ngIf="yourPointsError" class="text-danger">({{ yourPointsError }})</span>
+                            </label>
+                            <text-editor [value]="platformSettings.YourPoints" (valueChange)="textEditorsValueChange('your-points', $event)"></text-editor>
+                        </div>
+
+                        <div class="form-group input-container">
+                            <div class="section-subheading">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div>Return Policy
+                                            <span *ngIf="returnPolicyError" class="text-danger">({{ returnPolicyError }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button [ladda]="busyReturnPolicyText" type="button" class="btn btn-sm btn-success" (click)="generatePageText(form, 'return-policy', returnPolicyTextEditor)">Generate Text</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <text-editor #returnPolicyTextEditor [value]="platformSettings.ReturnPolicy" (valueChange)="textEditorsValueChange('return-policy', $event)"></text-editor>
+                        </div>
+
+                        <div class="form-group input-container">
+                            <div class="section-subheading">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div>Privacy Policy
+                                            <span *ngIf="privacyPolicyError" class="text-danger">({{ privacyPolicyError }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button [ladda]="busyPrivacyPolicyText" type="button" class="btn btn-sm btn-success" (click)="generatePageText(form, 'privacy-policy', privacyPolicyTextEditor)">Generate Text</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <text-editor #privacyPolicyTextEditor [value]="platformSettings.PrivacyPolicy" (valueChange)="textEditorsValueChange('privacy-policy', $event)"></text-editor>
+                        </div>
+
+                        <div class="form-group input-container">
+                            <div class="section-subheading">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div>Terms of Use
+                                            <span *ngIf="termsOfUseError" class="text-danger">({{ termsOfUseError }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <button [ladda]="busyTermsOfUseText" type="button" class="btn btn-sm btn-success" (click)="generatePageText(form, 'terms-of-use', termsOfUseTextEditor)">Generate Text</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <text-editor #termsOfUseTextEditor [value]="platformSettings.TermsOfUse" (valueChange)="textEditorsValueChange('terms-of-use', $event)"></text-editor>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="action-buttons-wrapper" [ngClass]="{ 'sidemenu-pl': sharedDataService.sideMenu.isOpened }">
+                    <div class="action-buttons">
+                        <button [ladda]="busySave" class="btn btn-success" type="submit">Save</button>
+                        <button class="btn btn-success" type="button" (click)="reloadMobileApp()">Refresh Mobile App</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+
+        <div *ngIf="!busy" class="mobile-preview-wrapper" (mouseenter)="onMobileMouseEnter()" (mouseleave)="onMobileMouseLeave()">
+            <mobile-device class="marvel-device silver {{ deviceType }}" *ngIf="deviceType == 'iphone5s' || deviceType == 'iphone8'">
+                <iframe #mobileIframe scrolling="yes" [src]="mobileIframeUrl" [width]="deviceWidth" [height]="deviceHeight" frameborder="0"></iframe>
+            </mobile-device>
+            <macbook-device *ngIf="deviceType == 'macbook'">
+                <iframe #mobileIframe scrolling="yes" [src]="webIframeUrl" [width]="deviceWidth" [height]="deviceHeight" frameborder="0"></iframe>
+            </macbook-device>
+        </div>
+
+    </div>
+</div>

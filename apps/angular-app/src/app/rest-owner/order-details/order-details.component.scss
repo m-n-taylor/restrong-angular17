@@ -1,0 +1,244 @@
+.order-details-page {
+
+    .main-contents {
+        padding: 0 40px;
+
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .page-title-section {
+
+            @media (max-width : $screen-xs-max) {
+                .page-title-text {
+                    font-size: 19px;
+                }
+
+                .arrow-left-icon {
+                    vertical-align: sub;
+                }
+            }
+        }
+    }
+
+    .order-actions-section {
+        padding: 24px 0 8px;
+        border-bottom: 1px solid #DBDBDB;
+
+        @media (max-width : 356px) {
+            text-align: center;
+        }
+
+        .btn {
+            margin-right: 24px;
+            margin-bottom: 16px;
+
+            @media (max-width : $screen-sm-max) {
+                margin-right: 4px;
+            }
+
+            &.btn-map-customer-route {
+                @media (min-width : $screen-lg-min) {
+                    margin-left: 100px;
+
+                    &.no-side-margin {
+                        margin-left: 0;
+                    }
+                }
+            }
+
+            &.btn-edit-order {
+                margin-right: 0;
+            }
+
+            // &:not(:last-child) {
+            //     margin-right: 24px;
+            // }
+
+            // &.btn-map-customer-route, &.btn-print-order, &.btn-edit-order {
+            //     float: right;
+            // }
+
+            // @media (max-width : $screen-xs-max) {
+            //     display: block;
+            //     margin-top: 20px;
+            //     margin-left: auto !important;
+            //     margin-right: auto !important;
+            // }
+        }
+
+        // .left-side {
+        //     @media (max-width : $screen-md-max) {
+        //         display: inline-block;
+        //     }
+        // }
+
+        // .right-side {
+        //     @media (max-width : $screen-md-max) {
+        //         // margin-top: 20px;
+        //         display: inline-block;
+        //     }
+
+        //     @media (min-width : $screen-lg-min) {
+        //         text-align: right;
+        //     }
+        // }
+    }
+
+    .info-section {
+
+        .info-title {
+            margin-top: 43px;
+            font-weight: $lato-black;
+            font-size: 18px;
+        }
+
+        .info-details {
+            margin-top: 20px;
+            padding: 26px;
+            border: 1px solid rgba(#455A64, .3);
+            border-radius: 3px;
+
+            .info-field {
+                position: relative;
+                margin-top: 6px;
+
+                @media (max-width : $screen-xs-max) {
+                    margin-top: 8px;
+                }
+
+                .info-field-dots {
+                    position: absolute;
+                    left: 0;
+                    bottom: 4px;
+                    border-top: 1px dotted rgba(38, 50, 56, 0.30);
+                    width: 100%;
+                    height: 1px;
+
+                    @media (max-width : $screen-xs-max) {
+                        display: none;
+                    }
+                }
+
+                .info-field-label {
+                    position: relative;
+                    float: left;
+                    background-color: white;
+                    padding-right: 6px;
+
+                    @media (max-width : $screen-xs-max) {
+                        width: 100%;
+                    }
+                }
+
+                .info-field-value {
+                    position: relative;
+                    float: right;
+                    background-color: white;
+                    
+                    @media (min-width : $screen-sm-min) {
+                        padding-left: 6px;
+                    }
+
+                    @media (max-width : $screen-xs-max) {
+                        float: left;
+                        width: 100%;
+                        font-weight: $lato-black;
+                        padding-top: 8px;
+                        padding-bottom: 8px;
+                        border-bottom: 1px dotted rgba(38, 50, 56, 0.30);
+                    }
+                }
+
+                &.delivery-address-field {
+
+                    @media (min-width : $screen-sm-min) {
+                        margin-top: 22px;
+                    }
+                }
+            }
+        }
+    }
+
+    .order-details-section {
+
+        .order-details-title {
+            margin: 43px 0 28px;
+            font-weight: $lato-black;
+            font-size: 18px;
+        }
+
+        .order-details-list {
+
+            .tr-totals {
+
+                td {
+
+                    &.td-labels {
+                        padding-right: 0;
+
+                        .charge-label {
+                            margin-top: 3px;
+                            text-align: right;
+
+                            &.total-label, &.net-account-label {
+                                margin: 11px 0;
+                                font-weight: $lato-black;
+                            }
+
+                            &.total-label {
+                                border-bottom: 1px solid #DBDBDB;
+                                border-radius: 0;
+                                padding-bottom: 11px;
+                            }
+
+                            &.net-account-label {
+                                font-size: 18px;
+                            }
+                        }
+                    }
+
+                    &.td-values {
+                        padding-left: 0;
+
+                        .charge-value {
+                            margin-top: 3px;
+                            text-align: right;
+
+                            &.total-value, &.net-account-value {
+                                margin: 11px 0;
+                                font-weight: $lato-black;
+                            }
+
+                            &.total-value {
+                                border-bottom: 1px solid #DBDBDB;
+                                border-radius: 0;
+                                padding-bottom: 11px;
+                            }
+
+                            &.net-account-value {
+                                font-size: 18px;
+                            }
+
+                            .equal-sign, .plus-sign, .minus-sign {
+                                display: inline-block;
+                                font-weight: $lato-black;
+                                width: 20px;
+                                text-align: center;
+                            }
+
+                            .plus-sign {
+                                color: $brand-success;
+                            }
+
+                            .minus-sign {
+                                color: $brand-danger;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

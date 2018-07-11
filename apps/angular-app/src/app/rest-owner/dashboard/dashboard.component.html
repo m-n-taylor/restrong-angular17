@@ -1,0 +1,263 @@
+<div class="dashboard-page">
+    <div class="main-contents">
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div style="background-color: #DBDBDB;height: 290px; margin-bottom: 63px;">
+                    Place holder for chart
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="chart-info">
+                    <div class="chart-info-heading">748</div>
+                    <div class="chart-info-subheading">Orders today</div>
+                    <div class="chart-info-details">And this is <span class="text-success f-black">56 more</span> then yesterday</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="row">
+            <div class="col-sm-8">
+                <div style="background-color: #DBDBDB;height: 290px;">
+                    Place holder for chart
+                </div>
+            </div>
+            <div class="col-sm-4">
+                <div class="chart-info">
+                    <div class="chart-info-heading">$25,378</div>
+                    <div class="chart-info-subheading">Today’s Revenue</div>
+                    <div class="chart-info-details">And this is <span class="text-danger f-black">$3,570 less</span> then yesterday</div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="heading-list">Last Orders</div>
+        <div class="table-responsive customer-order-list">
+            <table class="table table-striped">
+                <tr>
+                    <th></th>
+                    <th>Order Number</th>
+                    <th>Customer</th>
+                    <th>Service Type</th>
+                    <th>Order Time</th>
+                    <th>Status</th>
+                    <th>Status History</th>
+                    <th>Is Order Accepted</th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="customer-img"></div>
+                    </td>
+                    <td class="f-bold">52E61076-2016-76</td>
+                    <td>Lorem ipsum</td>
+                    <td>
+                        Delivery
+                    </td>
+                    <td>
+                        Today, 5:54 PM
+                    </td>
+                    <td>
+                        <div class="text-success">Order Placed</div>
+                    </td>
+                    <td>
+                        <a class="h-link" data-toggle="modal" data-target="#customerOrderHistoryModal">
+                            <div class="history-icon"></div>
+                        </a>
+
+                        <!-- Modal -->
+                        <div class="modal customer-order-history-modal fade" id="customerOrderHistoryModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                            <div class="modal-dialog" role="document">
+                                <div class="modal-content">
+                                    <div class="modal-header">
+                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><div class="delete-icon"></div></button>
+                                        <h4 class="modal-title" id="myModalLabel">52E61076-2016-76 History</h4>
+                                    </div>
+                                    <div class="modal-body">
+
+                                        <div class="table-responsive customer-order-history-list">
+                                            <table class="table table-center">
+                                                <tr class="order-cancelled">
+                                                    <td>12:12 AM</td>
+                                                    <td>12/16/2016</td>
+                                                    <td>Cancelled by Restaurant</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12:12 AM</td>
+                                                    <td>12/16/2016</td>
+                                                    <td>Cancelled by Restaurant</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12:12 AM</td>
+                                                    <td>12/16/2016</td>
+                                                    <td>Cancelled by Restaurant</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12:12 AM</td>
+                                                    <td>12/16/2016</td>
+                                                    <td>Cancelled by Restaurant</td>
+                                                </tr>
+                                                <tr>
+                                                    <td>12:12 AM</td>
+                                                    <td>12/16/2016</td>
+                                                    <td>Cancelled by Restaurant</td>
+                                                </tr>
+                                            </table>
+                                        </div>
+
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button type="button" class="btn btn-success">OK</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                    <td>
+                        <div class="status-circle active"></div>
+                    </td>
+                    <td>
+                        <div class="arrow-right-icon"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="customer-img"></div>
+                    </td>
+                    <td class="f-bold">52E61076-2016-76</td>
+                    <td>Lorem ipsum</td>
+                    <td>
+                        Delivery
+                    </td>
+                    <td>
+                        Today, 5:54 PM
+                    </td>
+                    <td>
+                        <div class="text-dark-gray">Queue Added</div>
+                    </td>
+                    <td>
+                        <div class="history-icon"></div>
+                    </td>
+                    <td>
+                        <div class="status-circle active"></div>
+                    </td>
+                    <td>
+                        <div class="arrow-right-icon"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="customer-img"></div>
+                    </td>
+                    <td class="f-bold">52E61076-2016-76</td>
+                    <td>Lorem ipsum</td>
+                    <td>
+                        Delivery
+                    </td>
+                    <td>
+                        Today, 5:54 PM
+                    </td>
+                    <td>
+                        <div class="text-danger">Cancelled by Restaurant</div>
+                    </td>
+                    <td>
+                        <div class="history-icon"></div>
+                    </td>
+                    <td>
+                        <div class="status-circle active"></div>
+                    </td>
+                    <td>
+                        <div class="arrow-right-icon"></div>
+                    </td>
+                </tr>
+
+
+
+            </table>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="btn btn-success">View All</a>
+        </div>
+
+        <div class="heading-list">Last Review</div>
+
+        <div class="table-responsive customer-reviews-list">
+            <table class="table table-striped">
+                <tr>
+                    <th>Menu Item Name</th>
+                    <th>Customer</th>
+                    <th>Comment</th>
+                    <th>Rating</th>
+                    <th>Date Created</th>
+                    <th>Approval Status</th>
+                    <th></th>
+                    <th></th>
+                </tr>
+                <tr>
+                    <td>
+                        <div class="f-black">52E61076-2016-76</div>
+                    </td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia eveniet ratione ipsa autem non quidem
+                        dicta, vel excepturi praesentium maiores aut ipsam eum eius eos repellendus corrupti repellat quasi.
+                        Consequuntur!</td>
+                    <td>
+                        <div class="ratings-container">
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-off-icon"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Today, 5:54 PM
+                    </td>
+                    <td>
+                        <div class="status-circle active"></div>
+                    </td>
+                    <td>
+                        <div class="arrow-right-icon"></div>
+                    </td>
+                </tr>
+
+                <tr>
+                    <td>
+                        <div class="f-black">52E61076-2016-76</div>
+                    </td>
+                    <td>Lorem ipsum</td>
+                    <td>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quia eveniet ratione ipsa autem non quidem
+                        dicta, vel excepturi praesentium maiores aut ipsam eum eius eos repellendus corrupti repellat quasi.
+                        Consequuntur!</td>
+                    <td>
+                        <div class="ratings-container">
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-on-icon"></div>
+                            <div class="rating-off-icon"></div>
+                            <div class="rating-off-icon"></div>
+                            <div class="rating-off-icon"></div>
+                        </div>
+                    </td>
+                    <td>
+                        Today, 5:54 PM
+                    </td>
+                    <td>
+                        <div class="status-circle"></div>
+                    </td>
+                    <td>
+                        <div class="arrow-right-icon"></div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
+        <div class="action-buttons">
+            <a href="#" class="btn btn-success">View All</a>
+        </div>
+
+    </div>
+</div>

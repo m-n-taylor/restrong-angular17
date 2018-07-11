@@ -1,0 +1,105 @@
+<div class="page login-page">
+    <div>
+
+        <div class="header-logo-section">
+            <img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus">
+        </div>
+
+        <page-loader center="page" *ngIf="busy"></page-loader>
+
+        <div class="row">
+            <div class="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6">
+
+                <div class="login-section">
+                    <div class="login-section-label">Please login below</div>
+
+                    <div>{{ errorMessage }}</div>
+
+                    <form class="login-form">
+                        <div class="form-group" [ngClass]="{'has-error': errorMessage }">
+                            <input type="email" [(ngModel)]="loginUser.UserName" name="email" class="form-control" placeholder="Email">
+                        </div>
+                        <div class="form-group" [ngClass]="{'has-error': errorMessage }">
+                            <input type="password" [(ngModel)]="loginUser.Password" name="password" class="form-control" placeholder="Password">
+                        </div>
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <div class="checkbox">
+                                    <label>
+                      <input type="checkbox"/>
+                      <span class="icon"></span>
+                      <span class="text">Remember me</span>
+                  </label>
+                                </div>
+                            </div>
+                            <div class="col-sm-8 text-right">
+                                <button type="submit" class="btn btn-success btn-lg" (click)="login()">Login</button>
+                            </div>
+                        </div>
+
+                        <div class="login-seprator"></div>
+
+                        <div class="forgot-password-link">
+                            <a routerLink="/signup">Signup</a>&nbsp;&nbsp;|&nbsp;&nbsp;<a routerLink="/forgot-password">Forgot your password?</a>
+                        </div>
+
+                        <button class="btn btn-fb btn-block btn-xlg" (click)="socialLogin('facebook')">Login with Facebook</button>
+
+                        <button class="btn btn-gplus btn-block btn-xlg" (click)="socialLogin('google')">Login with Google</button>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!--<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+        <div class="logo-section">
+          <img class="menus-logo" src="img/logo_white.png" alt="">
+        </div>
+        <div class="login-section">
+          <div class="text-center m-b-10">
+            Please login below.
+          </div>
+          <div class="text-center m-b-10 c-danger">
+            {{ errorMessage }}
+          </div>
+          <form class="m-t-30">
+            <div class="form-group has-feedback" [ngClass]="{'has-error': errorMessage }">
+              <input type="email" [(ngModel)]="loginUser.UserName" name="email" class="form-control input-lg" placeholder="Email">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="form-group has-feedback" [ngClass]="{'has-error': errorMessage }">
+              <input type="password" [(ngModel)]="loginUser.Password" name="password" class="form-control input-lg" placeholder="Password">
+              <span class="glyphicon glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+            </div>
+            <div class="loader" *ngIf="busy"></div>
+            <div class="row" *ngIf="!busy">
+              <div class="col-sm-6">
+                <div class="checkbox">
+                  <label>
+                <input type="checkbox"> Remember me
+              </label>
+                </div>
+              </div>
+              <div class="col-sm-offset-1 col-sm-5 text-right">
+                <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="login()">Sign In</button>
+              </div>
+            </div>
+            <div class="text-center m-t-30">
+              <a routerLink="/forgot-password" role="button">I forgot my password</a> |
+              <a routerLink="/register" role="button">Register</a>
+            </div>
+
+            <div class="text-center m-t-30">
+              <button type="submit" class="btn btn-success btn-block btn-lg" (click)="socialLogin('facebook')">Connect with Facebook</button>
+              <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="socialLogin('google')">Connect with Google</button>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>-->
+</div>

@@ -1,0 +1,437 @@
+<div class="home-page">
+  <div class="style-css-container menu-css-container">
+    <!-- Slider -->
+    <div id="menu-dining-options">
+      <div class="container">
+        <div class="main_title site-top-title">
+          <h2 class="c-white">The Worlds Biggest Kitchen... We Have Everything On The Menu</h2>
+        </div>
+        <div class="row" id="custom-search-input">
+          <div class="col-md-8 col-md-offset-2">
+            <input id="autocomplete-location" type="text" class="search-query" placeholder="Enter your location">
+          </div>
+        </div>
+        <div class="home-cats row box_cat">
+          <div class="col-md-3 col-sm-6">
+            <a (click)="search(constants.SERVICE_TYPE_DELIVERY)">
+              <span>24</span>
+              <img src="img/delivery-icon.png" class="homepage-order-icon" />
+              <h3>Delivery</h3>
+              <p>
+                Want a food delivery? Get something within the next hour
+              </p>
+            </a>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <a (click)="search(constants.SERVICE_TYPE_PICKUP)">
+              <span>34</span>
+              <img src="img/pickup-icon.png" class="homepage-order-icon" />
+              <h3>Pick-Up</h3>
+              <p>
+                Let's order for pickup? Check nearby options
+              </p>
+            </a>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <a (click)="search(constants.SERVICE_TYPE_CATERING)">
+              <span>12</span>
+              <img src="img/catering-icon.png" class="homepage-order-icon" />
+              <h3>Catering</h3>
+              <p>
+                Event or party? Perfect... here's some options for catering
+              </p>
+            </a>
+          </div>
+          <div class="col-md-3 col-sm-6">
+            <a (click)="search(constants.SERVICE_TYPE_DINEIN)">
+              <span>43</span>
+              <img src="img/dinein-icon.png" class="homepage-order-icon" />
+              <h3>Dine In</h3>
+              <p>
+                Want to dine in? Find the best food options near you!
+              </p>
+            </a>
+          </div>
+        </div>
+      </div>
+      <div id="search_bar">
+        <div class="container">
+          <form>
+            <div id="custom-search-input">
+              <div class="col-md-3">
+                <input type="text" class=" search-query" placeholder="Search: Steak Burrito">
+              </div>
+              <div class="col-md-3">
+                <input type="text" class=" search-query" placeholder="Location: Los Angeles, CA">
+              </div>
+              <div class="col-md-3">
+                <select class="selectpicker">
+                  <option>Search Everything</option>
+                  <option>Menu Items</option>
+                  <option>Resturants</option>
+                  <option>Dishes</option>
+                  <option>Cuisine</option>
+                </select>
+              </div>
+              <div class="col-md-3">
+                <input type="submit" class="search-submit" value="Search Menus.com">
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+      <!-- End search_bar -->
+    </div>
+    <!--</div>-->
+    <!-- End layerslider -->
+
+    <div class="pattern_dots fix_mobile">
+      <div class="container margin_60_45">
+        <div class="main_title">
+          <h2><strong>Cuisines</strong> In Your Area</h2>
+          <p>
+            Here is some of the top cusines and dishes in your area.
+          </p>
+          <span><em></em></span>
+        </div>
+        <!-- End main_title -->
+
+        <div class="row">
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-restaurant-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/47/4.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>Thai</h3>
+                    <em>1,229 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-bar-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/36/3.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>Pizza</h3>
+                    <em>992 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-shop-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/60/2.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>American</h3>
+                    <em>472 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+        </div>
+        <!-- End row -->
+        <div class="row">
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-restaurant-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/10/4.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>Chinese</h3>
+                    <em>338 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-bar-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/25/4.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>Japanese</h3>
+                    <em>261 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+          <div class="col-md-4">
+            <div class="img_wrapper_grid">
+              <div class="tools_i">
+                <div class="wishlist">
+                  <a class="tooltip_styled tooltip-effect-4"><span class="tooltip-item"></span>
+                                <div class="tooltip-content">Bookmark</div>
+                                </a>
+                </div>
+              </div>
+              <!-- End tools i-->
+              <div class="img_container_grid top-cuisines">
+                <a href="florence-shop-detail.html">
+                  <img src="http://dev.menus.com/Data/Cuisines/24/4.jpg" width="800" height="468" class="img-responsive" alt="">
+                  <div class="short_info_grid">
+                    <h3>Italian</h3>
+                    <em>232 Dishes</em>
+                    <p>
+                      View All
+                    </p>
+                  </div>
+                </a>
+              </div>
+            </div>
+            <!-- End img_wrapper_grid -->
+          </div>
+        </div>
+        <!-- End row -->
+
+      </div>
+      <!-- End container -->
+    </div>
+    <!-- End pattern dots -->
+
+
+
+    <section class="parallax_window_home bright">
+      <div class="container">
+        <div class="main_title">
+          <h3>How <strong>Menus.com</strong> Works</h3>
+        </div>
+        <div class="row features add_bottom_45">
+          <div class="col-sm-4">
+            <div id="feat_2">
+              <a href="about.html" class="bt_info">Read more</a>
+              <h3>Search Nearby Menus</h3>
+              <p>
+                Use the menus.com search to find all menu items near you. Find the exact item you want (ex. chicken burrito)
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div id="feat_1">
+              <a href="about.html" class="bt_info">Read more</a>
+              <h3>Add To Cart</h3>
+              <p>
+                Being the worlds biggest menu. We allow you to add items from various menus to your cart for checkout.
+              </p>
+            </div>
+          </div>
+          <div class="col-sm-4">
+            <div id="feat_3">
+              <a href="about.html" class="bt_info">Read more</a>
+              <h3>Delivery or Pickup</h3>
+              <p>
+                Depending on your food order you can have it delivered within the hour or scheduled for pickup.
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-- End row -->
+      <div class="text-center">
+        <a href="#0" class="button_2">Download Now</a>
+      </div>
+    </section>
+    <!-- End section -->
+
+    <section class="margin_60" id="subscribe_plan">
+      <div class="container">
+        <div class="row">
+          <div class="col-md-6">
+            <h3>Own A Business?<span>We Have Premium Plans</span></h3>
+            <ul>
+              <li><i class="icon_headphones"></i><strong>Verify Menus.com Listing</strong>Keep your items up to date and take
+                orders easily.
+              </li>
+              <li><i class="icon_documents_alt"></i><strong>Integrated Point of Sale</strong>Use our cloud based POS with integrated
+                hardware.
+              </li>
+              <li><i class="icon_like"></i><strong>Feature #3</strong>This will be text highlighting another feature</li>
+              <li><i class="icon_lifesaver"></i><strong>Feature #4</strong>This will be another feature!</li>
+            </ul>
+            <div id="compatib">
+              Compatible with Android/IOS
+            </div>
+          </div>
+          <div class="col-md-5 col-md-offset-1">
+            <h2>This option will be launching soon for all resturants and food delivery services who are looking to utilize menus.com
+              to it's fullest advantage.</h2>
+            <!--div id="box_subscribe">
+                        <ul>
+                            <li><a href="#0" class="active">6 Months<span>39<sup>$</sup></span><em>Save -40%</em></a>
+                            </li>
+                            <li><a href="#0">3 Months<span>15<sup>$</sup></span></a>
+                            </li>
+                            <li><a href="#0">1 Months<span>10<sup>$</sup></span></a>
+                            </li>
+                        </ul>
+                        <small><a href="#0">*Read more details</a></small>
+                        <div class="text-center">
+                            <a href="#" class="button_plan">Select plan</a>
+                        </div>
+                    </div-->
+            <div class="shadow">
+            </div>
+          </div>
+        </div>
+        <!--  End row -->
+      </div>
+      <!--  End container-->
+    </section>
+    <!--  End section-->
+
+    <!-- Footer ================================================== -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-4 col-sm-12">
+            <h3>About us</h3>
+            <p>Menus.com is an online destination for searching every available food item near you. Find the exact items you
+              want to order and add them to your cart for easy delivery.</p>
+            <p><img src="img/logo.png" alt="img" class="hidden-xs" height="30" data-retina="true">
+            </p>
+          </div>
+          <div class="col-md-3 col-sm-4">
+            <h3>About</h3>
+            <ul>
+              <li><a href="#0">About us</a>
+              </li>
+              <li><a href="#0">Faq</a>
+              </li>
+              <li><a href="#0">Contacts</a>
+              </li>
+              <li><a href="#0">Login</a>
+              </li>
+              <li><a href="#0">Register</a>
+              </li>
+              <li><a href="#0">Terms and conditions</a>
+              </li>
+            </ul>
+          </div>
+          <div class="col-md-3 col-sm-4" id="newsletter">
+            <h3>Want Free Food?</h3>
+            <p>
+              Enter your email for deals on free food on menus.com
+            </p>
+            <div id="message-newsletter_2">
+            </div>
+            <form method="post" action="assets/newsletter.php" name="newsletter_2" id="newsletter_2">
+              <div class="form-group">
+                <input name="email_newsletter_2" id="email_newsletter_2" type="email" value="" placeholder="Your mail" class="form-control">
+              </div>
+              <p>
+                <input type="submit" value="Subscribe" class="button" id="submit-newsletter_2">
+              </p>
+            </form>
+          </div>
+          <div class="col-md-2 col-sm-4">
+            <h3>Settings</h3>
+            <div class="styled-select">
+              <select class="form-control" name="lang" id="lang">
+                            <option value="English" selected>English</option>
+                            <option value="French">French</option>
+                            <option value="Spanish">Spanish</option>
+                            <option value="Russian">Russian</option>
+                        </select>
+            </div>
+          </div>
+        </div>
+        <!-- End row -->
+        <hr>
+        <div class="row">
+          <div class="col-sm-6">
+            © Menus.com - All Rights Reserved
+          </div>
+          <div class="col-sm-6">
+            <div id="social_footer">
+              <ul>
+                <li><a href="#0"><i class="icon-facebook"></i></a>
+                </li>
+                <li><a href="#0"><i class="icon-twitter"></i></a>
+                </li>
+                <li><a href="#0"><i class="icon-google"></i></a>
+                </li>
+                <li><a href="#0"><i class="icon-instagram"></i></a>
+                </li>
+                <li><a href="#0"><i class="icon-pinterest"></i></a>
+                </li>
+              </ul>
+
+            </div>
+          </div>
+        </div>
+        <!-- End row -->
+      </div>
+      <!-- End container -->
+    </footer>
+    <!-- End Footer =============================================== -->
+  </div>
+</div>

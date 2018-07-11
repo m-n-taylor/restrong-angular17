@@ -1,0 +1,216 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy || busySearch || busyCart" center="page"></page-loader>
+
+<div class="edit-order-page">
+
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <page-overlay *ngIf="isOpenSelectedMenuItem" (click)="closeMenuItem()"></page-overlay>
+
+    <div *ngIf="isOpenSelectedMenuItem" [@rightSidebarState]="'in'" class="menu-item-details-sidebar main-header-pt">
+        <menu-item-options [fireFlyID]="fireFlyID" [(data)]="selectedMenuItemData" (onItemSelected)="onMenuItemOptionsClosed($event)"></menu-item-options>
+    </div>
+
+    <div *ngIf="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> Order {{ order.OrderDetail.OrderNumber }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-actions-section">
+            <div class="row">
+                <div class="col-md-6 menu-search-box-wrapper">
+                    <menu-search-box [fireFlyID]="fireFlyID" clickAction="event" (itemClicked)="searchItemClicked($event)"></menu-search-box>
+                </div>
+
+                <div class="col-md-6 order-actions">
+                    <button [ladda]="busySaveOrder" class="btn btn-success btn-inverse btn-lg btn-accept-order" (click)="saveOrder(false)">Save Order</button>
+                    <button *ngIf="order.OrderDetail.StatusID != constants.ORDER_STATUS.ACCEPTED" [ladda]="busySaveAndAcceptOrder" class="btn btn-success btn-lg btn-accept-order" (click)="saveOrder(true)">Save & Accept Order</button>
+                </div>
+            </div>
+            <!--<button class="btn btn-danger btn-inverse btn-lg btn-accept-order" (click)="undoChanges()">Undo Changes</button>-->
+        </div>
+
+        <div class="choose-order-item-section clearfix">
+
+            <div class="item-details">
+
+                <!-- Master Heading Tabs -->
+                <ul class="nav nav-pills scrollable master-head-tabs" [hidden]="busy">
+                    <li [ngClass]="{ 'active' : selectedMasterHead.ID == masterHead.ID }" *ngFor="let masterHead of masterHeads; let index = index;"><a (click)="chooseMasterHead(masterHead)">{{ masterHead.Name }}</a></li>
+                </ul>
+
+                <div class="section-heading">Categories</div>
+
+                <div class="head-list clearfix">
+                    <div class="head-item" [ngClass]="{ 'active' : selectedHead.ID == head.ID }" *ngFor="let head of heads; let index = index;" (click)="chooseHead(head)">
+                        <span>{{ head.Name }}</span>
+                    </div>
+                </div>
+
+                <!-- [ngStyle]="{'background-image': 'url(' + menuItem.FileName + ')'}" -->
+
+                <div class="section-heading">Menu Items</div>
+
+                <div class="menu-item-list-section">
+
+                    <page-loader *ngIf="busyMenuItems"></page-loader>
+
+                    <div class="menu-item-list clearfix" [hidden]="busyMenuItems">
+                        <div class="menu-item" *ngFor="let menuItem of menuItems; let index = index;" (click)="chooseMenuItem(menuItem, 'add')">
+                            <span class="name">{{ menuItem.Name }}</span>
+                            <span class="price">{{ menuItem.Price | currency:'USD':true }}</span>
+                        </div>
+                    </div>
+
+                </div>
+
+                <!-- <div class="masterhead-list">
+                    <div class="masterhead-item" [ngClass]="{ 'active' : selectedMasterHead.ID == masterHead.ID }" *ngFor="let masterHead of masterHeads; let index = index;" (click)="chooseMasterHead(masterHead)">
+                        <span>{{ masterHead.Name }}</span>
+                    </div>
+                </div> -->
+            </div>
+
+            <div *ngIf="shoppingCart.cartItems.length" class="cart-rest-list">
+                <div class="section-heading">Order Cart</div>
+
+                <div class="rest-item" *ngFor="let cartItem of shoppingCart.cartItems">
+                    <div class="menu-item" *ngFor="let menuItem of cartItem.menuItems">
+                        <div class="clearfix">
+                            <div class="menu-item-name" (click)="editCartCRMenuItem(menuItem)">
+                                {{ menuItem.MenuItemName }}
+                            </div>
+
+                            <div class="cart-menu-item-qty-section noselect" mStopEvent>
+                                <div class="menu-item-qty">
+                                    <div class="qty-minus" (click)="updateMenuItemQty(cartItem, menuItem, -1)">
+                                        <div class="close-icon"></div>
+                                    </div>
+                                    <div class="qty-value">{{ menuItem.quantity }}</div>
+                                    <div class="qty-plus" (click)="updateMenuItemQty(cartItem, menuItem, 1)">
+                                        <div class="open-icon"></div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="menu-item-price">
+                                {{ menuItem.totalPrice | currency:'USD':true }}
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="rest-price-info">
+
+                        <div class="sub-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Subtotal</div>
+                                <div class="col-xs-6 right-text">{{ (cartItem.subTotal + cartItem.couponDiscount) | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="sub-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Coupon Discount</div>
+                                <div class="col-xs-6 right-text">-{{ cartItem.couponDiscount | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="delivery-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Delivery</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.delivery | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="tax-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Tax</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.tax | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="clearfix driver-tip-total">
+                            <div class="tip-label">Driver Tip</div>
+                            <div class="tip-range">
+                                <div class="tip-range-container">
+                                    <div class="range-fill range-fill-active" style="left: 0;" [ngStyle]="{ 'width': ((sharedDataService.driverTipPercent * 5) + '%') }"></div>
+                                    <input class="custom-range-slider" style="padding-right: 0;" type="range" min="0" max="20" step="1" [(ngModel)]="sharedDataService.driverTipPercent" (input)="onDriverTipChanged()">
+                                </div>
+                            </div>
+                            <div class="tip-percent">{{ sharedDataService.driverTipPercent }}%</div>
+                            <div class="tip-value">{{ cartItem.driverTip | currency:'USD':true }}</div>
+                        </div>
+
+                        <div class="service-fee-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Service Fee</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.serviceFee | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="full-total">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">Total (Customer Paid)</div>
+                                <div class="col-xs-6 right-text">{{ cartItem.total | currency:'USD':true }}</div>
+                            </div>
+                        </div>
+
+                        <div class="eta-time">
+                            <div class="row">
+                                <div class="col-xs-6 left-text">
+                                    Est. Arrival Time
+                                </div>
+                                <div class="col-xs-6 right-text">{{ order.OrderDetail.OrderETA | date: 'short' }}</div>
+                            </div>
+                        </div>
+
+                        <div class="coupons-section" *ngFor="let coupon of cartItem.appliedCoupons; let couponIndex">
+                            <div class="row" [ngClass]="{ 'has-coupon-errors': coupon.errors.length > 0 }">
+                                <div class="col-xs-6 left-text coupon-text">{{ coupon.CouponCode }}</div>
+                                <div class="col-xs-6 right-text"><button class="btn btn-danger btn-xxs" (click)="removeCouponCode(cartItem, couponIndex)">Remove</button></div>
+                            </div>
+                            <div *ngIf="coupon.errors.length" class="applied-coupon-errors-section">
+                                <div *ngFor="let error of coupon.errors">{{ error.message }}</div>
+                            </div>
+                        </div>
+
+                        <div class="new-coupon-section">
+                            <div class="coupon-code-text">
+                                <m-select placeholder="Select Coupon" [items]="coupons" [error]="" [itemLabelProp]="'CouponCode'"></m-select>
+                                <!--<div class="form-group">
+                                    <input type="text" class="form-control input-sm" name="couponCode" [(ngModel)]="cartItem.couponCode" placeholder="Coupon Code" />
+                                </div>-->
+                            </div>
+                            <div class="add-coupon-code"><button class="btn btn-success btn-block" (click)="addCouponCode(cartItem)">Add Coupon</button></div>
+                        </div>
+
+                        <!--<div class="item-input-inset applied-coupon-section" ng-class="{ 'has-coupon-errors': coupon.errors.length > 0 }" ng-repeat-start="coupon in cartItem.appliedCoupons track by $index">
+                            <div class="item-input-wrapper">
+                                <i class="icon ion-ios-pricetag-outline placeholder-icon"></i>
+                                <div class="coupon-code">{{ coupon.CouponCode }}</div>
+                            </div>
+                            <button class="button button-small button-assertive" ng-click="removeCouponCode(cartItem, $index)">
+                              Remove
+                            </button>
+                        </div>
+
+                        <div class="applied-coupon-errors-section" ng-repeat-end>
+                            <div ng-repeat="error in coupon.errors"> {{ error.message }}</div>
+                        </div>-->
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

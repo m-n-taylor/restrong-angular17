@@ -1,0 +1,111 @@
+<div class="chat-page" (click)="pageClick()">
+
+    <chat-templates-modal #chatTemplatesModal></chat-templates-modal>
+
+    <div class="chat-top-bg"></div>
+
+    <div class="chat-section-wrapper" [ngClass]="{ 'sidemenu-pl': sharedDataService.sideMenu.isOpened }">
+
+        <div class="chat-section" [ngClass]="{ 'selected-thread': selectedThread }">
+
+            <div class="clearfix">
+
+                <div class="thread-list-wrapper">
+                    <div class="thread-list-header">
+                        <div class="user-profile-section"></div>
+                        <div class="thread-search-section">
+                            <input type="text" class="form-control input-sm" placeholder="Search by Order Number, Customer Name" [(ngModel)]="searchText"
+                                (ngModelChange)="searchTextChange()">
+                        </div>
+                    </div>
+
+                    <div class="thread-list">
+
+                        <div class="thread-item" *ngFor="let thread of threads" [hidden]="thread.hidden" [ngClass]="{ 'active': selectedThread?.ID == thread.ID }"
+                            (click)="chooseThread(thread)">
+                            <div class="customer-img profile-name-initials" [ngClass]="{ 'online': thread.customerOnline }">
+                                <div class="profile-logo">{{ thread.CustomerName | nameinitials }}</div>
+                                <div class="user-status-wrapper">
+                                    <div class="user-status"></div>
+                                </div>
+                            </div>
+                            <div class="item-details">
+                                <div class="clearfix">
+                                    <div class="customer-name">{{ thread.CustomerName }}</div>
+                                    <div class="message-date">&nbsp;</div>
+                                </div>
+                                <div class="clearfix">
+                                    <!-- <div class="message-text text-overflow">{{ thread.messages && thread.messages.length > 0 ? thread.messages[thread.messages.length
+                                        - 1].Message: '&nbsp;' }}</div> -->
+                                    <div class="message-text">{{ thread.OrderNumber }}</div>
+                                    <div *ngIf="thread.count" class="message-count">{{ thread.count }}</div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="thread-details-wrapper">
+                    <div class="thread-details">
+
+                        <div *ngIf="selectedThread">
+
+                            <div class="thread-details-header clearfix">
+                                <div class="back-button" (click)="unSelectThread()">
+                                    <div class="arrow-back-black-icon"></div>
+                                </div>
+
+                                <div class="customer-img profile-name-initials" [ngClass]="{ 'online': selectedThread.customerOnline }">
+                                    <div class="profile-logo">{{ selectedThread.CustomerName | nameinitials }}</div>
+                                    <div class="user-status-wrapper">
+                                        <div class="user-status"></div>
+                                    </div>
+                                </div>
+
+                                <div class="thread-info">
+                                    <div class="customer-name">{{ selectedThread.CustomerName }}</div>
+                                    <div class="order-number">{{ selectedThread.OrderNumber }}</div>
+                                </div>
+
+                                <div class="btn-group thread-actions">
+                                    <div class="more-vert-black-icon" mStopEvent (click)="toggleSelectedThreadActions()"></div>
+
+                                    <ul *ngIf="selectedThreadActionsOpened" class="dropdown-menu d-block">
+                                        <li><a (click)="closeThread(selectedThread)">Close Chat</a></li>
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="thread-chat-section" #threadChatSection>
+
+                                <div class="chat-item" [ngClass]="{ 'outgoing': item.SenderType == 'user', 'incoming': item.SenderType != 'user' }" *ngFor="let item of selectedThread.messages">
+                                    <div class="chat-img profile-name-initials">
+                                        <div class="profile-logo" *ngIf="item.SenderType != 'user'">{{ selectedThread.CustomerName | nameinitials }}</div>
+                                        <div class="profile-logo" *ngIf="item.SenderType == 'user'">{{ selectedThread.UserName | nameinitials }}</div>
+                                    </div>
+                                    <div class="chat-message">
+                                        <div class="message-text">{{ item.Message }}</div>
+                                        <div class="message-date">{{ item.DateCreated | date: 'short' }}</div>
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="send-message-section clearfix">
+                                <div class="send-message-textarea">
+                                    <textarea class="form-control" name="messageText" [(ngModel)]="messageText" (keyup.enter)="sendMessage()"></textarea>
+                                </div>
+
+                                <div class="send-message-actions">
+                                    <div (click)="openChatTemplatesModal()" class="pencil-icon"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

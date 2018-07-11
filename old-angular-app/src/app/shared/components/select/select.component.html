@@ -1,0 +1,18 @@
+<div class="btn-group select-btn-group">
+    <button type="button" class="btn btn-default btn-xlg dropdown-toggle" (click)="toggleOpen()">
+       <div class="placeholder-text text-overflow">{{ makeSelectedText() || placeholder }}</div> <span class="caret"></span>
+    </button>
+    <ul class="dropdown-menu" [ngClass]="{ 'd-block' : isOpen }">
+        <li>
+            <div class="form-group">
+                <input class="form-control input-sm" type="text" placeholder="Search..." name="searchText" [(ngModel)]="searchText" (ngModelChange)="searchTextChanged()">
+            </div>
+        </li>
+        <li *ngFor="let item of items" (click)="itemClicked(item)" [hidden]="item.isHidden">
+            <a>
+                <m-checkbox inline=true [(value)]="item.isSelected"></m-checkbox>
+                 {{ item[itemLabelProp] }}
+            </a>
+        </li>
+    </ul>
+</div>

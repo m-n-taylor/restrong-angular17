@@ -1,0 +1,63 @@
+<div class="page past-order-details-page">
+
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">Order Details</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div *ngIf="!busy">
+
+                <div class="card">
+                    <table *ngIf="pastOrder">
+                        <tr>
+                            <td>Subtotal</td>
+                            <td>${{ pastOrder.SubTotal }}</td>
+                        </tr>
+                        <tr>
+                            <td>Delivery</td>
+                            <td>${{ pastOrder.DeliveryCharge }}</td>
+                        </tr>
+                        <tr>
+                            <td>Tax</td>
+                            <td>${{ pastOrder.Tax }}</td>
+                        </tr>
+                        <tr>
+                            <td>Driver Tip</td>
+                            <td>${{ pastOrder.Driver_Tip }}</td>
+                        </tr>
+                        <tr>
+                            <td>Service Fee</td>
+                            <td>${{ pastOrder.ServiceFee }}</td>
+                        </tr>
+                        <tr>
+                            <td>Total</td>
+                            <td>${{ pastOrder.Total }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <div class="card" *ngFor="let orderItem of pastOrderItems">
+                    <h1> Name: {{ orderItem.ItemName }} </h1>
+                    <div>Price: ${{ orderItem.Price }} </div>
+                    <div> Quantity: {{ orderItem.Qty }} </div>
+                    <div> Amount: {{ orderItem.Amount }} </div>
+                    <div> Instructions: {{ orderItem.Instructions }} </div>
+                    <div><button *ngFor="let rating of [1,2,3,4,5]; let index = index" class="btn" [ngClass]="{ 'btn-primary': orderItem.CustomerRating >= rating }" (click)="changeForkRating(orderItem, rating)">{{ index + 1 }}</button></div>
+                    <div style="margin-top: 20px"><textarea rows="5" [(ngModel)]="orderItem.CustomerComment"></textarea></div>
+                    <div><button class="btn btn-primary" (click)="submitReview()">Submit Review</button></div>
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+</div>

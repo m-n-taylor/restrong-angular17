@@ -1,0 +1,189 @@
+.manage-restaurant-page {
+
+    .main-contents {
+        padding: 0 40px;
+
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .page-title-section {
+
+            .search-rest-wrapper {
+                @media (max-width : $screen-xs-max) {
+                    margin-top: 24px;
+                }
+            }
+        }
+    }
+
+    .rest-list {
+
+        .no-records {
+            text-align: center;
+            padding: 20px 0;
+            border-bottom: 1px solid #DBDBDB;
+        }
+
+        .rest-item {
+            padding: 24px 0;
+            border-bottom: 1px solid #DBDBDB;
+
+            .photo-viewer {
+                float: left;
+                position: relative;
+                margin-top: 7px;
+                margin-bottom: 12px;
+                width: 112px;
+                height: 112px;
+
+                @media (max-width : $screen-xs-max) {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                background-color: rgba(#455A64, 0.05);
+
+                img {
+                    position: absolute;
+                    margin: auto;
+                    top: 0;
+                    left: 0;
+                    right: 0;
+                    bottom: 0;
+                    max-width: 100%;
+                }
+            }
+            
+            .rest-img {
+                float: left;
+                width: 112px;
+                height: 112px;
+
+                @media (max-width : $screen-xs-max) {
+                    width: 80px;
+                    height: 80px;
+                }
+
+                img {
+                    max-width: 100%;
+                }
+            }
+
+            .rest-details {
+                overflow: hidden;
+                padding-left: 24px;
+
+                .rest-info {
+                    float: left;
+                    width: 40%;
+
+                    @media (max-width : $screen-xs-max) {
+                        width: 90%;
+                    }
+
+                    @media (min-width : $screen-sm-min) and (max-width : 1400px) {
+                        width: 90%;
+                    }
+
+                    .rest-name {
+                        font-weight: $lato-black;
+                        font-size: 18px;
+
+                        .text-success, .text-danger {
+                            margin-left: 8.5px;
+
+                            @media (max-width : $screen-xs-max) {
+                                margin-left: 0;
+                                display: block;
+                            }
+                        }
+                    }
+
+                    .rest-address {
+                        line-height: 20px;
+                    }
+
+                    .rest-phone {
+                        font-weight: $lato-bold;
+                    }
+                }
+
+                .rest-service-types {
+                    float: left;
+                    width: 50%;
+                    text-align: left;
+
+                    @media (max-width : $screen-xs-max) {
+                        display: none;
+                    }
+
+                    @media (min-width : $screen-sm-min) and (max-width : 1400px) {
+                        margin-top: 24px;
+                        width: 100%;
+                    }
+
+                    .rest-service-type {
+                        float: left;
+                        width: 25%;
+
+                        .service-type-status {
+                            display: inline-block;
+                            width: 12px;
+                            height: 12px;
+                            border-radius: 50%;
+                            margin-left: 8px;
+                            background-color: $brand-danger;
+
+                            &.active {
+                                background-color: $brand-success;
+                            }
+                        }
+
+                        .service-type-name {
+                            font-weight: $lato-bold;
+                        }
+
+                        .service-type-value-section {
+                            margin-top: 20px;
+                           
+                            .service-type-value, .service-type-price, .service-type-eta {
+                                display: inline-block;
+                                padding: 4px 12px;
+                            }
+
+                            .service-type-value {
+                                padding-left: 0;
+                                padding-right: 0;
+                            }
+
+                            .service-type-price, .service-type-eta {
+                                background-color: rgba(#263238, .05);
+                                border-radius: 100px;
+                            }
+
+                            &.last-section {
+                                margin-top: 5px;
+                            }
+                        }
+                    }
+                }
+
+                .rest-icon-section {
+                    overflow: hidden;
+                    text-align: right;
+
+                    .rest-right-arrow {
+                        display: inline-block;
+                        width: 24px;
+                        height: 24px;
+                        background-image: url('img/ro/arrow-right.svg');
+                        background-repeat: no-repeat;
+                        background-position: 50%;
+                    }
+                }
+            }
+        }
+    }
+}

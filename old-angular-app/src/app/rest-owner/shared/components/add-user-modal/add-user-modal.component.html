@@ -1,0 +1,133 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Add User Modal -->
+<div class="modal fade add-user-modal" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()" tabindex="-1"
+    role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">{{ isNewUser ? 'New User' : (user.FirstName + ' ' + user.LastName) }}</h4>
+            </div>
+            <form #form="ngForm" novalidate (ngSubmit)="save(form)">
+                <div class="modal-body modal-scrollable">
+                    <!-- Nav tabs -->
+                    <ul class="nav nav-pills scrollable">
+                        <li [ngClass]="{ 'active': activeTab == TAB_PROFILE }"><a (click)="selectTab(TAB_PROFILE)">Profile</a></li>
+                        <li [ngClass]="{ 'active': activeTab == TAB_ASSOC_REST }"><a (click)="selectTab(TAB_ASSOC_REST)">Associated Restaurants <div class="associate-rest-count" [ngClass]="{ 'active': userRestListFFIDs.length > 0 }">{{ userRestListFFIDs.length }}</div></a></li>
+                    </ul>
+
+                    <div class="tab-content">
+                        <page-loader *ngIf="busy"></page-loader>
+
+                        <div class="tab-pane profile-tab-pane" [ngClass]="{ 'active': activeTab == TAB_PROFILE }">
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, FirstName) }">
+                                        <label>First Name</label>
+                                        <input type="text" name="FirstName" required #FirstName="ngModel" [(ngModel)]="user.FirstName" class="form-control" />
+
+                                        <validation-messages [form]="form" [input]="FirstName" label="First Name"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, LastName) }">
+                                        <label>Last Name</label>
+                                        <input type="text" name="LastName" required #LastName="ngModel" [(ngModel)]="user.LastName" class="form-control" />
+
+                                        <validation-messages [form]="form" [input]="LastName" label="Last Name"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Email) }">
+                                <label>Email (Username)</label>
+                                <input type="email" name="Email" required mValidEmail #Email="ngModel" [(ngModel)]="user.Email" class="form-control" />
+
+                                <validation-messages [form]="form" [input]="Email" label="Email"></validation-messages>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Password) }">
+                                        <label>{{ isNewUser ? 'Password' : 'Change Password' }}</label>
+                                        <input type="password" name="Password" [required]="isNewUser" mValidateEqual="ConfirmPassword" reverse="true" mValidPassword #Password="ngModel"
+                                            [(ngModel)]="user.Password" class="form-control">
+
+                                        <validation-messages [form]="form" [input]="Password" label="Password" labelEqual="Confirm Password"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, ConfirmPassword) }">
+                                        <label>Confirm Password</label>
+                                        <input type="password" name="ConfirmPassword" [required]="isNewUser" mValidateEqual="Password" #ConfirmPassword="ngModel"
+                                            [(ngModel)]="user.ConfirmPassword" class="form-control">
+
+                                        <validation-messages [form]="form" [input]="ConfirmPassword" label="Confirm Password" labelEqual="Password"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-sm-6">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, UserLevel) }">
+                                        <label>User Level</label>
+                                        <select class="form-control" name="UserLevel" required #UserLevel="ngModel" [(ngModel)]="user.UserLevel">
+                                            <option *ngFor="let item of constants.RO_USER_LEVEL_LIST" [value]="item.id">{{ item.value }}</option>
+                                        </select>
+
+                                        <validation-messages [form]="form" [input]="UserLevel" label="User Level"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-sm-6">
+                                    <!--<div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Username) }">
+                                        <label>Username</label>
+                                        <input type="text" name="Username" required #Username="ngModel" [(ngModel)]="user.Login" class="form-control" />
+
+                                        <validation-messages [form]="form" [input]="Username" label="Username"></validation-messages>
+                                    </div>-->
+                                    <!--<div class="form-group input-container">
+                                        <div class="row">
+                                            <div class="col-sm-6"><label>Extention</label></div>
+                                            <div class="col-sm-6 text-right"><label>optional</label></div>
+                                        </div>
+                                        <input type="text" class="form-control">
+                                    </div>-->
+                                </div>
+                            </div>
+
+                        </div>
+                        <div class="tab-pane associate-restaurant-tab-pane" [ngClass]="{ 'active': activeTab == TAB_ASSOC_REST }">
+
+                            <div class="row">
+                                <div class="col-sm-8">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="restSearchText" [(ngModel)]="restSearchText" (ngModelChange)="restSearchTextChanged()"
+                                            placeholder="Search">
+                                    </div>
+                                </div>
+                                <div class="col-sm-4">
+                                    <div class="select-all-wrapper">
+                                        <m-checkbox text="Select All" [(value)]="selectAllRest" (valueChange)="selectAll()"></m-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="dishes-list">
+                                <div *ngIf="restSearchHiddenCount == ownerRestList.length" class="no-records">No records found</div>
+                                <div *ngFor="let rest of ownerRestList" class="dish-item" [ngClass]="{ 'active': rest.isSelected }">
+                                    <m-checkbox *ngIf="!rest.isHidden" [text]="rest.Name" [(value)]="rest.isSelected" (valueChange)="ownerRestSelectionChanged(rest)"></m-checkbox>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                </div>
+                <div class="modal-footer">
+                    <div class="new-user-actions">
+                        <button type="submit" class="btn btn-success">{{ isNewUser ? 'Add' : 'Save' }}</button>
+                        <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

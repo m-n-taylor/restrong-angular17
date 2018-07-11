@@ -1,0 +1,46 @@
+<confirm-modal #confirmModal></confirm-modal>
+
+<div class="top-search-section clearfix">
+    <div *ngIf="isBrowser" class="top-location-section-wrapper" (click)="openChangeAddressModal()">
+        <div class="top-location-section clearfix">
+            <div class="location-icon icon-custom"></div>
+            <div class="location-text">{{ sharedDataService.userAddress?.Address }}</div>
+        </div>
+    </div>
+
+    <div class="top-search clearfix">
+        <div class="left-icon search-icon"></div>
+
+        <div class="search-input-container">
+            <div class="search-input">
+                <input type="text" class="form-control" placeholder="Find Food or Restaurants" [(ngModel)]="searchText" (ngModelChange)="searchTextChanged()" (blur)="focusSearchText(false)" (keyup.enter)="searchTextEnter()">
+            </div>
+
+            <div class="chips-container">
+                <div *ngIf="queryParams?.keywords?.split(',')?.length" class="chips search-keywords-chips">
+                    <div class="chip-item" [ngClass]="{ 'd-none': item == '' }" *ngFor="let item of queryParams?.keywords?.split(','); let index = index" (click)="removeKeyword(index)">{{ item }} &nbsp;&nbsp; X</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="right-icon" [ngClass]="{ 'filter-off-icon': !sharedDataService.isFiltersOpened, 'filter-on-icon': sharedDataService.isFiltersOpened }" (click)="sharedDataService.toggleFiltersOpened()"></div>
+
+        <div class="auto-complete-list" *ngIf="busyAutoSuggest || showAutoSuggest">
+            <div *ngIf="busyAutoSuggest" style="padding: 40px;">
+                <page-loader></page-loader>
+            </div>
+            <div *ngIf="showAutoSuggest">
+                <div class="auto-complete-heading" *ngIf="dishAutoSuggestList.length">Dishes</div>
+                <div class="auto-complete-item list-item" *ngFor="let item of dishAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_DISH)">{{ item.Name }}</div>
+
+                <div class="auto-complete-heading" *ngIf="cuisineAutoSuggestList.length">Cuisines</div>
+                <div class="auto-complete-item list-item" *ngFor="let item of cuisineAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_CUISINE)">{{ item.Name }}</div>
+
+                <div class="auto-complete-heading" *ngIf="restAutoSuggestList.length">Restaurant</div>
+                <div class="auto-complete-item list-item" *ngFor="let item of restAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_RESTAURANT)">{{ item.Name }}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<change-address-modal #changeAddressModal></change-address-modal>

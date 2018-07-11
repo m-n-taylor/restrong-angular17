@@ -1,0 +1,46 @@
+.order-status-history-modal {
+
+    .customer-order-history-list {
+        margin-top: 32px;
+
+        .table {
+
+            tr {
+
+                &:first-child {
+                    td {
+                        border-top: none;
+                    }
+                }
+            }
+        }
+
+        .order-status {
+            
+            .status-text {
+                font-weight: $lato-bold;
+            }
+
+            &.order-status-accepted {
+
+                .datetime-text, .status-text {
+                    color: $brand-success;
+                }
+            }
+
+            &.order-status-cancelled-rest {
+
+                .datetime-text, .status-text {
+                    color: $brand-danger;
+                }
+            }
+
+            &.order-status-queue-added {
+
+                .datetime-text, .status-text {
+                    color: $dark-gray;
+                }
+            }
+        }
+    }
+}

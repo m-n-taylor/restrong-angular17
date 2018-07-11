@@ -1,0 +1,34 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Checkout confirm address modal -->
+<div class="modal checkout-confirm-address-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+            <page-loader *ngIf="busy" center="parent"></page-loader>
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">Address is correct?</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div class="map-container">
+                    <div id="checkout-confirm-address-map"></div>
+                </div>
+
+                <div class="address-container">
+                    <div>{{ sharedDataService.userAddress?.Address }}</div>
+                    <div>{{ sharedDataService.aptSuiteNo || 'Apartment / Suite is not provided' }}</div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button class="btn btn-success" (click)="close(true)">Yes</button>
+                    <button class="btn btn-success btn-inverse" (click)="close(false)">No</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

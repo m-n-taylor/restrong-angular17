@@ -1,0 +1,329 @@
+.home-page {
+    $top-content-height: 700px;
+
+    .top-content-wrapper {
+        height: $top-content-height;
+
+        .top-content-bg {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: $top-content-height;
+            opacity: 0.7;
+            background: url('img/ro/bg-1.jpg');
+            background-position: center;
+            background-size: cover;
+            background-repeat: no-repeat;
+        }
+
+        .top-content-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: $top-content-height;
+            opacity: 0.7;
+            background: #263238;
+        }
+
+        .top-content {
+            position: absolute;
+            top: 0;
+            z-index: 2;
+            width: 100%;
+            padding: 0 135px;
+            color: white;
+            height: $top-content-height;
+
+            @media (max-width: $screen-sm-max) {
+                padding-left: 36px;
+                padding-right: 36px;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                padding-left: 24px;
+                padding-right: 24px;
+            }
+
+            .main-text {
+                margin-top: 180px;
+                text-align: center;
+
+                @media (max-width: $screen-xs-max) {
+                    margin-top: 111px;
+                }
+
+                .tag-heading {
+                    font-weight: $lato-black;
+                    font-size: 36px;
+                }
+
+                .tag-subheading {
+                    margin-top: 15px;
+                    font-size: 18px;
+                }
+
+                .call-to-action {
+                    margin-top: 40px;
+                    margin-left: auto;
+                    margin-right: auto;
+
+                    .btn {
+                        min-width: 200px;
+                    }
+                }
+            }
+        }
+    }
+
+    .section-take-control {
+        padding: 140px 135px 160px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding: 61px 24px 59px;
+        }
+
+        .section-details {
+
+            @media (min-width: $screen-sm-min) {
+                float: left;
+                width: 40%;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                text-align: center;
+                margin-top: 39px;
+            }
+
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 32px;
+                color: #2A3134;
+
+                @media (min-width: $screen-lg-min) {
+                    margin-top: 44px;
+                }
+            }
+
+            .section-subtitle {
+                margin-top: 15px;
+                font-size: 18px;
+            }
+
+            .section-call-action {
+                margin-top: 40px;
+
+                .btn {
+                    min-width: 200px;
+                }
+            }
+        }
+
+        .section-image {
+            @media (min-width: $screen-sm-min) {
+                float: right;
+                width: 60%;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .section-reach-customers {
+        background: url('img/ro/bg-3.jpg');
+        background-position: center;
+        background-size: cover;
+        background-repeat: no-repeat;
+
+        padding: 100px 135px 0;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-top: 48px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-details {
+
+            @media (min-width: $screen-sm-min) {
+                padding-left: 48px;
+                float: right;
+                width: 60%;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                text-align: center;
+            }
+
+            .section-details-wrapper {
+                max-width: 431px;
+
+                @media (max-width: $screen-xs-max) {
+                    margin: 0 auto;
+                }
+
+                .section-title {
+                    font-weight: $lato-black;
+                    font-size: 32px;
+                    color: #2A3134;
+
+                    @media (min-width: $screen-sm-min) {
+                        margin-top: 44px;
+                    }
+                }
+
+                .section-subtitle {
+                    margin-top: 15px;
+                    font-size: 18px;
+                }
+
+                .section-call-action {
+                    margin-top: 40px;
+
+                    .btn {
+                        min-width: 200px;
+                    }
+                }
+            }
+        }
+
+        .section-image {
+
+            @media (min-width: $screen-sm-min) {
+                float: left;
+                width: 40%;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                margin-top: 36px;
+                text-align: center;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+    }
+
+    .section-testimonials {
+        background: #F7F7F7;
+        padding: 96px 135px;
+        text-align: center;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding: 61px 24px;
+        }
+
+        .section-title {
+            font-weight: $lato-bold;
+            font-size: 18px;
+        }
+
+        .testimonial-title {
+            margin: 56px auto 0;
+            font-weight: $lato-black;
+            font-size: 32px;
+            color: $brand-success;
+            max-width: 608px;
+        }
+
+        .testimonial-by {
+            margin-top: 33px;
+        }
+
+        .testimonial-by-logo {
+            width: 128px;
+            height: 32px;
+            background-color: #ccc;
+            margin: 20px auto 0;
+        }
+    }
+
+    .section-did-you-know {
+        padding: 129px 135px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding: 87px 24px 85px;
+            text-align: center;
+        }
+
+        .section-image {
+
+            @media (min-width: $screen-sm-min) {
+                float: left;
+                width: 40%;
+            }
+
+            @media (max-width: $screen-xs-max) {
+                margin-top: 36px;
+            }
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        .section-details {
+
+            @media (min-width: $screen-sm-min) {
+                float: right;
+                width: 60%;
+                padding-left: 118px;
+            }
+
+            .section-details-wrapper {
+                max-width: 431px;
+
+                @media (max-width: $screen-xs-max) {
+                    margin: 0 auto;
+                }
+
+                .section-title {
+                    font-weight: $lato-black;
+                    font-size: 32px;
+                    color: #2A3134;
+
+                    @media (min-width: $screen-lg-min) {
+                        margin-top: 44px;
+                    }
+                }
+
+                .section-subtitle {
+                    margin-top: 15px;
+                    font-size: 18px;
+                }
+
+                .section-call-action {
+                    margin-top: 40px;
+
+                    .btn {
+                        min-width: 200px;
+                    }
+                }
+            }
+        }
+    }
+}

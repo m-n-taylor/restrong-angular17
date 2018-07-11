@@ -1,0 +1,76 @@
+<div class="card filters-section">
+    <h2>Filters</h2>
+    <h3>I want</h3>
+
+    <div class="btn-group" role="group" aria-label="...">
+        <button type="button" class="btn btn-default" [ngClass]="{'btn-info': queryParams.serviceType == constants.SERVICE_TYPE_DELIVERY}"
+            (click)="canChangeServiceType(constants.SERVICE_TYPE_DELIVERY)">Delivery</button>
+        <button type="button" class="btn btn-default" [ngClass]="{'btn-info': queryParams.serviceType == constants.SERVICE_TYPE_PICKUP}"
+            (click)="canChangeServiceType(constants.SERVICE_TYPE_PICKUP)">Pickup</button>
+        <button type="button" class="btn btn-default" [ngClass]="{'btn-info': queryParams.serviceType == constants.SERVICE_TYPE_CATERING}"
+            (click)="canChangeServiceType(constants.SERVICE_TYPE_CATERING)">Catering</button>
+        <button type="button" class="btn btn-default" [ngClass]="{'btn-info': queryParams.serviceType == constants.SERVICE_TYPE_DINEIN}"
+            (click)="canChangeServiceType(constants.SERVICE_TYPE_DINEIN)">Dine in</button>
+    </div>
+
+    <div class="row m-t-20">
+        <div class="col-sm-12">
+            <div class="chip" *ngFor="let keyword of queryParams.keywords; let index = index" (click)="removeKeyword(index)">{{ keyword }} x</div>
+        </div>
+    </div>
+
+    <div class="row m-t-20">
+        <div class="col-sm-12">
+            <div class="form-group">
+                
+                <label>Search</label>
+                <input type="text" class="form-control" [(ngModel)]="searchText" (ngModelChange)="searchTextChanged()" (blur)="focusSearchText(false)" placeholder="Enter a keyword">
+                
+                <div class="ui-autocomplete" *ngIf="showAutoSuggest">
+                    <div class="ui-menu-item header" [hidden]="dishAutoSuggestList.length == 0">Dishes</div>
+                    <div class="ui-menu-item" *ngFor="let item of dishAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_DISH)">{{ item.Name }}</div>
+                    
+                    <div class="ui-menu-item header"  [hidden]="cuisineAutoSuggestList.length == 0">Cuisines</div>
+                    <div class="ui-menu-item" *ngFor="let item of cuisineAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_CUISINE)">{{ item.Name }}</div>
+                    
+                    <div class="ui-menu-item header"  [hidden]="restAutoSuggestList.length == 0">Restaurant</div>
+                    <div class="ui-menu-item" *ngFor="let item of restAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_RESTAURANT)">{{ item.Name }}</div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="row m-t-20">
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Min. Price</label>
+                <input type="number" class="form-control" [(ngModel)]="queryParams.minPrice" placeholder="Min Price">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Max. Price</label>
+                <input type="number" class="form-control" [(ngModel)]="queryParams.maxPrice" placeholder="Max Price">
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="form-group">
+                <label>Distance</label>
+                <input type="number" class="form-control" [(ngModel)]="queryParams.proximity" placeholder="Distance">
+            </div>
+        </div>
+    </div>
+
+    <div class="text-right">
+        <button class="btn btn-info" (click)="applyFilter()">Filter</button>
+    </div>
+    
+    <div class="row m-t-20">
+        <div class="col-sm-12">
+            <h3>Cuisine Filters</h3>
+            <div class="chip" *ngFor="let item of sharedDataService.data.cuisines; let index = index" [ngClass]="{'active': item.isSelected }" (click)="selectCuisine(item)">{{ item.Cuisine }}</div>
+        </div>
+    </div>
+
+</div>

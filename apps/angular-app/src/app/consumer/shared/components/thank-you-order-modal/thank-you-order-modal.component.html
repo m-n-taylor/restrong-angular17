@@ -1,0 +1,48 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Thank You Order Modal -->
+<div class="modal thank-you-order-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close">
+                    <div class="close-3-icon"></div>
+                </button>
+                <h4 class="modal-title">Thank you!</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable clearfix">
+                <div class="clearfix">
+                    <div class="thank-you-image-left"><img src="img/cr/thank-you-1.png"></div>
+                    <div class="order-info-section">
+                        <div class="text-heading">
+                            <div>Your order(s) is being processed</div>
+                        </div>
+                        <div *ngIf="totalOrderPaySuccess.length" class="order-confirm-section">
+                            <div class="order-confirm-title">Your confirmation number</div>
+                            <div class="order-confirm-number" *ngFor="let cartItem of totalOrderPaySuccess">{{ cartItem.orderResult.OrderNumber }}</div>
+                        </div>
+
+                        <div *ngIf="totalOrderError.length" class="order-confirm-section order-declined">
+                            <div class="order-confirm-title">Order(s) is not placed for these restaurant(s) due to expired coupon(s).</div>
+                            <div class="order-confirm-number c-danger" *ngFor="let cartItem of totalOrderError">{{ cartItem.RestaurantName }}</div>
+                        </div>
+
+                        <div *ngIf="totalOrderPayError.length" class="order-confirm-section order-declined">
+                            <div class="order-confirm-title">Order(s) is not placed for these restaurant(s) due to payment declined. Please update your payment method.</div>
+                            <div class="order-confirm-number c-danger" *ngFor="let cartItem of totalOrderPayError">{{ cartItem.RestaurantName }}</div>
+                        </div>
+                    </div>
+                    <div class="thank-you-image-right"><img src="img/cr/thank-you-2.png"></div>
+                </div>
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success btn-no-hover close-btn" (click)="close()">Okay</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

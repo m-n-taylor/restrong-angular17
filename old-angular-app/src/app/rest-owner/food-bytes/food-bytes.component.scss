@@ -1,0 +1,35 @@
+.food-bytes-page {
+
+    .main-contents {
+        padding: 0 40px 100px;
+    }
+
+    .heading-list {
+        font-weight: $lato-black;
+        font-size: 32px;
+        margin-top: 55px;
+        padding-bottom: 40px;
+        border-bottom: 1px solid #DBDBDB;
+    }
+
+    .food-bytes-table {
+
+        .item-title {
+            font-weight: $lato-bold;
+        }
+
+        .item-date {
+            margin-top: 8px;
+        }
+
+        .item-pages {
+            margin-top: 8px;
+        }
+
+        .item-description {
+            margin-top: 8px;
+        }
+
+    }
+
+}

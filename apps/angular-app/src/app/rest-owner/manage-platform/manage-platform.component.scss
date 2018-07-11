@@ -1,0 +1,190 @@
+.manage-platform-page {
+
+    .main-contents {
+        padding: 0 40px 200px;
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .platform-controls-section {
+            width: 400px;
+
+            .enable-app-wrapper {
+
+                @media (min-width: $screen-md-min) {
+                    padding-top: 34px;
+                }
+            }
+
+            .photo-upload-container {
+                float: left;
+
+                @media (max-width: $screen-xs-max) {
+                    width: 100%;
+                    float: none;
+                    text-align: center;
+                }
+
+                .photo-viewer {
+                    position: relative;
+                    margin-top: 7px;
+                    margin-bottom: 12px;
+                    width: 144px;
+                    height: 144px;
+                    background-color: rgba(#455A64, 0.05);
+
+                    @media (max-width: $screen-xs-max) {
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+
+                    img {
+                        position: absolute;
+                        margin: auto;
+                        top: 0;
+                        left: 0;
+                        right: 0;
+                        bottom: 0;
+                        max-width: 100%;
+                        max-height: 100%;
+                    }
+                }
+
+                .delete-menu-item-image {
+                    margin-top: 12px;
+                }
+            }
+
+            .section-heading {
+                font-weight: $lato-black;
+                font-size: 24px;
+                margin-top: 43px;
+                margin-bottom: 40px;
+            }
+
+            .section-subheading {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-top: 43px;
+                margin-bottom: 40px;
+            }
+
+            // .view-store-link {
+            //     color: $brand-success;
+            // }
+
+            .action-buttons-wrapper {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                margin: 64px 0 0;
+                background-color: white;
+                z-index: 99;
+
+                transition: padding $side-menu-transition-speed;
+
+                .action-buttons {
+                    padding: 24px 64px;
+                    border-top: 1px solid #DBDBDB;
+
+                    .btn {
+                        &:first-child {
+                            margin-right: 24px;
+                        }
+                    }
+                }
+            }
+
+            .save-link,
+            .cancel-link {
+                padding-left: 0;
+                padding-right: 0;
+                min-width: auto;
+            }
+
+            .save-link {
+                color: $brand-success;
+                margin-right: 8px;
+                font-weight: $lato-bold;
+            }
+
+            .cancel-link {
+                color: $brand-danger;
+                font-weight: $lato-regular;
+            }
+
+            .palette-actions-wrapper {
+                padding-top: 24px;
+
+                // @media (min-width: $screen-lg-min) {
+                //     text-align: right;
+                // }
+
+                .get-random-palette,
+                .shuffle-palette,
+                .pick-color {
+                    margin-right: 24px;
+                    margin-bottom: 8px;
+                }
+            }
+
+            .palette-item {
+                // text-align: center;
+                margin: 43px 0;
+
+                .palette-color {
+                    display: inline-block;
+                    width: 80px;
+                    height: 44px;
+                    margin: 8px;
+                    border: 1px solid #DBDBDB;
+                    cursor: pointer;
+                }
+            }
+
+            .intro-page-list {
+                padding-top: 0;
+
+                .table {
+                    margin-bottom: 0;
+
+                    input {
+                        min-width: 100px;
+                    }
+                }
+
+                .empty-record {
+                    text-align: center;
+                    padding: 20px 8px;
+                    border-bottom: 1px solid #DBDBDB;
+                }
+
+                form,
+                .form-group {
+                    margin-bottom: 0;
+                }
+            }
+
+            .add-page-btn {
+                margin-top: 24px;
+            }
+        }
+
+        .mobile-preview-wrapper {
+            bottom: 10px;
+            right: 24px;
+
+            @media (min-width: $screen-md-min) {
+                position: fixed;
+            }
+
+            .marvel-device.iphone8:after {
+                width: 0;
+                height: 0;
+            }
+        }
+    }
+}

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>location</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="location" fill-rule="nonzero" fill="#263238">
+            <path d="M11.7778375,2 C8.03066165,2 5,5.13 5,9 C5,14.25 11.7778375,22 11.7778375,22 C11.7778375,22 18.5556751,14.25 18.5556751,9 C18.5556751,5.13 15.5250134,2 11.7778375,2 Z M11.7778375,11.5 C10.4416353,11.5 9.35718128,10.38 9.35718128,9 C9.35718128,7.62 10.4416353,6.5 11.7778375,6.5 C13.1140398,6.5 14.1984938,7.62 14.1984938,9 C14.1984938,10.38 13.1140398,11.5 11.7778375,11.5 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

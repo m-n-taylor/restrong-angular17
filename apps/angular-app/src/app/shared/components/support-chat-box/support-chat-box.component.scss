@@ -1,0 +1,329 @@
+.support-chat-box {
+    position: fixed;
+    width: 340px;
+    bottom: 24px;
+    right: 24px;
+    z-index: 99;
+
+    @media (max-width: $screen-xs-max) {
+        bottom: 8px;
+        width: 100%;
+        right: 0;
+        padding-left: 24px;
+        padding-right: 24px;
+    }
+
+    .profile-name-initials {
+        position: relative;
+        padding: 10px;
+        text-align: center;
+        border-radius: 50%;
+        float: left;
+        background-size: contain;
+        background-repeat: no-repeat;
+        width: 40px;
+        height: 40px;
+
+        .profile-logo {
+            // width: 20px;
+            // height: 20px;
+            display: inline-block;
+            color: white;
+            font-weight: $lato-black;
+        }
+
+        .user-status-wrapper {
+            position: absolute;
+            right: -2px;
+            bottom: -5px;
+            border-radius: 50%;
+            background-color: white;
+            padding: 2px;
+
+            .user-status {
+                width: 14px;
+                height: 14px;
+                border: 2px solid $brand-success;
+                border-radius: 50%;
+            }
+        }
+
+        &.online {
+
+            .user-status-wrapper {
+
+                .user-status {
+                    background-color: $brand-success;
+                }
+            }
+        }
+    }
+
+    .chat-section-wrapper {
+        // position: absolute;
+        // left: 0;
+        // right: 0;
+        // top: 80px;
+        // bottom: 0;
+        width: 100%;
+        // padding-top: 32px;
+        margin: 0;
+
+        transition: padding 1s; //$side-menu-transition-speed
+        @media (max-width: $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .chat-section {
+            margin: 0;
+            height: 100%;
+            background-color: white;
+            box-shadow: 0 4px 5px -2px rgba(0, 0, 0, .2), 0 7px 10px 1px rgba(0, 0, 0, .14), 0 2px 16px 1px rgba(0, 0, 0, .12);
+
+            .thread-list-wrapper {
+                float: left;
+                width: 30%;
+                min-width: 300px;
+                height: 100%;
+                background-color: #f3f4f5;
+                border-right: 1px solid #DBDBDB;
+
+                $user-profile-section-height: 64px;
+                $thread-search-section-height: 72px;
+
+                @media (max-width: $screen-xs-max) {
+                    width: 100%;
+                }
+
+                .thread-list-header {
+                    background-color: #f3f4f5;
+
+                    .user-profile-section {
+                        height: $user-profile-section-height;
+                        border-bottom: 1px solid #DBDBDB;
+
+                        @media (max-width: $screen-xs-max) {
+                            display: none;
+                        }
+                    }
+
+                    .thread-search-section {
+                        padding: 16px;
+                        height: $thread-search-section-height;
+                    }
+                }
+            }
+
+            .thread-details-wrapper {
+                overflow: hidden;
+
+                $thread-details-header-height: 64px;
+
+                // @media (max-width: $screen-xs-max) {
+                //     display: none;
+                // }
+
+                .thread-details {
+                    background-color: #f3f4f5;
+
+                    .thread-details-header {
+                        height: $thread-details-header-height;
+                        border-bottom: 1px solid #DBDBDB;
+                        height: 64px;
+                        padding: 12px;
+
+                        .back-button {
+                            margin-top: 8px;
+                            float: left;
+                            margin-right: 16px;
+
+                            @media (min-width: $screen-sm-min) {
+                                display: none;
+                            }
+                        }
+
+                        .chat-with-us-section {
+                            overflow: hidden;
+                            padding-left: 24px;
+
+                            .customer-name {
+                                font-weight: $lato-black;
+                            }
+                        }
+
+                        .thread-info {
+                            float: left;
+                            margin-left: 24px;
+
+                            .customer-name {
+                                font-weight: $lato-black;
+                            }
+                        }
+
+                        .thread-actions {
+                            float: right;
+                            margin-top: 8px;
+
+                            .dropdown-menu {
+                                left: auto;
+                                right: 0;
+                            }
+                        }
+                    }
+
+                    .thread-chat-section {
+                        position: relative;
+                        overflow: auto;
+                        height: 300px;
+
+                        .chat-loader {
+                            padding: 24px;
+
+                            .busy-text {
+                                margin-top: 24px;
+                            }
+                        }
+
+                        .guest-form {
+                            padding: 24px;
+                        }
+
+                        .chat-item {
+                            position: relative;
+
+                            $padding: 16px;
+                            padding: $padding 0;
+
+                            $img-size: 40px;
+
+                            .chat-img {
+                                position: absolute;
+                                width: $img-size;
+                                height: $img-size;
+
+                                span {}
+                            }
+                            .chat-message {
+                                position: relative;
+                                display: inline-block;
+                                box-shadow: 0 1px 0.5px rgba(0, 0, 0, .13);
+                                border-radius: 4px;
+                                padding: 11px 24px;
+                                min-width: 150px;
+
+                                .message-text {}
+
+                                .message-date {
+                                    margin-top: 16px;
+                                    text-align: right;
+                                    font-size: 12px;
+                                    color: rgba(0, 0, 0, .38);
+                                }
+
+                                &:after {
+                                    content: '';
+                                    position: absolute;
+                                    border-style: solid;
+                                    display: block;
+                                    width: 0;
+                                    z-index: 1;
+                                    top: 10px;
+                                }
+                            }
+
+                            &.incoming {
+                                padding-right: 16px;
+
+                                .chat-img {
+                                    left: $padding;
+                                }
+
+                                .chat-message {
+                                    margin-left: $img-size + $padding + $padding;
+                                    background-color: white;
+
+                                    .message-date {}
+
+                                    &:after {
+                                        border-width: 6px 8px 6px 0;
+                                        border-color: transparent #fff;
+                                        left: -8px;
+                                    }
+                                }
+                            }
+
+                            &.outgoing {
+                                text-align: right;
+                                padding-left: 16px;
+
+                                .chat-img {
+                                    right: $padding;
+
+                                    &.profile-name-initials {
+                                        background-color: $gray;
+                                    }
+                                }
+
+                                .chat-message {
+                                    margin-right: $img-size + $padding + $padding;
+                                    color: white;
+                                    background-color: $brand-success;
+
+                                    .message-date {
+                                        color: white;
+                                    }
+
+                                    &:after {
+                                        border-width: 6px 0 6px 8px;
+                                        border-color: transparent $brand-success;
+                                        right: -8px;
+                                    }
+                                }
+                            }
+                        }
+
+                        &.has-guest-form {
+                            height: auto;
+                        }
+                    }
+                }
+
+                .send-message-section {
+                    border-top: 1px solid #DBDBDB;
+                    background-color: white;
+                    padding: 8px 0;
+                    width: 100%;
+
+                    .send-message-textarea {
+                        float: left;
+                        width: 100%;
+
+                        .form-control {
+                            border: none;
+                            height: 34px;
+
+                            &[disabled] {
+                                background-color: transparent;
+                            }
+                        }
+                    }
+                }
+            } // When a thread is selected
+            &.selected-thread {
+
+                .thread-list-wrapper {
+                    @media (max-width: $screen-xs-max) {
+                        display: none;
+                    }
+                }
+
+                .thread-details-wrapper {
+                    @media (max-width: $screen-xs-max) {
+                        display: block;
+                    }
+                }
+            }
+        }
+    }
+}

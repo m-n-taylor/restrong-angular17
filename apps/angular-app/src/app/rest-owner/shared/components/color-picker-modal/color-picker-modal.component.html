@@ -1,0 +1,24 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Color Picker Modal -->
+<div class="modal fade color-picker-modal" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" (click)="$event.stopPropagation()">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title">Choose a color palette</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+
+                <div class="palette-list">
+                    <div class="palette-item" *ngFor="let paletteItem of colorPaletteList" (click)="chooseColorPalette(paletteItem)">
+                        <div class="palette-color" *ngFor="let item of paletteItem" [ngStyle]="{ 'backgroundColor': item }">
+                            &nbsp;
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

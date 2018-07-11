@@ -1,0 +1,26 @@
+<div class="table-pagination-section">
+    <div class="row">
+        <div class="col-sm-4 noselect">
+            <div class="first-page-icon" [ngClass]="{ 'disabled': page <= 2 }" (click)="changePage(-2)"></div>
+            <div class="previous-page-icon" [ngClass]="{ 'disabled': page <= 1 }" (click)="changePage(-1)"></div>
+            <div class="pagination-count">{{ page }}</div>
+            <div class="next-page-icon" [ngClass]="{ 'disabled': page >= totalPages }" (click)="changePage(1)"></div>
+            <div class="last-page-icon" [ngClass]="{ 'disabled': page >= (totalPages - 1) }" (click)="changePage(2)"></div>
+        </div>
+
+        <div class="col-sm-4 text-center">
+            {{ page }} of {{ totalPages }}
+        </div>
+
+        <div class="col-sm-4">
+            <div class="form-inline page-size-select-wrapper">
+                <div class="form-group page-size-select">
+                    <label for="">Page Size:</label>
+                    <select class="form-control" [(ngModel)]="pageSize" (ngModelChange)="onPageSizeChanged()">
+                        <option *ngFor="let item of pageSizeList; let index = index" [value]="item" [hidden]="index > 0 && totalRows < pageSizeList[index - 1]">{{ item }}</option>
+                    </select>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

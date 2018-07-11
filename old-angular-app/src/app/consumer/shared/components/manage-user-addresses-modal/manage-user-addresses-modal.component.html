@@ -1,0 +1,53 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog manage-user-addresses-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">Change Address</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <page-loader center="page" *ngIf="busy"></page-loader>
+
+                <div class="table-responsive" *ngIf="!busy">
+                    <table class="table">
+                        <tr>
+                            <th>Default</th>
+                            <th>Address</th>
+                            <th>Edit</th>
+                            <th>Delete</th>
+                        </tr>
+                        <tr *ngFor="let userAddress of userAddresses; let index = index">
+                            <td (click)="chooseUserAddress(userAddress)">
+                                <div class="radio-on-icon" *ngIf="selectedUserAddress.ID == userAddress.ID"></div>
+                                <div class="radio-off-icon" *ngIf="selectedUserAddress.ID != userAddress.ID"></div>
+                            </td>
+                            <td (click)="chooseUserAddress(userAddress)">{{ userAddress.Address }}</td>
+                            <td>
+                                <div class="pencil-icon"></div>
+                            </td>
+                            <td>
+                                <div class="delete-time-icon"></div>
+                            </td>
+                            <!--<td><button class="btn btn-primary" (click)="chooseUserAddress(userAddress)">Choose Address</button></td>-->
+                        </tr>
+                    </table>
+                </div>
+
+                <button class="btn btn-success btn-sm add-new-address">Add a New Address</button>
+
+            </div>
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success" (click)="save()">Save</button>
+                    <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

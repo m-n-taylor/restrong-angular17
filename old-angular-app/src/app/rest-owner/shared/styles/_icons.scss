@@ -1,0 +1,62 @@
+// Icons
+$icons: ( 
+    'map', 
+    'history', 
+    'add-time', 
+    'delete', 
+    'delete-time', 
+    'arrow-left', 
+    'arrow-right', 
+    'rating-off', 
+    'rating-on', 
+    'open', 
+    'close', 
+    'support', 
+    'first-page', 
+    'last-page', 
+    'next-page', 
+    'previous-page', 
+    'pencil', 
+    'customer-map', 
+    'restaurant-map', 
+    'restaurant-map-orange', 
+    'dish', 
+    'hamburger-menu', 
+    'email', 
+    'password', 
+    'show-password', 
+    'search', 
+    'more-vert-black',
+    'arrow-back-black',
+);
+
+@each $propValue in $icons {
+
+    .#{$propValue}-icon {
+        display: inline-block;
+        width: 24px;
+        height: 24px;
+        background-image: url('img/ro/#{$propValue}.svg');
+        background-repeat: no-repeat;
+        background-position: 50%;
+        cursor: pointer;
+    }
+
+}
+
+.rating-off-icon, .rating-on-icon {
+    width: 18px;
+    height: 18px;
+}
+
+// 36x36
+.hamburger-menu-icon {
+    width: 36px;
+    height: 36px;
+}
+
+// 112x112
+.dish-icon {
+    width: 112px;
+    height: 112px;
+}

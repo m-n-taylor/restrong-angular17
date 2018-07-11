@@ -1,0 +1,209 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="order-details-page">
+
+    <map-customer-route-modal #mapCustomerRouteModal></map-customer-route-modal>
+
+    <div *ngIf="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> Order {{ order.OrderDetail.OrderNumber }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-actions-section">
+            <button *ngIf="order.OrderDetail.StatusID != constants.ORDER_STATUS.ACCEPTED && order.OrderDetail.StatusID != constants.ORDER_STATUS.CANCELLED_BY_REST" [ladda]="busyAcceptOrder" class="btn btn-success btn-lg btn-accept-order" (click)="acceptOrder(true)">Accept Order</button>
+            <button *ngIf="order.OrderDetail.StatusID != constants.ORDER_STATUS.CANCELLED_BY_REST" [ladda]="busyRejectOrder" class="btn btn-danger btn-inverse btn-lg btn-reject-order" [ngClass]="{ 'active' : busyRejectOrder }" (click)="acceptOrder(false)">Cancel Order</button>
+            <button *ngIf="order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_DELIVERY || order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_CATERING" class="btn btn-success btn-inverse btn-lg btn-map-customer-route" [ngClass]="{ 'no-side-margin' : order.OrderDetail.StatusID == constants.ORDER_STATUS.CANCELLED_BY_REST }"
+                (click)="openMapCustomerRouteModal()">Map Customer Route</button>
+            <button *ngIf="order.OrderDetail.StatusID == constants.ORDER_STATUS.ACCEPTED" class="btn btn-success btn-inverse btn-lg btn-print-order" (click)="printOrder()">Print Order</button>
+            <button *ngIf="order.OrderDetail.StatusID != constants.ORDER_STATUS.ACCEPTED && order.OrderDetail.StatusID != constants.ORDER_STATUS.CANCELLED_BY_REST" class="btn btn-success btn-inverse btn-lg btn-edit-order" (click)="editOrder()">Edit Order</button>
+        </div>
+
+        <div class="row">
+            <div class="col-md-6">
+                <div class="info-section">
+                    <div class="info-title">
+                        Customer Info
+                    </div>
+                    <div class="info-details">
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Name</div>
+                            <div class="info-field-value f-black">{{ order.CustomerInfo.FullName }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Phone</div>
+                            <div class="info-field-value">{{ order.CustomerInfo.Phone | phone }}</div>
+                        </div>
+                        <div class="info-field clearfix delivery-address-field">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Delivery Address</div>
+                            <div class="info-field-value">{{ order.OrderDetail.DeliveryAddress || 'N/A' }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Apt/Suite</div>
+                            <div class="info-field-value">{{ order.OrderDetail.Apartment_Suite || 'N/A' }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Delivery Instructions</div>
+                            <div class="info-field-value">{{ order.OrderDetail.Instructions || 'N/A' }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-6">
+                <div class="info-section">
+                    <div class="info-title">
+                        Order Info
+                    </div>
+                    <div class="info-details">
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Status</div>
+                            <div class="info-field-value" [ngClass]="{ 'text-success': order.OrderDetail.StatusID == constants.ORDER_STATUS.ACCEPTED, 'text-danger': order.OrderDetail.StatusID == constants.ORDER_STATUS.CANCELLED_BY_REST, 'text-dark-gray': order.OrderDetail.StatusID == constants.ORDER_STATUS.QUEUE_ADDED, 'f-black': true }">{{ order.OrderDetail.Status }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">ID</div>
+                            <div class="info-field-value">{{ order.OrderDetail.ID }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Order Number</div>
+                            <div class="info-field-value">{{ order.OrderDetail.OrderNumber }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Date of Order</div>
+                            <div class="info-field-value">{{ order.OrderDetail.OrderDate | date:'shortDate' }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Time of Order</div>
+                            <div class="info-field-value">{{ order.OrderDetail.OrderDate | date:'shortTime' }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Service Type</div>
+                            <div class="info-field-value f-black">{{ order.OrderDetail.ServiceType }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Subscription</div>
+                            <div class="info-field-value f-black">{{ order.OrderDetail.SubscriptionName }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-dots">&nbsp;</div>
+                            <div class="info-field-label">Customer Sold out action</div>
+                            <div class="info-field-value f-black">{{ order.OrderDetail.SoldOutAction }}</div>
+                        </div>
+                        <div class="info-field clearfix">
+                            <div class="info-field-label f-black">{{ order.deliverText }}</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="order-details-section">
+            <div class="order-details-title">
+                Order Details
+            </div>
+
+            <div class="order-details-list">
+                <table class="table table-striped table-center">
+                    <tr>
+                        <th>Item Name</th>
+                        <th>Qty</th>
+                        <th>Price</th>
+                        <th>Item Total</th>
+                    </tr>
+
+                    <tr *ngIf="!busy && !order.MenuDetail.length">
+                        <td colspan="4">No Records to display</td>
+                    </tr>
+
+                    <tr *ngFor="let item of order.MenuDetail">
+                        <td class="f-bold">{{ item.ItemName }}</td>
+                        <td>{{ item.Qty }}</td>
+                        <td>${{ item.Price }}</td>
+                        <td>${{ item.Amount }}</td>
+                    </tr>
+                    <tr class="tr-totals">
+                        <td colspan="3" class="td-labels">
+                            <div class="charge-label">Subtotal:</div>
+                            <div [hidden]="couponDiscount == 0" *ngFor="let couponDetail of order.OrderDetail.CouponDetail" class="charge-label">Coupon Discount({{ couponDetail.CouponCode }}):</div>
+
+                            <div *ngIf="order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_DELIVERY || order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_CATERING">
+                                <div class="charge-label">Delivery Charge<span *ngIf="!allowDeliveryInSubscription(order.OrderDetail.Owner_SubscriptionID)"> by Customer</span>:</div>
+
+                                <div class="charge-label">Driver Tip ({{ order.OrderDetail.Driver_Tip_Percent }}%):</div>
+                            </div>
+
+                            <div class="charge-label">Tax ({{ (order.OrderDetail.Tax_Rate*100) }}%):</div>
+                            <div class="charge-label total-label">Total (Customer Paid):</div>
+                            <div class="charge-label">Dishzilla Service Charge:</div>
+
+                            <div *ngIf="order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_DELIVERY || order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_CATERING">
+
+                                <div *ngIf="!allowDeliveryInSubscription(order.OrderDetail.Owner_SubscriptionID)">
+                                    <div class="charge-label">Delivery Charge by Dishzilla:</div>
+
+                                    <div class="charge-label">Driver Tip ({{ order.OrderDetail.Driver_Tip_Percent }}%) (Paid to Driver):</div>
+                                </div>
+
+                            </div>
+
+                            <div class="charge-label net-account-label">Net Account Credit:</div>
+                        </td>
+                        <td class="td-values">
+                            <div class="charge-value">
+                                <!--<span *ngIf="couponDiscount > 0" style="text-decoration: line-through;">{{ (order.OrderDetail.SubTotal + couponDiscount) | currency:'USD':true }}</span>
+                                <span>{{ order.OrderDetail.SubTotal | currency:'USD':true }}</span>-->
+                                <span>{{ (order.OrderDetail.SubTotal + couponDiscount) | currency:'USD':true }}</span>
+                                <span class="plus-sign">+</span>
+                            </div>
+                            <div [hidden]="couponDiscount == 0" *ngFor="let couponDetail of order.OrderDetail.CouponDetail" class="charge-value">{{ couponDetail.DiscountPrice | currency:'USD':true }} <span class="minus-sign">-</span></div>
+
+                            <div *ngIf="order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_DELIVERY || order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_CATERING">
+                                <div class="charge-value">{{ (order.OrderDetail.DeliveryCharge || 0) | currency:'USD':true }} <span class="plus-sign">+</span></div>
+
+                                <div class="charge-value">{{ (order.OrderDetail.Driver_Tip || 0) | currency:'USD':true }} <span class="plus-sign">+</span></div>
+                            </div>
+
+                            <div class="charge-value">{{ order.OrderDetail.Tax | currency:'USD':true }} <span class="plus-sign">+</span></div>
+                            <div class="charge-value total-value">{{ order.OrderDetail.GrandTotal | currency:'USD':true }} <span class="equal-sign">=</span></div>
+                            <div class="charge-value">{{ (order.OrderDetail.ServiceFee || 0) | currency:'USD':true }} <span class="minus-sign">-</span></div>
+
+                            <div *ngIf="order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_DELIVERY || order.OrderDetail.ServiceTypeID == constants.SERVICE_TYPE_ID_CATERING">
+
+                                <div *ngIf="!allowDeliveryInSubscription(order.OrderDetail.Owner_SubscriptionID)">
+                                    <div class="charge-value">{{ order.OrderDetail.Owner_DeliveryCharge_Restaurant | currency:'USD':true }} <span class="minus-sign">-</span></div>
+
+                                    <div class="charge-value">{{ (order.OrderDetail.Driver_Tip || 0) | currency:'USD':true }} <span class="minus-sign">-</span></div>
+                                </div>
+
+                            </div>
+
+                            <div class="charge-value net-account-value">{{ (order.OrderDetail.Owner_NetAccountCredit || 0) | currency:'USD':true }} <span class="equal-sign">=</span></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+    </div>
+</div>

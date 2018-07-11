@@ -1,0 +1,22 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Confirm Modal -->
+<div class="modal confirm-modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()"><div class="delete-icon"></div></button>
+                <h4 class="modal-title">{{ data.title }}</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <div class="confirm-message">{{ data.message }}</div>
+            </div>
+            <div class="modal-footer">
+                <div class="confirm-action-buttons">
+                    <button type="button" class="btn btn-success" (click)="close(false)">{{ data.cancelText }}</button>
+                    <button type="button" class="btn btn-danger btn-inverse" (click)="close(true)">{{ data.okText }}</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

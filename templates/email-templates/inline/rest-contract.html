@@ -1,0 +1,781 @@
+<!doctype html>
+<html>
+
+<head>
+  <meta name="viewport" content="width=device-width">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+  <title>Rest Contract</title>
+  <style>
+    /* -------------------------------------
+          GLOBAL RESETS
+      ------------------------------------- */
+
+    img {
+      border: none;
+      -ms-interpolation-mode: bicubic;
+      max-width: 100%;
+    }
+
+    body {
+      background-color: #fff;
+      font-family: sans-serif;
+      -webkit-font-smoothing: antialiased;
+      font-size: 14px;
+      line-height: 1.4;
+      margin: 0;
+      padding: 0;
+      -ms-text-size-adjust: 100%;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    table {
+      border-collapse: separate;
+      mso-table-lspace: 0pt;
+      mso-table-rspace: 0pt;
+      width: 100%;
+    }
+
+    table td {
+      font-family: sans-serif;
+      font-size: 14px;
+      vertical-align: top;
+    }
+
+    table td.empty {
+      font-size: 0;
+      line-height: 0;
+    }
+    /* -------------------------------------
+          BODY & CONTAINER
+      ------------------------------------- */
+
+    .body {
+      background-color: #fff;
+      width: 100%;
+    }
+    /* Set a max-width, and make it display as block so it will automatically stretch to that width, but will also shrink down on a phone or something */
+
+    .container {
+      display: block;
+      Margin: 0 auto !important;
+      /* makes it centered */
+      width: 600px !important;
+      /*padding: 10px;*/
+      width: 580px;
+    }
+    /* This should also be a block element, so that it will fill 100% of the .container */
+
+    .content {
+      box-sizing: border-box;
+      display: block;
+      Margin: 0 auto;
+      max-width: 580px;
+      /*padding: 10px;*/
+    }
+    /* -------------------------------------
+          HEADER, FOOTER, MAIN
+      ------------------------------------- */
+
+    .main {
+      background: #fff;
+      border-radius: 3px;
+      width: 100%;
+    }
+
+    .wrapper {
+      box-sizing: border-box;
+      padding: 0;
+      /*padding: 20px;*/
+    }
+
+    .footer {
+      clear: both;
+      padding-top: 10px;
+      text-align: center;
+      width: 100%;
+    }
+
+    .footer td,
+    .footer p,
+    .footer span,
+    .footer a {
+      color: #999999;
+      font-size: 12px;
+      text-align: center;
+    }
+    /* -------------------------------------
+          TYPOGRAPHY
+      ------------------------------------- */
+
+    h1,
+    h2,
+    h3,
+    h4 {
+      color: #263238;
+      font-family: sans-serif;
+      font-weight: 400;
+      line-height: 1.4;
+      margin: 0;
+      /*Margin-bottom: 30px;*/
+    }
+
+    h1 {
+      font-size: 32px;
+      font-weight: 900;
+      /*text-align: center;*/
+      /*text-transform: capitalize;*/
+    }
+
+    h2 {
+      font-size: 24px;
+      font-weight: 900;
+    }
+
+    h3 {
+      font-size: 18px;
+      font-weight: 900;
+    }
+
+    p {
+      color: #263238;
+    }
+
+    p,
+    ul,
+    ol {
+      font-family: sans-serif;
+      font-size: 14px;
+      font-weight: normal;
+      margin: 0;
+      /*Margin-bottom: 15px;*/
+    }
+
+    p li,
+    ul li,
+    ol li {
+      list-style-position: inside;
+      margin-left: 5px;
+    }
+
+    a {
+      color: #3498db;
+      text-decoration: underline;
+    }
+    /* -------------------------------------
+          BUTTONS
+      ------------------------------------- */
+
+    .btn {
+      box-sizing: border-box;
+      width: 100%;
+    }
+
+    .btn>tbody>tr>td {
+      /*padding-bottom: 15px;*/
+    }
+
+    .btn table {
+      width: auto;
+    }
+
+    .btn table td {
+      background-color: #ffffff;
+      border-radius: 100px;
+      text-align: center;
+    }
+
+    .btn a {
+      background-color: #ffffff;
+      border: solid 2px #3498db;
+      border-radius: 100px;
+      box-sizing: border-box;
+      color: #3498db;
+      cursor: pointer;
+      display: inline-block;
+      font-size: 14px;
+      font-weight: bold;
+      margin: 0;
+      padding: 12px 25px;
+      text-decoration: none;
+      text-transform: capitalize;
+      width: 208px;
+    }
+
+    .btn-success table td {
+      background-color: #39CE7B;
+    }
+
+    .btn-success a {
+      background-color: #39CE7B;
+      border-color: #39CE7B;
+      color: #ffffff;
+    }
+
+    .btn-gray a {
+      background-color: #f2f2f2;
+      border-color: #f2f2f2;
+      color: #263238;
+    }
+    /* -------------------------------------
+          OTHER STYLES THAT MIGHT BE USEFUL
+      ------------------------------------- */
+
+    .last {
+      margin-bottom: 0;
+    }
+
+    .first {
+      margin-top: 0;
+    }
+
+    .align-center {
+      text-align: center;
+    }
+
+    .align-right {
+      text-align: right;
+    }
+
+    .align-left {
+      text-align: left;
+    }
+
+    .clear {
+      clear: both;
+    }
+
+    .mt0 {
+      margin-top: 0;
+    }
+
+    .mb0 {
+      margin-bottom: 0;
+    }
+
+    .preheader {
+      color: transparent;
+      display: none;
+      height: 0;
+      max-height: 0;
+      max-width: 0;
+      opacity: 0;
+      overflow: hidden;
+      mso-hide: all;
+      visibility: hidden;
+      width: 0;
+    }
+
+    .powered-by a {
+      text-decoration: none;
+    }
+
+    hr {
+      border: 0;
+      border-bottom: 1px solid #f6f6f6;
+      Margin: 20px 0;
+    }
+
+    .info-table {
+      border: 1px solid #c7cdd0;
+      border-radius: 3px;
+    }
+
+    .info-table td {
+      padding-bottom: 6px;
+    }
+
+    .info-table td.left, .order-details-table td.left {
+      padding-left: 24px;
+    }
+
+    .info-table td.right, .order-details-table td.right, .total-table td.right {
+      padding-right: 24px;
+    }
+
+    .info-table tr.first-row td, .order-details-table tr.first-row td {
+      padding-top: 19px;
+    }
+
+    .info-table tr.last-row td, .order-details-table tr.last-row td {
+      padding-bottom: 24px;
+    }
+
+    .order-details-table td {
+      padding-top: 15px;
+      padding-bottom: 15px;
+      border-bottom: 1px solid #c7cdd0;
+    }
+
+    .total-table {
+      border-bottom: 1px solid #c7cdd0;
+    }
+
+    .total-table td {
+      padding-bottom: 2px;
+    }
+
+    .total-table tr.total-row td {
+      padding-top: 11px;
+    }
+    /* -------------------------------------
+          RESPONSIVE AND MOBILE FRIENDLY STYLES
+      ------------------------------------- */
+
+    @media only screen and (max-width: 620px) {
+      table[class=body] h1 {
+        font-size: 28px !important;
+        margin-bottom: 10px !important;
+      }
+      table[class=body] p,
+      table[class=body] ul,
+      table[class=body] ol,
+      table[class=body] td,
+      table[class=body] span,
+      table[class=body] a {
+        /*font-size: 16px !important;*/
+      }
+      table[class=body] .wrapper,
+      table[class=body] .article {
+        padding: 0 !important;
+        /*padding: 10px !important;*/
+      }
+      table[class=body] .content {
+        padding: 0 !important;
+      }
+      table[class=body] .container {
+        padding: 0 !important;
+        width: 100% !important;
+      }
+      table[class=body] .main {
+        border-left-width: 0 !important;
+        border-radius: 0 !important;
+        border-right-width: 0 !important;
+      }
+      table[class=body] .btn table {
+        width: 100% !important;
+      }
+      table[class=body] .btn a {
+        width: 100% !important;
+      }
+      table[class=body] .img-responsive {
+        height: auto !important;
+        max-width: 100% !important;
+        width: auto !important;
+      }
+    }
+    /* -------------------------------------
+          PRESERVE THESE STYLES IN THE HEAD
+      ------------------------------------- */
+
+    @media all {
+      .ExternalClass {
+        width: 100%;
+      }
+      .ExternalClass,
+      .ExternalClass p,
+      .ExternalClass span,
+      .ExternalClass font,
+      .ExternalClass td,
+      .ExternalClass div {
+        line-height: 100%;
+      }
+      .apple-link a {
+        color: inherit !important;
+        font-family: inherit !important;
+        font-size: inherit !important;
+        font-weight: inherit !important;
+        line-height: inherit !important;
+        text-decoration: none !important;
+      }
+      .btn-success table td:hover {
+        /*color: #39CE7B !important;
+        border-color: #39CE7B !important;
+        background-color: #fff !important;*/
+      }
+      .btn-success a:hover {
+        color: #39CE7B !important;
+        border-color: #39CE7B !important;
+        background-color: #fff !important;
+        /*background-color: #34495e !important;*/
+        /*border-color: #34495e !important;*/
+      }
+    }
+  </style>
+</head>
+
+<body class="" style="background-color: #fff;font-family: sans-serif;-webkit-font-smoothing: antialiased;font-size: 14px;line-height: 1.4;margin: 0;padding: 0;-ms-text-size-adjust: 100%;-webkit-text-size-adjust: 100%;">
+  <table border="0" cellpadding="0" cellspacing="0" class="body" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;background-color: #fff;">
+    <tr>
+      <td class="container" style="font-family: sans-serif;font-size: 14px;vertical-align: top;display: block;width: 580px;margin: 0 auto !important;">
+        <div class="content" style="box-sizing: border-box;display: block;margin: 0 auto;max-width: 580px;">
+
+          <!-- START CENTERED WHITE CONTAINER -->
+          <table class="main" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;background: #fff;border-radius: 3px;">
+
+            <!-- START MAIN CONTENT AREA -->
+            <tr>
+              <td class="wrapper" style="font-family: sans-serif;font-size: 14px;vertical-align: top;box-sizing: border-box;padding: 0;">
+                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                  <tr>
+                    <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#263238" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                        <tr>
+                          <td class="empty" height="33" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="33" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <img src="http://test2.menus.mine.nu/email/menus.png" alt="" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;">
+                          </td>
+                        </tr>
+                        <tr>
+                          <td class="empty" height="33" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="33" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <tr>
+                    <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="44" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h2 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 24px;">Terms and Conditions</h2>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Consequatur magni, reiciendis temporibus aliquid, et nulla voluptatem neque natus fuga aliquam recusandae consequuntur odio praesentium aperiam numquam voluptates illum labore doloremque.</p>
+                                </td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h3 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 18px;">Restaurant Details</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table class="info-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border: 1px solid #c7cdd0;border-radius: 3px;">
+                              <tr class="first-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Name</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;"><b>value</b></p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Address</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Tax</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Menus ID</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Phone</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Fax</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Mobile</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr class="last-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Email</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h3 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 18px;">Package Subscription</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table class="info-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border: 1px solid #c7cdd0;border-radius: 3px;">
+                              <tr class="first-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Subscription</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;"><b>value</b></p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Delivery by</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr class="last-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Service Fee</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h3 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 18px;">Contact Details</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table class="info-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border: 1px solid #c7cdd0;border-radius: 3px;">
+                              <tr class="first-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">First Name</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Last Name</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Address</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Contact #</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr class="last-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Email</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h3 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 18px;">Sales Information</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="19" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table class="info-table" border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;border: 1px solid #c7cdd0;border-radius: 3px;">
+                              <tr class="first-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Delivery Min Order</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;padding-top: 19px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Delivery Time (Min)</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Delivery Time (Max)</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Delivery Charge</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr>
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Pickup Time (Min)</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 6px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                              <tr class="last-row">
+                                <td class="left" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-left: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">Pickup Time (Max)</p></td>
+                                <td class="right" align="right" style="font-family: sans-serif;font-size: 14px;vertical-align: top;padding-bottom: 24px;padding-right: 24px;"><p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">value</p></td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <table border="0" cellpadding="0" cellspacing="0" width="100%" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                              <tr>
+                                <td class="empty" height="33" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                              <tr>
+                                <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                                  <h3 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 18px;">Agreement Dated: 7/6/2017</h3>
+                                </td>
+                              </tr>
+                              <tr>
+                                <td class="empty" height="32" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                              </tr>
+                            </table>
+                          </td>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+
+                      </table>
+                    </td>
+                  </tr>
+
+
+
+                  <!-- FOOTER AREA -->
+                  <tr>
+                    <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F2F2F2" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                        <tr>
+                          <td class="empty" height="44" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="44" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="44" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="264" style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <h2 style="color: #263238;font-family: sans-serif;font-weight: 900;line-height: 1.4;margin: 0;font-size: 24px;">696-448-7011</h2>
+                          </td>
+                          <td class="empty" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="empty" height="8" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="8" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="8" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="264" style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                            <p style="color: #263238;font-family: sans-serif;font-size: 14px;font-weight: normal;margin: 0;">support@menus.com</p>
+                          </td>
+                          <td class="empty" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                        <tr>
+                          <td class="empty" height="27" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="27" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" height="27" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F2F2F2" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                        <tr>
+                          <td class="empty" width="48" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="32" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/facebook.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="32" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/twitter.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="40" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/google.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="32" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/instagram.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="32" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/pinterest.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td width="32" style="font-family: sans-serif;font-size: 14px;vertical-align: top;"><a href="//menus.com" target="_blank" style="color: #3498db;text-decoration: underline;"><img src="http://test2.menus.mine.nu/email/reddit.png" style="border: none;-ms-interpolation-mode: bicubic;max-width: 100%;"></a></td>
+                          <td class="empty" width="22" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                          <td class="empty" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+
+                  <tr>
+                    <td style="font-family: sans-serif;font-size: 14px;vertical-align: top;">
+                      <table border="0" cellpadding="0" cellspacing="0" width="100%" bgcolor="#F2F2F2" style="border-collapse: separate;mso-table-lspace: 0pt;mso-table-rspace: 0pt;width: 100%;">
+                        <tr>
+                          <td class="empty" height="46" style="font-family: sans-serif;font-size: 0;vertical-align: top;line-height: 0;">&nbsp;</td>
+                        </tr>
+                      </table>
+                    </td>
+                  </tr>
+                  <!-- END FOOTER AREA -->
+                </table>
+              </td>
+            </tr>
+
+            <!-- END MAIN CONTENT AREA -->
+          </table>
+
+          <!-- END CENTERED WHITE CONTAINER -->
+        </div>
+      </td>
+    </tr>
+  </table>
+</body>
+
+</html>

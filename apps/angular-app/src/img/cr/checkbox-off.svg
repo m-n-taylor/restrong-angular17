@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>checkbox-off</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI-Kit" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="checkbox-off" fill-rule="nonzero" fill="#455A64">
+            <path d="M19.7777778,4 L4.22222222,4 C4.09883927,4 4,4.09918127 4,4.22222222 L4,19.7777778 C4,19.9008187 4.09883927,20 4.22222222,20 L19.7777778,20 C19.9011607,20 20,19.9008187 20,19.7777778 L20,4.22222222 C20,4.09918127 19.9011607,4 19.7777778,4 Z M19.7777778,2 C21.0111111,2 22,3 22,4.22222222 L22,19.7777778 C22,21 21.0111111,22 19.7777778,22 L4.22222222,22 C2.98888889,22 2,21 2,19.7777778 L2,4.22222222 C2,3 2.98888889,2 4.22222222,2 L19.7777778,2 Z" id="Shape"></path>
+        </g>
+    </g>
+</svg>

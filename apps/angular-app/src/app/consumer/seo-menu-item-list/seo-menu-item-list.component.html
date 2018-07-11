@@ -1,0 +1,53 @@
+<div class="seo-menu-item-list-page">
+
+    <div class="header-logo-section">
+        <a routerLink="/"><img class="brand-logo" src="img/shared/brand-logo.svg"></a>
+    </div>
+
+    <div class="main-contents">
+
+        <div class="menu-item-list">
+
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb">
+                    <li *ngFor="let item of breadcrumbList; let last = last" class="breadcrumb-item" [ngClass]="{ 'active': last }">
+                        <a *ngIf="!last" routerLink="{{ item.url }}">{{ item.name }}</a>
+                        <span *ngIf="last">{{ item.name }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <page-loader *ngIf="busy"></page-loader>
+
+            <div *ngIf="!busy">
+
+                <div *ngIf="dishTypes.length" class="links-container">
+                    <h1 class="section-title"></h1>
+                    <h4 class="browse-by-heading">Filter by Dish types</h4>
+
+                    <div class="chips-container" [ngClass]="{ 'show-less': !showMore }">
+                        <div class="chips style-2" #dishChipsContainer>
+                            <a class="chip-item" *ngFor="let item of dishTypes; let index = index" [ngClass]="{ 'active': replaceSpaceWithDash(item.Name) == params.dishType }" routerLink="/city/{{params.city}}/{{params.zipcode}}/{{replaceSpaceWithDash(params.cuisine)}}/{{replaceSpaceWithDash(params.dish)}}/{{replaceSpaceWithDash(item.Name)}}/page/1">{{ item.Name }}</a>
+                        </div>
+                        <div [hidden]="!isOverflowDishChips" class="show-more-link" (click)="showMore = !showMore">Show {{ showMore ? 'less' : 'more' }}</div>
+                    </div>
+                </div>
+
+                <h4 class="browse-by-heading">Browse by Menu Items</h4>
+
+                <div class="clearfix">
+                    <a *ngFor="let menuItem of menuItems" routerLink="/restaurant/{{replaceSpaceWithDash(menuItem.CuisineName)}}/{{replaceSpaceWithDash(menuItem.RestaurantName)}}-{{replaceSpaceWithDash(menuItem.Address)}}/{{menuItem.FFID}}">
+                        <menu-item [item]="menuItem" [config]="menuItemConfig"></menu-item>
+                    </a>
+                </div>
+
+            </div>
+
+            <div *ngIf="!busy && menuItems.length == 0">No menu items available</div>
+
+            <m-bs-pagination *ngIf="!busy && menuItems.length > 0" [baseUrl]="'/city/' + params.city + '/' + params.zipcode + '/' + params.cuisine + '/' + params.dish" [(page)]="page" [(pageSize)]="pageSize" [totalPages]="totalPages" [totalRows]="totalRows" (valueChange)="loadMenuItems()"></m-bs-pagination>
+        </div>
+
+    </div>
+
+</div>

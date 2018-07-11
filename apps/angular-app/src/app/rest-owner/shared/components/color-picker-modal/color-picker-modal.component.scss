@@ -1,0 +1,45 @@
+.color-picker-modal {
+
+    form {
+        margin-bottom: 0;
+    }
+
+    .main-page-loader {
+        padding: 40px 0;
+    }
+
+    .modal-body {
+        padding-left: 0;
+        padding-right: 0;
+
+        .palette-list {
+            margin-top: 48px;
+
+            .palette-item {
+                text-align: center;
+                margin-top: 24px;
+                cursor: pointer;
+
+                .palette-color {
+                    display: inline-block;
+                    width: 88px;
+                    height: 44px;
+                }
+            }
+        }
+    }
+
+    .modal-footer {
+        padding: 40px;
+
+        .new-user-actions {
+            margin-top: 8px;
+
+            button {
+                &:first-child {
+                    margin-right: 24px;
+                }
+            }
+        }
+    }
+}

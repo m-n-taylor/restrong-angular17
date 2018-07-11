@@ -1,0 +1,28 @@
+.menu-item-option-items-modal {
+
+    .modal-body {
+        padding-top: 32px;
+
+        .chip-label {
+            margin-left: 7px;
+        }
+
+        .menu-item-options-list {
+
+            .table {
+
+                th,
+                td {
+                    cursor: text;
+
+                    .radio-on-icon,
+                    .radio-off-icon,
+                    .checkbox-on-icon,
+                    .checkbox-off-icon {
+                        cursor: not-allowed;
+                    }
+                }
+            }
+        }
+    }
+}

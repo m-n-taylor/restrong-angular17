@@ -1,0 +1,49 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="support-page">
+
+    <div class="faq-title">
+        Frequently asked questions
+    </div>
+
+    <div class="main-contents">
+        <div class="row">
+            <div class="col-md-7 col-lg-8">
+                <div class="faq-section">
+                    <div class="faq-item" [ngClass]="{ 'collapsed' : !faq.isOpen }" *ngFor="let faq of sharedDataService.globalSettings.OwnerFAQ">
+                        <div class="faq-side" (click)="toggleFAQ(faq)">
+                            <div class="collapse-toggle" [ngClass]="{ 'open-icon' : !faq.isOpen, 'close-icon' : faq.isOpen }"></div>
+                        </div>
+
+                        <div class="faq-details">
+                            <div class="faq-question" (click)="toggleFAQ(faq)">
+                                {{ faq.Question }}
+                            </div>
+
+                            <div class="faq-answer" [innerHTML]="faq.Answer"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-5 col-lg-4">
+                <div class="support-center-section">
+                    <div class="support-title">
+                        <div class="support-icon"></div> Support center
+                    </div>
+                    <div class="support-text">
+                        <div>Can't find the answer?</div>
+                        <div>We are here to help you.</div>
+                    </div>
+                    <div class="support-email">
+                        {{ sharedDataService.globalSettings.CustomerService?.Email }}
+                    </div>
+                    <div class="support-phone">
+                        <div class="phone-icon"></div> {{ sharedDataService.globalSettings.CustomerService?.Phone }}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

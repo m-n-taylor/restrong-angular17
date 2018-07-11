@@ -1,0 +1,131 @@
+.restaurant-coupons {
+
+    .coupon-list {
+
+        .no-records {
+            text-align: center;
+            margin-top: 48px;
+            padding: 20px 0;
+        }
+        
+        .coupon-item {
+            position: relative;
+            padding: 24px 32px 32px;
+            margin-bottom: 25px;
+            border: 1px solid rgba(#455A64, .3);
+            
+            @media (min-width : 1200px) {
+                width: 49%;
+                float: left;
+
+                &:nth-child(2n) {
+                    margin-left: 1%;
+                }
+
+                &:nth-child(2n + 1) {
+                    margin-right: 1%;
+                }
+            }
+
+            .coupon-loader {
+                margin-top: 27px;
+            }
+
+            .coupon-item-header {
+                border-bottom: 1px solid #DBDBDB;
+                padding-bottom: 27px;
+
+                .left-text, .right-text {
+                    font-weight: $lato-black;
+                    font-size: 32px;
+                    letter-spacing: 0;
+                }
+
+                .left-text {
+
+                    @media (max-width: $screen-xs-max) {
+                        text-align: center;
+                    }
+
+                    @media (min-width: $screen-sm-min) {
+                        float: left;
+                        width: 60%;
+                    }
+                }
+
+                .right-text {
+                    color: $brand-success;
+
+                    @media (max-width: $screen-xs-max) {
+                        text-align: center;
+                    }
+
+                    @media (min-width: $screen-sm-min) {
+                        float: right;
+                    }
+                }
+            }
+
+            .coupon-details {
+                margin-top: 30px;
+                height: 150px;
+                overflow: auto;
+
+                .coupon-title-description, .coupon-title-limitation {
+                    font-weight: $lato-bold;
+                }
+
+                .coupon-title-limitation {
+                    margin-top: 16px;
+                }
+
+                .coupon-description {
+                }
+
+                .coupon-limitation {
+                    color: $brand-danger;
+                }
+            }
+
+            .coupon-start-date, .coupon-end-date {
+                display: inline-block;
+                margin-top: 14px;
+                color: #7C8B92;
+            }
+
+            .coupon-start-date {
+                margin-right: 22px;
+            }
+
+            .coupon-status-toggle {
+                margin-top: 29px;
+
+                .checkbox-inline {
+                    padding-left: 0;
+                    padding-right: 20px;
+                }
+            }
+
+            .coupon-action-buttons {
+                margin-top: 29px;
+
+                .action-edit {
+
+                    @media (max-width: $screen-xs-max) {
+                        margin-bottom: 16px;
+                    }
+
+                    @media (min-width: $screen-sm-min) {
+                        margin-right: 24px;
+                    }
+                }
+
+                .btn {
+                    @media (max-width: $screen-xs-max) {
+                        width: 100%;
+                    }
+                }
+            }
+        }
+    }
+}

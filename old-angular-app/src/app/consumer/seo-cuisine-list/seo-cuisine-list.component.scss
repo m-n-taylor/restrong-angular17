@@ -1,0 +1,164 @@
+.seo-cuisine-list-page {
+
+    .main-contents {
+        padding: 48px;
+
+        .browse-by-heading {
+            font-weight: $lato-bold;
+            margin: 48px 0 12px;
+        }
+
+        .top-section-container {
+            margin: 0 auto;
+
+            $cuisine-item-margin: 5px;
+            $cuisine-item-width: 300px;
+            width: 100%;
+
+            @media (min-width: $screen-sm-min) {
+                // Show 2 items per row
+                width: (2 * $cuisine-item-width) + (2 * $cuisine-item-margin);
+            }
+
+            @media (min-width: $screen-md-min) {
+                // Show 3 items per row
+                width: 3 * $cuisine-item-width + (3 * $cuisine-item-margin);
+            }
+
+            @media (min-width: $screen-lg-min + 100px) {
+                // Show 4 items per row
+                width: 4 * $cuisine-item-width + (4 * $cuisine-item-margin);
+            }
+
+            @media (min-width: $screen-lg-min + 400px) {
+                // Show 5 items per row
+                width: 5 * $cuisine-item-width + (5 * $cuisine-item-margin);
+            }
+
+            .breadcrumb-container {
+                margin: 0;
+            }
+
+            .links-container {
+
+                .section-title {
+                    text-align: center;
+                    font-weight: $lato-black;
+                    text-transform: capitalize;
+                }
+
+                .section-subtitle {
+                    font-weight: $lato-bold;
+                    margin-bottom: 16px;
+                }
+
+                .chips-container {
+
+                    .chips {
+                        padding-left: 0;
+
+                        .chip-item {
+                            display: inline-block;
+                            margin: 5px;
+
+                            a {
+                                text-decoration: none;
+                            }
+                        }
+                    }
+                }
+
+                .section-links {
+                    margin-top: 13px;
+
+                    .section-link {
+                        margin-bottom: 8px;
+                    }
+                }
+            }
+
+            .cuisine-list {
+
+                .cuisine-item {
+                    cursor: pointer;
+                    padding: 27px 0 0;
+                    text-align: center;
+                    border: 1px solid #DBDBDB;
+                    margin-left: -1px;
+                    margin-top: -1px;
+
+                    height: 140px;
+                    float: left;
+                    width: 100%;
+
+                    @media (min-width: $screen-sm-min) {
+                        // width: $cuisine-item-width;
+                        // margin-right: $cuisine-item-margin;
+                        // margin-bottom: $cuisine-item-margin;
+
+                        width: 120px;
+                    }
+
+                    .cuisine-img {
+                        width: 48px;
+                        height: 48px; 
+                        margin: 0 auto;
+                    }
+
+                    .cuisine-name,
+                    .cuisine-count {
+                        font-size: 12px;
+                    }
+
+                    .cuisine-name {
+                        margin-top: 4px;
+                    }
+                }
+            }
+        }
+
+        .dish-list {
+            margin: 0 auto;
+            margin-top: 24px;
+
+            $dish-item-margin: 5px;
+            $dish-item-width: 300px;
+            width: 100%;
+
+            @media (min-width: $screen-sm-min) {
+                // Show 2 items per row
+                width: (2 * $dish-item-width) + (2 * $dish-item-margin);
+            }
+
+            @media (min-width: $screen-md-min) {
+                // Show 3 items per row
+                width: 3 * $dish-item-width + (3 * $dish-item-margin);
+            }
+
+            @media (min-width: $screen-lg-min + 100px) {
+                // Show 4 items per row
+                width: 4 * $dish-item-width + (4 * $dish-item-margin);
+            }
+
+            @media (min-width: $screen-lg-min + 400px) {
+                // Show 5 items per row
+                width: 5 * $dish-item-width + (5 * $dish-item-margin);
+            }
+
+            dish-item {
+                .dish-item {
+                    height: 200px;
+                    float: left;
+                    width: 100%;
+                    margin-bottom: 24px;
+
+                    @media (min-width: $screen-sm-min) {
+                        width: $dish-item-width;
+                        margin-right: $dish-item-margin;
+                        margin-bottom: $dish-item-margin;
+                    }
+                }
+            }
+        }
+    }
+}

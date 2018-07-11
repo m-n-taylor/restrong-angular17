@@ -1,0 +1,69 @@
+<div class="style-css-container menu-css-container">
+    <!--[if lte IE 8]>
+        <p class="chromeframe">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a>.</p>
+    <![endif]-->
+
+    <div class="layer"></div>
+    <!-- Menu mask -->
+
+    <!-- Header ================================================== -->
+    <header>
+        <div class="container">
+            <div class="row">
+                <div class="col--md-4 col-sm-3 col-xs-4">
+                    <div id="logo">
+                        <a routerLink="/" title="Menus - Worlds Biggest Kitchen"><img src="img/logo.png"></a>
+                    </div>
+                </div>
+                <nav class="col--md-8 col-sm-9 col-xs-8">
+                    <ul id="primary_nav">
+                        <li id="wishlist" (click)="openShoppingCart()"><a >Cart ({{ shoppingCart.totalMenuItems }})</a>
+                        </li>
+                        <li id="login" *ngIf="!userService.loginUser"><a routerLink="/login">Login </a></li>
+                        <li *ngIf="userService.loginUser"><a href="javascript:void(0);" (click)="logout()">Logout </a></li>
+                    </ul>
+                    <a class="cmn-toggle-switch cmn-toggle-switch__htx open_close" href="javascript:void(0);"><span>Menu mobile</span></a>
+                    <div class="main-menu">
+                        <div id="header_menu">
+                            <!--<img src="img/logo_2.png" alt="img" data-retina="true" width="170" height="30">-->
+                        </div>
+                        <a href="#" class="open_close" id="close_in"><i class="icon_close"></i></a>
+                        <ul>
+                            <li>
+                                <a routerLink="/">Home</a>
+                            </li>
+                            <li class="submenu">
+                                <a href="javascript:void(0);" class="show-submenu">Search Menus<i class="icon-down-open-mini"></i></a>
+                                <ul>
+                                    <li><a href="#">Search Cuisines</a>
+                                    </li>
+                                    <li><a href="#">Search Dishes</a>
+                                    </li>
+                                    <li><a href="#">Search Resturants</a>
+                                    </li>
+                                    <li><a href="#">Search Delivery</a>
+                                    </li>
+                                </ul>
+                            </li>
+                            <li class="submenu" *ngIf="userService.loginUser">
+                                <a href="javascript:void(0);" class="show-submenu">{{ userService.loginUser?.FirstName }} {{ userService.loginUser?.LastName }}<i class="icon-down-open-mini"></i></a>
+                                <ul>
+                                    <li><a routerLink="/user-addresses">My Addresses</a></li>
+                                    <li><a routerLink="/user-payments">My Wallet</a></li>
+                                    <li><a routerLink="/past-orders">Past Orders</a></li>
+                                    <li *ngIf="!userService.loginUser.sn_id"><a routerLink="/change-password">Change Password</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End main-menu -->
+                </nav>
+            </div>
+            <!-- End row -->
+        </div>
+        <!-- End container -->
+    </header>
+    <!-- End Header =============================================== -->
+    <shopping-cart-modal #shoppingCartModal></shopping-cart-modal>    
+</div>
+<router-outlet></router-outlet>

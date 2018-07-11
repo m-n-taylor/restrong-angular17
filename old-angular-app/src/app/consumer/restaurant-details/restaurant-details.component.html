@@ -1,0 +1,107 @@
+<div class="page restaurant-details-page">
+
+    <page-loader *ngIf="busy" center="page"></page-loader>
+
+    <div class="header-logo-section">
+        <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus"></a>
+    </div>
+
+    <div [hidden]="busy">
+        <div class="rest-details-section clearfix">
+            <div class="menu-item-img-container">
+                <div *ngIf="currentRestaurant.MenuImageExist || currentRestaurant.RestImageExist" class="menu-item-img">
+                    <img src="{{ constants.SERVER_URL + '/' + currentRestaurant.FileName }}" alt="{{ currentRestaurant.MenuItemName }}" />
+                </div>
+                <!-- <div *ngIf="currentRestaurant.MenuImageExist || currentRestaurant.RestImageExist" class="menu-item-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + currentRestaurant.FileName + ')'}"></div> -->
+
+                <div *ngIf="!currentRestaurant.MenuImageExist && !currentRestaurant.RestImageExist" class="item-cuisine-icon-parent clearfix">
+                    <div class="cuisine-icon-{{currentRestaurant.CuisineID}} item-cuisine-icon"></div>
+                </div>
+            </div>
+
+            <div class="rest-details">
+                <div class="rest-name">{{ currentRestaurant.RestaurantName }}</div>
+                <div class="rest-info">{{ currentRestaurant.CuisineName }} • {{ currentRestaurant.SegmentName }}</div>
+                <div class="rest-info"><span *ngIf="currentRestaurant.DeliveryCharge">Delivery Fee ${{ currentRestaurant.DeliveryCharge }}</span><span *ngIf="currentRestaurant.DeliveryCharge && currentRestaurant.MinOrder"> • </span><span *ngIf="currentRestaurant.MinOrder">Min Order ${{ currentRestaurant.MinOrder }}</span></div>
+                <div *ngIf="currentRestaurant.ETA" class="rest-info">ETA {{ currentRestaurant.ETA }}</div>
+            </div>
+        </div>
+
+        <ul class="nav nav-pills rest-menu-tabs" role="tablist">
+            <li *ngFor="let masterHead of masterHeads" [ngClass]="{'active': selectedMasterHead.Mhid == masterHead.Mhid}" (click)="chooseMasterHead(masterHead)"><a>{{ masterHead.MasterHeading }} ({{ masterHead.ItemCount }})</a></li>
+        </ul>
+
+        <div class="rest-menu-section clearfix">
+            <!--<div class="col-sm-3">
+            <div class="card filters-section">
+                <h4>Filters</h4>
+
+                <div class="row m-t-20">
+                    <div class="col-md-12">
+                        <div class="radio" *ngFor="let masterHead of masterHeads">
+                            <label>
+                                <input type="radio" name="masterHeadRadios" [(ngModel)]="selectedMasterHead.Mhid" [value]="masterHead.Mhid" (click)="chooseMasterHead(masterHead)" />
+                                {{ masterHead.MasterHeading }} ({{ masterHead.ItemCount }})
+                            </label>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="text-right">
+                </div>
+
+            </div>
+        </div>-->
+            <div class="left-side">
+
+                <div class="rest-search-box">
+                    <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchTextChanged()" placeholder="Search Menu">
+                </div>
+
+                <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+
+                <div class="menu-list" *ngFor="let head of selectedMasterHead.filteredHeads" [hidden]="!head.menuItems.length">
+                    <div class="head-name">{{ head.Heading }}</div>
+
+                    <div class="menu-item clearfix" *ngFor="let menuItem of head.menuItems">
+                        <div *ngIf="menuItem.MenuImageExist" class="menu-item-img-container">
+                            <img class="menu-item-img obj-fit-cover" src="{{constants.SERVER_URL}}/{{menuItem.FileName}}" alt="{{ menuItem.RestaurantName }}">
+                        </div>
+
+                        <div class="menu-item-details">
+                            <div class="clearfix">
+                                <div class="menu-item-name">{{ menuItem.MenuItemName }}</div>
+                                <div class="menu-item-price">${{ menuItem.Price }}</div>
+                            </div>
+
+                            <div class="menu-item-desc">{{ menuItem.MenuItemDescription }}</div>
+                        </div>
+                    </div>
+                </div>
+                <div class="loader" *ngIf="busy"></div>
+            </div>
+
+            <div class="right-side">
+                <div class="rest-map-section">
+                    <div class="rest-map-container">
+                        <div id="rest-details-map"></div>
+                        <div class="restaurant-map-icon rest-map-marker"></div>
+                    </div>
+
+                    <div class="rest-map-details">
+                        <div class="rest-address">{{ currentRestaurant.Address }}</div>
+                        <div *ngIf="currentRestaurant.Distance" class="rest-dist-away">{{ currentRestaurant.Distance }}mi away</div>
+                        <div class="rest-phone-no">{{ currentRestaurant.Phone }}</div>
+                    </div>
+                </div>
+
+                <div class="rest-heads-menu">
+                    <div class="rest-heads-menu-item clearfix" *ngFor="let head of selectedMasterHead.heads">
+                        <div class="head-name">{{ head.Heading }}</div>
+                        <div class="head-count">{{ head.ItemCount }}</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

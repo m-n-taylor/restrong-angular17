@@ -1,0 +1,49 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<!-- Map Customer Route Modal -->
+<div class="modal map-customer-route-modal fade" *ngIf="isModalOpen" [ngClass]="{ 'd-block in': isModalOpen }" (click)="close()"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title" id="myModalLabel">Map Customer Route</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <page-loader *ngIf="busy"></page-loader>
+
+                <div class="row">
+                    <div class="col-sm-4 left-side">
+                        <div class="customer-address-label">Customer Address</div>
+                        <div class="customer-address-value">{{ route.details.DeliveryAddress }}</div>
+
+                        <div class="away-rest-section">
+                            <div class="est-title">
+                                {{ route.distance }}
+                            </div>
+                            <div>away from restaurant</div>
+                        </div>
+
+                        <div class="arrival-time-section">
+                            <div class="est-title">
+                                {{ route.duration }}
+                            </div>
+                            <div>Estimate Time Arrival</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-8 right-side">
+                        <div id="customer-route-map"></div>
+                    </div>
+                </div>
+
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success btn-block close-btn" (click)="close()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

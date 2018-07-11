@@ -1,0 +1,1255 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="edit-restaurant-page">
+
+    <order-status-history-modal #orderStatusHistoryModal></order-status-history-modal>
+    <rest-contract-modal #restContractModal></rest-contract-modal>
+    <save-masterhead-modal #saveMasterHeadModal (modalEvents)="saveMasterHeadModalEvents($event)"></save-masterhead-modal>
+    <save-delivery-zone-modal #saveDeliveryZoneModal (modalEvents)="saveDeliveryZoneModalEvents($event)"></save-delivery-zone-modal>
+    <save-schedule-modal #saveScheduleModal (modalEvents)="saveScheduleModalEvents($event)"></save-schedule-modal>
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <div class="main-contents">
+
+        <div *ngIf="busy" class="main-page-loader">
+            <page-loader></page-loader>
+        </div>
+
+        <div *ngIf="!busy" class="page-title-section">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-text cursor-default">{{ restInfoTab.rest.Name }}
+                        <span [ngClass]="{ 'text-success': restInfoTab.rest.Enabled, 'text-danger': !restInfoTab.rest.Enabled }">{{ restInfoTab.rest.Enabled ? 'Enabled' : 'Disabled' }}</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div *ngIf="ordersTab.unReadCount > 0" class="alert alert-primary text-center f-black alert-new-orders" (click)="selectTab(TAB_ORDERS, true)">You have {{ ordersTab.unReadCount }} New Order
+            <span *ngIf="ordersTab.unReadCount > 1">s</span>
+        </div>
+
+        <!-- Nav tabs -->
+        <ul *ngIf="userService.loginUser.ShowRestTabNav" class="nav nav-pills scrollable" [hidden]="busy">
+            <li *ngIf="userService.isAdmin" [ngClass]="{ 'active': activeTab == TAB_REST_INFO }">
+                <a (click)="selectTab(TAB_REST_INFO)" aria-controls="restInfo">Restaurant Info</a>
+            </li>
+            <li [ngClass]="{ 'active': activeTab == TAB_CHARTS }">
+                <a (click)="selectTab(TAB_CHARTS)" aria-controls="charts-graphs">MenuSense &trade;</a>
+            </li>
+            <li [ngClass]="{ 'active': activeTab == TAB_PREVIEW }">
+                <a (click)="selectTab(TAB_PREVIEW)" aria-controls="preview">Preview</a>
+            </li>
+            <li *ngIf="userService.isAdmin" [ngClass]="{ 'active': activeTab == TAB_MENUS, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_MENUS, true)" aria-controls="menus">Menus</a>
+            </li>
+            <li [ngClass]="{ 'active': activeTab == TAB_ORDERS, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_ORDERS, true)" aria-controls="orders">Orders</a>
+            </li>
+            <li *ngIf="userService.isAdmin" [ngClass]="{ 'active': activeTab == TAB_COUPONS, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_COUPONS, true)" aria-controls="coupons">Coupons</a>
+            </li>
+            <li *ngIf="userService.isAdmin" [ngClass]="{ 'active': activeTab == TAB_FIN_REPORT, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_FIN_REPORT, true)" aria-controls="fin-reports">Financial Reports</a>
+            </li>
+            <li *ngIf="userService.isAdmin" [ngClass]="{ 'active': activeTab == TAB_FIN_STATEMENT, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_FIN_STATEMENT, true)" aria-controls="fin-statements">Financial Statements</a>
+            </li>
+            <li [ngClass]="{ 'active': activeTab == TAB_CUSTOMER_REVIEW, 'disabled': !restInfoTab.rest.EnableOnlineOrdering }">
+                <a (click)="selectTab(TAB_CUSTOMER_REVIEW, true)" aria-controls="customer-reviews">Customer Reviews</a>
+            </li>
+        </ul>
+
+        <!-- Tab panes -->
+        <div *ngIf="userService.isAdmin && activeTab == TAB_REST_INFO" class="rest-info-tab-pane">
+
+            <page-loader *ngIf="restInfoTab.busy"></page-loader>
+
+            <div>
+                <div class="rest-right-nav" [class.fixed-nav]="restInfoTab.isNavFixed">
+                    <a *ngFor="let item of restInfoTab.navItemList" class="h-link">
+                        <div *ngIf="item.heading" class="rest-nav-heading {{ item.class }}">{{ item.heading }}</div>
+                        <div *ngIf="item.label" (click)="scrollTo(item.scrollSectionID)" class="rest-nav-item" [ngClass]="{ 'active': restInfoTab.activeNavItemID ==  item.scrollSectionID}">{{ item.label }}</div>
+                    </a>
+                </div>
+
+                <form #restInfoForm="ngForm" (ngSubmit)="saveRestInfo($event, restInfoForm)">
+                    <div id="restaurant-details-section">
+
+                        <div *ngIf="!restInfoTab.rest.EnableOnlineOrdering">
+                            <div class="section-heading">Online Ordering</div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="online-ordering-note">
+                                        <div class="row">
+                                            <div class="col-sm-6 col-lg-7 online-ordering-text">You need to active online ordering before you can edit information</div>
+                                            <div class="col-sm-6 col-lg-5 active-online-ordering-wrapper">
+                                                <button [ladda]="busyEnableOrdering" type="button" *ngIf="!restInfoTab.rest.EnableOnlineOrdering" class="btn btn-success" (click)="enableOrdering()">Active Online Ordering</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div *ngIf="restInfoTab.rest.EnableOnlineOrdering">
+
+                            <div class="section-heading">Restaurant Status</div>
+
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <div class="online-ordering-section">
+                                        <div class="row">
+                                            <div class="col-xs-9">
+                                                <span *ngIf="!restInfoTab.rest.Enabled">Thanks for activation Online ordering, please review your Restaurant/Menus
+                                                    Information and fill up required data.</span>
+                                                <span>{{ restInfoTab.rest.Enabled ? 'Disable' : 'Enable' }} Online ordering</span>
+                                            </div>
+                                            <div class="col-xs-3 text-right">
+                                                <m-checkbox toggle=true [(value)]="restInfoTab.rest.Enabled" (valueChange)="enableRestaurant(restInfoForm)"></m-checkbox>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="section-heading">Restaurant Details</div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Name) }">
+                                    <label>Name</label>
+                                    <input type="text" class="form-control" name="Name" required #Name="ngModel" [(ngModel)]="restInfoTab.rest.Name" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" />
+
+                                    <validation-messages [form]="restInfoForm" [input]="Name" label="Name"></validation-messages>
+                                </div>
+
+                                <div class="form-group input-container">
+                                    <label>Keywords (optional)</label>
+                                    <input type="text" class="form-control" name="Keywords" [(ngModel)]="restInfoTab.rest.Keywords" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" />
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="photo-upload-container input-container">
+                                    <div>Photo</div>
+                                    <div class="photo-viewer" [ngClass]="{ 'photo-exist': restInfoTab.rest.RestImageExist }">
+                                        <img *ngIf="!restInfoTab.rest.RestImageExist" src="img/ro/photo-placeholder.svg" alt="Photo Placeholder">
+                                        <img *ngIf="restInfoTab.rest.RestImageExist" [src]="restInfoTab.rest.FileName" [alt]="restInfoTab.rest.Name">
+                                    </div>
+
+                                    <div *ngIf="restInfoTab.rest.EnableOnlineOrdering">
+
+                                        <label class="file-upload-label">
+                                            <input type="file" (change)="uploadRestImage()" #restImageInput />
+                                            <span>Upload</span>
+                                        </label>
+
+                                        <div *ngIf="restInfoTab.rest.RestImageExist" class="delete-image">
+                                            <button type="button" class="btn btn-danger btn-sm" (click)="deleteRestImage()">Remove</button>
+                                        </div>
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container">
+                                    <label>Description (optional)</label>
+                                    <textarea class="form-control" name="Description" [(ngModel)]="restInfoTab.rest.Description" cols="30" rows="6" [disabled]="!restInfoTab.rest.EnableOnlineOrdering"></textarea>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="restaurant-address-section">
+                        <div class="section-heading">Restaurant Address</div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Address_1) }">
+                                    <label>Address 1</label>
+                                    <input type="text" class="form-control" name="Address_1" required #Address_1="ngModel" [(ngModel)]="restInfoTab.rest.Address_1" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="Address_1" label="Address 1"></validation-messages>
+                                </div>
+
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, City) }">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" name="City" required #City="ngModel" [(ngModel)]="restInfoTab.rest.City" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="City" label="City"></validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container">
+                                    <label>Address 2 (optional)</label>
+                                    <input type="text" class="form-control" name="Address_2" [(ngModel)]="restInfoTab.rest.Address_2" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                                <div class="row input-container">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <m-select [items]="stateList" [error]="restInfoTab.stateError" [itemLabelProp]="'State'"></m-select>
+                                        </div>
+                                        <!--<div class="form-group" [ngClass]="{ 'has-error': input.hasError(restInfoForm, State) }">
+                                            <label>State</label>
+
+                                            <input type="text" class="form-control" name="State" required mValidState #State="ngModel" [(ngModel)]="restInfoTab.rest.State" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="State" label="State"></validation-messages>
+                                        </div>-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(restInfoForm, ZipCode) }">
+                                            <label>Zip</label>
+                                            <input type="text" class="form-control" name="ZipCode" required mValidZipCode #ZipCode="ngModel" [(ngModel)]="restInfoTab.rest.ZipCode" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="ZipCode" label="Zip Code"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="restaurant-contacts-section">
+                        <div class="section-heading">Restaurant Contacts</div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Phone) }">
+                                    <label>Phone</label>
+                                    <input type="text" class="form-control" name="Phone" required mValidPhone #Phone="ngModel" [(ngModel)]="restInfoTab.rest.Phone" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="Phone" label="Phone"></validation-messages>
+                                </div>
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Mobile) }">
+                                    <label>Mobile (optional)</label>
+                                    <input type="text" class="form-control" name="Mobile" mValidPhone #Mobile="ngModel" [(ngModel)]="restInfoTab.rest.Mobile" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="Mobile" label="Mobile"></validation-messages>
+                                </div>
+
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Fax) }">
+                                    <label>Fax (optional)</label>
+                                    <input type="text" class="form-control" name="Fax" mValidPhone #Fax="ngModel" [(ngModel)]="restInfoTab.rest.Fax" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="Fax" label="Fax"></validation-messages>
+                                </div>
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, Email) }">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" name="Email" required mValidEmail #Email="ngModel" [(ngModel)]="restInfoTab.rest.Email" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="Email" label="Email"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="contact-details-section">
+                        <div class="section-heading">Contact Details</div>
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_FirstName) }">
+                                    <label>First Name</label>
+                                    <input type="text" class="form-control" name="CI_FirstName" required #CI_FirstName="ngModel" [(ngModel)]="restInfoTab.rest.CI_FirstName" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_FirstName" label="First Name"></validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_LastName) }">
+                                    <label>Last Name</label>
+                                    <input type="text" class="form-control" name="CI_LastName" required #CI_LastName="ngModel" [(ngModel)]="restInfoTab.rest.CI_LastName" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_LastName" label="Last Name"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_Address) }">
+                                    <label>Address</label>
+                                    <input type="text" class="form-control" name="CI_Address" required #CI_Address="ngModel" [(ngModel)]="restInfoTab.rest.CI_Address" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_Address" label="Address"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_City) }">
+                                    <label>City</label>
+                                    <input type="text" class="form-control" name="CI_City" required #CI_City="ngModel" [(ngModel)]="restInfoTab.rest.CI_City" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_City" label="City"></validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="row input-container">
+                                    <div class="col-sm-6">
+                                        <div class="form-group">
+                                            <label>State</label>
+                                            <m-select [items]="CIStateList" [error]="restInfoTab.CIStateError" [itemLabelProp]="'State'"></m-select>
+                                        </div>
+                                        <!--<div class="form-group" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_State) }">
+                                            <label>State</label>
+                                            <input type="text" class="form-control" name="CI_State" required mValidState #CI_State="ngModel" [(ngModel)]="restInfoTab.rest.CI_State" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="CI_State" label="State"></validation-messages>
+                                        </div>-->
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_ZipCode) }">
+                                            <label>Zip</label>
+                                            <input type="text" class="form-control" name="CI_ZipCode" required mValidZipCode #CI_ZipCode="ngModel" [(ngModel)]="restInfoTab.rest.CI_ZipCode" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="CI_ZipCode" label="Zip Code"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_ContactNo) }">
+                                    <label>Contact # (optional)</label>
+                                    <input type="text" class="form-control" mValidPhone #CI_ContactNo="ngModel" name="CI_ContactNo" [(ngModel)]="restInfoTab.rest.CI_ContactNo" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_ContactNo" label="Contact #"></validation-messages>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, CI_Email) }">
+                                    <label>Email</label>
+                                    <input type="text" class="form-control" required mValidEmail #CI_Email="ngModel" name="CI_Email" [(ngModel)]="restInfoTab.rest.CI_Email" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="CI_Email" label="Email"></validation-messages>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <label>Date of birth</label>
+                                <!--  (valueChange)="validateRangeDate()" [error]="rangeDateError"  [disabled]="coupon.DurationType != DURATION_TYPE_DATE || !canUpdateCoupon" -->
+                                <m-datetime [(value)]="restInfoTab.rest.BirthDate" [options]="restInfoTab.birthdayDTOptions"></m-datetime>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container">
+                                    <label>Webmaster Name (optional)</label>
+                                    <input type="text" class="form-control" name="CI_Webmaster_Name" [(ngModel)]="restInfoTab.rest.CI_Webmaster_Name" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="account-information-section">
+                        <div class="section-heading">Account Information</div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container">
+                                    <label>Legal Name</label>
+                                    <input type="text" class="form-control" name="LegalName" [(ngModel)]="restInfoTab.rest.LegalName" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, AccountNumberRef) }">
+                                    <label>Account Number (optional)</label>
+                                    <input type="text" class="form-control" name="AccountNumber" mValidateEqual="ConfirmAccountNumber" reverse="true" #AccountNumberRef="ngModel" [(ngModel)]="restInfoTab.rest.AccountNumber" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="AccountNumberRef" label="Account Number" labelEqual="Confirm Account Number"></validation-messages>
+                                </div>
+                                <div class="form-group input-container">
+                                    <label>Routing Number (optional)</label>
+                                    <input type="text" class="form-control" name="RoutingNumber" [(ngModel)]="restInfoTab.rest.RoutingNumber" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                                <!-- <div class="form-group input-container">
+                                    <label>Payment Status</label>
+                                    <input type="text" class="form-control" name="PaymentStatus" [(ngModel)]="restInfoTab.rest.Braintree_Onboard_Status" [disabled]="true">
+                                </div> -->
+                                <div class="form-group input-container">
+                                    <label>Payment Status</label>
+                                    <div class="braintree-status">
+                                        {{ constants.BRAINTREE_PAYMENT_STATUS[restInfoTab.rest.Braintree_Onboard_Status] }}
+                                    </div>
+                                    <div *ngIf="restInfoTab.rest.Braintree_Onboard_Message" class="help-block c-danger">{{ restInfoTab.rest.Braintree_Onboard_Message }}</div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="form-group input-container">
+                                    <label>Account Name (optional)</label>
+                                    <input type="text" class="form-control" name="AccountName" [(ngModel)]="restInfoTab.rest.AccountName" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                                <!-- <div class="form-group input-container">
+                                    <label>Business Information (optional)</label>
+                                    <input type="text" class="form-control" name="BusinessInfo" [(ngModel)]="restInfoTab.rest.BusinessInfo" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div> -->
+                                <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, ConfirmAccountNumberRef) }">
+                                    <label>Confirm Account Number (optional)</label>
+                                    <input type="text" class="form-control" name="ConfirmAccountNumber" mValidateEqual="AccountNumber" #ConfirmAccountNumberRef="ngModel" [(ngModel)]="restInfoTab.rest.ConfirmAccountNumber" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                    <validation-messages [form]="restInfoForm" [input]="ConfirmAccountNumberRef" label="Confirm Account Number" labelEqual="Account Number"></validation-messages>
+                                </div>
+                                <div class="form-group input-container">
+                                    <label>TIN Number (optional)</label>
+                                    <input type="text" class="form-control" name="TIN" [(ngModel)]="restInfoTab.rest.TIN" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="tax-settings-section" class="tax-settings-section">
+                        <div class="section-heading">Tax Settings</div>
+
+                        <div class="row">
+                            <div class="col-md-6 col-lg-4">
+                                <div class="tax-container">
+                                    {{ restInfoTab.rest.Tax | percent }}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="settings-section">
+                        <div class="section-heading">Order Settings</div>
+
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="row">
+                                    <div class="col-sm-6 col-md-6 col-lg-6 input-container">
+                                        <m-checkbox text="Call On New Order" toggle=true [(value)]="restInfoTab.rest.CallOnNewOrder"></m-checkbox>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 input-container">
+                                        <m-checkbox text="Email On New Order" toggle=true [(value)]="restInfoTab.rest.EmailOnNewOrder"></m-checkbox>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 input-container">
+                                        <m-checkbox text="Fax On New Order" toggle=true [(value)]="restInfoTab.rest.FaxOnNewOrder"></m-checkbox>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 input-container">
+                                        <m-checkbox text="Sms On New Order" toggle=true [(value)]="restInfoTab.rest.SMSOnNewOrder"></m-checkbox>
+                                    </div>
+                                    <div class="col-sm-6 col-md-6 col-lg-6 input-container">
+                                        <m-checkbox text="Auto Accept New Order" toggle=true [(value)]="restInfoTab.rest.AutoAcceptNewOrder"></m-checkbox>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="row input-container">
+                            <div class="col-md-6 col-lg-4">
+                                <div *ngIf="restInfoTab.subscription.AllowDelivery" class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, MinOrderRef) }">
+                                    <label>Minimum Order ($)</label>
+                                    <input type="number" class="form-control" name="MinOrder" required [gte]="0" number #MinOrderRef="ngModel" [(ngModel)]="restInfoTab.rest.MinOrder" [disabled]="!restInfoTab.rest.EnableOnlineOrdering || !restInfoTab.subscription.AllowDelivery">
+
+                                    <validation-messages [form]="restInfoForm" [input]="MinOrderRef" label="Min Order" valueGTE="0"></validation-messages>
+                                </div>
+
+                                <!-- <div class="form-group input-container">
+                                        <label>Subscription</label>
+                                        <select class="form-control" name="SubscriptionID" [(ngModel)]="restInfoTab.rest.SubscriptionID" (ngModelChange)="onSubscriptionChange()"
+                                            [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                            <option *ngFor="let item of sharedDataService.globalSettings.Subscription" [value]="item.ID">{{ item.Name }}</option>
+                                        </select>
+                                    </div> -->
+
+                                <div class="form-group input-container subscription-select">
+                                    <label>Subscription - {{ restInfoTab.subscription.type }}</label>
+                                    <select class="form-control" name="SubscriptionID" [(ngModel)]="restInfoTab.rest.SubscriptionID" (ngModelChange)="onSubscriptionChange()" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+                                        <optgroup *ngFor="let item of pricingList" [label]="item.name">
+                                            <option *ngFor="let plan of item.Details" [value]="plan.ID">{{ plan.Name }}</option>
+                                        </optgroup>
+                                    </select>
+                                    <div class="help-block more-pricing-info">For more info
+                                        <a routerLink="{{ pricingLink }}" target="_blank">see our pricing</a>
+                                    </div>
+                                </div>
+
+                                <!--<div *ngIf="restInfoTab.rest.SubscriptionID == constants.RO_SUB_BASIC" class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, DeliveryCharge) }">
+                                        <label>Delivery Charge ($) (Payable by Customer)</label>
+                                        <input type="number" class="form-control" name="DeliveryCharge" required [gte]="0" number #DeliveryCharge="ngModel" [(ngModel)]="restInfoTab.rest.DeliveryCharge" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+    
+                                        <validation-messages [form]="restInfoForm" [input]="DeliveryCharge" label="Delivery Charge" valueGTE="0"></validation-messages>
+                                    </div>-->
+
+                                <div class="row" *ngIf="restInfoTab.subscription.Fee_Delivery">
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container">
+                                            <label>Delivery Charge ($)</label>
+                                            <input type="text" class="form-control" name="DeliveryCharge1" [(ngModel)]="restInfoTab.subscription.Fee_Delivery" [disabled]="true">
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, WaivedDeliveryChargeRef) }">
+                                            <label>Waived Delivery (%) = {{ restInfoTab.rest.WaivedDeliveryCharge * (restInfoTab.subscription.Fee_Delivery
+                                                / 100) | currency:'USD': true }}</label>
+                                            <input type="number" class="form-control" name="WaivedDeliveryCharge" required [gte]="0" [lte]="100" number #WaivedDeliveryChargeRef="ngModel" [(ngModel)]="restInfoTab.rest.WaivedDeliveryCharge">
+
+                                            <validation-messages [form]="restInfoForm" [input]="WaivedDeliveryChargeRef" label="Waived Delivery Charge" valueGTE="0" valueLTE="100"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-6 col-lg-4">
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, DeliveryTime_Min) }">
+                                            <label>Delivery Time (Min)</label>
+                                            <input type="number" class="form-control" name="DeliveryTime_Min" required [gte]="0" number #DeliveryTime_Min="ngModel" [(ngModel)]="restInfoTab.rest.DeliveryTime_Min" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="DeliveryTime_Min" label="Delivery Time (Min)" [valueGTE]="0"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, DeliveryTime_Max) }">
+                                            <label>Delivery Time (Max)</label>
+                                            <input type="number" class="form-control" name="DeliveryTime_Max" required number #DeliveryTime_Max="ngModel" [(ngModel)]="restInfoTab.rest.DeliveryTime_Max" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="DeliveryTime_Max" label="Delivery Time (Max)"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, PickupTime_Min) }">
+                                            <label>Pickup Time (Min)</label>
+                                            <input type="number" class="form-control" name="PickupTime_Min" required [gt]="0" number #PickupTime_Min="ngModel" [(ngModel)]="restInfoTab.rest.PickupTime_Min" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="PickupTime_Min" label="Pickup Time (Min)" valueGT="0"></validation-messages>
+                                        </div>
+                                    </div>
+                                    <div class="col-sm-6">
+                                        <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(restInfoForm, PickupTime_Max) }">
+                                            <label>Pickup Time (Max)</label>
+                                            <input type="number" class="form-control" name="PickupTime_Max" required number #PickupTime_Max="ngModel" [(ngModel)]="restInfoTab.rest.PickupTime_Max" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                            <validation-messages [form]="restInfoForm" [input]="PickupTime_Max" label="Pickup Time (Max)"></validation-messages>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="row">
+                                    <div *ngIf="restInfoTab.subscription.ServiceFeePercent" class="col-sm-6">
+                                        <div class="form-group input-container">
+                                            <label>Service Charge (%)</label>
+                                            <input type="text" class="form-control" name="ServiceFeePercent" [(ngModel)]="restInfoTab.subscription.ServiceFeePercent" [disabled]="true">
+                                        </div>
+                                    </div>
+                                    <div *ngIf="restInfoTab.subscription.Delivery_by" class="col-sm-6">
+                                        <div class="form-group input-container">
+                                            <label>Delivery By</label>
+                                            <input type="text" class="form-control" name="DeliveryBy" [(ngModel)]="restInfoTab.subscription.Delivery_by" [disabled]="true">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="delivery-zone-section" class="delivery-zone-section">
+                        <div class="section-heading">Delivery Zone</div>
+                        <div *ngIf="!restInfoTab.subscription.AllowDelivery">Delivery Zone is not available in {{ restInfoTab.subscription.Name }} subscription.</div>
+
+                        <div *ngIf="restInfoTab.subscription.AllowDelivery" class="row">
+                            <div class="col-lg-8">
+                                <div class="delivery-zone-list-table">
+                                    <table class="table table-striped table-center" dnd-sortable-container [sortableData]="restInfoTab.deliveryZoneList">
+                                        <tr>
+                                            <th>Name</th>
+                                            <th class="hidden-xs">Min Order</th>
+                                            <th class="hidden-xs">Delivery Charge</th>
+                                            <th>Type</th>
+                                            <th>Active</th>
+                                            <th>Delete</th>
+                                        </tr>
+
+                                        <tr class="text-center" *ngIf="!restInfoTab.deliveryZoneList.length">
+                                            <td colspan="9">No Records to display</td>
+                                        </tr>
+
+                                        <tr *ngFor="let item of restInfoTab.deliveryZoneList; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onDeliveryZoneDragSuccess($event)" (click)="openSaveDeliveryZoneModal(item)">
+                                            <td class="f-bold">{{ item.Name }}</td>
+                                            <td class="hidden-xs">${{ item.MinimumOrderCost }}</td>
+                                            <td class="hidden-xs">${{ item.DeliveryCharge }}</td>
+                                            <td>{{ item.ZoneType == constants.ZONE_TYPE_POLYGON ? 'Polygon' : 'Circle (' + item.CircleRadius + ' miles)' }}
+                                            </td>
+                                            <td mStopEvent>
+                                                <m-checkbox toggle=true [(value)]="item.Enabled"></m-checkbox>
+                                            </td>
+                                            <td mStopEvent>
+                                                <div class="delete-time-icon" (click)="deleteDeliveryZone(index, item)"></div>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div class="delivery-zone-action-buttons">
+                                    <button *ngIf="restInfoTab.rest.EnableOnlineOrdering" type="button" class="btn btn-success" (click)="openSaveDeliveryZoneModal()">Add Delivery Zone</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="working-hours-section">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="section-heading">Working Hours</div>
+
+                                <div>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>From</th>
+                                            <th>Open Time</th>
+                                            <th>To</th>
+                                            <th>Close Time</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Add more Time</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Active</th>
+                                        </tr>
+
+                                        <tbody *ngFor="let item of restInfoTab.WorkingHours;">
+
+                                            <tr *ngFor="let dayDetail of item.DayDetails; let index = index">
+                                                <td>
+                                                    <div>{{ dayDetail.dayIDFrom ? constants.WEEK_DAYS[dayDetail.dayIDFrom] : '' }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="!dayDetail.editMode" (click)="toggleItemEditMode(dayDetail)">{{ dayDetail.Opening_Time }}</div>
+                                                    <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Opening_Time" [error]="dayDetail.openingTimeError" [options]="restInfoTab.workingHoursDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateWorkingHoursValidation()"></m-datetime>
+                                                </td>
+                                                <td>
+                                                    <div>{{ dayDetail.dayIDTo ? constants.WEEK_DAYS[dayDetail.dayIDTo] : '' }}</div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="!dayDetail.editMode" (click)="toggleItemEditMode(dayDetail)">{{ dayDetail.Closing_Time }}</div>
+                                                    <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Closing_Time" [error]="dayDetail.closingTimeError" [options]="restInfoTab.workingHoursDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateWorkingHoursValidation()"></m-datetime>
+                                                </td>
+                                                <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                    <div *ngIf="index == 0" class="add-time-icon" (click)="addHour(index, item, true)"></div>
+                                                    <div *ngIf="index > 0" class="text-danger" (click)="deleteWorkingHour(index, item)">DELETE</div>
+                                                </td>
+                                                <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                    <m-checkbox toggle=true [(value)]="dayDetail.Enabled"></m-checkbox>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="delivery-hours-section">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="section-heading">Delivery Hours</div>
+
+                                <div>
+                                    <table class="table">
+                                        <tr>
+                                            <th>From</th>
+                                            <th>Open Time</th>
+                                            <th>To</th>
+                                            <th>Close Time</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Add more Time</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Active</th>
+                                        </tr>
+
+                                        <tbody *ngFor="let item of restInfoTab.DeliveryHours;">
+
+                                            <tr *ngFor="let dayDetail of item.DayDetails; let index = index">
+                                                <td>
+                                                    <div>{{ dayDetail.dayIDFrom ? constants.WEEK_DAYS[dayDetail.dayIDFrom] : '' }}
+                                                    </div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="!dayDetail.editMode" (click)="toggleItemEditMode(dayDetail)">{{ dayDetail.Opening_Time }}</div>
+                                                    <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Opening_Time" [error]="dayDetail.openingTimeError" [options]="restInfoTab.deliveryHoursDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateDeliveryHoursValidation()"></m-datetime>
+                                                </td>
+                                                <td>
+                                                    <div>{{ dayDetail.dayIDTo ? constants.WEEK_DAYS[dayDetail.dayIDTo] : '' }}</div>
+                                                </td>
+                                                <td>
+                                                    <div *ngIf="!dayDetail.editMode" (click)="toggleItemEditMode(dayDetail)">{{ dayDetail.Closing_Time }}</div>
+                                                    <m-datetime *ngIf="dayDetail.editMode" [(value)]="dayDetail.Closing_Time" [error]="dayDetail.closingTimeError" [options]="restInfoTab.deliveryHoursDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateDeliveryHoursValidation()"></m-datetime>
+                                                </td>
+                                                <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                    <div *ngIf="index == 0" class="add-time-icon" (click)="addHour(index, item, true)"></div>
+                                                    <div *ngIf="index > 0" class="text-danger" (click)="deleteDeliveryHour(index, item)">DELETE</div>
+                                                </td>
+                                                <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                    <m-checkbox toggle=true [(value)]="dayDetail.Enabled"></m-checkbox>
+                                                </td>
+                                            </tr>
+
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div id="holidays-section">
+                        <div class="row">
+                            <div class="col-lg-8">
+                                <div class="section-heading">Holidays</div>
+
+                                <div>
+                                    <table class="table table-striped">
+                                        <tr>
+                                            <th>Weekdays</th>
+                                            <th>Close From</th>
+                                            <th>Close To</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Add more Time</th>
+                                            <th [hidden]="!restInfoTab.rest.EnableOnlineOrdering">Active</th>
+                                        </tr>
+
+                                        <tr *ngFor="let item of restInfoTab.Holidays; let index = index">
+                                            <td>
+                                                <div *ngIf="!item.editMode" (click)="toggleItemEditMode(item)">{{ item.Name }}</div>
+                                                <div *ngIf="item.editMode" [ngClass]="{ 'has-error': input.hasError(restInfoForm, HolidayName) }">
+                                                    <input type="text" class="form-control" name="HolidayName{{ index }}" required #HolidayName="ngModel" [(ngModel)]="item.Name" [disabled]="!restInfoTab.rest.EnableOnlineOrdering">
+
+                                                    <validation-messages [form]="restInfoForm" [input]="HolidayName" label="Holiday Name"></validation-messages>
+                                                </div>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="!item.editMode" (click)="toggleItemEditMode(item)">{{ item.Date_Start | date: 'short' }}</div>
+                                                <m-datetime *ngIf="item.editMode" [(value)]="item.Date_Start" [error]="item.dateStartError" [options]="restInfoTab.holidaysDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateHolidaysValidation()"></m-datetime>
+                                            </td>
+                                            <td>
+                                                <div *ngIf="!item.editMode" (click)="toggleItemEditMode(item)">{{ item.Date_End | date: 'short' }}</div>
+                                                <m-datetime *ngIf="item.editMode" [(value)]="item.Date_End" [error]="item.dateEndError" [options]="restInfoTab.holidaysDTOptions" [disabled]="!restInfoTab.rest.EnableOnlineOrdering" (valueChange)="updateHolidaysValidation()"></m-datetime>
+                                            </td>
+                                            <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                <div *ngIf="item.ID" class="add-time-icon" (click)="addHoliday(index, true)"></div>
+                                                <div *ngIf="!item.ID" class="text-danger" (click)="deleteHoliday(index)">DELETE</div>
+                                            </td>
+                                            <td [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                                <m-checkbox toggle=true [(value)]="item.Enabled"></m-checkbox>
+                                            </td>
+                                        </tr>
+                                    </table>
+                                </div>
+
+                                <div [hidden]="!restInfoTab.rest.EnableOnlineOrdering">
+                                    <button class="btn btn-success btn-sm" type="button" (click)="addHolidayAtEnd()">Add Holiday</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div *ngIf="restInfoTab.rest.EnableOnlineOrdering" class="action-buttons-wrapper" [ngClass]="{ 'sidemenu-pl': sharedDataService.sideMenu.isOpened }">
+                        <div class="action-buttons">
+                            <button [ladda]="restInfoTab.busyRestInfo" class="btn btn-success" type="submit">Save</button>
+                        </div>
+                    </div>
+
+                </form>
+            </div>
+
+        </div>
+
+        <div *ngIf="userService.isAdmin && activeTab == TAB_MENUS" class="menus-tab-pane">
+
+            <div *ngIf="menusTab.busy">
+                <page-loader></page-loader>
+                <h3 *ngIf="menusTab.busyText" class="f-bold text-center">{{ menusTab.busyText }}</h3>
+            </div>
+
+            <div [hidden]="menusTab.busy">
+
+                <div class="menu-search-box-wrapper">
+                    <menu-search-box [fireFlyID]="fireFlyID"></menu-search-box>
+                </div>
+
+                <div *ngIf="menusTab.masterHeads.length == 0">
+
+                    <div class="no-result-placeholder">
+
+                        <div class="restaurant-menu-icon"></div>
+
+                        <div class="placeholder-title">You have no menu</div>
+                        <div class="placeholder-subtitle">Click to add a new menu.</div>
+
+                        <div class="placeholder-action-buttons">
+                            <button class="btn btn-success" (click)="openSaveMasterHeadModal()">Add New Menu</button>
+                        </div>
+                    </div>
+
+                </div>
+
+                <div *ngIf="isBrowser">
+                    <div *ngIf="menusTab.masterHeads.length > 0">
+
+                        <div>
+                            <table class="table table-striped">
+                                <tr>
+                                    <th>Menu</th>
+                                    <th class="hidden-xs">Description</th>
+                                    <th class="hidden-xs">Services</th>
+                                    <th class="hidden-xs"></th>
+                                    <th></th>
+                                    <th>Active</th>
+                                    <th>Action</th>
+                                    <th></th>
+                                </tr>
+
+                                <tbody dnd-sortable-container [sortableData]="menusTab.masterHeads">
+                                    <tr *ngFor="let masterHead of menusTab.masterHeads; let index = index" dnd-sortable [sortableIndex]="index" (onDragSuccess)="onMasterHeadDragSuccess($event)" (click)="viewMenuDetails(masterHead)">
+                                        <td class="f-bold">{{ masterHead.Name }}</td>
+                                        <td class="hidden-xs">{{ masterHead.Description }}</td>
+                                        <td class="hidden-xs">
+                                            <div class="service-type-name">Delivery
+                                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsDelivery }"></div>
+                                            </div>
+                                            <div class="service-type-name service-type-dinein">Dining-In
+                                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsDiningIn }"></div>
+                                            </div>
+                                        </td>
+                                        <td class="hidden-xs">
+                                            <div class="service-type-name">Pickup
+                                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsPickup }"></div>
+                                            </div>
+                                            <div class="service-type-name service-type-catering">Catering
+                                                <div class="status-circle" [ngClass]="{ 'active': masterHead.IsCatering }"></div>
+                                            </div>
+                                        </td>
+                                        <td mStopEvent>
+                                            <a class="h-link" (click)="openSaveScheduleModal(masterHead)">
+                                                <div class="history-icon"></div>
+                                            </a>
+                                        </td>
+                                        <td mStopEvent>
+                                            <m-checkbox toggle=true [(value)]="masterHead.Enabled" (change)="toggleActiveMasterHead(masterHead)"></m-checkbox>
+                                        </td>
+                                        <td mStopEvent>
+                                            <div class="pencil-icon" (click)="openSaveMasterHeadModal(masterHead)"></div>
+                                        </td>
+                                        <td mStopEvent>
+                                            <div class="delete-time-icon" (click)="deleteMasterHead(index, masterHead)"></div>
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+
+                        <div class="action-buttons">
+                            <button class="btn btn-success" (click)="openSaveMasterHeadModal()">Add New Menu</button>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="activeTab == TAB_ORDERS" class="orders-tab-pane">
+
+            <div>
+
+                <div class="customer-order-search" [ngClass]="{ 'filters-active': ordersTab.showFilters }">
+                    <div *ngIf="!ordersTab.showFilters" class="row search-section">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <div class="m-input-group has-addon-left has-addon-right m-input-sm">
+                                    <div class="m-input-group-addon m-addon-left">
+                                        <div class="search-icon cursor-default"></div>
+                                    </div>
+                                    <input type="text" class="form-control input-sm" name="ordersTabSearchText" [(ngModel)]="ordersTab.searchText" placeholder="Search for Order" (keyup.enter)="ordersSearchTextEnter(false)" />
+                                    <div class="m-input-group-addon m-addon-right" (click)="ordersSearchTextEnter(true)">
+                                        <div *ngIf="ordersTab.searchText.length" class="close-3-icon cursor-pointer"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 search-actions">
+                            <a [href]="ordersTab.exportURL" target="_blank" class="btn btn-success btn-inverse export-button">Export</a>
+                            <button class="btn btn-success btn-inverse" (click)="toggleOrderFilters()">Filters</button>
+                        </div>
+                    </div>
+
+                    <div [hidden]="!ordersTab.showFilters" class="row filters-section">
+                        <div class="col-lg-4">
+                            <div class="form-group select-dates">
+                                <label>Select Dates</label>
+                                <m-datetime #ordersDateRange [(value)]="ordersTab.rangeDate" [options]="ordersTab.DTOptions"></m-datetime>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group select-service-type">
+                                <label for="">Service Type</label>
+                                <select class="form-control" [(ngModel)]="ordersTab.serviceType">
+                                    <option value="-1">All Service Types</option>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_DELIVERY]>Delivery</option>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_PICKUP]>Pickup</option>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_CATERING]>Catering</option>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_DINEIN]>Dine In</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-lg-4">
+                            <div class="form-group select-status">
+                                <label for="">Status</label>
+                                <select class="form-control" [(ngModel)]="ordersTab.orderStatus">
+                                    <option value="-1">All</option>
+                                    <option [value]=constants.ORDER_STATUS.ACCEPTED>Accepted</option>
+                                    <option [value]=constants.ORDER_STATUS.APPROVED>Pending</option>
+                                    <option [value]=constants.ORDER_STATUS.CANCELLED_BY_REST>Cancelled By Rest</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-sm-12">
+                            <div class="filter-buttons-wrapper">
+                                <button class="btn btn-success apply-button" (click)="applyOrderFilters()">Apply</button>
+                                <button class="btn btn-success reset-button" (click)="resetOrderFilters()">Reset</button>
+                                <button class="btn btn-success cancel-button" (click)="cancelOrderFilters()">Cancel</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <page-loader *ngIf="ordersTab.busy"></page-loader>
+
+                <div [hidden]="ordersTab.busy">
+
+                    <div class="customer-order-list">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Order Number</th>
+                                <th>Customer</th>
+                                <th class="hidden-xs">Service Type</th>
+                                <th>Order Time</th>
+                                <th>Status</th>
+                                <th class="hidden-xs">Status History</th>
+                                <th></th>
+                            </tr>
+
+                            <tr class="text-center" *ngIf="!ordersTab.busy && !ordersTab.data.length">
+                                <td colspan="9">No Records to display</td>
+                            </tr>
+
+                            <tr *ngFor="let order of ordersTab.data" [ngClass]="{ 'new-order' : !order.Is_Read }" (click)="viewOrderDetails(order.ID)">
+                                <td class="f-bold">
+                                    {{ order.OrderNumber }}
+                                </td>
+                                <td>{{ order.CustomerName }}</td>
+                                <td class="hidden-xs">
+                                    {{ order.ServiceType }}
+                                </td>
+                                <td>
+                                    <div>{{ order.Date_Created | date:'short' }}</div>
+                                    <div>{{ helperService.getDeliverText(order.ServiceTypeID, helperService.allowDeliveryInSubscription(order.Owner_SubscriptionID)) }} {{ order.OrderETA | date: 'short' }}</div>
+                                </td>
+                                <td>
+                                    <div [ngClass]="{ 'text-success': order.StatusID == constants.ORDER_STATUS.ACCEPTED, 'text-danger': order.StatusID == constants.ORDER_STATUS.CANCELLED_BY_REST, 'text-dark-gray': order.StatusID == constants.ORDER_STATUS.QUEUE_ADDED }">{{ order.Status }}</div>
+                                </td>
+                                <td class="hidden-xs" (click)="openOrderStatusHistoryModal($event, order)">
+                                    <a class="h-link">
+                                        <div class="history-icon"></div>
+                                    </a>
+                                </td>
+                                <td>
+                                    <div *ngIf="!order.Is_Read" class="ribbon ribbon-success align-right">
+                                        <span>NEW</span>
+                                    </div>
+                                    <div class="arrow-right-icon"></div>
+                                </td>
+                            </tr>
+                        </table>
+                    </div>
+
+                    <m-pagination *ngIf="ordersTab.data.length" [id]="ordersTab.PAGINATION_ID" [(page)]="ordersTab.page" [(pageSize)]="ordersTab.pageSize" [totalPages]="ordersTab.totalPages" [pageSizeList]="ordersTab.pageSizeList" [totalRows]="ordersTab.totalRows" (valueChange)="ordersTabPageChange()"></m-pagination>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div *ngIf="userService.isAdmin && activeTab == TAB_COUPONS" class="coupons-tab-pane">
+
+            <restaurant-coupons [fireFlyID]="fireFlyID"></restaurant-coupons>
+
+        </div>
+
+        <div *ngIf="activeTab == TAB_PREVIEW" class="preview-tab-pane">
+
+            <restaurant-menu-preview [fireFlyID]="fireFlyID"></restaurant-menu-preview>
+
+        </div>
+
+        <div *ngIf="activeTab == TAB_CHARTS" class="charts-graphs-tab-pane">
+
+            <restaurant-menu-sense [fireFlyID]="fireFlyID" [rest]="restInfoTab.rest"></restaurant-menu-sense>
+
+        </div>
+
+        <div *ngIf="userService.isAdmin && activeTab == TAB_FIN_REPORT" class="fin-reports-tab-pane">
+
+            <page-loader *ngIf="finReportTab.busy"></page-loader>
+
+            <div [hidden]="finReportTab.busy">
+
+                <div class="fin-report-search filters-active">
+                    <div class="row">
+                        <div class="col-sm-4">
+                            <label>Select Dates</label>
+                            <m-datetime [(value)]="finReportTab.finReportRangeDate" [options]="finReportTab.DTOptions"></m-datetime>
+                        </div>
+                        <div class="col-sm-4">
+                            <button class="btn btn-success generate-report" (click)="loadFinReportTab()" [disabled]="!finReportTab.finReportRangeDate || !finReportTab.finReportRangeDate.length">Generate Report</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fin-report-chart-section">
+                    <div class="fin-report-chart-heading">Sales / Orders</div>
+                    <div>{{ finReportTab.finReportRangeDate?.formatted }}</div>
+
+                    <div class="fin-sales-orders-chart-wrapper">
+                        <canvas id="fin-sales-orders-chart"></canvas>
+                    </div>
+                </div>
+
+                <div class="fin-report-details-section">
+                    <div class="fin-report-details-heading">Details</div>
+                    <div class="table-responsive fin-report-list">
+                        <table class="table table-striped">
+                            <tr>
+                                <th>Item Name</th>
+                                <th>Price</th>
+                                <th>Total Quantity</th>
+                                <th>Total Sales</th>
+                            </tr>
+                            <tr *ngFor="let item of finReportTab.Details">
+                                <td>
+                                    <div class="f-black">{{ item.ItemName }}</div>
+                                </td>
+                                <td>${{ item.Price }}</td>
+                                <td>{{ item.TotalQty }}</td>
+                                <td>${{ item.TotalSales }}</td>
+                            </tr>
+                            <tr>
+                                <td>&nbsp;</td>
+                                <td>&nbsp;</td>
+                                <td class="total-text">Total</td>
+                                <td class="total-text">{{ finReportTab.total | currency:'USD':true }}</td>
+                            </tr>
+                        </table>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <div *ngIf="userService.isAdmin && activeTab == TAB_FIN_STATEMENT" class="fin-statements-tab-pane">
+
+            <page-loader *ngIf="finStatementTab.busy"></page-loader>
+
+            <div [hidden]="finStatementTab.busy">
+
+                <div class="fin-statments-search filters-active">
+                    <div class="row">
+                        <div class="col-sm-6 col-md-4">
+                            <label>Select Dates</label>
+                            <m-datetime [(value)]="finStatementTab.finStatementRangeDate" [options]="finStatementTab.DTOptions"></m-datetime>
+                        </div>
+                        <div class="col-sm-6 col-md-3">
+                            <button class="btn btn-success generate-statement" (click)="loadFinStatementTab()" [disabled]="!finStatementTab.finStatementRangeDate">Generate Statement</button>
+                        </div>
+                        <div class="col-sm-12 col-md-5">
+                            <a [href]="finStatementTab.exportURL" target="_blank" class="btn btn-success btn-inverse export-button">Export</a>
+                            <button class="btn btn-success btn-inverse print-button" (click)="printFinStatement()">Print</button>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="fin-summary-section">
+                    <div class="row">
+                        <div class="col-sm-3">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.Orders }}</div>
+                                <div class="number-count-value">Number Of Orders</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.Sales | currency:'USD':true }}</div>
+                                <div class="number-count-value">Total Sales</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ (finStatementTab.Summary.TotalCouponDiscount || 0) | currency:'USD':true }}</div>
+                                <div class="number-count-value">Total Coupon Discount</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-3">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.COD_ItemsCount }}</div>
+                                <div class="number-count-value">Cash On Delivery Count</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.COD_ItemsSales | currency:'USD':true }}</div>
+                                <div class="number-count-value">Cash On Delivery Sales</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.CreditCard_ItemsCount }}</div>
+                                <div class="number-count-value">Credit Card Count</div>
+                            </div>
+                        </div>
+                        <div class="col-sm-4">
+                            <div class="number-count-section">
+                                <div class="number-count-title">{{ finStatementTab.Summary.CreditCard_ItemsSales | currency:'USD':true }}</div>
+                                <div class="number-count-value">Credit Card Sales</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="table-responsive">
+                    <table class="table table-striped">
+                        <tr>
+                            <th>Order Date/Time</th>
+                            <th>Order Number</th>
+                            <th>Order Status</th>
+                            <th>Customer</th>
+                            <th>Payment Method</th>
+                            <th>Order Subtotal</th>
+                            <th>Coupon Discount</th>
+                            <th>Delivery Charge</th>
+                            <th>Tax</th>
+                            <th>Driver Tip</th>
+                            <th>Total Customer Payment</th>
+                            <th>Order Source</th>
+                            <th>Dishzilla Service Charge</th>
+                            <th>Net Account Credit</th>
+                            <th>Braintree Status</th>
+                        </tr>
+
+                        <tr class="text-center" *ngIf="!finStatementTab.busy && !finStatementTab.Details.length">
+                            <td colspan="12">No Records to display</td>
+                        </tr>
+
+                        <tr *ngFor="let item of finStatementTab.Details" (click)="viewOrderDetails(item.ID)">
+                            <td>{{ item.OrderDate | date:'short' }}</td>
+                            <td>
+                                <div class="f-black">{{ item.OrderNumber }}</div>
+                            </td>
+                            <td>{{ item.OrderStatus }}</td>
+                            <td>{{ item.Customer }}</td>
+                            <td>{{ item.PaymentMethod }}</td>
+                            <td>{{ item.SubTotal | currency:'USD':true }}</td>
+                            <td>{{ item.Discount ? (item.Discount | currency:'USD':true) : '-' }}</td>
+                            <td>{{ item.DeliveryCharge | currency:'USD':true }}</td>
+                            <td>{{ item.Tax_Final | currency:'USD':true }}</td>
+                            <td>{{ item.Driver_Tip | currency:'USD':true }}</td>
+                            <td>{{ item.GrandTotal | currency:'USD':true }}</td>
+                            <td>{{ item.OrderSource }}</td>
+                            <td>{{ item.ServiceFee | currency:'USD':true }}</td>
+                            <td>{{ item.Owner_NetAccountCredit | currency:'USD':true }}</td>
+                            <td [ngClass]="{ 'text-success': item.Is_Settled }">{{ item.Is_Settled ? 'Settled' : 'Pending' }}</td>
+                        </tr>
+                    </table>
+                </div>
+
+                <m-pagination *ngIf="finStatementTab.Details.length" [id]="finStatementTab.PAGINATION_ID" [(page)]="finStatementTab.page" [(pageSize)]="finStatementTab.pageSize" [totalPages]="finStatementTab.totalPages" [totalRows]="finStatementTab.totalRows" (valueChange)="finStatementPageChange()"></m-pagination>
+
+            </div>
+        </div>
+
+        <div *ngIf="activeTab == TAB_CUSTOMER_REVIEW" class="customer-reviews-tab-pane">
+
+            <page-loader *ngIf="customerReviewTab.busy"></page-loader>
+
+            <div [hidden]="customerReviewTab.busy">
+                <div class="customer-reviews-search filters-active">
+                    <div class="row">
+                        <div class="col-sm-5">
+                            <div class="form-group">
+                                <div class="m-input-group has-addon-left m-input-sm">
+                                    <div class="m-input-group-addon m-addon-left">
+                                        <div class="search-icon cursor-default"></div>
+                                    </div>
+                                    <input type="text" class="form-control input-sm" name="customerReviewTabSearchText" [(ngModel)]="customerReviewTab.searchText" placeholder="Search for Customer Reviews" (keyup.enter)="customerReviewSearchTextEnter()">
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-sm-7 text-right">
+                            <a href="{{ customerReviewTab.exportURL }}" target="_blank" class="btn btn-success btn-inverse">Export</a>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="customer-reviews-list">
+                    <table class="table table-striped">
+                        <tr>
+                            <th class="hidden-xs">Order Number</th>
+                            <th>Menu Item Name</th>
+                            <th>Customer</th>
+                            <th class="hidden-xs">Comment</th>
+                            <th>Rating</th>
+                            <th>Date Created</th>
+                            <!--<th>Approval Status</th>-->
+                            <!--<th></th>-->
+                        </tr>
+
+                        <tr class="text-center" *ngIf="!customerReviewTab.data.length">
+                            <td colspan="6">No Records to display</td>
+                        </tr>
+
+                        <tr *ngFor="let review of customerReviewTab.data">
+                            <td class="hidden-xs">
+                                <div class="f-black">{{ review.OrderNumber }}</div>
+                            </td>
+                            <td>{{ review.MenuItemName }}</td>
+                            <td>{{ review.Customer }}</td>
+                            <td class="hidden-xs">{{ review.Comment }}</td>
+                            <td>
+                                <div class="ratings-container">
+                                    <div class="rating-off-icon" [ngClass]="{ 'rating-on-icon': review.Rating >= 1 }"></div>
+                                    <div class="rating-off-icon" [ngClass]="{ 'rating-on-icon': review.Rating >= 2 }"></div>
+                                    <div class="rating-off-icon" [ngClass]="{ 'rating-on-icon': review.Rating >= 3 }"></div>
+                                    <div class="rating-off-icon" [ngClass]="{ 'rating-on-icon': review.Rating >= 4 }"></div>
+                                    <div class="rating-off-icon" [ngClass]="{ 'rating-on-icon': review.Rating >= 5 }"></div>
+                                </div>
+                            </td>
+                            <td>
+                                {{ review.Date_Created | date:'short' }}
+                            </td>
+                            <!--<td>
+                                <div class="status-circle" [ngClass]="{ 'active': review.Approval_Status == 1 }"></div>
+                            </td>-->
+                            <!--<td>
+                                <div class="arrow-right-icon"></div>
+                            </td>-->
+                        </tr>
+                    </table>
+                </div>
+
+                <m-pagination *ngIf="customerReviewTab.data.length" [id]="customerReviewTab.PAGINATION_ID" [(page)]="customerReviewTab.page" [(pageSize)]="customerReviewTab.pageSize" [totalPages]="customerReviewTab.totalPages" [totalRows]="customerReviewTab.totalRows"
+                    (valueChange)="loadCustomerReviewTab()"></m-pagination>
+            </div>
+        </div>
+    </div>
+</div>

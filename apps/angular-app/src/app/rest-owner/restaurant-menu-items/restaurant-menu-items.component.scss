@@ -1,0 +1,209 @@
+.restaurant-menu-items-page {
+
+    .main-contents {
+
+        @media (min-width: $screen-sm-min) {
+            padding: 0 40px;
+        }
+    }
+
+    .page-title-section {
+
+        .page-title-text {
+            text-transform: capitalize;
+        }
+    }
+
+    // .chips-container {
+    //     margin-bottom: 48px;
+
+    //     .chips {
+    //         padding-left: 0;
+
+    //         .chip-item {
+    //             display: inline-block;
+    //             margin: 5px;
+
+    //             a {
+    //                 text-decoration: none;
+    //             }
+    //         }
+    //     }
+    // }
+
+    .dish-chips-container {
+        // border-top: 1px solid #DBDBDB;
+        border-bottom: 1px solid #DBDBDB;
+        padding: 8px 135px;
+        background-color: white;
+        max-height: 400px;
+        overflow-y: auto;
+
+        @media (max-width: $screen-md-max) {
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .chips {
+            padding-left: 0;
+
+            @media (max-width: $screen-xs-max) {
+                @include chipsScrollable();
+            }
+
+            .chip-item {
+                display: inline-block;
+                margin: 5px;
+
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        &.show-less {
+
+            .chips {
+                height: 40px;
+                overflow-y: hidden;
+            }
+        }
+
+        .show-more-link {
+            font-weight: $lato-bold;
+            text-align: right;
+            cursor: pointer;
+            text-decoration: underline;
+
+            @media (max-width: $screen-xs-max) {
+                display: none;
+            }
+        }
+    }
+
+    // .menu-item-list {
+    //     margin: 0 auto;
+    //     padding: 48px 0;
+
+    //     $menu-item-margin: 10px;
+    //     $menu-item-width: 370px;
+    //     width: 100%;
+
+    //     $mainContentPaddingOffset: 80px;
+
+    //     $twoItemsWidth: $screen-sm-min + 50px;
+
+    //     @media (min-width: $twoItemsWidth + $mainContentPaddingOffset) {
+    //         // Show 2 items per row
+    //         width: (2 * $menu-item-width) + (2 * $menu-item-margin);
+    //     }
+
+    //     @media (min-width: $screen-md-min + $mainContentPaddingOffset) {
+    //         // Show 3 items per row
+    //         width: 2 * $menu-item-width + (2 * $menu-item-margin);
+    //     }
+
+    //     @media (min-width: $screen-lg-min + $mainContentPaddingOffset) {
+    //         // Show 4 items per row
+    //         width: 3 * $menu-item-width + (3 * $menu-item-margin);
+    //     }
+
+    //     @media (min-width: $screen-lg-min + 400px + $mainContentPaddingOffset) {
+    //         // Show 4 items per row
+    //         width: 4 * $menu-item-width + (4 * $menu-item-margin);
+    //     }
+
+    //     menu-item {
+    //         .menu-item {
+    //             height: 230px;
+    //             float: left;
+    //             width: 100%;
+    //             margin-bottom: 24px;
+
+    //             @media (min-width: $twoItemsWidth + $mainContentPaddingOffset) {
+    //                 width: $menu-item-width;
+    //                 margin-right: $menu-item-margin;
+    //                 margin-bottom: $menu-item-margin;
+    //             }
+    //         }
+    //     }
+    // }
+
+    .menu-item-list {
+        // position: relative;
+        // padding: 48px 0;
+        // margin: 0 auto; 
+        margin-top: 37px;
+        text-align: center;
+
+        @media (min-width: $screen-sm-min) {
+            font-size: 0; // FIX: the extra spaces caused by child element `display: inline-block`
+        }
+
+        /* $menu-item-margin: 10px; */
+        // $menu-item-width: 370px;
+        // width: 100%;
+        // @media (min-width: $screen-sm-min + 50px) {
+        //     // Show 2 items per row
+        //     width: (2 * $menu-item-width) + (2 * $menu-item-margin);
+        // }
+        // @media (min-width: $screen-md-min) {
+        //     // Show 3 items per row
+        //     width: 2 * $menu-item-width + (2 * $menu-item-margin);
+        // }
+        // @media (min-width: $screen-lg-min) {
+        //     // Show 4 items per row
+        //     width: 3 * $menu-item-width + (3 * $menu-item-margin);
+        // }
+        // @media (min-width: $screen-lg-min + 400px) {
+        //     // Show 4 items per row
+        //     width: 4 * $menu-item-width + (4 * $menu-item-margin);
+        // }
+        .menu-item-list-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            z-index: 1;
+            display: none;
+        }
+
+        menu-item {
+            .menu-item-container {
+                display: inline-block;
+                width: 100%;
+                max-width: 370px;
+                height: 230px;
+                margin-bottom: 24px;
+                text-align: left;
+
+                @media (min-width: $screen-sm-min) {
+                    margin-right: 30px;
+                }
+            }
+        }
+
+        &.opened-more-dishes {
+            opacity: 0.3;
+
+            .menu-item-list-overlay {
+                display: block;
+            }
+        }
+    }
+
+    .page-loader {
+        margin-top: 24px;
+    }
+}

@@ -1,0 +1,31 @@
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="food-bytes-details-page">
+
+    <div ng-if="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-12">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> {{ foodBytesItem.Title }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="pdf-images-section">
+            <div *ngFor="let item of pdfPages">
+                <img style="max-width: 100%;" src="{{ item.image }}" />
+            </div>
+        </div>
+
+        <!-- <canvas id="the-canvas"></canvas> -->
+
+        <!-- <div [hidden]="busy || !viewerURL">
+            <iframe #PDFViewer class="pdf-viewer" [src]="viewerURL" frameborder="0"></iframe>
+        </div> -->
+
+    </div>
+    
+</div>

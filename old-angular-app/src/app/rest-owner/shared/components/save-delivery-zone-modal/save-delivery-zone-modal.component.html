@@ -1,0 +1,115 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen && !confirmModal.isModalOpen"></div>
+
+<!-- Modal -->
+<div class="modal delivery-zone-modal fade" *ngIf="isModalOpen && !confirmModal.isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()"
+    tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg" role="document" mStopEvent>
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()" aria-label="Close"><div class="delete-icon"></div></button>
+                <h4 class="modal-title" id="myModalLabel">Delivery Zone</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+                <page-loader *ngIf="busy"></page-loader>
+
+                <form #form="ngForm" novalidate (ngSubmit)="form.valid && save(form)">
+                    <div class="clearfix">
+                        <div class="map-section">
+                            <div id="delivery-zone-map"></div>
+                        </div>
+                        <div class="delivery-details">
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, Name) }">
+                                <label>Name</label>
+                                <input type="text" name="Name" required #Name="ngModel" [(ngModel)]="deliveryZone.Name" class="form-control" />
+
+                                <validation-messages [form]="form" [input]="Name" label="Name"></validation-messages>
+                            </div>
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, MinimumOrderCost) }">
+                                <label>Minimum Order Cost ($)</label>
+                                <input type="number" name="MinimumOrderCost" required number [gte]="0" #MinimumOrderCost="ngModel" [(ngModel)]="deliveryZone.MinimumOrderCost" class="form-control">
+
+                                <validation-messages [form]="form" [input]="MinimumOrderCost" label="Minimum Order Cost" valueGTE="0"></validation-messages>
+                            </div>
+                            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, DeliveryCharge) }">
+                                <label>Delivery Charge ($)</label>
+                                <input type="number" name="DeliveryCharge" required number [gte]="0" #DeliveryCharge="ngModel" [(ngModel)]="deliveryZone.DeliveryCharge" class="form-control" [disabled]="restInfo.SubscriptionID == constants.RO_SUB_PRO">
+                            
+                                <validation-messages [form]="form" [input]="DeliveryCharge" label="Delivery Charge" valueGTE="0"></validation-messages>
+                            </div>
+
+                            <div class="prep-time-label">Preparation Time</div>
+
+                            <div class="row">
+                                <div class="col-lg-4">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, PreparationTime_Days) }">
+                                        <input type="number" name="PreparationTime_Days" required number [gte]="0" #PreparationTime_Days="ngModel" [(ngModel)]="deliveryZone.PreparationTime_Days" placeholder="Days" class="form-control">
+                                        
+                                        <validation-messages [form]="form" [input]="PreparationTime_Days" label="Preparation Time Days" valueGTE="0"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, PreparationTime_Hours) }">
+                                        <input type="number" name="PreparationTime_Hours" required number [gte]="0" #PreparationTime_Hours="ngModel" [(ngModel)]="deliveryZone.PreparationTime_Hours" placeholder="Hours" class="form-control">
+                                    
+                                        <validation-messages [form]="form" [input]="PreparationTime_Hours" label="Preparation Time Hours" valueGTE="0"></validation-messages>
+                                    </div>
+                                </div>
+                                <div class="col-lg-4">
+                                    <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, PreparationTime_Minutes) }">
+                                        <input type="number" name="PreparationTime_Minutes" required number [gte]="0" #PreparationTime_Minutes="ngModel" [(ngModel)]="deliveryZone.PreparationTime_Minutes" placeholder="Minutes"
+                                            class="form-control">
+                                    
+                                            <validation-messages [form]="form" [input]="PreparationTime_Minutes" label="Preparation Time Minutes" valueGTE="0"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group select-service-type" [ngClass]="{ 'has-error': input.hasError(form, ServiceTypeID) }">
+                                <label for="">Service Type</label>
+                                <select class="form-control" [(ngModel)]="deliveryZone.ServiceTypeID" name="ServiceTypeID" #ServiceTypeID="ngModel" required>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_DELIVERY]>Delivery</option>
+                                    <option [value]=constants.SERVICE_TYPE_ID[constants.SERVICE_TYPE_CATERING]>Catering</option>
+                                </select>
+                            </div>
+
+                            <div>Zone Type</div>
+
+                            <div class="radio-area">
+                                <div class="radio polygon" (click)="onPolygonSelected()">
+                                    <label>
+                                    <input type="radio" name="radioDeliveryZoneModal" [value]="constants.ZONE_TYPE_POLYGON" [(ngModel)]="deliveryZone.ZoneType" />
+                                    <span class="icon"></span>
+                                    <span class="text">Polygon <span class="text-success text-clear" (click)="clearPolygonShape()">Clear</span></span>
+                                </label>
+                                </div>
+                                <div class="radio circle-radius form-inline">
+                                    <label (click)="onCircleRadiusSelected()">
+                                        <input type="radio" name="radioDeliveryZoneModal" [value]="constants.ZONE_TYPE_CIRCLE" [(ngModel)]="deliveryZone.ZoneType" />
+                                        <span class="icon"></span>
+                                        <span class="text">Circle - Radius (in-miles):</span>
+                                    </label>
+
+                                    <div class="form-group circle-radius-input" [ngClass]="{ 'has-error': input.hasError(form, CircleRadius) }">
+                                        <input type="text" class="form-control" name="CircleRadius" required #CircleRadius="ngModel" [(ngModel)]="deliveryZone.CircleRadius" (ngModelChange)="onCircleRadiusChanged()"
+                                            [disabled]="deliveryZone.ZoneType != constants.ZONE_TYPE_CIRCLE">
+
+                                        <validation-messages [form]="form" [input]="CircleRadius" label="Radius"></validation-messages>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+
+            <div class="modal-footer">
+                <div class="action-buttons">
+                    <button type="button" class="btn btn-success" (click)="form.onSubmit()">Save</button>
+                    <button type="button" class="btn btn-success btn-inverse" (click)="close()">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<confirm-modal #confirmModal></confirm-modal>

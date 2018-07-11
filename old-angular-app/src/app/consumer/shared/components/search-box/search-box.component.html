@@ -1,0 +1,34 @@
+<div class="top-search-section">
+  <div class="top-search">
+    <div class="left-icon search-icon"></div>
+    <div class="search-input">
+      <input type="text" class="form-control" placeholder="Find Food or Restaurants" [(ngModel)]="searchText" (ngModelChange)="searchTextChanged()"
+        (blur)="focusSearchText(false)" (keyup.enter)="searchTextEnter()">
+    </div>
+
+    <div class="chips search-keywords-chips">
+      <div class="chip-item" [ngClass]="{ 'd-none': item == '' }" *ngFor="let item of queryParams?.keywords.split(',')" (click)="removeKeyword($index)">{{ item }} &nbsp;&nbsp; X</div>
+    </div>
+
+    <div class="right-icon" [ngClass]="{ 'filter-off-icon': !sharedDataService.isFiltersOpened, 'filter-on-icon': sharedDataService.isFiltersOpened }"
+      (click)="sharedDataService.isFiltersOpened = !sharedDataService.isFiltersOpened"></div>
+  </div>
+
+  <div *ngIf="isBrowser" class="top-location-section" (click)="openChangeAddressModal()">
+    <div class="location-icon icon-custom"></div>
+    <span class="location-text">{{ sharedDataService.userAddress.Address }}</span>
+  </div>
+
+  <div class="auto-complete-list" *ngIf="showAutoSuggest">
+    <div class="auto-complete-heading" *ngIf="dishAutoSuggestList.length">Dishes</div>
+    <div class="auto-complete-item" *ngFor="let item of dishAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_DISH)">{{ item.Name }}</div>
+
+    <div class="auto-complete-heading" *ngIf="cuisineAutoSuggestList.length">Cuisines</div>
+    <div class="auto-complete-item" *ngFor="let item of cuisineAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_CUISINE)">{{ item.Name }}</div>
+
+    <div class="auto-complete-heading" *ngIf="restAutoSuggestList.length">Restaurant</div>
+    <div class="auto-complete-item" *ngFor="let item of restAutoSuggestList" (mousedown)="autoSuggestItemClicked(item, constants.KEYWORD_TYPE_RESTAURANT)">{{ item.Name }}</div>
+  </div>
+</div>
+
+<change-address-modal #changeAddressModal></change-address-modal>

@@ -1,0 +1,30 @@
+.food-bytes-details-page {
+
+    .main-contents {
+        padding: 0 40px;
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+    }
+
+    .pdf-images-section {
+        margin-top: 24px;
+        text-align: center;
+        max-width: 1000px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    .pdf-viewer {
+        $navbar-height: 90px;
+        $page-title-height: 130px;
+        $breadcrumb-height: 56px;
+        $offset: 0px;
+
+        width: 100%; 
+        height: calc(100vh - #{$navbar-height} - #{$page-title-height} - #{$breadcrumb-height} - #{$offset});
+    }
+
+}

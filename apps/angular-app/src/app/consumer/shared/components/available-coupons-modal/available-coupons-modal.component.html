@@ -1,0 +1,38 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'d-block in': isModalOpen}" (click)="close()">
+
+    <div class="modal-dialog available-coupons-modal" mStopEvent>
+
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <button type="button" class="close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ cartItem.RestaurantName }}'s Coupons</h4>
+            </div>
+
+            <div class="modal-body modal-scrollable">
+                <div class="table-responsive">
+                    <table class="table table-striped table-center" [ngClass]="{ 'table-hover': coupons.length }">
+                        <tr>
+                            <th>Coupon Code</th>
+                            <th>Discount</th>
+                        </tr>
+                        <tr *ngIf="!coupons.length">
+                            <td colspan="2">No Records to display</td>
+                        </tr>
+                        <tr *ngFor="let coupon of coupons" (click)="chooseCoupon(coupon)">
+                            <td class="coupon-code">{{ coupon.CouponCode }}</td>
+                            <td class="coupon-status c-success">
+                                <span *ngIf="coupon.DiscountType == constants.DISCOUNT_TYPE_PERCENT">{{ coupon.DiscountValue * 100 }}% OFF</span>
+                                <span *ngIf="coupon.DiscountType == constants.DISCOUNT_TYPE_AMOUNT">${{ coupon.DiscountValue }} OFF</span>
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

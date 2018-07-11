@@ -1,0 +1,206 @@
+/**
+ * Common Styles
+ */
+
+.text-overflow {
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.d-block {
+    display: block;
+}
+
+.d-iblock {
+    display: inline-block;
+}
+
+.d-none {
+    display: none !important;
+}
+
+// Texts
+.text-success,
+.text-danger,
+.text-dark-gray {
+    font-size: 14px;
+    font-weight: $lato-bold;
+}
+
+.text-dark-gray {
+    color: $dark-gray;
+}
+
+// Link
+a {
+    &.active {
+        color: $brand-success;
+    }
+}
+
+// Fonts/Text
+.f-bold {
+    font-weight: $lato-bold;
+}
+
+.f-black {
+    font-weight: $lato-black;
+}
+
+.h-link {
+    text-decoration: none !important;
+    cursor: pointer;
+}
+
+// Cursor
+.cursor-default {
+    cursor: default !important;
+}
+
+.cursor-pointer {
+    cursor: default !important;
+}
+
+// Google places Autocomplete
+.pac-container {
+    z-index: 10000 !important; //margin-top: 11px;
+    border-top: none;
+    box-shadow: none;
+
+    .pac-item {
+        padding: 12px; // &:first-child {
+        //     border-top: none;
+        // }
+    }
+}
+
+// Object Fit
+.obj-fit-contain {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+}
+
+.obj-fit-cover {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+// Breadcrumb
+.breadcrumb-container {
+    margin: 0 40px;
+    padding: 18px 0;
+
+    @media (max-width : $screen-xs-max) {
+        margin-left: 0;
+        margin-right: 0;
+    }
+
+    .breadcrumb {
+        margin: 0;
+
+        .breadcrumb-item {
+            text-transform: capitalize;
+        }
+    }
+}
+
+/**
+ * Chip Label
+ */
+
+.chip-label {
+    font-weight: $lato-black;
+    font-size: 8px;
+    color: $light;
+    line-height: 16px;
+    min-width: 56px;
+    display: inline-block;
+    text-align: center;
+    border-radius: 3px;
+    text-transform: uppercase;
+    vertical-align: text-bottom;
+
+    &.chip-label-primary {
+        background-color: $brand-primary;
+    }
+
+    &.chip-label-gray {
+        background-color: $gray;
+    }
+}
+
+.noselect {
+    -webkit-touch-callout: none;
+    /* iOS Safari */
+    -webkit-user-select: none;
+    /* Safari */
+    -khtml-user-select: none;
+    /* Konqueror HTML */
+    -moz-user-select: none;
+    /* Firefox */
+    -ms-user-select: none;
+    /* Internet Explorer/Edge */
+    user-select: none;
+    /* Non-prefixed version, currently
+                                  supported by Chrome and Opera */
+}
+
+.nostretch {
+    width: 1%;
+    white-space: nowrap;
+}
+
+
+/**
+ * File upload
+ */
+
+label.file-upload-label {
+    cursor: pointer;
+    background-color: $brand-success;
+    width: 144px;
+    height: 32px;
+    line-height: 32px;
+    border-radius: 100px;
+    text-align: center;
+    display: inline-block;
+    margin-bottom: 0;
+
+    &:hover,
+    &:active {
+        background-color: $brand-success;
+    }
+
+    input[type="file"] {
+        position: fixed;
+        top: -1000px;
+    }
+}
+
+.file-upload-label :invalid+span {
+    color: #A44;
+}
+
+.file-upload-label :valid+span {
+    color: white;
+    font-weight: $lato-black;
+}
+
+
+/**
+ * Header
+ */
+
+.header-logo-section {
+    border-bottom: 1px solid #DBDBDB;
+    text-align: center;
+
+    .menus-logo {
+        padding: 24px 0;
+        max-width: 100%;
+    }
+}

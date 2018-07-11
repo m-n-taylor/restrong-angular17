@@ -1,0 +1,13 @@
+<nav class="m-bs-pagination">
+    <ul class="pagination">
+        <li [ngClass]="{ 'disabled': page <= 1 }">
+            <a *ngIf="page > 1"  routerLink="{{ baseUrl }}/page/{{ getPageNo(-1) }}"><span>&laquo;</span></a>
+            <span *ngIf="page <= 1">&laquo;</span>
+        </li>
+        <li *ngFor="let item of totalPagesList; let index = index" [ngClass]="{ 'active': (index + 1 == page) }"><a routerLink="{{ baseUrl }}/page/{{ index + 1 }}">{{ index + 1 }}</a></li>
+        <li [ngClass]="{ 'disabled': page >= totalPages }">
+            <a *ngIf="page < totalPages" routerLink="{{ baseUrl }}/page/{{ getPageNo(1) }}"><span a>&raquo;</span></a>
+            <span *ngIf="page >= totalPages">&raquo;</span>
+        </li>
+    </ul>
+</nav>

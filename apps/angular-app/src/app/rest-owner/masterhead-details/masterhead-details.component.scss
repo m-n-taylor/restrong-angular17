@@ -1,0 +1,77 @@
+.menu-details-page {
+
+    .main-contents {
+        padding: 0 40px;
+        
+        @media (max-width : $screen-xs-max) {
+            padding-left: 0;
+            padding-right: 0;
+        }
+
+        .page-title-section {
+            padding-bottom: 28px;
+
+            .masterhead-details-section {
+                margin-top: 16px;
+
+                .details-item {
+                    @media (max-width : $screen-xs-max) {
+                        text-align: center;
+                        margin-top: 20px;
+                    }
+
+                    .service-type-name {
+                        font-weight: $lato-bold;
+                        display: inline-block;
+                        margin-right: 8px;
+                    }
+
+                    .history-icon {
+                        margin-right: 16px;
+                    }
+                }
+            }
+        }
+
+        .menu-search-box-wrapper {
+            margin: 48px 0 0;
+        }
+
+        .no-result-placeholder {
+            margin-top: 48px;
+            text-align: center;
+
+            .placeholder-title {
+                font-weight: $lato-black;
+                font-size: 24px;
+            }
+
+            .placeholder-subtitle {
+                margin-top: 6px;
+            }
+
+            .placeholder-action-buttons {
+                margin-top: 19px;
+            
+                .btn {
+                    &:first-child {
+                        margin-right: 24px;
+                    }
+                }
+            }
+        }
+
+        .menu-info-table {
+            padding-top: 48px;
+
+            .table {
+                border-bottom: 1px solid #DBDBDB;
+            }
+        }
+
+        .action-buttons.menu-details {
+            margin-top: 64px;
+            margin-bottom: 64px;
+        }
+    }
+}

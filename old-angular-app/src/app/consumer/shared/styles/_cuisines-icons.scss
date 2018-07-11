@@ -1,0 +1,96 @@
+/**
+ * Cuisine Icons
+ */
+
+$cuisine-icons: (
+    1: argentinean,
+    2: bagel,
+    3: bakery,
+    51: bar-grill,
+    52: bar-pub,
+    4: bbq,
+    5: brazilian,
+    53: brew-hops, //brew-pub,
+    6: british,
+    7: burger,
+    8: carribean, //caribbean-jamaican,
+    9: chicken-southern,
+    10: chinese,
+    11: tea-coffee, //coffee-tea
+    12: creperie,
+    13: cuban,
+    55: breakfast-diner, //diner-breakfast
+    56: electric-mixed,  //eclectic-mixed
+    15: donuts, //Donut,
+    16: ethopian, //ethiopian,
+    17: french-bistro,
+    18: german,
+    19: greek-mediterranean,
+    20: hawaiian,
+    21: hotdogs, //hot-dogs
+    22: icecream, //ice-cream-fro-yo,
+    23: indian,
+    24: italian,
+    25: japanise, //japanese-sushi
+    26: juice-smoothie,
+    27: korean,
+    29: mexican,
+    30: middle-eastern,
+    32: moroccan,
+    58: african, //other-african,
+    33: other-asian,
+    14: dessert, //other-dessert-snack,
+    34: other-european,
+    28: latinamerican, //other-latin american
+    35: peruvian,
+    36: pizza,
+    38: russian,
+    39: sandwich-deli,
+    41: seafood,
+    42: soup-salad,
+    59: sportbar, //sports-bar,
+    45: steakhouse,
+    47: thai-food, //thai
+    48: vegetarian, //vegetarian-special-diet
+    49: vietnamese,
+    61: winebar, //wine-bar,
+    50: chicken-wings, //wings
+    60: american, //wings
+    54: buffet,
+    57: gastropub,
+    31: mongolian,
+    37: polish,
+    40: scandinavian,
+    43: southwestern,
+    44: spanish,
+    46: swiss,
+);
+
+// Apply BG Image according to device
+@mixin responsiveImage($imageName, $parent: '') {
+    @if($parent != ''){
+        $parent: '/' + $parent;
+    }
+
+    background-image: url('img#{$parent}/#{$imageName}.svg');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+}
+@each $id, $name in $cuisine-icons {
+    .cuisine-icon-#{$id} {
+        @include responsiveImage('#{$name}', 'cuisines');
+
+        &.cuisine-icon-big {
+            @include responsiveImage('#{$name}', 'big-cuisines');
+        }
+
+        &.cuisine-icon-active {
+            @include responsiveImage('#{$name}-green', 'cuisines');
+
+            &.cuisine-icon-big {
+                @include responsiveImage('#{$name}-green', 'big-cuisines');
+            }
+        }
+    }
+}

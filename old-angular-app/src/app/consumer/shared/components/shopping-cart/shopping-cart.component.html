@@ -1,0 +1,132 @@
+<div class="shopping-cart-section">
+
+    <div class="close-icon-container">
+        <div class="delete-icon" (click)="sharedDataService.toggleShoppingCart()"></div>
+    </div>
+
+    <div class="cart-rest-list" *ngIf="shoppingCart.cartItems.length">
+        <div class="rest-item" ng-class="{ 'min-order': cartItem.MinOrder > cartItem.SubTotal }" *ngFor="let cartItem of shoppingCart.cartItems">
+
+            <div ng-click="openRestaurant(cartItem)">
+
+                <div class="rest-details clearfix">
+                    <!--<div *ngIf="cartItem.menuItems[0].RestImageExist" class="rest-img" style="background-image: url('{{ constants.REST_IMG_URL }}{{ cartItem.menuItems[0].RestaurantID }}')"></div>-->
+                    <div *ngIf="true || !cartItem.menuItems[0].RestImageExist" class="cuisine-icon-{{cartItem.menuItems[0].CuisineID}} rest-cuisine-icon"></div>
+                    <div class="item-details">
+                        <div class="item-rest-name">{{ cartItem.menuItems[0].RestaurantName }}</div>
+                        <div class="item-available-status">{{ cartItem.menuItems[0].Availability }}</div>
+                        <div class="item-address">{{ cartItem.menuItems[0].Address }}</div>
+                        <button class="btn btn-xxs btn-success view-more" (click)="viewMenu(cartItem.menuItems[0].RestaurantID)" ng-hide="sharedData.cart.MinOrder > 0">View Menu</button>
+                    </div>
+                </div>
+
+                <div *ngIf="cartItem.MinOrder > cartItem.SubTotal" class="min-order-note">
+                    <div class="note-text">
+                        You have to order more items, bacause of minimum order fee is ${{ cartItem.MinOrder }}
+                    </div>
+
+                    <button class="button button-small button-assertive-inverse order-more">Order More</button>
+                </div>
+
+            </div>
+
+            <div class="menu-item" *ngFor="let item of cartItem.menuItems">
+                <div class="clearfix">
+                    <div class="menu-item-name">
+                        {{ item.MenuItemName }}
+                    </div>
+                    <!--<div class="menu-item-qty-section">
+                        <div class="menu-item-qty">
+                            <div class="row">
+                                <div class="col-sm-6 qty-minus" ng-click="addQty(cartItem, item, -1)"><i class="icon ion-minus"></i></div>
+                                <div class="col-sm-6 qty-value">{{ item.quantity }}</div>
+                                <div class="col-sm-6 qty-plus" ng-click="addQty(cartItem, item, 1)"><i class="icon ion-plus"></i></div>
+                            </div>
+                        </div>
+                    </div>-->
+                    <div class="menu-item-qty-section noselect">
+                        <div class="menu-item-qty">
+                            <div class="qty-minus" (click)="updateQty(item, -1)">
+                                <div class="close-icon"></div>
+                            </div>
+                            <div class="qty-value">{{ item.quantity }}</div>
+                            <div class="qty-plus" (click)="updateQty(item, 1)">
+                                <div class="open-icon"></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="menu-item-price">
+                        ${{ item.Price }}
+                    </div>
+                </div>
+            </div>
+
+            <div class="rest-price-info">
+
+                <div class="sub-total">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">Subtotal</div>
+                        <div class="col-sm-6 right-text">${{ cartItem.subTotal }}</div>
+                    </div>
+                </div>
+
+                <div class="delivery-total">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">Delivery</div>
+                        <div class="col-sm-6 right-text">${{ cartItem.delivery }}</div>
+                    </div>
+                </div>
+
+                <div class="tax-total">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">Tax</div>
+                        <div class="col-sm-6 right-text">${{ cartItem.tax }}</div>
+                    </div>
+                </div>
+
+                <div class="clearfix driver-tip-total">
+                    <div class="tip-label">Driver Tip</div>
+                    <div class="tip-range">
+                        <div class="tip-range-container">
+                            <!--<div class="range-fill range-fill-white"></div>
+                            <div class="range-fill range-fill-inactive"></div>-->
+                            <div class="range-fill range-fill-active" style="left: 0;" [ngStyle]="{ 'width': ((cartItem.driverTipPercent * 5) + '%') }"></div>
+                            <input class="custom-range-slider" style="padding-right: 0;" type="range" min="0" max="20" step="1" [(ngModel)]="cartItem.driverTipPercent" (ngModelChange)="shoppingCart.refresh()">
+                        </div>
+                    </div>
+                    <div class="tip-percent">{{ cartItem.driverTipPercent }}%</div>
+                    <div class="tip-value">${{ cartItem.driverTip }}</div>
+                </div>
+
+                <div class="service-fee-total">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">Service Fee</div>
+                        <div class="col-sm-6 right-text">${{ cartItem.serviceFee }}</div>
+                    </div>
+                </div>
+
+                <div class="full-total">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">Total</div>
+                        <div class="col-sm-6 right-text">${{ cartItem.total }}</div>
+                    </div>
+                </div>
+
+                <div class="eta-time">
+                    <div class="row">
+                        <div class="col-sm-6 left-text">
+                            Est. {{ sharedDataService.serviceType == constants.SERVICE_TYPE_DELIVERY ? 'Arrival' : 'Prepare' }} Time
+                        </div>
+                        <div class="col-sm-6 right-text">{{ cartItem.ETA }} minutes</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+    <div class="place-order-section">
+        <button class="btn btn-success" (click)="placeOrder()">Place Orders (${{ shoppingCart.total }})</button>
+    </div>
+
+</div>

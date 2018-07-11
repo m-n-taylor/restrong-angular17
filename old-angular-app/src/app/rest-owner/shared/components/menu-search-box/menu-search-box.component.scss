@@ -1,0 +1,43 @@
+.menus-search-section {
+    margin-bottom: 0;
+    max-width: 340px;
+}
+
+.auto-complete-list {
+    position: absolute;
+    background-color: white;
+    width: 340px;
+    margin-left: -1px;
+    border: 1px solid #DBDBDB;
+    border-bottom: none;
+    border-top: none;
+    z-index: 1;
+    max-height: 400px;
+    overflow-y: auto;
+
+    .ac-masterhead-item {
+        padding-left: 24px;
+        font-weight: $lato-black;
+        font-size: 18px;
+        margin-top: 27px;
+        margin-bottom: 12px;
+    }
+
+    .ac-head-title {
+        padding-left: 12px;
+    }
+
+    .ac-menuitem-title {
+        padding-left: 24px;
+    }
+
+    .ac-head-item {
+        font-weight: $lato-bold;
+    }
+
+    .ac-head-item, .ac-menuitem-item {
+        cursor: pointer;
+        padding: 14px 23px;
+        border-bottom: 1px solid #DBDBDB;
+    }
+}

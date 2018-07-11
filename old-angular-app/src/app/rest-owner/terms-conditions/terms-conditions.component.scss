@@ -1,0 +1,37 @@
+.terms-conditions-page {
+    padding-bottom: 100px;
+    
+    .main-title-section {
+        text-align: center;
+        padding-left: 10px;
+        padding-right: 10px;
+        background-image: url('img/ro/kitchen.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+        
+        @media (min-width: 1440px) {
+            background-image: url('img/ro/kitchen@2x.png');
+        }
+
+        .main-title {
+            padding: 64px 0 73px;
+            font-weight: $lato-black;
+            font-size: 32px;
+            color: white;
+        }
+    }
+
+    .main-contents {
+        padding: 0 24px;
+
+        .page-text {
+            margin: 77px 0 47px;
+        }
+    }
+
+    .btn-continue {
+        margin-top: 52px;
+        width: 100%;
+        max-width: 360px;
+    }
+}

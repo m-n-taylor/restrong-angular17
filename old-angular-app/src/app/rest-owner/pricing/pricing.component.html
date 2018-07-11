@@ -1,0 +1,317 @@
+<div class="landing-page pricing-page" [ngClass]="{ 'backoffice-mobile-menu-opened' : sharedDataService.isMobileMenuOpen }">
+
+    <nav class="navbar navbar-backoffice navbar-backoffice-2">
+        <div class="container-fluid">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle collapsed" (click)="sharedDataService.toggleMobileMenu()">
+                    <div class="base-icon toggle-menu-icon"></div>
+                </button>
+                <a class="navbar-brand" routerLink="/">
+                    <div class="menus-logo-white-icon"></div>
+                </a>
+            </div>
+
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="navbar-collapse" [ngClass]="{ 'collapse' : !sharedDataService.isMobileMenuOpen }">
+                <ul class="nav navbar-nav navbar-right">
+                    <li><a routerLink="/backoffice/pricing">Pricing</a></li>
+                    <li class="request-demo"><a routerLink="/backoffice">Request a demo</a></li>
+                    <li class="last-link"><a routerLink="/backoffice/login">Login</a></li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <div class="clearfix">
+        <div class="section-pricing marketplace">
+            <div class="section-title">Menus Marketplace</div>
+
+            <div class="pricing-list clearfix">
+                <div class="pricing-item" *ngFor="let item of pricingMarketPlace.Details; let index = index">
+                    <div class="item-name">{{ item.Name }}</div>
+                    <div class="item-availability">{{ item.Availability || '&nbsp;' }}</div>
+                    <div class="item-popular" [ngClass]="{ 'is-popular' : item.Popular }">{{ item.Popular ? 'Best Value' : '&nbsp;' }}</div>
+                    <div class="item-price">
+                        <div class="price-currency"></div>
+                        <div class="price-value">{{ item.Fee_Value }}</div>
+                        <div class="price-duration">{{ item.Fee_Currency }}</div>
+                    </div>
+                    <div class="item-details">
+                        <div>(of Subtotal)</div>
+                        <div>{{ item.Fee_Setup ? item.Fee_Setup_Currency + item.Fee_Setup : 'No' }} Setup Fee</div>
+                        <div>{{ item.Delivery_by }}</div>
+                        <div>{{ item.Fee_Delivery ? ('($' + item.Fee_Delivery + ' PER Delivery)') : '&nbsp;' }}</div>
+                        <div>{{ item.Fee_Delivery ? ('(Staff keeps the tip)') : '&nbsp;' }}</div>
+                    </div>
+                    <div class="item-call-action">
+                        <button class="btn btn-success btn-xlg">Signup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section-pricing platform">
+            <div class="section-title">Menus Platform</div>
+
+            <div class="pricing-list clearfix">
+                <div class="pricing-item" *ngFor="let item of pricingPlatform.Details; let index = index">
+                    <div class="item-name">{{ item.Name }}</div>
+                    <div class="item-availability">{{ item.Availability || '&nbsp;' }}</div>
+                    <div class="item-popular" [ngClass]="{ 'is-popular' : item.Popular }">{{ item.Popular ? 'Best Value' : '&nbsp;' }}</div>
+                    <div class="item-price">
+                        <div class="price-currency">{{ item.Fee_Monthly_Currency }}</div>
+                        <div class="price-value">{{ item.Fee_Monthly_Value }}</div>
+                        <div class="price-duration">/mo</div>
+                    </div>
+                    <div class="item-details">
+                        <div>{{ item.Fee_Setup ? ('+' + item.Fee_Setup_Currency + item.Fee_Setup) : 'No' }} Setup Fee</div>
+                        <div>PER LOCATION</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                        <div>&nbsp;</div>
+                    </div>
+                    <div class="item-call-action">
+                        <button class="btn btn-success btn-xlg">Signup</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-pricing combo">
+        <div class="section-title">Combo (Marketplace + Platform)</div>
+
+        <div class="pricing-list clearfix">
+            <div class="pricing-item" *ngFor="let item of pricingCombo.Details; let index = index">
+                <div class="item-name">{{ item.Name }}</div>
+                <div class="item-popular" [ngClass]="{ 'is-popular' : item.Popular }">{{ item.Popular ? 'Best Value' : '&nbsp;' }}</div>
+                <div>
+                    <div class="item-price">
+                        <div class="price-currency"></div>
+                        <div class="price-value">{{ item.Fee_Value }}</div>
+                        <div class="price-duration">{{ item.Fee_Currency }}</div>
+                    </div>
+                </div>
+                <div class="item-details">
+                    <div>(of Subtotal)</div>
+                    <div>{{ item.Fee_Setup ? ('+' + item.Fee_Setup_Currency + item.Fee_Setup) : 'No' }} Setup Fee</div>
+                    <div>{{ item.Delivery_by }}</div>
+                </div>
+                <div>
+                    <div class="item-price">
+                        <div class="price-currency">{{ item.Fee_Monthly_Currency }}</div>
+                        <div class="price-value">{{ item.Fee_Monthly_Value }}</div>
+                        <div class="price-duration">/mo</div>
+                    </div>
+                </div>
+                <div class="item-details">
+                    <div>{{ item.Fee_Setup ? ('+' + item.Fee_Setup_Currency + item.Fee_Setup) : 'No' }} Setup Fee</div>
+                    <div>PER LOCATION</div>
+                </div>
+                <div class="item-call-action">
+                    <button class="btn btn-success btn-xlg">Signup</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-card-process">
+        <div class="section-details">
+            <ul>
+                <li>All percentages are inclusive of credit card charges</li>
+                <li>Prices are subject to change existing clients will be grandfathered or adjusted downward based on subscriptions</li>
+                <li>Do you have more than 10 locations? Contact us for bulk pricing.</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="section-online-ordering">
+        <div class="section-title">
+            Integrated online ordering and analytical platform
+        </div>
+
+        <div class="section-details">
+            <div class="feature-list clearfix">
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/power-up.svg" alt=""></div>
+                    <div class="feature-title">Power up</div>
+                    <div class="feature-text">with our online, app and phone ordering integration</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/get-listed.svg" alt=""></div>
+                    <div class="feature-title">Get listed on the menus.com</div>
+                    <div class="feature-text">market place and receive orders at lower cost</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/modernize.svg" alt=""></div>
+                    <div class="feature-title">Modernize your concept</div>
+                    <div class="feature-text">with your own branded mobile app and website that is already integrated with popular payment platform</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/gain-market.svg" alt=""></div>
+                    <div class="feature-title">Gain market intelligence</div>
+                    <div class="feature-text">and optimize your menu pricing and offering by utilizing menusense&trade; reporting</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/promote.svg" alt=""></div>
+                    <div class="feature-title">Manage and promote your restaurant</div>
+                    <div class="feature-text">to existing and potential customers via integrated Mpoints&trade; Coupons system and analyze results for further insights</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/feedback.svg" alt=""></div>
+                    <div class="feature-title">Get direct feedback</div>
+                    <div class="feature-text">from customers and turn a complains into an opportunity</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/manage.svg" alt=""></div>
+                    <div class="feature-title">Manage your online transaction</div>
+                    <div class="feature-text">and reporting from palm of your hand and chat directly with customers</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/streamline.svg" alt=""></div>
+                    <div class="feature-title">Streamline your phone orders</div>
+                    <div class="feature-text">to a trained DigitalWaiters&trade; to save cost and increase average check</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/optimize.svg" alt=""></div>
+                    <div class="feature-title">Optimize your menu</div>
+                    <div class="feature-text">wording and listing for Search Optimization to gain new clients</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">&nbsp;</div>
+                    <div class="feature-title">&nbsp;</div>
+                    <div class="feature-text">&nbsp;</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image"><img src="img/ro/support-2.svg" alt=""></div>
+                    <div class="feature-title">24/7 Customer support</div>
+                    <div class="feature-text">&nbsp;</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-image">&nbsp;</div>
+                    <div class="feature-title">&nbsp;</div>
+                    <div class="feature-text">&nbsp;</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="request-demo">
+        <request-demo></request-demo>
+    </div>
+
+    <div class="section-already-client">
+        <div class="section-text">Already a client, or need help with an order? Contact Menus Support.</div>
+        <div class="section-phone">
+            <div class="phone-icon"></div>{{ sharedDataService.globalSettings?.CustomerService?.Phone }}</div>
+    </div>
+
+    <div class="footer-section">
+        <div class="row">
+            <div class="col-sm-4 section-1">
+                <div><img src="img/shared/menus-logo.svg" alt=""></div>
+                <div class="menus-about-text">Menus.com is an online destination for searching every available food item near you. Find the exact items you want to order and add them to your cart for easy delivery.</div>
+            </div>
+            <!-- <div class="col-sm-4 section-2">
+                <div class="section-title">Want Free Food?</div>
+                <div class="enter-email-text">Enter your email for deals on free food on menus.com</div>
+                <div class="form-group email-input">
+                    <div class="input-group">
+                        <input type="text" class="form-control input-sm" placeholder="Your Email">
+                        <div class="input-group-addon">
+                            <div class="arrow-right-1-icon"></div>
+                        </div>
+                    </div>
+                </div>
+            </div> -->
+            <div class="col-sm-4 section-3">
+                <div class="section-title">About</div>
+                <div class="section-links">
+                    <div class="section-link"><a href="#">About us</a></div>
+                    <div class="section-link"><a href="#">Faqs</a></div>
+                    <div class="section-link"><a href="#">Contacts</a></div>
+                </div>
+            </div>
+            <div class="col-sm-4 section-4">
+                <div class="section-title">Account</div>
+                <div class="section-links">
+                    <div class="section-link"><a href="#">Login</a></div>
+                    <div class="section-link"><a href="#">Register</a></div>
+                    <div class="section-link"><a href="#">Terms and conditions</a></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- <div class="row1">
+    <div class="home-page">
+        <div class="header-logo-section">
+            <img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus">
+        </div>
+
+        <div class="own-business-section clearfix">
+
+            <div class="left-side">
+
+                <div class="title-heading">Own A Business?</div>
+                <div class="subtitle-heading">We Have Premium Plans</div>
+
+                <div class="container-fluid">
+
+                    <div class="features-list">
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Verify Menus.com Listing</div>
+                                    <div class="feature-section-subtitle">Keep your items up to date and take orders easily.</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Integrated Point of Sale</div>
+                                    <div class="feature-section-subtitle">Use our cloud based POS with integrated hardware.</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                        <div class="row">
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #3</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                            <div class="col-sm-6">
+                                <div class="feature-section">
+                                    <div class="feature-section-title">Feature #4</div>
+                                    <div class="feature-section-subtitle">This will be text highlighting another feature</div>
+                                </div>
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+                <div class="text-center">
+                    <button class="btn btn-success btn-xlg signup" routerLink="/backoffice/login">Sign Up</button>
+                </div>
+
+            </div>
+
+            <div class="right-side">
+                <div class="bg-rest-dashboard"></div>
+            </div>
+
+        </div>
+    </div>
+</div> -->

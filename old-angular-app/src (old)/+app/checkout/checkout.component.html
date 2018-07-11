@@ -1,0 +1,77 @@
+<div class="page checkout-page">
+    <div class="row">
+        <div class="col-sm-10 col-sm-offset-1">
+
+            <manage-user-addresses-modal #manageUserAddressesModal (modalEvents)="userAddressesModalEvents($event)"></manage-user-addresses-modal>
+            <choose-user-payment-modal #chooseUserPaymentModal (modalEvents)="userPaymentsModalEvents($event)"></choose-user-payment-modal>
+
+            <div class="card p-0">
+                <ul class="row tabs">
+                    <li class="col-sm-12 tab">
+                        <a class="active">Checkout</a>
+                    </li>
+                </ul>
+            </div>
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div class="card" *ngIf="!busy">
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Apartment Suite</label>
+                            <input [(ngModel)]="sharedData.aptSuiteNo" type="text" class="form-control" placeholder="Enter a keyword">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Delivery Note</label>
+                            <input [(ngModel)]="sharedData.deliveryNotes" type="text" class="form-control" placeholder="Enter a keyword">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div class="form-group">
+                            <label>Driver Tip</label>
+                            <input [(ngModel)]="sharedData.driverTipPercent" (ngModelChange)="driverTipChanged()" type="text" class="form-control" placeholder="Enter a driver tip">
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div>
+                            <div>{{ selectedUserAddress?.Address }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="openUserAddressesModal()">Change Address</button>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <div>
+                            <div>{{ selectedUserPayment?.CardHolder }}</div>
+                        </div>
+                    </div>
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="openUserPaymentsModal()">Choose Payment</button>
+                    </div>
+                </div>
+
+                <div class="row m-t-20">
+                    <div class="col-sm-4">
+                        <button class="btn btn-primary" (click)="checkout()">Checkout</button>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

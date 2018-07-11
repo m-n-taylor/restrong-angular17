@@ -1,0 +1,276 @@
+.menu-page {
+    padding-bottom: 100px;
+    min-height: 100vh;
+    background-color: #F2F2F2;
+
+    .dish-chips-container {
+        border-top: 1px solid #DBDBDB;
+        border-bottom: 1px solid #DBDBDB;
+        padding: 8px 135px;
+        background-color: white;
+        max-height: 400px;
+        overflow-y: auto;
+
+        @media (max-width: $screen-md-max) {
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .chips {
+            padding-left: 0;
+
+            @media (max-width: $screen-xs-max) {
+                @include chipsScrollable();
+            }
+
+            .chip-item {
+                display: inline-block;
+                margin: 5px;
+
+                a {
+                    text-decoration: none;
+                }
+            }
+        }
+
+        &.show-less {
+
+            .chips {
+                height: 40px;
+                overflow-y: hidden;
+            }
+        }
+
+        .show-more-link {
+            font-weight: $lato-bold;
+            text-align: right;
+            cursor: pointer;
+            text-decoration: underline;
+
+            @media (max-width: $screen-xs-max) {
+                display: none;
+            }
+        }
+    }
+
+    .menu-item-section {
+        padding: 0 60px 43px;
+
+        @media (max-width: $screen-md-max) {
+            padding-left: 48px;
+            padding-right: 48px;
+        }
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .action-icons {
+            margin-top: 43px; // padding: 43px 0 0; //135px
+            text-align: right;
+
+            .icon-map,
+            .icon-view {
+                vertical-align: middle;
+            }
+
+            .icon-view {
+                cursor: default;
+            }
+
+            .icon-map {
+                margin-left: 16px;
+            }
+        }
+
+        .menu-item-list {
+            // position: relative;
+            // padding: 48px 0;
+            // margin: 0 auto; 
+            margin-top: 37px;
+            text-align: center;
+
+            @media (min-width: $screen-sm-min) {
+                font-size: 0; // FIX: the extra spaces caused by child element `display: inline-block`
+            }
+
+            /* $menu-item-margin: 10px; */
+            // $menu-item-width: 370px;
+            // width: 100%;
+            // @media (min-width: $screen-sm-min + 50px) {
+            //     // Show 2 items per row
+            //     width: (2 * $menu-item-width) + (2 * $menu-item-margin);
+            // }
+            // @media (min-width: $screen-md-min) {
+            //     // Show 3 items per row
+            //     width: 2 * $menu-item-width + (2 * $menu-item-margin);
+            // }
+            // @media (min-width: $screen-lg-min) {
+            //     // Show 4 items per row
+            //     width: 3 * $menu-item-width + (3 * $menu-item-margin);
+            // }
+            // @media (min-width: $screen-lg-min + 400px) {
+            //     // Show 4 items per row
+            //     width: 4 * $menu-item-width + (4 * $menu-item-margin);
+            // }
+            .menu-item-list-overlay {
+                position: absolute;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                z-index: 1;
+                display: none;
+            }
+
+            menu-item {
+                .menu-item-container {
+                    display: inline-block;
+                    width: 100%;
+                    max-width: 370px;
+                    height: 230px;
+                    margin-bottom: 24px;
+                    text-align: left;
+
+                    @media (min-width: $screen-sm-min) {
+                        margin-right: 30px;
+                    }
+                }
+            }
+
+            &.opened-more-dishes {
+                opacity: 0.3;
+
+                .menu-item-list-overlay {
+                    display: block;
+                }
+            }
+        }
+
+        .more-dishes-container {
+            position: fixed;
+            z-index: 99;
+            top: 350px;
+            left: 0;
+            right: 0;
+            padding-left: 36px;
+            padding-right: 36px;
+            background-color: white;
+            border: 1px solid #DDDDDD;
+
+            .more-dishes-details {
+                padding-top: 23px;
+                padding-left: 32px;
+                padding-right: 16px;
+
+                .rest-name {
+                    font-weight: $lato-black;
+                    font-size: 24px;
+                    float: left;
+                }
+
+                .dish-count {
+                    margin-top: 11px;
+                    margin-left: 24px;
+                    float: left;
+                }
+
+                .delete-icon {
+                    float: right;
+                }
+            }
+
+            .swiper-container {
+
+                .swiper-button-prev {
+                    @include getCRIcon('arrow-left-2');
+
+                    left: 0;
+                }
+
+                .swiper-button-next {
+                    @include getCRIcon('arrow-right-2');
+
+                    right: 0;
+                }
+
+                .swiper-button-prev,
+                .swiper-button-next {
+                    width: 32px;
+                    height: 64px;
+                    background-size: auto;
+                    top: 82px;
+                    margin-top: 0;
+
+                    &.swiper-button-disabled {
+                        pointer-events: auto;
+                        cursor: not-allowed;
+                    }
+                }
+            }
+
+            $initial-margin-left: 135px;
+            $item-width: 370px;
+            $item-margin-right: 32px;
+
+            .arrow-right {
+                // left: 1309px;
+                right: 103px; // @media (min-width: 1360px) and (max-width: 1678px) {
+                //     left: $initial-margin-left + (3 * ($item-width + $item-margin-right)) - $item-margin-right;
+                // }
+            }
+
+            .menu-item-list {
+                margin-top: 22px;
+                margin-bottom: 29px;
+
+                padding-top: 0;
+                padding-bottom: 0;
+
+                &.more-dishes {
+                    width: 100%; // white-space: nowrap;
+                    // overflow-x: auto;
+                    menu-item {
+                        $margin-right: 32px;
+
+                        .menu-item-container {
+                            float: none;
+                            display: inline-block;
+                            margin-right: $margin-right;
+                            margin-top: 8px;
+                            margin-bottom: 8px;
+                        }
+
+                        &:first-child {
+                            .menu-item-container {
+                                margin-left: $margin-right;
+                            }
+                        }
+
+                        &:last-child {
+                            .menu-item-container {
+                                // margin-right: 135px + $margin-right; // 
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

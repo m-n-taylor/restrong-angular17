@@ -1,0 +1,57 @@
+<div class="page menu-page">
+
+    <search-box #searchBoxComponent [queryParams]="queryParams"></search-box>
+
+    <!-- Dish Type Chips -->
+    <div *ngIf="dishTypes.length" class="dish-chips-container" [ngClass]="{ 'show-less': !showMoreChips }">
+        <div class="chips style-2" #dishChipsContainer>
+            <div class="chip-item" *ngFor="let item of dishTypes; let index = index" [ngClass]="{ 'active': item.active }" (click)="chooseDishType(item)">{{ item.Name }}</div>
+        </div>
+        <div [hidden]="!isOverflowDishChips" class="show-more-link c-success" (click)="showMoreChips = !showMoreChips">Show {{ showMoreChips ? 'less' : 'more' }}</div>
+    </div>
+
+    <div class="menu-item-section">
+
+        <div class="action-icons">
+            <div class="view-on-icon icon-view"></div>
+
+            <a *ngIf="sharedDataService.platformSettings.Enable_Map_View" routerLink="/menu-map-view" [queryParams]="queryParams">
+                <div class="map-off-icon icon-map"></div>
+            </a>
+        </div>
+
+        <no-result-placeholder *ngIf="noResults" [config]="noResultConfig"></no-result-placeholder>
+
+        <page-loader *ngIf="busyMoreDishes" center="page"></page-loader>
+
+        <div *ngIf="showMoreDishes" class="more-dishes-container">
+            <div class="more-dishes-details clearfix">
+                <div class="rest-name">{{ selectedMenuItem.subMenuItems[0].RestaurantName }}'s</div>
+                <div class="dish-count">{{ selectedMenuItem.subMenuItems.length }} {{ selectedMenuItem.subMenuItems[0].Dish || 'item(s)' }}</div>
+                <div class="delete-icon" (click)="setShowMoreDishes(null)"></div>
+            </div>
+
+            <!-- Swiper -->
+            <div *ngIf="isBrowser" class="swiper-container menu-item-list more-dishes" [swiper]="swiperConfig">
+                <div class="swiper-wrapper clearfix">
+                    <div class="swiper-slide" *ngFor="let menuItem of selectedMenuItem.subMenuItems; let index = index">
+                        <menu-item [config]="{ hideMoreDishes: true }" [item]="menuItem" (menuItemClicked)="menuItemClicked($event, menuItem, false)"></menu-item>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+        <div class="menu-item-list clearfix" [ngClass]="{ 'opened-more-dishes': showMoreDishes }" infinite-scroll (scrolled)="loadMenuItems(true)">
+            <div class="menu-item-list-overlay" (click)="clickOutsideShowMoreDishes($event)"></div>
+            <a *ngFor="let menuItem of menuItems" routerLink="/restaurant/{{replaceSpaceWithDash(menuItem.CuisineName)}}/{{replaceSpaceWithDash(menuItem.RestaurantName)}}-{{replaceSpaceWithDash(menuItem.Address)}}/{{menuItem.FFID}}">
+                <menu-item [item]="menuItem" (menuItemClicked)="menuItemClicked($event, menuItem, true)"></menu-item>
+            </a>
+        </div>
+
+        <page-loader *ngIf="busyMenu"></page-loader>
+
+        <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+    </div>
+</div>

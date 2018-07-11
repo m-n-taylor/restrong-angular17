@@ -1,0 +1,69 @@
+search-box {
+    .top-search-section {
+        background-color: white;
+        padding: 24px 135px;
+        
+        .top-search {
+            box-shadow: 0 2px 8px 0 rgba(0,0,0,0.15);
+            border-radius: 3px;
+            display: inline-block;
+            padding: 11px 16px;
+
+            .left-icon, .right-icon {
+                margin-bottom: -8px;
+            }
+
+            .search-input {
+                display: inline-block;
+                width: 500px;
+                margin: 0 20px;
+
+                input {
+                    border: none;
+                    height: 34px;
+                }
+            }
+
+            .search-keywords-chips {
+                display: inline;
+            }
+        }
+
+        .top-location-section {
+            display: inline-block;
+            margin-left: 45px;
+
+            .icon-custom {
+                vertical-align: middle;
+            }
+
+            .location-text {
+                margin-left: 16px;
+            }
+        }
+
+        .auto-complete-list {
+            position: absolute;
+            background-color: white;
+            width: 626px;
+            margin-left: -1px;
+            border: 1px solid #DBDBDB;
+            border-bottom: none;
+            z-index: 1;
+
+            .auto-complete-heading {
+                padding-left: 24px;
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-top: 27px;
+                margin-bottom: 12px;
+            }
+
+            .auto-complete-item {
+                cursor: pointer;
+                padding: 14px 23px;
+                border-bottom: 1px solid #DBDBDB;
+            }
+        }
+    }
+}

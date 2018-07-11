@@ -1,0 +1,24 @@
+// Navbar
+$cr-navbar-height: 81px;
+$cr-navbar-height-xs-max: 54px;
+
+@mixin cr-navbar-height($prop) {
+    @if($prop=='height-100vh') {
+        @media (max-width: $screen-xs-max) {
+            height: calc(100vh - #{$cr-navbar-height-xs-max});
+        }
+
+        @media (min-width: $screen-sm-min) {
+            height: calc(100vh - #{$cr-navbar-height});
+        }
+    }
+    @else {
+        @media (max-width: $screen-xs-max) {
+            #{$prop}: $cr-navbar-height-xs-max;
+        }
+
+        @media (min-width: $screen-sm-min) {
+            #{$prop}: $cr-navbar-height;
+        }
+    }
+}

@@ -1,0 +1,212 @@
+.restaurant-details-page {
+    
+    .rest-details-section {
+        padding: 40px 48px;
+
+        .menu-item-img-container {
+            float: left;
+            margin-right: 16px;
+            
+            .menu-item-img {
+                position: relative;
+                width: 120px;
+                height: 120px;
+                margin: 0 auto;
+                background-color: #F5F7F7;
+
+                img {
+                    position: absolute;
+                    top: 0;
+                    bottom: 0;
+                    left: 0;
+                    right: 0;
+                    margin: auto;
+                    max-width: 100%;
+                }
+            }
+
+            .item-cuisine-icon-parent {
+                background-color: #F5F7F7;
+                padding: 28px;
+
+                .item-cuisine-icon {
+                    width: 64px;
+                    height: 64px;
+                    margin: 0 auto;
+                }
+            }  
+        }
+
+        .rest-details {
+            overflow: hidden;
+            
+            .rest-name {
+                font-weight: $lato-black;
+                font-size: 30px;
+            }
+
+            .rest-info {
+                margin-top: 6px;
+                color: #7C8B92;
+            }
+        }
+    }
+
+    .nav.nav-pills.rest-menu-tabs {
+        border-top: 1px solid #DBDBDB;
+        padding: 0 48px;
+
+        li {
+            a {
+                padding-top: 22px;
+                margin-bottom: 11px;
+                padding-bottom: 10px;
+            }
+
+            &.active, &:hover {
+                a, a:hover {
+                    border-bottom: 2px solid $brand-primary;
+                    color: $gray;
+                }
+            }
+        }
+    }
+
+    .rest-menu-section {
+        padding: 40px 48px;
+
+        .left-side {
+            width: 70%;
+            float: left;
+
+            .menu-list {
+
+                .head-name {
+                    margin: 36px 0 28px;
+                    font-weight: $lato-black;
+                    font-size: 18px;
+                }
+
+                .menu-item {
+                    border-bottom: 1px solid #DBDBDB;
+                    padding-bottom: 16px;
+                    margin-bottom: 16px;
+
+                    .menu-item-img-container {
+                        float: left;
+                        width: 120px;
+                        height: 120px;
+                        margin-right: 16px;
+
+                        .menu-item-img {
+                            margin-right: 16px;
+                        }
+                    }
+
+                    .menu-item-details {
+                        overflow: hidden;
+
+                        .menu-item-name {
+                            float: left;
+                            font-weight: $lato-bold;
+                        }
+
+                        .menu-item-price {
+                            float: right;
+                            font-weight: $lato-black;
+                        }
+
+                        .menu-item-desc {
+                            margin-top: 7px;
+                            color: #7C8B92;
+                        }
+                    }
+                }
+            }
+        }
+
+        .right-side {
+            width: 30%;
+            float: right;
+            padding-left: 100px;
+
+            .rest-map-section {
+                border: 1px solid #DBDBDB;
+                border-radius: 3px;
+
+                .rest-map-container {
+                    position: relative;
+
+                    .rest-map-marker {
+                        position: absolute;
+                        top: 0;
+                        top: 50%;
+                        left: 50%;
+                        margin-left: -12px;
+                        margin-top: -12px;
+                        border-radius: 50%;
+                    }
+                }
+
+                #rest-details-map {
+                    height: 280px;
+                    width: 100%;
+                }
+
+                .rest-map-details {
+                    border-top: 1px solid #DBDBDB;
+                    padding: 24px 30px;
+
+                    .rest-address {
+                        font-weight: $lato-bold;
+                    }
+
+                    .rest-dist-away {
+                        color: #7C8B92;
+                        margin-top: 6px;
+                        padding-bottom: 12px;
+                        border-bottom: 1px solid #DBDBDB;
+                    }
+
+                    .rest-phone-no {
+                        margin-top: 12px;
+                    }
+                }
+            }
+
+            .rest-heads-menu {
+                margin-top: 40px;
+                border-radius: 3px;                
+                background-color: $gray;
+                max-height: 70%;
+                overflow: auto;
+                z-index: 2;
+                padding: 24px;
+
+                .rest-heads-menu-item {
+                    padding: 13px 0 14px;
+                    border-bottom: 1px solid #5B717C;
+
+                    .head-name {
+                        float: left;
+                        font-weight: $lato-bold;
+                        color: $light;
+                    }
+                    .head-count {
+                        float: right;
+                        font-weight: $lato-black;
+                        color: $light;
+                    }
+
+                    &.active {
+                        .head-name, .head-count {
+                            color: $brand-success;
+                        }
+                    }
+                }
+            }
+
+        }
+    }
+
+}

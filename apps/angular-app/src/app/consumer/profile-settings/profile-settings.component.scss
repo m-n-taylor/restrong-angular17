@@ -1,0 +1,34 @@
+profile-settings {
+
+    .profile-settings {
+        padding: 40px 135px;
+
+        .sold-out-section {
+
+            .section-title {
+                margin: 43px 0;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .sold-out-section-list {
+                position: relative;
+
+                .sold-out-section-name {}
+
+                .sold-out-section-description {
+                    margin-top: 16px;
+                }
+            }
+        }
+
+        .change-password-section {
+
+            .section-title {
+                margin: 43px 0;
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+        }
+    }
+}

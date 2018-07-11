@@ -1,0 +1,19 @@
+.save-masterhead-modal {
+
+    .modal-body {
+        padding-top: 28px;
+
+        .service-type-checkbox-section, .active-now-checkbox {
+            margin-top: 42px;
+        }
+    }
+
+    .modal-footer {
+
+        >.action-buttons {
+            button.btn {
+                margin-right: 24px;
+            }
+        }
+    }
+}

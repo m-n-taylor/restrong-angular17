@@ -1,0 +1,16 @@
+.food-bytes-details-page {
+
+    .main-contents {
+        padding: 0 40px 100px;
+    }
+
+    .pdf-viewer {
+        $navbar-height: 81px;
+        $page-title-height: 130px;
+        $offset: 100px;
+
+        width: 100%; 
+        height: calc(100% - #{$navbar-height} - #{$page-title-height} - #{$offset});
+    }
+
+}

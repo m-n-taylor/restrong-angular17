@@ -1,0 +1,58 @@
+<div class="breadcrumb-container" [hidden]="busy">
+    <breadcrumb></breadcrumb>
+</div>
+
+<page-loader *ngIf="busy" center="page"></page-loader>
+
+<div class="restaurant-menu-items-page">
+
+    <div *ngIf="!busy" class="main-contents">
+
+        <div class="page-title-section">
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="page-title-text" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> {{ keywordsLabel }}
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div [hidden]="busy">
+
+            <!-- <div class="chips-container">
+                <div class="chips style-2">
+                    <a class="chip-item" *ngFor="let item of dishTypes; let index = index" [ngClass]="{ 'active': item.isActive }" (click)="chooseDishType(item)">{{ item.Name }}</a>
+                </div>
+            </div> -->
+
+            <div *ngIf="dishTypes.length" class="dish-chips-container" [ngClass]="{ 'show-less': !showMoreChips }">
+                <div class="chips style-2" #dishChipsContainer>
+                    <div class="chip-item" *ngFor="let item of dishTypes; let index = index" [ngClass]="{ 'active': item.active }" (click)="chooseDishType(item)">{{ item.Name }}</div>
+                </div>
+                <div [hidden]="!isOverflowDishChips" class="show-more-link c-success" (click)="showMoreChips = !showMoreChips">Show {{ showMoreChips ? 'less' : 'more' }}</div>
+            </div>
+
+            <page-loader *ngIf="busyMenuItems"></page-loader>
+
+            <!-- <div class="menu-item-list">
+                <div class="clearfix" infinite-scroll [infiniteScrollDistance]="5" [infiniteScrollThrottle]="500" (scrolled)="loadMoreMenuItems()">
+                    <a *ngFor="let menuItem of menuItems" routerLink="/restaurant/{{replaceSpaceWithDash(menuItem.CuisineName)}}/{{replaceSpaceWithDash(menuItem.RestaurantName)}}-{{replaceSpaceWithDash(menuItem.Address)}}/{{menuItem.FFID}}">
+                        <menu-item [item]="menuItem" [config]="menuItemConfig"></menu-item>
+                    </a>
+                </div>
+            </div> -->
+
+            <div class="menu-item-list clearfix" [ngClass]="{ 'opened-more-dishes': showMoreDishes }" infinite-scroll (scrolled)="loadMenuItems(true)">
+                <!-- <div class="menu-item-list-overlay" (click)="clickOutsideShowMoreDishes($event)"></div> -->
+                <a *ngFor="let menuItem of menuItems" routerLink="/restaurant/{{replaceSpaceWithDash(menuItem.CuisineName)}}/{{replaceSpaceWithDash(menuItem.RestaurantName)}}-{{replaceSpaceWithDash(menuItem.Address)}}/{{menuItem.FFID}}">
+                    <menu-item [item]="menuItem" [config]="menuItemConfig"></menu-item>
+                    <!-- (menuItemClicked)="menuItemClicked($event, menuItem, true)" -->
+                </a>
+            </div>
+
+            <page-loader *ngIf="busyLoadMoreMenuItem"></page-loader>
+
+        </div>
+    </div>
+</div>

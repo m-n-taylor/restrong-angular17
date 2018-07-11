@@ -1,0 +1,24 @@
+/**
+ * Yelp Icons
+ */
+
+// Apply BG Image according to device
+@mixin responsiveYelp($imageName, $parent: '') {
+    @if($parent != ''){
+        $parent: '/' + $parent;
+    }
+
+    background-image: url('/img#{$parent}/#{$imageName}.png');
+    background-repeat: no-repeat;
+    background-position: 50%;
+    background-size: contain;
+}
+@for $i from 0 through 5 {
+    .yelp-icon-#{$i} {
+        @include responsiveYelp('stars_small_#{$i}', 'yelp');
+    }
+
+    .yelp-icon-#{$i}\.5 {
+        @include responsiveYelp('stars_small_#{$i}_half', 'yelp');
+    }
+}

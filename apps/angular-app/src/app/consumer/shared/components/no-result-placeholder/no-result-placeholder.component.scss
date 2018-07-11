@@ -1,0 +1,45 @@
+no-result-placeholder {
+
+    .no-result-placeholder-section {
+
+        .empty-result {
+            text-align: center;
+            padding-top: 121px;
+
+            .empty-result-icon {
+                margin: 0 auto;
+                width: 112px;
+                height: 112px;
+            }
+
+            .empty-result-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+                margin-top: 3px;
+            }
+
+            .empty-result-subtitle {
+                font-weight: $lato-regular;
+                line-height: 20px;
+                margin-top: 1px;
+                padding: 0 24px;
+            }
+
+            .no-result-action-buttons {
+
+                .btn.empty-result-action {
+                    margin-top: 20px;
+                    margin-right: 20px;
+
+                    &.service-type {
+                        text-transform: capitalize;
+                    }
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}

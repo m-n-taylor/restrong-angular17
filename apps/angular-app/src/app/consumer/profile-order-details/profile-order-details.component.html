@@ -1,0 +1,120 @@
+<profile></profile>
+
+<div class="profile-order-details">
+    <write-review-modal #writeReviewModal></write-review-modal>
+    <thank-you-points-modal #thankYouPointsModal></thank-you-points-modal>
+
+    <page-loader *ngIf="busy"></page-loader>
+
+    <div [hidden]="busy">
+        <div class="top-section">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="order-number" (click)="goBack()">
+                        <div class="arrow-left-icon"></div> Order {{ pastOrder.OrderNumber }}
+                    </div>
+                </div>
+                <div class="col-sm-6 text-right">
+                    <button class="btn btn-primary btn-write-review" (click)="writeReview(pastOrder)">{{ pastOrder.IsReviewed ? 'Edit' : 'Write' }} Review</button>
+                    <!-- <button class="btn btn-primary btn-inverse btn-reorder">Reorder</button> -->
+                </div>
+            </div>
+
+        </div>
+
+        <div class="main-section">
+
+            <div class="row">
+                <div class="col-sm-6">
+                    <div class="info-section">
+                        <div class="info-title">
+                            Order Info
+                        </div>
+                        <div class="info-details">
+                            <div class="info-field clearfix">
+                                <div class="info-field-dots">&nbsp;</div>
+                                <div class="info-field-label">Status</div>
+                                <div class="info-field-value" [ngClass]="{ 'text-success': pastOrder.StatusID == constants.ORDER_STATUS.ACCEPTED, 'text-danger': pastOrder.StatusID == constants.ORDER_STATUS.CANCELLED_BY_REST, 'text-dark-gray': pastOrder.StatusID == constants.ORDER_STATUS.QUEUE_ADDED, 'f-black': true }">{{ constants.ORDER_STATUS_TEXT[pastOrder.OrderStatusID] }}</div>
+                            </div>
+                            <div class="info-field clearfix">
+                                <div class="info-field-dots">&nbsp;</div>
+                                <div class="info-field-label">Order Number</div>
+                                <div class="info-field-value">{{ pastOrder.OrderNumber }}</div>
+                            </div>
+                            <div class="info-field clearfix">
+                                <div class="info-field-dots">&nbsp;</div>
+                                <div class="info-field-label">Date of Order</div>
+                                <div class="info-field-value">{{ pastOrder.OrderDate | date:'shortDate' }}</div>
+                            </div>
+                            <div class="info-field clearfix">
+                                <div class="info-field-dots">&nbsp;</div>
+                                <div class="info-field-label">Time of Order</div>
+                                <div class="info-field-value">{{ pastOrder.OrderDate | date:'shortTime' }}</div>
+                            </div>
+                            <div class="info-field clearfix">
+                                <div class="info-field-dots">&nbsp;</div>
+                                <div class="info-field-label">Service Type</div>
+                                <div class="info-field-value f-black">{{ pastOrder.ServiceType }}</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-sm-6">
+                    <div class="order-details-section">
+                        <div class="order-details-title">
+                            Order Details
+                        </div>
+
+                        <div class="order-details-list">
+                            <table class="table table-striped table-center">
+                                <tr>
+                                    <th>Item Name</th>
+                                    <th>Qty</th>
+                                    <th>Price</th>
+                                    <th>Item Total</th>
+                                </tr>
+
+                                <!--<tr *ngIf="!busy && !order.MenuDetail.length">
+                                <td colspan="4">No Records to display</td>
+                            </tr>-->
+
+                                <tr *ngFor="let item of pastOrderItems">
+                                    <td class="f-bold">{{ item.ItemName }}</td>
+                                    <td>{{ item.Qty }}</td>
+                                    <td>${{ item.Price }}</td>
+                                    <td>${{ item.Amount }}</td>
+                                </tr>
+                                <tr class="tr-totals">
+                                    <td>&nbsp;</td>
+                                    <td>&nbsp;</td>
+                                    <td class="td-labels">
+                                        <div class="charge-label">Subtotal:</div>
+                                        <div [hidden]="couponDiscount == 0" *ngFor="let couponDetail of pastOrder.CouponDetail" class="charge-label">Coupon Discount({{ couponDetail.CouponCode }}):</div>
+
+                                        <div class="charge-label">Delivery Charge:</div>
+                                        <div class="charge-label">Tax ({{ (pastOrder.Tax_Rate*100) }}%):</div>
+                                        <div class="charge-label">Driver Tip ({{ pastOrder.Driver_Tip_Percent }}%):</div>
+                                        <div class="charge-label total-label">Total:</div>
+                                    </td>
+                                    <td class="td-values">
+                                        <div class="charge-value">
+                                            <span>{{ (pastOrder.SubTotal + couponDiscount) | currency:'USD':true }}</span>
+                                            <span class="c-success">+</span>
+                                        </div>
+                                        <div [hidden]="couponDiscount == 0" *ngFor="let couponDetail of pastOrder.CouponDetail" class="charge-value">{{ couponDetail.DiscountPrice | currency:'USD':true }} <span class="minus-sign c-danger">-</span></div>
+                                        <div class="charge-value">{{ (pastOrder.DeliveryCharge || 0) | currency:'USD':true }} <span class="c-success">+</span></div>
+                                        <div class="charge-value">{{ pastOrder.Tax | currency:'USD':true }} <span class="c-success">+</span></div>
+                                        <div class="charge-value">{{ (pastOrder.Driver_Tip || 0) | currency:'USD':true }} <span class="c-success">+</span></div>
+                                        <div class="charge-value total-value">{{ pastOrder.GrandTotal | currency:'USD':true }} <span class="equal-sign">=</span></div>
+                                    </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

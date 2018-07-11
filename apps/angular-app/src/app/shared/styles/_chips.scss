@@ -1,0 +1,58 @@
+/**
+ * Chips
+ */
+
+// Allows horizontal scroll
+@mixin chipsScrollable() {
+    width: auto;
+    overflow-x: scroll;
+    overflow-y: hidden;
+    white-space: nowrap;
+}
+
+.chips {
+    padding-left: 7.5px;
+    border-radius: 4px;
+
+    &::-webkit-scrollbar {
+        display: none !important;
+    }
+
+    .search-image {
+        width: 20px; //vertical-align: middle;
+    }
+    .chip-item {
+        cursor: pointer;
+        display: inline;
+        background-color: #eee;
+        border-radius: 4px;
+        margin-right: 5px;
+
+        padding: 5px 7px;
+
+        &.search-text {
+            background-color: transparent; //color: color(gray);
+        }
+
+        .chip-item-close {
+            padding-left: 7px;
+        }
+    }
+
+    &.style-2 {
+        .chip-item {
+            background-color: rgba(38, 50, 56, 0.25);
+            border-radius: 100px;
+            padding: 3px 16px 4px;
+
+            &.active {
+                background-color: $brand-success;
+                color: white;
+            }
+        }
+    }
+
+    &.scrollable {
+        @include chipsScrollable();
+    }
+}

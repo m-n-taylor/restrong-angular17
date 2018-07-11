@@ -1,0 +1,173 @@
+<div class="page register-page">
+
+  <div class="header-logo-section">
+    <img class="menus-logo" src="img/shared/menus-logo.svg" alt="">
+  </div>
+
+  <page-loader center="page" *ngIf="busy"></page-loader>
+
+  <div class="row">
+    <div class="col-sm-offset-2 col-sm-8 col-lg-offset-3 col-lg-6">
+
+      <div class="login-section">
+        <div class="login-section-label">Signup</div>
+
+        <div>{{ errorMessage }}</div>
+
+        <div class="login-form">
+
+          <form #formStep1="ngForm">
+
+            <div *ngIf="step == 1">
+
+              <div class="form-group" [ngClass]="{ 'has-error': FirstName.errors && formSubmitted }">
+                <label>First Name</label>
+                <input #FirstName="ngModel" type="text" [(ngModel)]="user.FirstName" name="FirstName" class="form-control" required />
+                
+                <div *ngIf="FirstName.errors && formSubmitted">
+                  <div *ngIf="FirstName.errors.required" class="help-block f-bold">First Name is required</div>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': LastName.errors && formSubmitted }">
+                <label>Last Name</label>
+                <input #LastName="ngModel" type="text" [(ngModel)]="user.LastName" name="LastName" class="form-control" required />
+
+                <div *ngIf="LastName.errors && formSubmitted">
+                  <div *ngIf="LastName.errors.required" class="help-block f-bold">Last Name is required</div>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': Phone.errors && formSubmitted }">
+                <label>Phone</label>
+                <input #Phone="ngModel" type="text" [(ngModel)]="user.Phone" name="Phone" class="form-control" required />
+
+                <div *ngIf="Phone.errors && formSubmitted">
+                  <div *ngIf="Phone.errors.required" class="help-block f-bold">Phone is required</div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+          <form #formStep2="ngForm">
+
+            <div *ngIf="step == 2">
+
+              <div class="form-group" [ngClass]="{ 'has-error': Email.errors && formSubmitted }">
+                <label>Email</label>
+                <input #Email="ngModel" type="email" [(ngModel)]="user.Email" name="Email" class="form-control" pattern="" required />
+
+                <div *ngIf="Email.errors && formSubmitted">
+                  <div *ngIf="Email.errors.required" class="help-block f-bold">Email is required</div>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': ConfirmEmail.errors && formSubmitted }">
+                <label>Confirm Email</label>
+                <input #ConfirmEmail="ngModel" type="email" [(ngModel)]="user.ConfirmEmail" name="ConfirmEmail" class="form-control" required />
+                {{ ConfirmEmail.errors }}
+                <div *ngIf="ConfirmEmail.errors && formSubmitted">
+                  <div *ngIf="ConfirmEmail.errors.required" class="help-block f-bold">Confirm Email is required</div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+          <form #formStep3="ngForm">
+
+            <div *ngIf="step == 3">
+
+              <div class="form-group" [ngClass]="{ 'has-error': Password.errors && formSubmitted }">
+                <label>Password</label>
+                <input #Password="ngModel" type="password" [(ngModel)]="user.Password" name="Password" class="form-control" required />
+              
+                <div *ngIf="Password.errors && formSubmitted">
+                  <div *ngIf="Password.errors.required" class="help-block f-bold">Password is required</div>
+                </div>
+              </div>
+
+              <div class="form-group" [ngClass]="{ 'has-error': ConfirmPassword.errors && formSubmitted }">
+                <label>Confirm Password</label>
+                <input #ConfirmPassword="ngModel" type="password" [(ngModel)]="user.ConfirmPassword" name="ConfirmPassword" class="form-control" required />
+              
+                <div *ngIf="ConfirmPassword.errors && formSubmitted">
+                  <div *ngIf="ConfirmPassword.errors.required" class="help-block f-bold">Confirm Password is required</div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+          <form #formStep4="ngForm">
+
+            <div *ngIf="step == 4">
+
+              <div class="form-group" [ngClass]="{ 'has-error': SecurityAnswer.errors && formSubmitted }">
+                <label>{{ user.SecurityQuestion }}</label>
+                <input #SecurityAnswer="ngModel" type="text" [(ngModel)]="user.SecurityAnswer" name="SecurityAnswer" class="form-control" required />
+
+                <div *ngIf="SecurityAnswer.errors && formSubmitted">
+                  <div *ngIf="SecurityAnswer.errors.required" class="help-block f-bold">Answer is required</div>
+                </div>
+              </div>
+
+            </div>
+
+          </form>
+
+          <button class="btn btn-success btn-block btn-xlg" (click)="nextStep(formStep1, formStep2, formStep3, formStep4)">{{ step < 4 ? 'Continue': 'Confirm' }}</button>
+          
+          <button class="btn btn-success btn-block btn-xlg" (click)="prevStep()">Previous</button>
+
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!--<div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+        <div class="logo-section">
+          <img class="menus-logo" src="img/logo_white.png" alt="">
+        </div>
+        <div class="login-section">
+          <div class="text-center m-b-10">
+            Please login below.
+          </div>
+
+          <div class="m-b-10">
+            <alert title="Success!" [message]="successMessage" type="success"></alert>
+            <alert title="Error!" [message]="errorMessage" type="danger"></alert>
+          </div>
+
+          <form #form="ngForm" class="m-t-30" novalidate>
+
+
+
+
+
+
+
+
+
+
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div class="row" *ngIf="!busy">
+              <div class="col-sm-offset-3 col-sm-6 text-right">
+                <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="register(form)">Register</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>-->
+</div>

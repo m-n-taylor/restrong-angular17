@@ -1,0 +1,36 @@
+<div class="seo-menu-item-list-page">
+
+    <div class="header-logo-section">
+        <a routerLink="/"><img class="menus-logo" src="img/shared/menus-logo.svg" alt="menus"></a>
+    </div>
+
+    <div class="main-contents">
+
+        <div class="menu-item-list">
+
+            <div class="breadcrumb-container">
+                <ul class="breadcrumb">
+                    <li *ngFor="let item of breadcrumbList; let last = last" class="breadcrumb-item" [ngClass]="{ 'active': last }">
+                        <a *ngIf="!last" routerLink="{{ item.url }}">{{ item.name }}</a>
+                        <span *ngIf="last">{{ item.name }}</span>
+                    </li>
+                </ul>
+            </div>
+
+            <page-loader *ngIf="busy"></page-loader>
+
+            <div *ngIf="!busy" class="clearfix">
+                <a *ngFor="let menuItem of menuItems" routerLink="/restaurant/{{replaceSpaceWithDash(menuItem.CuisineName)}}/{{replaceSpaceWithDash(menuItem.RestaurantName)}}-{{replaceSpaceWithDash(menuItem.Address)}}/{{menuItem.FFID}}">
+                    <menu-item [item]="menuItem" [config]="menuItemConfig"></menu-item>
+                </a>
+            </div>
+
+            <div *ngIf="!busy && menuItems.length == 0">No menu items available</div>
+
+            <m-bs-pagination *ngIf="!busy && menuItems.length > 0" [baseUrl]="'/' + serviceType + '/' + params.city + '/' + params.zipcode + '/' + params.cuisine + '/' + params.dish" [(page)]="page" [(pageSize)]="pageSize" [totalPages]="totalPages" [totalRows]="totalRows"
+                (valueChange)="loadMenuItems()"></m-bs-pagination>
+        </div>
+
+    </div>
+
+</div>

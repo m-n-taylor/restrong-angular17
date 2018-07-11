@@ -1,0 +1,25 @@
+<div class="my-points">
+
+    <div class="your-points-section">
+        <div>You have</div>
+        <div class="total-points">{{ userService.loginUser.Points }} pts.</div>
+        <div class="total-amount">It means you have $1.32</div>
+    </div>
+
+    <div class="main-contents">
+        <div class="main-heading">
+            <div>Take photos. Earn points.</div>
+            <div>Get free food</div>
+        </div>
+
+        <div class="point-contents clearfix">
+            <div class="left-side">
+                <img src="img/cr/pts-dish.jpg" />
+            </div>
+            <div class="right-side">
+                <div [innerHTML]="sharedDataService.platformSettings.YourPoints"></div>
+            </div>
+        </div>
+    </div>
+
+</div>

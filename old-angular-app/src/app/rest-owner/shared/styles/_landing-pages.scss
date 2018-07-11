@@ -1,0 +1,165 @@
+.landing-page {
+
+    .section-online-ordering {
+        padding: 52px 135px 118px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding: 40px 24px 0;
+        }
+
+        .section-title {
+            font-weight: $lato-black;
+            font-size: 32px;
+            color: #2A3134;
+            text-align: center;
+
+            @media (max-width: $screen-xs-max) {
+                margin-bottom: 18px;
+            }
+        }
+
+        .section-details {
+
+            .feature-list {
+
+                .feature-item {
+                    padding-top: 67px;
+                    text-align: center;
+
+                    @media (min-width: $screen-sm-min) {
+                        width: 33.33%;
+                        height: 240px;
+                        float: left;
+                        padding-left: 1%;
+                        padding-right: 1%;
+
+                        &.item-center {
+                            width: 100%;
+                        }
+                    }
+
+                    @media (max-width: $screen-xs-max) {
+                        padding-top: 13px;
+                        padding-bottom: 32px;
+                    }
+
+                    .feature-title {
+                        margin-top: 17px;
+                        font-weight: $lato-black;
+                        font-size: 18px;
+                    }
+
+                    .feature-text {
+                        margin-top: 11px;
+                        max-width: 300px;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
+                }
+            }
+        }
+    }
+
+    .section-already-client {
+        background: $gray;
+        padding: 59px 135px;
+        text-align: center;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-text {
+            font-size: 18px;
+            color: white;
+        }
+
+        .section-phone {
+            margin-top: 15px;
+            font-weight: $lato-black;
+            font-size: 32px;
+            color: white;
+
+            .phone-icon {
+                margin-right: 8px;
+                width: 32px;
+                height: 32px;
+                background-size: contain;
+                margin-bottom: -6px;
+            }
+        }
+    }
+
+    .footer-section {
+        padding: 80px 135px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-top: 45px;
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-1 {
+
+            @media (max-width: $screen-xs-max) {
+                text-align: center;
+                margin-bottom: 32px;
+            }
+
+            .menus-about-text {
+                margin-top: 15px;
+            }
+        }
+
+        .section-2 {
+            .enter-email-text {
+                margin-top: 15px;
+            }
+            .email-input {
+                margin-top: 16px;
+
+                .input-group-addon {
+                    background-color: transparent;
+                }
+            }
+        }
+
+        .section-2,
+        .section-3,
+        .section-4 {
+
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+        }
+
+        .section-3,
+        .section-4 {
+
+            .section-links {
+                margin-top: 13px;
+
+                .section-link {
+                    margin-bottom: 8px;
+                }
+            }
+        }
+    }
+}

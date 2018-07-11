@@ -1,0 +1,39 @@
+.request-demo {
+
+    .section-ready-to-learn {
+        background: #F7F7F7;
+        padding: 79px 135px;
+
+        @media (max-width: $screen-sm-max) {
+            padding-left: 36px;
+            padding-right: 36px;
+        }
+
+        @media (max-width: $screen-xs-max) {
+            padding-left: 24px;
+            padding-right: 24px;
+        }
+
+        .section-details {
+            max-width: 360px;
+            margin: 0 auto;
+
+            .section-title {
+                font-weight: $lato-black;
+                font-size: 32px;
+                color: #2A3134;
+                text-align: center;
+            }
+
+            .section-subtitle {
+                margin: 15px 0 40px;
+                font-size: 18px;
+                text-align: center;
+            }
+
+            .btn-request-demo {
+                margin-top: 4px;
+            }
+        }
+    }
+}

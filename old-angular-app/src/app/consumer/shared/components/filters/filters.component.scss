@@ -1,0 +1,158 @@
+filters {
+    .filters-section {
+        width: 600px;
+        position: fixed;
+        top: $cr-navbar-height;
+        right: 0;
+        background-color: white;
+        border-left: 1px solid #DBDBDB;
+        padding-right: 135px;
+        height: 100vh;
+        overflow-y: auto;
+        z-index: 99999999;
+
+        .close-icon-container {
+            text-align: right;
+            padding: 16px 0 14px;
+        }
+
+        .nav.nav-pills.service-type-tabs {
+            text-align: center;
+            padding: 24px 0;
+
+            li {
+                a {
+                    padding-top: 0;
+                    padding-bottom: 5px;
+                }
+            }
+        }
+
+        .view-types {
+            border: 2px solid #DDDDDD;
+            border-radius: 100px;
+            margin: 32px 24px 0;
+
+            .view-type {
+                margin-top: 0;
+                height: 40px;
+                text-align: center;
+                float: left;
+                width: 50%;
+                background-color: transparent;
+                color: $gray;
+                border-color: transparent;
+                box-shadow: none;
+
+                &.view-active {
+                    background-color: #39CE7B;
+                    border-color: #39CE7B;
+                    color: white;
+                }
+            }
+        }
+
+        // Dish filters
+        .dish-filters {
+            margin-top: 32px;
+            border-top: 1px solid #DBDBDB;
+            padding: 27px 24px 43px;
+
+            .row, .col {
+                padding: 0;
+            }
+
+            .filter-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .min-price, .max-price, .proximity {
+                .value {
+                    margin-left: 6px;
+                    font-weight: $lato-black;
+                    color: $brand-success;
+                }
+            }
+
+            .min-price, .max-price {
+                margin-top: 16px;
+            }
+
+            .proximity {
+                margin-top: 28px;
+            }
+
+            .price-range, .proximity-range {
+                margin-top: 13px;
+                padding: 0;
+                padding-bottom: 28px;
+                
+                input {
+                    margin: 0;
+                }
+                position: relative;
+            }
+        }
+
+        // Cuisine filters
+        .cuisine-filters {
+            padding: 0 24px 43px;
+
+            .filter-title {
+                font-weight: $lato-black;
+                font-size: 18px;
+            }
+
+            .cuisine-list {
+                margin-top: 20px;
+                -webkit-flex-wrap: wrap;
+                flex-wrap: wrap;
+                justify-content: flex-start;
+
+                .cuisine-item {
+                    // Makes it in center
+                    // display: flex;
+                    // justify-content: center;
+                    // align-items: center;
+                    // flex-direction: column;
+
+                    cursor: pointer;
+                    display: inline-block;
+                    width: 33%;
+
+                    padding: 27px 0 0;
+                    height: 140px;
+                    text-align: center;
+                    border: 1px solid #DBDBDB;
+                    border-top: none;
+                    border-left: none;
+
+                    &:nth-child(3n + 1) {
+                        border-left: 1px solid #DBDBDB;
+                    }
+
+                    &:nth-child(1), &:nth-child(2), &:nth-child(3) {
+                        border-top: 1px solid #DBDBDB;
+                    }
+
+                    .cuisine-img {
+                        width: 48px;
+                        height: 48px;
+                        //background-color: #DBDBDB;
+                        margin: 0 auto;
+                    }
+
+                    .cuisine-name, .cuisine-count {
+                        font-size: 12px;
+                    }
+
+                    .cuisine-name {
+                        margin-top: 4px;
+                    }
+                }
+            }
+        }
+
+    }
+}

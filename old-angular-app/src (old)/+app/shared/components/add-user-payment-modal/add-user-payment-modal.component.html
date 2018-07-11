@@ -1,0 +1,97 @@
+<div class="modal-backdrop fade in" *ngIf="isModalOpen"></div>
+<div class="modal fade" *ngIf="isModalOpen" [ngClass]="{'display-block in': isModalOpen}" id="myModal" tabindex="-1" role="dialog"
+    aria-labelledby="myModalLabel">
+    <div class="modal-dialog modal-lg choose-user-payment-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" aria-label="Close" (click)="close()">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h4 class="modal-title">{{ modalTitle }}</h4>
+            </div>
+            <div class="modal-body modal-scrollable">
+
+                <div *ngIf="busy" class="loader"></div>
+
+                <div *ngIf="!busy">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Card Number</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.CardNumber" placeholder="Card Number" [disabled]="mode == constants.MODE_UPDATE">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Expiry</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Expiry" placeholder="Expiry" [disabled]="mode == constants.MODE_UPDATE">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row" *ngIf="mode == constants.MODE_CREATE">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>CVV</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.CVV" placeholder="CVV">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>First Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_FirstName" placeholder="First Name">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Last Name</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_LastName" placeholder="Last Name">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>Address</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_Address" placeholder="Address">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-12">
+                            <div class="form-group">
+                                <label>City</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_City" placeholder="City">
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>State</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_State" placeholder="State">
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="form-group">
+                                <label>Zip</label>
+                                <input type="text" class="form-control" [(ngModel)]="userPayment.Billing_Zip" placeholder="Zip">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" (click)="close()">Cancel</button>
+                <button type="button" class="btn btn-primary" (click)="saveUserPayment()">Save Payment</button>
+            </div>
+        </div>
+    </div>
+</div>

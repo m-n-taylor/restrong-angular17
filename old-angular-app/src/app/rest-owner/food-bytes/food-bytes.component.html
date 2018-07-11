@@ -1,0 +1,33 @@
+<div class="breadcrumb-container">
+    <breadcrumb></breadcrumb>
+</div>
+
+<div class="food-bytes-page">
+    <div class="main-contents">
+
+        <div class="heading-list">FoodBytes</div>
+
+        <page-loader *ngIf="busy"></page-loader>
+
+        <div [hidden]="busy">
+
+            <div class="table-responsive food-bytes-table">
+                <table class="table table-striped">
+                    <tr *ngFor="let item of foodBytesList" (click)="viewDetails(item)">
+                        <td>
+                            <img [src]="item.Thumbnail" [alt]="item.Title">
+                        </td>
+                        <td>
+                            <div class="item-title">{{ item.Title }}</div>
+                            <div class="item-date">{{ item.IssueDate | date: 'MM/dd/yyyy' }}</div>
+                            <div class="item-pages">{{ item.PagesCount }} Pages</div>
+                            <div class="item-description" [innerHTML]="item.Description"></div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+
+    </div>
+</div>

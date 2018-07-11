@@ -1,0 +1,60 @@
+mobile-device {
+
+    &.marvel-device {
+
+        .screen {
+
+            img {
+                max-width: 100%;
+            }
+        }
+
+        &.iphone8 {
+
+            /* for responsive device */
+            @media (max-width: $screen-xs-max) {
+                width: auto;
+                height: auto;
+                max-width: 375px;
+                max-height: 667px;
+                margin-left: 8px;
+                margin-right: 8px;
+                .sensor {
+                    opacity: 0;
+                }
+            }
+             :after {
+                @media (max-width: $screen-xs-max) {
+                    box-shadow: none !important;
+                }
+            }
+
+            @media (max-width: $screen-xs-max) {
+                padding: 4px 0 0 !important;
+                background: none !important;
+                box-shadow: none !important;
+
+                .top-bar,
+                .sleep,
+                .volume,
+                .camera,
+                .sensor,
+                .speaker,
+                .home,
+                .bottom-bar {
+                    opacity: 0 !important;
+                }
+
+                &:before {
+                    background: none !important;
+                }
+
+                &:after {
+                    box-shadow: none !important;
+                } // .screen {
+                //     box-shadow: none !important;
+                // }
+            }
+        }
+    }
+}

@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 43.1 (39012) - http://www.bohemiancoding.com/sketch -->
+    <title>open-question</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="UI" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="open-question" fill="#474747">
+            <g id="Group" transform="translate(4.000000, 4.000000)">
+                <polygon id="Shape" transform="translate(8.000000, 8.000000) rotate(-315.000000) translate(-8.000000, -8.000000) " points="12.6666667 4.27333333 11.7266667 3.33333333 8 7.06 4.27333333 3.33333333 3.33333333 4.27333333 7.06 8 3.33333333 11.7266667 4.27333333 12.6666667 8 8.94 11.7266667 12.6666667 12.6666667 11.7266667 8.94 8"></polygon>
+                <polygon id="Shape-Copy" transform="translate(8.000000, 8.000000) rotate(-315.000000) translate(-8.000000, -8.000000) " points="12.6666667 4.27333333 11.7266667 3.33333333 8 7.06 7.06 8 3.33333333 11.7266667 4.27333333 12.6666667 8 8.94 8.94 8"></polygon>
+            </g>
+        </g>
+    </g>
+</svg>

@@ -1,0 +1,12 @@
+<div class='ro-app'>
+    <router-outlet></router-outlet>
+
+    <confirm-modal #confirmModal></confirm-modal>
+
+    <div *ngIf="!ROSharedDataService.hideSupportChatWindow && !ROSharedDataService.hideSupportChatWindowUserSession">
+        <div *ngIf="(!userService.isLoggedIn && CRSharedDataService.platformSettings.EnableGuestSupportChat) || (userService.isLoggedIn && CRSharedDataService.platformSettings.EnableLoggedInSupportChat)">
+            <support-chat-box type="TYPE_RESTAURANT" [confirmModal]="confirmModal"></support-chat-box>
+        </div>
+    </div>
+
+</div>

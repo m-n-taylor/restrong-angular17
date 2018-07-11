@@ -1,0 +1,73 @@
+<div class="page login-page">
+  <div class="container-fluid">
+    <div class="row">
+      <div class="col-sm-offset-3 col-sm-6 col-lg-offset-4 col-lg-4">
+        <div class="logo-section">
+          <img class="menus-logo" src="img/logo_white.png" alt="">
+        </div>
+        <div class="login-section">
+          <div class="text-center m-b-10">
+            Please login below.
+          </div>
+
+          <div class="m-b-10">
+            <alert title="Success!" [message]="successMessage" type="success"></alert>
+            <alert title="Error!" [message]="errorMessage" type="danger"></alert>
+          </div>
+
+          <form #form="ngForm" class="m-t-30" novalidate>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.FirstName && formSubmitted }">
+              <input type="text" [(ngModel)]="user.FirstName" name="FirstName" class="form-control input-lg" placeholder="First Name">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.LastName && formSubmitted }">
+              <input type="text" [(ngModel)]="user.LastName" name="LastName" class="form-control input-lg" placeholder="Last Name">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.Phone && formSubmitted }">
+              <input type="text" [(ngModel)]="user.Phone" name="Phone" class="form-control input-lg" placeholder="Phone">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.Email && formSubmitted }">
+              <input type="email" [(ngModel)]="user.Email" name="Email" class="form-control input-lg" placeholder="Email">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.ConfirmEmail && formSubmitted }">
+              <input type="email" [(ngModel)]="user.ConfirmEmail" name="ConfirmEmail" class="form-control input-lg" placeholder="Confirm Email">
+              <span class="glyphicon glyphicon-envelope form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.Password && formSubmitted }">
+              <input type="password" [(ngModel)]="user.Password" name="Password" class="form-control input-lg" placeholder="Password">
+              <span class="glyphicon glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.ConfirmPassword && formSubmitted }">
+              <input type="password" [(ngModel)]="user.ConfirmPassword" name="ConfirmPassword" class="form-control input-lg" placeholder="Confirm Password">
+              <span class="glyphicon glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="form-group has-feedback" [ngClass]="{ 'has-error': !user.SecurityAnswer && formSubmitted }">
+              <input type="text" [(ngModel)]="user.SecurityAnswer" name="SecurityAnswer" class="form-control input-lg" [placeholder]="user.SecurityQuestion">
+              <span class="glyphicon glyphicon glyphicon-lock form-control-feedback" aria-hidden="true"></span>
+            </div>
+
+            <div class="loader" *ngIf="busy"></div>
+
+            <div class="row" *ngIf="!busy">
+              <div class="col-sm-offset-3 col-sm-6 text-right">
+                <button type="submit" class="btn btn-primary btn-block btn-lg" (click)="register(form)">Register</button>
+              </div>
+            </div>
+
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,93 @@
+<profile [activeTab]="constants.PROFILE_TAB_SETTINGS"></profile>
+
+<change-address-modal #changeAddressModal></change-address-modal>
+
+<div class="profile-settings">
+
+    <div class="delivery-address-section">
+        <user-address-list [changeAddressModal]="changeAddressModal" [selectedUserAddress]="selectedUserAddress"></user-address-list>
+    </div>
+
+    <div class="user-payment-section">
+        <user-payment-list></user-payment-list>
+    </div>
+
+    <div class="sold-out-section">
+
+        <div class="section-title">Sold Out / Price Changing</div>
+
+        <div class="sold-out-section-list">
+
+            <page-loader *ngIf="busySoldOutAction" center="parent"></page-loader>
+
+            <div class="table-responsive">
+                <table class="table">
+                    <tr *ngFor="let soldOutAction of soldOutActions; let index = index" (click)="changeSoldOutAction(soldOutAction)">
+                        <td class="nostretch">
+                            <img [src]="constants.IMG_RADIO_ACTIVE" *ngIf="selectedSoldOutAction.ID == soldOutAction.ID" />
+                            <img [src]="constants.IMG_RADIO" *ngIf="selectedSoldOutAction.ID != soldOutAction.ID" />
+                        </td>
+                        <td>
+                            <div class="sold-out-section-name">{{ soldOutAction.Name }}</div>
+                            <div class="sold-out-section-description c-text2">{{ soldOutAction.Description }}</div>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+        </div>
+    </div>
+
+    <div class="change-password-section">
+        <div class="section-title">
+            Change Password
+        </div>
+
+        <form #form="ngForm" novalidate (ngSubmit)="form.valid && save(form)">
+
+            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, oldPassword) }">
+                <label>Current Password</label>
+
+                <div class="m-input-group has-addon-right">
+                    <input type="{{ showCurrentPassword ? 'text' : 'password' }}" class="form-control" required="true" mValidPassword #oldPassword="ngModel" name="oldPassword" [(ngModel)]="userPassword.oldPassword">
+                    <div class="m-input-group-addon m-addon-right show-password-addon" [ngClass]="{ 'active': showCurrentPassword }" (click)="toggleShowCurrentPassword()">
+                        <div class="show-password-icon"></div>
+                    </div>
+                </div>
+
+                <validation-messages [form]="form" [input]="oldPassword" label="Current Password"></validation-messages>
+            </div>
+
+            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, newPassword) }">
+                <label>New Password</label>
+
+                <div class="m-input-group has-addon-right">
+                    <input type="{{ showNewPassword ? 'text' : 'password' }}" class="form-control" required="true" mValidPassword mValidateEqual="newConfirmPassword" reverse="true" #newPassword="ngModel" name="newPassword" [(ngModel)]="userPassword.newPassword">
+                    <div class="m-input-group-addon m-addon-right show-password-addon" [ngClass]="{ 'active': showNewPassword }" (click)="toggleShowNewPassword()">
+                        <div class="show-password-icon"></div>
+                    </div>
+                </div>
+
+                <validation-messages [form]="form" [input]="newPassword" label="New Password" labelEqual="New Confirm Password"></validation-messages>
+            </div>
+
+            <div class="form-group input-container" [ngClass]="{ 'has-error': input.hasError(form, newConfirmPassword) }">
+                <label>New Confirm Password</label>
+
+                <div class="m-input-group has-addon-right">
+                    <input type="{{ showNewConfirmPassword ? 'text' : 'password' }}" class="form-control" required="true" mValidPassword mValidateEqual="newPassword" #newConfirmPassword="ngModel" name="newConfirmPassword" [(ngModel)]="userPassword.confirmPassword">
+                    <div class="m-input-group-addon m-addon-right show-password-addon" [ngClass]="{ 'active': showNewConfirmPassword }" (click)="toggleShowNewConfirmPassword()">
+                        <div class="show-password-icon"></div>
+                    </div>
+                </div>
+
+                <validation-messages [form]="form" [input]="newConfirmPassword" label="New Confirm Password" labelEqual="New Password"></validation-messages>
+            </div>
+
+            <div class="change-password-actions">
+                <button [ladda]="busyChangePassword" type="submit" class="btn btn-success btn-lg">Change Password</button>
+            </div>
+        </form>
+    </div>
+
+</div>

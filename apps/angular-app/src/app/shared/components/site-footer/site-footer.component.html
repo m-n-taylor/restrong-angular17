@@ -1,0 +1,45 @@
+<div class="site-footer-section" [ngClass]="{ 'top-border': topBorder }">
+    <div class="row">
+        <div class="col-sm-4 section-1">
+            <!-- <div>
+                <div *ngIf="!isPlatform">
+                    <img class="logo-image" [src]="logoImage" />
+                    <span>&trade;</span>
+                </div>
+
+                <div *ngIf="true || isPlatform" class="logo-image-wrapper">
+                    <img class="logo-image" [src]="logoImage" />
+                </div>
+            </div>
+            <div class="menus-about-text">
+                {{ sharedDataService.platformSettings.Footer_Description }}
+            </div> -->
+            <div class="social-icons-wrapper">
+                <div class="social-icons">
+                    <a *ngIf="sharedDataService.platformSettings.SocialLink_Facebook" [href]="sharedDataService.platformSettings.SocialLink_Facebook" target="_blank" class="fa fa-facebook"></a>
+                    <a *ngIf="sharedDataService.platformSettings.SocialLink_Twitter" [href]="sharedDataService.platformSettings.SocialLink_Twitter" target="_blank" class="fa fa-twitter"></a>
+                    <a *ngIf="sharedDataService.platformSettings.SocialLink_Instagram" [href]="sharedDataService.platformSettings.SocialLink_Instagram" target="_blank" class="fa fa-instagram"></a>
+                    <a *ngIf="sharedDataService.platformSettings.SocialLink_Youtube" [href]="sharedDataService.platformSettings.SocialLink_Youtube" target="_blank" class="fa fa-youtube"></a>
+                </div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 section-3">
+            <div class="section-title">About</div>
+            <div class="section-links">
+                <div class="section-link"><a routerLink="/about-us">About us</a></div>
+                <div class="section-link"><a routerLink="/privacy-policy">Privacy Policy</a></div>
+                <div class="section-link"><a routerLink="/return-policy">Return Policy</a></div>
+            </div>
+        </div>
+        <div class="col-xs-6 col-sm-4 section-4">
+            <div class="section-title">Account</div>
+            <div class="section-links">
+                <div class="section-link" *ngFor="let item of section4Links"><a routerLink="{{ item.link }}">{{ item.name }}</a></div>
+                <!-- <div class="section-link"><a routerLink="/backoffice/login">Login</a></div>
+                <div class="section-link"><a routerLink="/backoffice/signup">Register</a></div>
+                <div class="section-link"><a routerLink="/terms-of-use">Terms and conditions</a></div>
+             -->
+            </div>
+        </div>
+    </div>
+</div>

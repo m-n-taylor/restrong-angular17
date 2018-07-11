@@ -1,0 +1,173 @@
+<div class="page restaurant-details-page">
+
+    <change-address-modal #changeAddressModal></change-address-modal>
+
+    <map-customer-route-modal #mapCustomerRouterModal></map-customer-route-modal>
+
+    <div class="rest-filters-section clearfix">
+        <div class="top-location-section-wrapper">
+            <div class="top-location-section" (click)="openChangeAddressModal()">
+                <span class="location-text"><span class="f-black"><span *ngIf="!sharedDataService.userAddress">Choose </span>Your Address:</span> {{ sharedDataService.userAddress?.Address }}</span>
+                <div class="location-icon icon-custom"></div>
+            </div>
+        </div>
+        <div class="service-type-tabs-wrapper">
+            <ul class="nav nav-pills service-type-tabs">
+                <li *ngIf="sharedDataService.platformSettings.Enable_Delivery" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_DELIVERY, 'disabled': !currentRestaurant?.isDelivery }" (click)="selectServiceTypeTab(currentRestaurant?.isDelivery, constants.SERVICE_TYPE_DELIVERY)"><a>Delivery</a></li>
+                <li *ngIf="sharedDataService.platformSettings.Enable_Pickup" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_PICKUP, 'disabled': !currentRestaurant?.isPickup }" (click)="selectServiceTypeTab(currentRestaurant?.isPickup, constants.SERVICE_TYPE_PICKUP)"><a>Pickup</a></li>
+                <li *ngIf="sharedDataService.platformSettings.Enable_Catering" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_CATERING, 'disabled': !currentRestaurant?.isCatering }" (click)="selectServiceTypeTab(currentRestaurant?.isCatering, constants.SERVICE_TYPE_CATERING)"><a>Catering</a></li>
+                <li *ngIf="sharedDataService.platformSettings.Enable_DiningIn" [ngClass]="{'active': sharedDataService.serviceType == constants.SERVICE_TYPE_DINEIN, 'disabled': !currentRestaurant?.isDiningIn }" (click)="selectServiceTypeTab(currentRestaurant?.isDiningIn, constants.SERVICE_TYPE_DINEIN)"><a>Dine In</a></li>
+            </ul>
+        </div>
+    </div>
+
+
+    <div *ngIf="currentRestaurant" class="rest-details-section clearfix">
+        <div class="menu-item-img-container">
+            <div *ngIf="currentRestaurant.MenuImageExist || currentRestaurant.RestImageExist" class="menu-item-img">
+                <img src="{{ constants.SERVER_URL + '/' + currentRestaurant.RestImage }}" alt="{{ currentRestaurant.RestaurantName }}" />
+            </div>
+            <!-- <div *ngIf="currentRestaurant.MenuImageExist || currentRestaurant.RestImageExist" class="menu-item-img" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + currentRestaurant.FileName + ')'}"></div> -->
+
+            <div *ngIf="!currentRestaurant.MenuImageExist && !currentRestaurant.RestImageExist" class="item-cuisine-icon-parent clearfix">
+                <div class="cuisine-icon-{{currentRestaurant.CuisineID}} item-cuisine-icon"></div>
+            </div>
+        </div>
+
+        <div class="rest-details">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="rest-name">
+                        {{ currentRestaurant.RestaurantName }}
+                        <div class="rest-status">
+                            <button class="btn btn-xxs disabled" [ngClass]="{ 'btn-success': isRestOpen, 'btn-primary': !isRestOpen }">{{ isRestOpen ? 'Open Now' : currentRestaurant.Availability }}</button>
+                        </div>
+                    </div>
+
+                    <div class="rest-info c-text2">{{ currentRestaurant.CuisineName }} • {{ currentRestaurant.SegmentName }}</div>
+                    <div class="rest-info c-text2"><span *ngIf="currentRestaurant.DeliveryCharge">Delivery Fee ${{ currentRestaurant.DeliveryCharge }}</span><span *ngIf="currentRestaurant.DeliveryCharge && currentRestaurant.MinOrder"> • </span><span *ngIf="currentRestaurant.MinOrder">Min Order ${{ currentRestaurant.MinOrder }}</span></div>
+                    <div *ngIf="currentRestaurant.ETA" class="rest-info c-text2">ETA {{ currentRestaurant.ETA }}</div>
+                </div>
+
+                <div class="col-md-6">
+                    <div class="qr-code-wrapper">
+                        <qrcode-viewer *ngIf="isBrowser && appDownloadLink" [text]="appDownloadLink"></qrcode-viewer>
+                    </div>
+
+                    <div class="store-links">
+                        <a class="playstore-link" target="_blank" [href]="sharedDataService.platformSettings.App_Android_Store_Link"><img src="data:image/svg+xml;base64,PHN2ZyBpZD0iYXJ0d29yayIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIiB4bWxuczp4bGluaz0iaHR0cDovL3d3dy53My5vcmcvMTk5OS94bGluayIgdmlld0JveD0iMCAwIDE1NSA2MCI+PGRlZnM+PGxpbmVhckdyYWRpZW50IGlkPSJsaW5lYXItZ3JhZGllbnQiIHgxPSIzMS44IiB5MT0iMTgzLjI5IiB4Mj0iMTUuMDIiIHkyPSIxNjYuNTEiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMwMGEwZmYiLz48c3RvcCBvZmZzZXQ9IjAuMDEiIHN0b3AtY29sb3I9IiMwMGExZmYiLz48c3RvcCBvZmZzZXQ9IjAuMjYiIHN0b3AtY29sb3I9IiMwMGJlZmYiLz48c3RvcCBvZmZzZXQ9IjAuNTEiIHN0b3AtY29sb3I9IiMwMGQyZmYiLz48c3RvcCBvZmZzZXQ9IjAuNzYiIHN0b3AtY29sb3I9IiMwMGRmZmYiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiMwMGUzZmYiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTIiIHgxPSI0My44MyIgeTE9IjE3MiIgeDI9IjE5LjY0IiB5Mj0iMTcyIiBncmFkaWVudFRyYW5zZm9ybT0ibWF0cml4KDEsIDAsIDAsIC0xLCAwLCAyMDIpIiBncmFkaWVudFVuaXRzPSJ1c2VyU3BhY2VPblVzZSI+PHN0b3Agb2Zmc2V0PSIwIiBzdG9wLWNvbG9yPSIjZmZlMDAwIi8+PHN0b3Agb2Zmc2V0PSIwLjQxIiBzdG9wLWNvbG9yPSIjZmZiZDAwIi8+PHN0b3Agb2Zmc2V0PSIwLjc4IiBzdG9wLWNvbG9yPSJvcmFuZ2UiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNmZjljMDAiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTMiIHgxPSIzNC44MyIgeTE9IjE2OS43IiB4Mj0iMTIuMDciIHkyPSIxNDYuOTUiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiNmZjNhNDQiLz48c3RvcCBvZmZzZXQ9IjEiIHN0b3AtY29sb3I9IiNjMzExNjIiLz48L2xpbmVhckdyYWRpZW50PjxsaW5lYXJHcmFkaWVudCBpZD0ibGluZWFyLWdyYWRpZW50LTQiIHgxPSIxNy4zIiB5MT0iMTkxLjgyIiB4Mj0iMjcuNDYiIHkyPSIxODEuNjYiIGdyYWRpZW50VHJhbnNmb3JtPSJtYXRyaXgoMSwgMCwgMCwgLTEsIDAsIDIwMikiIGdyYWRpZW50VW5pdHM9InVzZXJTcGFjZU9uVXNlIj48c3RvcCBvZmZzZXQ9IjAiIHN0b3AtY29sb3I9IiMzMmEwNzEiLz48c3RvcCBvZmZzZXQ9IjAuMDciIHN0b3AtY29sb3I9IiMyZGE3NzEiLz48c3RvcCBvZmZzZXQ9IjAuNDgiIHN0b3AtY29sb3I9IiMxNWNmNzQiLz48c3RvcCBvZmZzZXQ9IjAuOCIgc3RvcC1jb2xvcj0iIzA2ZTc3NSIvPjxzdG9wIG9mZnNldD0iMSIgc3RvcC1jb2xvcj0iIzAwZjA3NiIvPjwvbGluZWFyR3JhZGllbnQ+PC9kZWZzPjx0aXRsZT5maWxfZ2V0PC90aXRsZT48cmVjdCB3aWR0aD0iMTU1IiBoZWlnaHQ9IjYwIiBzdHlsZT0iZmlsbDojZmZmO2ZpbGwtb3BhY2l0eTowIi8+PHJlY3QgeD0iMTAiIHk9IjEwIiB3aWR0aD0iMTM1IiBoZWlnaHQ9IjQwIiByeD0iNSIgcnk9IjUiLz48cGF0aCBkPSJNMTQwLDEwLjhhNC4yLDQuMiwwLDAsMSw0LjIsNC4yVjQ1YTQuMiw0LjIsMCwwLDEtNC4yLDQuMkgxNUE0LjIsNC4yLDAsMCwxLDEwLjgsNDVWMTVBNC4yLDQuMiwwLDAsMSwxNSwxMC44SDE0MG0wLS44SDE1YTUsNSwwLDAsMC01LDVWNDVhNSw1LDAsMCwwLDUsNUgxNDBhNSw1LDAsMCwwLDUtNVYxNWE1LDUsMCwwLDAtNS01WiIgc3R5bGU9ImZpbGw6I2E2YTZhNiIvPjxwYXRoIGQ9Ik01Ny40MiwyMC4yNGEyLjcxLDIuNzEsMCwwLDEtLjc1LDIsMi45MSwyLjkxLDAsMCwxLTIuMi44OSwzLjE1LDMuMTUsMCwwLDEtMi4yMS01LjM3LDMsMywwLDAsMSwyLjIxLS45LDMuMSwzLjEsMCwwLDEsMS4yMy4yNSwyLjQ3LDIuNDcsMCwwLDEsLjk0LjY3bC0uNTMuNTNhMiwyLDAsMCwwLTEuNjQtLjcxQTIuMzIsMi4zMiwwLDAsMCw1Mi4xNCwyMGEyLjM2LDIuMzYsMCwwLDAsNCwxLjczLDEuODksMS44OSwwLDAsMCwuNS0xLjIySDU0LjQ3di0uNzJoMi45MUEyLjU0LDIuNTQsMCwwLDEsNTcuNDIsMjAuMjRaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik02MiwxNy43NEg1OS4zdjEuOWgyLjQ2di43Mkg1OS4zdjEuOUg2MlYyM2gtMy41VjE3SDYyWiIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6I2ZmZjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MC4ycHgiLz48cGF0aCBkPSJNNjUuMjgsMjNoLS43N1YxNy43NEg2Mi44M1YxN0g2N3YuNzRINjUuMjhaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik02OS45NCwyM1YxN2guNzd2NloiIHN0eWxlPSJmaWxsOiNmZmY7c3Ryb2tlOiNmZmY7c3Ryb2tlLW1pdGVybGltaXQ6MTA7c3Ryb2tlLXdpZHRoOjAuMnB4Ii8+PHBhdGggZD0iTTc0LjEzLDIzaC0uNzdWMTcuNzRINzEuNjhWMTdINzUuOHYuNzRINzQuMTNaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik04My42MSwyMi4yMmEzLjEyLDMuMTIsMCwwLDEtNC40LDAsMy4yNCwzLjI0LDAsMCwxLDAtNC40NSwzLjEsMy4xLDAsMCwxLDQuNCwwLDMuMjMsMy4yMywwLDAsMSwwLDQuNDVabS0zLjgzLS41YTIuMzEsMi4zMSwwLDAsMCwzLjI2LDAsMi41NiwyLjU2LDAsMCwwLDAtMy40NCwyLjMxLDIuMzEsMCwwLDAtMy4yNiwwLDIuNTYsMi41NiwwLDAsMCwwLDMuNDRaIiBzdHlsZT0iZmlsbDojZmZmO3N0cm9rZTojZmZmO3N0cm9rZS1taXRlcmxpbWl0OjEwO3N0cm9rZS13aWR0aDowLjJweCIvPjxwYXRoIGQ9Ik04NS41OCwyM1YxN2guOTRsMi45Miw0LjY3aDBsMC0xLjE2VjE3aC43N3Y2aC0uOGwtMy4wNS00Ljg5aDBsMCwxLjE2VjIzWiIgc3R5bGU9ImZpbGw6I2ZmZjtzdHJva2U6I2ZmZjtzdHJva2UtbWl0ZXJsaW1pdDoxMDtzdHJva2Utd2lkdGg6MC4ycHgiLz48cGF0aCBkPSJNNzguMTQsMzEuNzVBNC4yNSw0LjI1LDAsMSwwLDgyLjQxLDM2LDQuMTksNC4xOSwwLDAsMCw3OC4xNCwzMS43NVptMCw2LjgzQTIuNTgsMi41OCwwLDEsMSw4MC41NCwzNiwyLjQ2LDIuNDYsMCwwLDEsNzguMTQsMzguNThabS05LjMxLTYuODNBNC4yNSw0LjI1LDAsMSwwLDczLjA5LDM2LDQuMTksNC4xOSwwLDAsMCw2OC44MiwzMS43NVptMCw2LjgzQTIuNTgsMi41OCwwLDEsMSw3MS4yMiwzNiwyLjQ2LDIuNDYsMCwwLDEsNjguODIsMzguNThaTTU3Ljc0LDMzLjA2djEuOGg0LjMyYTMuNzcsMy43NywwLDAsMS0xLDIuMjcsNC40Miw0LjQyLDAsMCwxLTMuMzMsMS4zMiw0LjgsNC44LDAsMCwxLDAtOS42QTQuNiw0LjYsMCwwLDEsNjEsMzAuMTRsMS4yNy0xLjI3QTYuMjksNi4yOSwwLDAsMCw1Ny43NCwyN2E2LjYxLDYuNjEsMCwxLDAsMCwxMy4yMSw2LDYsMCwwLDAsNC42MS0xLjg1LDYsNiwwLDAsMCwxLjU2LTQuMjIsNS44Nyw1Ljg3LDAsMCwwLS4xLTEuMTNabTQ1LjMxLDEuNGE0LDQsMCwwLDAtMy42NC0yLjcxLDQsNCwwLDAsMC00LDQuMjUsNC4xNiw0LjE2LDAsMCwwLDQuMjIsNC4yNSw0LjIzLDQuMjMsMCwwLDAsMy41NC0xLjg4bC0xLjQ1LTFhMi40MywyLjQzLDAsMCwxLTIuMDksMS4xOCwyLjE2LDIuMTYsMCwwLDEtMi4wNi0xLjI5bDUuNjktMi4zNVptLTUuOCwxLjQyYTIuMzMsMi4zMywwLDAsMSwyLjIyLTIuNDgsMS42NSwxLjY1LDAsMCwxLDEuNTguOVpNOTIuNjMsNDBIOTQuNVYyNy41SDkyLjYzWm0tMy4wNi03LjNIODkuNWEzLDMsMCwwLDAtMi4yNC0xLDQuMjYsNC4yNiwwLDAsMCwwLDguNTEsMi45LDIuOSwwLDAsMCwyLjI0LTFoLjA2di42MWMwLDEuNjMtLjg3LDIuNS0yLjI3LDIuNWEyLjM1LDIuMzUsMCwwLDEtMi4xNC0xLjUxbC0xLjYzLjY4YTQuMDUsNC4wNSwwLDAsMCwzLjc3LDIuNTFjMi4xOSwwLDQtMS4yOSw0LTQuNDNWMzJIODkuNTdabS0yLjE0LDUuODhhMi41OSwyLjU5LDAsMCwxLDAtNS4xNkEyLjQsMi40LDAsMCwxLDg5LjcsMzYsMi4zOCwyLjM4LDAsMCwxLDg3LjQyLDM4LjU4Wk0xMTEuODEsMjcuNWgtNC40N1Y0MGgxLjg3VjM1LjI2aDIuNjFhMy44OSwzLjg5LDAsMSwwLDAtNy43NlptMCw2SDEwOS4yVjI5LjI0aDIuNjVhMi4xNCwyLjE0LDAsMSwxLDAsNC4yOVptMTEuNTMtMS44YTMuNSwzLjUsMCwwLDAtMy4zMywxLjkxbDEuNjYuNjlhMS43NywxLjc3LDAsMCwxLDEuNy0uOTIsMS44LDEuOCwwLDAsMSwyLDEuNjF2LjEzYTQuMTMsNC4xMywwLDAsMC0xLjk1LS40OGMtMS43OSwwLTMuNiwxLTMuNiwyLjgxYTIuODksMi44OSwwLDAsMCwzLjEsMi43NUEyLjYzLDIuNjMsMCwwLDAsMTI1LjMyLDM5aC4wNnYxaDEuOFYzNS4xOUMxMjcuMTgsMzMsMTI1LjUyLDMxLjczLDEyMy4zOSwzMS43M1ptLS4yMyw2Ljg1Yy0uNjEsMC0xLjQ2LS4zMS0xLjQ2LTEuMDYsMC0xLDEuMDYtMS4zMywyLTEuMzNhMy4zMiwzLjMyLDAsMCwxLDEuNy40MkEyLjI2LDIuMjYsMCwwLDEsMTIzLjE2LDM4LjU4Wk0xMzMuNzQsMzJsLTIuMTQsNS40MmgtLjA2TDEyOS4zMiwzMmgtMmwzLjMzLDcuNTgtMS45LDQuMjFoMS45NUwxMzUuODIsMzJabS0xNi44MSw4aDEuODdWMjcuNWgtMS44N1oiIHN0eWxlPSJmaWxsOiNmZmYiLz48cGF0aCBkPSJNMjAuNDQsMTcuNTRhMiwyLDAsMCwwLS40NiwxLjRWNDEuMDZhMiwyLDAsMCwwLC40NiwxLjRsLjA3LjA3TDMyLjksMzAuMTV2LS4yOUwyMC41MSwxNy40N1oiIHN0eWxlPSJmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50KSIvPjxwYXRoIGQ9Ik0zNywzNC4yOCwzMi45LDMwLjE1di0uMjlMMzcsMjUuNzJsLjA5LjA1TDQyLDI4LjU2YzEuNC43OSwxLjQsMi4wOSwwLDIuODlsLTQuODksMi43OFoiIHN0eWxlPSJmaWxsOnVybCgjbGluZWFyLWdyYWRpZW50LTIpIi8+PHBhdGggZD0iTTM3LjEyLDM0LjIyLDMyLjksMzAsMjAuNDQsNDIuNDZhMS42MywxLjYzLDAsMCwwLDIuMDguMDZsMTQuNjEtOC4zIiBzdHlsZT0iZmlsbDp1cmwoI2xpbmVhci1ncmFkaWVudC0zKSIvPjxwYXRoIGQ9Ik0zNy4xMiwyNS43OGwtMTQuNjEtOC4zYTEuNjMsMS42MywwLDAsMC0yLjA4LjA2TDMyLjksMzBaIiBzdHlsZT0iZmlsbDp1cmwoI2xpbmVhci1ncmFkaWVudC00KSIvPjxwYXRoIGQ9Ik0zNywzNC4xMywyMi41MSw0Mi4zOGExLjY3LDEuNjcsMCwwLDEtMiwwaDBsLS4wNy4wN2gwbC4wNy4wN2gwYTEuNjYsMS42NiwwLDAsMCwyLDBsMTQuNjEtOC4zWiIgc3R5bGU9Im9wYWNpdHk6MC4yO2lzb2xhdGlvbjppc29sYXRlIi8+PHBhdGggZD0iTTIwLjQ0LDQyLjMyYTIsMiwwLDAsMS0uNDYtMS40di4xNWEyLDIsMCwwLDAsLjQ2LDEuNGwuMDctLjA3WiIgc3R5bGU9Im9wYWNpdHk6MC4xMjtpc29sYXRpb246aXNvbGF0ZSIvPjxwYXRoIGQ9Ik00MiwzMS4zbC01LDIuODMuMDkuMDlMNDIsMzEuNDRhMS43NSwxLjc1LDAsMCwwLDEtMS40NGgwQTEuODYsMS44NiwwLDAsMSw0MiwzMS4zWiIgc3R5bGU9Im9wYWNpdHk6MC4xMjtpc29sYXRpb246aXNvbGF0ZSIvPjxwYXRoIGQ9Ik0yMi41MSwxNy42Miw0MiwyOC43YTEuODYsMS44NiwwLDAsMSwxLDEuM2gwYTEuNzUsMS43NSwwLDAsMC0xLTEuNDRMMjIuNTEsMTcuNDhjLTEuNC0uNzktMi41NC0uMTMtMi41NCwxLjQ3di4xNUMyMCwxNy40OSwyMS4xMiwxNi44MywyMi41MSwxNy42MloiIHN0eWxlPSJmaWxsOiNmZmY7b3BhY2l0eTowLjI1O2lzb2xhdGlvbjppc29sYXRlIi8+PC9zdmc+" alt="google play badge"></a>
+                        <a class="appstore-link" target="_blank" [href]="sharedDataService.platformSettings.App_IOS_Store_Link"><img src="img/cr/app-store-badge.svg" alt="app store badge"></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-page-loader">
+        <page-loader *ngIf="busy"></page-loader>
+    </div>
+
+    <div [hidden]="busy">
+        <div *ngIf="isBrowser && currentRestaurant && galleryMenuItems.length > 0" class="gallery-menu-items-section">
+            <!-- Swiper -->
+            <div class="swiper-container" [swiper]="swiperConfig">
+                <div class="swiper-wrapper gallery-menu-items clearfix">
+                    <div class="swiper-slide gallery-menu-item-wrapper" *ngFor="let item of galleryMenuItems">
+                        <div (click)="chooseMenuItem(item)" class="gallery-menu-item" [ngStyle]="{'background-image': 'url(' + constants.SERVER_URL + '/' + item.MenuItemImage + ')'}"></div>
+                    </div>
+                </div>
+                <div class="swiper-button-next"></div>
+                <div class="swiper-button-prev"></div>
+            </div>
+        </div>
+
+        <div class="rest-map-section rest-map-section-1" (click)="openMapCustomerRouterModal()">
+            <div class="rest-map-container-1">
+                <div id="rest-details-map-1"></div>
+            </div>
+
+            <div *ngIf="currentRestaurant" class="rest-map-details">
+                <div class="rest-address">{{ currentRestaurant.Address }}</div>
+                <div *ngIf="currentRestaurant.Distance" class="rest-dist-away c-text2">{{ currentRestaurant.Distance }}mi away</div>
+                <div class="rest-phone-no">{{ currentRestaurant.Phone }}</div>
+            </div>
+        </div>
+
+        <div #masterHeadsTabSection class="master-heads-tab-section" [ngClass]="{ 'fixed-nav': isMasterHeadsTabSectionFixed, 'fixed-nav-mobile': isMasterHeadsMobileTabSectionFixed }"></div>
+        <ul *ngIf="currentRestaurant && masterHeads.length" class="nav nav-pills nav-primary rest-menu-tabs" [ngClass]="{ 'fixed-nav' : isMasterHeadsTabSectionFixed, 'fixed-nav-mobile': isMasterHeadsMobileTabSectionFixed }">
+            <li *ngFor="let masterHead of masterHeads" [ngClass]="{'active': selectedMasterHead.Mhid == masterHead.Mhid}" (click)="chooseMasterHead(masterHead)"><a>{{ masterHead.MasterHeading }} ({{ masterHead.ItemCount }})</a></li>
+        </ul>
+
+        <div *ngIf="currentRestaurant" class="rest-menu-section clearfix">
+
+            <div class="left-side">
+
+                <div class="rest-search-box">
+                    <input type="text" class="form-control" [(ngModel)]="searchText" (keyup)="searchTextChanged()" placeholder="Search Menu">
+                </div>
+
+                <menu-item-options-modal #menuItemOptionsModal (modalEvents)="menuItemOptionsModalEvents($event)"></menu-item-options-modal>
+
+                <div id="head_element_{{head.Hid}}" class="menu-list" *ngFor="let head of selectedMasterHead.filteredHeads">
+                    <div class="head-name">{{ head.Heading }}</div>
+
+                    <div class="menu-item clearfix" *ngFor="let menuItem of head.menuItems" (click)="chooseMenuItem(menuItem)">
+                        <div *ngIf="menuItem.MenuImageExist" class="menu-item-img-container">
+                            <img class="menu-item-img obj-fit-cover" src="{{constants.SERVER_URL}}/{{menuItem.FileName}}" alt="{{ menuItem.RestaurantName }}">
+                        </div>
+
+                        <div class="menu-item-details">
+                            <div class="clearfix">
+                                <div class="menu-item-name" [ngClass]="{ 'c-success': menuItem.cartCount }">{{ menuItem.MenuItemName }}
+                                    <span class="trending-text" [ngClass]="{ 'bg-primary': !menuItem.cartCount, 'bg-success': menuItem.cartCount }" *ngIf="sharedDataService.platformSettings.Enable_Popular_Ribbon && menuItem.PopularLevel == 1">Popular</span>
+                                    <span class="coupon-text" [ngClass]="{ 'bg-calm': !menuItem.cartCount, 'bg-success': menuItem.cartCount }" *ngIf="menuItem.CouponCode">Coupon</span>
+                                    <span class="x-qty-text bg-success" *ngIf="menuItem.cartCount">x{{ menuItem.cartCount }}</span>
+                                </div>
+                                <div class="menu-item-price" [ngClass]="{ 'c-success': menuItem.cartCount }">${{ menuItem.Price }}</div>
+                            </div>
+
+                            <div class="menu-item-desc c-text2">{{ menuItem.MenuItemDescription }}</div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- <div class="loader" *ngIf="busy"></div> -->
+
+                <no-result-placeholder *ngIf="noResult" [config]="noResultConfig"></no-result-placeholder>
+            </div>
+
+            <div class="right-side">
+                <div class="rest-map-section rest-map-section-2" (click)="openMapCustomerRouterModal()">
+                    <div class="rest-map-container-2">
+                        <div id="rest-details-map-2"></div>
+                    </div>
+
+                    <div *ngIf="currentRestaurant" class="rest-map-details">
+                        <div class="rest-address">{{ currentRestaurant.Address }}</div>
+                        <div *ngIf="currentRestaurant.Distance" class="rest-dist-away c-text2">{{ currentRestaurant.Distance }}mi away</div>
+                        <div class="rest-phone-no">{{ currentRestaurant.Phone }}</div>
+                    </div>
+                </div>
+
+                <div #restHeadsMenu></div>
+                <div *ngIf="selectedMasterHead.heads?.length" class="rest-heads-menu bg-text1" [ngClass]="{ 'fixed-nav': isRestHeadsMenuFixed, 'show-mobile': showRestHeadsMenu }">
+                    <div class="rest-heads-menu-item clearfix" [ngClass]="{ 'c-success' : selectedHead?.Hid == head.Hid }" *ngFor="let head of selectedMasterHead.heads" (click)="selectHead(head)">
+                        <div class="head-name">{{ head.Heading }}</div>
+                        <div class="head-count">{{ head.ItemCount }}</div>
+                    </div>
+                    <div *ngIf="showRestHeadsMenu" class="close-menu">
+                        <div class="close-3-white-icon" (click)="showRestHeadsMenu = !showRestHeadsMenu"></div>
+                    </div>
+                </div>
+
+                <div *ngIf="!showRestHeadsMenu" class="list-view-icon-wrapper" (click)="showRestHeadsMenu = !showRestHeadsMenu">
+                    <img [src]="listViewIcon">
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div [hidden]="busy">
+        <site-footer topBorder="true"></site-footer>
+    </div>
+</div>
