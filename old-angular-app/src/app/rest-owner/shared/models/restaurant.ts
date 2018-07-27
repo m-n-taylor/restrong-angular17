@@ -61,3 +61,4 @@ export class Restaurant {
     public isSelected: boolean;
     public isHidden: boolean;
 }
+// update: 2025-07-31T20:16:08.010666
