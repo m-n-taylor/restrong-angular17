@@ -51,3 +51,4 @@ export class ColorPickerDirective {
         this.colorPicker[this.colorPicker.visible ? 'exit' : 'enter']();
     }
 }
+// update: 2025-07-31T20:16:34.812192
