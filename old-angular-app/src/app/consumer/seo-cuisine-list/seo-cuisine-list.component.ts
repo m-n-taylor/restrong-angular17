@@ -219,3 +219,5 @@ export class SEOCuisineListComponent {
         return Util.replaceDashWithSpace(value);
     }
 }
+
+// update: 2025-07-31T20:18:38.492599
