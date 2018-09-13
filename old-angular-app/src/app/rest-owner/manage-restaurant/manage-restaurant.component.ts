@@ -123,3 +123,4 @@ export class ManageRestaurantComponent implements OnInit {
 		this.router.navigate([`${Path.RO.BASE}/${Path.RO.MANAGE_RESTAURANT}`, rest.FireFlyID]);
 	}
 }
+// update: 2025-07-31T20:18:57.037190
