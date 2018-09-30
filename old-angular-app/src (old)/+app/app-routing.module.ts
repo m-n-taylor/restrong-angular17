@@ -46,3 +46,4 @@ import { RestaurantDetailsComponent } from './restaurant-details/restaurant-deta
   exports: [RouterModule]
 })
 export class AppRoutingModule { }
+// update: 2025-07-31T20:20:11.012869
