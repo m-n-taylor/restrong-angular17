@@ -613,3 +613,5 @@ export class RestaurantDetailsComponent {
 }
 
 // update: 2025-07-31T20:17:29.799764
+
+// update: 2025-07-31T20:20:25.401515
