@@ -11,3 +11,4 @@ import { RestaurantDetailsComponent } from './restaurant-details.component';
   ]
 })
 export class RestaurantDetailsRoutingModule { }
+// update: 2025-07-31T20:20:40.453935
