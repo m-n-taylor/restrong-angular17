@@ -12,3 +12,4 @@ export class Cuisine {
     // Custom Fields
     public isSelected: boolean;
 }
+// update: 2025-07-31T20:21:22.051144
