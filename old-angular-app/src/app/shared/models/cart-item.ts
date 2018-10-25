@@ -25,3 +25,4 @@ export class CartItem {
     public total = 0;
     public menuItems = new Array<MenuItem>();
 }
+// update: 2025-07-31T20:21:27.054877
