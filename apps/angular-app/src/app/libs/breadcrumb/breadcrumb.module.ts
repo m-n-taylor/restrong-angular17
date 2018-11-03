@@ -32,3 +32,4 @@ export class Ng2BreadcrumbModule {
         };
     }
 }
+// update: 2025-07-31T20:22:02.596715
