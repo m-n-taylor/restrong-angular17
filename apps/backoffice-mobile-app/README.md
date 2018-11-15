@@ -20,3 +20,4 @@ ionic cordova build --release android
 jarsigner -verbose -sigalg SHA1withRSA -digestalg SHA1 -keystore "../../../android-certificates/com.dishzilla.backoffice/app.keystore" -storepass "${keystoreJSON.password}" -keypass "${keystoreJSON.password}" "./platforms/android/build/outputs/apk/release/android-release-unsigned.apk" "${keystoreJSON.alias}"
 
 zipalign -v 4 "./platforms/android/build/outputs/apk/release/android-release-unsigned.apk" "./platforms/android/build/outputs/apk/release/android-release-signed.apk"
+<!-- update: 2025-07-31T20:22:49.101046 -->
