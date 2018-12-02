@@ -15,3 +15,4 @@ export class MasterHead {
     public IsPickup: boolean;
     public SortID: number;
 }
+// update: 2025-07-31T20:23:37.055330
