@@ -17,3 +17,4 @@ export class ChangePasswordAPIRequestData extends UserAPIRequestData {
         requestData.p2 = <string> Md5.hashStr(userPassword.confirmPassword);
     }
 }
+// update: 2025-07-31T20:24:00.159374
