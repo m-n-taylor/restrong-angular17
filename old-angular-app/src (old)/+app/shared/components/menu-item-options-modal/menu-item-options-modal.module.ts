@@ -19,3 +19,4 @@ import { MenuItemOptionsModalComponent } from './menu-item-options-modal.compone
   ]
 })
 export class MenuItemOptionsModalModule { }
+// update: 2025-07-31T20:24:27.532616
