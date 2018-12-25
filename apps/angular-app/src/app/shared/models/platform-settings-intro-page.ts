@@ -14,3 +14,4 @@ export class PlatformSettingsIntroPage {
     _editMode: boolean;
     _isNew: boolean;
 }
+// update: 2025-07-31T20:25:08.415057
