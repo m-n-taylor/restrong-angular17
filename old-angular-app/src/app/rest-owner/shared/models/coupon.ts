@@ -36,3 +36,4 @@ export class Coupon {
     public busy: boolean;
     public busyDelete: boolean;
 }
+// update: 2025-07-31T20:25:20.890300
