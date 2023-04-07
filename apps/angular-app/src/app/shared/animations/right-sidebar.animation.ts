@@ -10,3 +10,4 @@ export const RightSidebarAnimation = trigger('rightSidebarState', [
         animate(150, style({ transform: 'translateX(100%)' }))
     ])
 ]);
+// update: 2025-08-01T01:03:45.624220
