@@ -22,3 +22,5 @@ import { MenuItemOptionsModalModule } from '../shared/components/menu-item-optio
 export class RestaurantDetailsModule { }
 
 // update: 2025-07-31T20:17:51.279327
+
+// update: 2025-08-01T01:03:57.322111
