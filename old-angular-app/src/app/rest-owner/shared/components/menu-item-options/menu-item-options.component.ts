@@ -171,3 +171,4 @@ export class MenuItemOptionsComponent extends BaseModal {
 		this.totalPrice = ShoppingCart.calculateMenuItemTotalPrice(<any>this.menuItem);
 	}
 }
+// update: 2025-08-01T01:04:28.505829
