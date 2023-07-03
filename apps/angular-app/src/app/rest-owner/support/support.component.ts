@@ -24,3 +24,4 @@ export class SupportComponent implements OnInit {
     faq.isOpen = !faq.isOpen;
   }
 }
+// update: 2025-08-01T01:08:16.090357
