@@ -37,3 +37,4 @@ export class DeliveryZoneAPIRequestData extends ROAPIRequestData {
         if(Util.isDefined(deliveryZone.PreparationTime_Minutes)) requestData.ptm = deliveryZone.PreparationTime_Minutes;
     }
 }
+// update: 2025-08-01T01:08:33.712254
