@@ -21,3 +21,4 @@ export class DeliveryZone {
     public SortID: number;
     public Is_Deleted: false;
 }
+// update: 2025-08-01T01:09:10.615910
