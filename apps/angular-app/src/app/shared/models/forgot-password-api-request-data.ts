@@ -16,3 +16,4 @@ export class ForgotPasswordAPIRequestData extends APIRequestData {
     public static fillForgotPassword = (requestData: ForgotPasswordAPIRequestData, forgotPassword: ForgotPassword) => {
     }
 }
+// update: 2025-08-01T01:09:31.264027
