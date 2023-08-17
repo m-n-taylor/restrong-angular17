@@ -31,3 +31,4 @@ export class RestaurantAPIRequestData extends ROAPIRequestData {
     //     if(Util.isDefined(rest.Name)) requestData.name = rest.Name;
     // }
 }
+// update: 2025-08-01T01:10:20.030356
